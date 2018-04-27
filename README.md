@@ -1,3 +1,4 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2878b3d9eded4d4998cd29dbdf3e98ec)](https://www.codacy.com/app/mcumbers/cockbyte?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ChopBot/cockbyte&amp;utm_campaign=Badge_Grade)
 # cockbyte
 
 cockbyte is a multipurpose Discord Bot built on the incredible [Klasa](https://github.com/dirigeants/klasa) framework for [discord.js](https://github.com/discordjs/discord.js).
