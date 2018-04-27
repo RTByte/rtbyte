@@ -1,0 +1,20 @@
+{
+  "name": "cockbyte",
+  "version": "0.0.1",
+  "description": "A Discord Bot for the Rooster Teeth Community family of Discord Servers",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo 'No Test Yet!'"
+  },
+  "author": "Michael Cumbers, Rasmus Gerdin, Killian Higgins",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "github:discordjs/discord.js#master",
+    "erlpack": "github:discordapp/erlpack",
+    "eslint": "^4.19.1",
+    "klasa": "github:dirigeants/klasa",
+    "uws": "^9.148.0",
+    "zlib-sync": "^0.1.4"
+  }
+}
