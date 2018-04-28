@@ -1,5 +1,5 @@
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2878b3d9eded4d4998cd29dbdf3e98ec)](https://www.codacy.com/app/mcumbers/cockbyte?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ChopBot/cockbyte&amp;utm_campaign=Badge_Grade)
 # cockbyte
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2878b3d9eded4d4998cd29dbdf3e98ec)](https://www.codacy.com/app/mcumbers/cockbyte?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ChopBot/cockbyte&amp;utm_campaign=Badge_Grade)
 
 cockbyte is a multipurpose Discord Bot built on the incredible [Klasa](https://github.com/dirigeants/klasa) framework for [discord.js](https://github.com/discordjs/discord.js).
 
@@ -40,10 +40,6 @@ Coming Soon™
 
 [Évelyne Lachance](https://github.com/eslachance): Evie made the original [Komada](https://github.com/dirigeants/komada) framework and has done incredible amounts of work to help the [discord.js](https://github.com/discordjs/discord.js) community.
 
-[AoDude](https://github.com/bdistin): The creator of [Klasa](https://github.com/dirigeants/klasa).
-
-[Kyra](https://github.com/kyranet): For doing insane amounts of work on all of the [Dirigeants](https://github.com/dirigeants) projects.
-
-[Everyone else at Dirigeants](https://github.com/dirigeants): All of the contributors, whether they be part of the core team or the community, have done an awesome job making these frameworks and tools.
+[AoDude](https://github.com/bdistin), [Kyra](https://github.com/kyranet), and [everyone else at Dirigeants](https://github.com/dirigeants): All of the contributors, whether they be part of the core team or the community, have done an awesome job making these frameworks and tools.
 
 [Amish Shah](https://github.com/hydrabolt), [and the rest of the team behind discord.js](https://github.com/discordjs): These ladies and gentlemen have poured countless hours into making one of the best interfaces around.
