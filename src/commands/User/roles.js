@@ -8,7 +8,7 @@ module.exports = class extends Command {
 			botPerms: ['MANAGE_ROLES'],
 			aliases: ['roleme', 'team', 'squad'],
 			description: (msg) => msg.language.get('COMMAND_ROLES_DESCRIPTION'),
-			extendedHelp: (msg => msg.language.get('COMMAND_ROLES_EXTENDED'),
+			extendedHelp: (msg) => msg.language.get('COMMAND_ROLES_EXTENDED'),
 			usage: '<list|join|leave|add|remove> [target:member] [roleName:string] [...]',
 			usageDelim: ' ',
 			subcommands: true
