@@ -176,7 +176,8 @@ module.exports = class extends Language {
 			COMMAND_STATS_DESCRIPTION: 'Provides some details about the bot and stats.',
 			MESSAGE_PROMPT_TIMEOUT: 'The prompt has timed out.',
 			COMMAND_COINFLIP_DESCRIPTION: 'Flips a coin. 🙂 for heads, 🙃 for tails.',
-			COMMAND_8BALL_DESCRIPTION: 'Magic 8-ball, does exactly what the toy does, memes included.'
+			COMMAND_8BALL_DESCRIPTION: 'Magic 8-ball, does exactly what the toy does, memes included.',
+			COMMAND_CHOICE_DESCRIPTION: 'Makes a decision based off of the choices given, no matter how many you include.'
 		};
 	}
 
