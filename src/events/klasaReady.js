@@ -46,18 +46,25 @@ module.exports = class extends Event {
 
 	async ensureGlobalVars() {
 		await this.client.emit('verbose', 'Ensuring Global Variables are Created');
-		if (!this.client.gateways.clientStorage.schema.has('guilds')) await this.client.gateways.clientStorage.schema.add('guilds', { controlGuild: { type: 'Guild', array: false } });
-		if (!this.client.gateways.clientStorage.schema.has('channels')) await this.client.gateways.clientStorage.schema.add('channels', { globalLog: { type: 'TextChannel', array: false } });
-		// eslint-disable-next-line max-len
-		if (!this.client.gateways.clientStorage.schema.has('emoji')) await this.client.gateways.clientStorage.schema.add('emoji', { affirm: { type: 'String', array: false }, reject: { type: 'String', array: false } });
+		if (!this.client.gateways.clientStorage.schema.has('guilds')) await this.client.gateways.clientStorage.schema.add('guilds');
+		if (!this.client.gateways.clientStorage.schema.guilds.has('controlGuild')) await this.client.gateways.clientStorage.schema.guilds.add('controlGuild', { type: 'Guild', array: false });
+		if (!this.client.gateways.clientStorage.schema.has('channels')) await this.client.gateways.clientStorage.schema.add('channels');
+		if (!this.client.gateways.clientStorage.schema.channels.has('globalLog')) await this.client.gateways.clientStorage.schema.channels.add('globalLog', { type: 'TextChannel', array: false });
+		if (!this.client.gateways.clientStorage.schema.has('emoji')) await this.client.gateways.clientStorage.schema.add('emoji');
+		if (!this.client.gateways.clientStorage.schema.emoji.has('affirm')) await this.client.gateways.clientStorage.schema.add('affirm', { type: 'String', array: false });
+		if (!this.client.gateways.clientStorage.schema.emoji.has('reject')) await this.client.gateways.clientStorage.schema.add('reject', { type: 'String', array: false });
 		return;
 	}
 
 	async ensureGuildVars() {
 		await this.client.emit('verbose', 'Ensuring Guild Variables are Created.');
-		// eslint-disable-next-line max-len
-		if (!this.client.gateways.guilds.schema.has('roles')) await this.client.gateways.guilds.schema.add('roles', { administrator: { type: 'Role', array: false }, moderator: { type: 'Role', array: false }, voiceBanned: { type: 'Role', array: false }, muted: { type: 'Role', array: false } });
-		if (!this.client.gateways.guilds.schema.has('channels')) await this.client.gateways.guilds.schema.add('channels', { serverLog: { type: 'TextChannel', array: false } });
+		if (!this.client.gateways.guilds.schema.has('roles')) await this.client.gateways.guilds.schema.add('roles');
+		if (!this.client.gateways.guilds.schema.roles.has('administrator')) await this.client.gateways.guilds.schema.roles.add('administrator', { type: 'Role', array: false });
+		if (!this.client.gateways.guilds.schema.roles.has('moderator')) await this.client.gateways.guilds.schema.roles.add('moderator', { type: 'Role', array: false });
+		if (!this.client.gateways.guilds.schema.roles.has('voiceBanned')) await this.client.gateways.guilds.schema.roles.add('voiceBanned', { type: 'Role', array: false });
+		if (!this.client.gateways.guilds.schema.roles.has('muted')) await this.client.gateways.guilds.schema.roles.add('muted', { type: 'Role', array: false });
+		if (!this.client.gateways.guilds.schema.has('channels')) await this.client.gateways.guilds.schema.add('channels');
+		if (!this.client.gateways.guilds.schema.channels.has('serverLog')) await this.client.gateways.guilds.schema.channels.add('serverLog', { type: 'TextChannel', array: false });
 		return;
 	}
 
