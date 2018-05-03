@@ -150,6 +150,8 @@ module.exports = class extends Language {
 			COMMAND_CONF_USER_DESCRIPTION: 'Define per-user configuration.',
 			COMMAND_CONF_USER: (key, list) => `**User Configuration${key}**\n${list}`,
 			COMMAND_MODERATION_NOT_MODABLE: (target) => `You are not allowed to moderate ${target}`,
+			COMMAND_ROLES_DESCRIPTION: 'Series of commands to allow you to join roles by yourself.',
+			COMMAND_ROLES_EXTENDED: 'list - Lists joinable roles and ther member counts. :: add - Adds a role by its name. :: remove - Removes a role by its name.',
 			COMMAND_ROLES_NONE_JOINABLE: 'There are no joinable roles on this server.',
 			COMMAND_ROLES_NO_ROLE_NAME: 'Please specify a role by its name.',
 			COMMAND_ROLES_NO_PERMISSION: 'You don\'t have permission to change the roles of other users.',

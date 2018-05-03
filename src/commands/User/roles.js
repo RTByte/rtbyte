@@ -7,8 +7,8 @@ module.exports = class extends Command {
 			runIn: ['text'],
 			botPerms: ['MANAGE_ROLES'],
 			aliases: ['roleme', 'team', 'squad'],
-			description: 'Series of commands to allow you to join roles by yourself.',
-			extendedHelp: 'list - Lists joinable roles and ther member counts. :: add - Adds a role by its name. :: remove - Removes a role by its name.',
+			description: (msg) => msg.language.get('COMMAND_ROLES_DESCRIPTION'),
+			extendedHelp: (msg => msg.language.get('COMMAND_ROLES_EXTENDED'),
 			usage: '<list|join|leave|add|remove> [target:member] [roleName:string] [...]',
 			usageDelim: ' ',
 			subcommands: true
