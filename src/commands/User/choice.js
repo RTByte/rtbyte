@@ -12,7 +12,7 @@ module.exports = class extends Command {
 	}
 
 	async run(msg, [...choices]) {
-		const validChoices = choices.filter(x => x);
+		const validChoices = choices.filter(choice => choice);
 
 		if (validChoices.length === 1) {
 			return msg.reply('🤔 You only gave me one choice.');
