@@ -51,8 +51,8 @@ module.exports = class extends Event {
 		if (!this.client.gateways.clientStorage.schema.has('channels')) await this.client.gateways.clientStorage.schema.add('channels');
 		if (!this.client.gateways.clientStorage.schema.channels.has('globalLog')) await this.client.gateways.clientStorage.schema.channels.add('globalLog', { type: 'TextChannel', array: false });
 		if (!this.client.gateways.clientStorage.schema.has('emoji')) await this.client.gateways.clientStorage.schema.add('emoji');
-		if (!this.client.gateways.clientStorage.schema.emoji.has('affirm')) await this.client.gateways.clientStorage.schema.add('affirm', { type: 'String', array: false });
-		if (!this.client.gateways.clientStorage.schema.emoji.has('reject')) await this.client.gateways.clientStorage.schema.add('reject', { type: 'String', array: false });
+		if (!this.client.gateways.clientStorage.schema.emoji.has('affirm')) await this.client.gateways.clientStorage.schema.emoji.add('affirm', { type: 'String', array: false });
+		if (!this.client.gateways.clientStorage.schema.emoji.has('reject')) await this.client.gateways.clientStorage.schema.emoji.add('reject', { type: 'String', array: false });
 		return;
 	}
 

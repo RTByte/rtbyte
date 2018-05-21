@@ -127,7 +127,7 @@ module.exports = class extends Language {
 			COMMAND_INFO_DESCRIPTION: 'Provides some information about this bot.',
 			COMMAND_HELP_DESCRIPTION: 'Display help for a command.',
 			COMMAND_HELP_NO_EXTENDED: 'No extended help available.',
-			COMMAND_HELP_DM: (affirmEmoji) => `📥 The list of commands you have access to has been sent to your DMs.`,
+			COMMAND_HELP_DM: '📥 The list of commands you have access to has been sent to your DMs.',
 			COMMAND_HELP_NODM: '❌ | You have DMs disabled, I couldn\'t send you the commands in DMs.',
 			COMMAND_HELP_USAGE: (usage) => `usage :: ${usage}`,
 			COMMAND_HELP_EXTENDED: 'Extended Help ::',
@@ -177,7 +177,26 @@ module.exports = class extends Language {
 			MESSAGE_PROMPT_TIMEOUT: 'The prompt has timed out.',
 			COMMAND_COINFLIP_DESCRIPTION: 'Flips a coin. 🙂 for heads, 🙃 for tails.',
 			COMMAND_8BALL_DESCRIPTION: 'Magic 8-ball, does exactly what the toy does, memes included.',
-			COMMAND_CHOICE_DESCRIPTION: 'Makes a decision based off of the choices given, no matter how many you include.'
+			COMMAND_CHOICE_DESCRIPTION: 'Makes a decision based off of the choices given, no matter how many you include.',
+			GUILD_LOG_CHANNELCREATE: 'Channel created',
+			GUILD_LOG_CHANNELDELETE: 'Channel deleted',
+			GUILD_LOG_GUILDMEMBERADD: 'User joined',
+			GUILD_LOG_GUILDMEMBERREMOVE: 'User left',
+			GUILD_LOG_MESSAGE: 'Message',
+			GUILD_LOG_BEFORE: 'BEFORE',
+			GUILD_LOG_AFTER: 'AFTER',
+			GUILD_LOG_MESSAGEDELETE: 'Message deleted',
+			GUILD_LOG_MESSAGEUPDATE: 'Message edited',
+			GUILD_LOG_ROLECREATE: 'Role created',
+			GUILD_LOG_ROLEDELETE: 'Role deleted',
+			GUILD_LOG_ROLEUPDATE: 'Role updated',
+			GUILD_LOG_ROLEUPDATE_NAME: 'Name changed',
+			GUILD_LOG_ROLEUPDATE_COLOR: 'Color changed',
+			GUILD_LOG_ROLEUPDATE_HOIST: 'Hoist toggled',
+			GUILD_LOG_ROLEUPDATE_MENTIONABLE: 'Mentionable toggled',
+			GUILD_LOG_ROLEUPDATE_PERMISSIONS: 'Permissions changed',
+			GLOBAL_LOG_GUILDCREATE: 'Bot added to guild',
+			GLOBAL_LOG_GUILDDELETE: 'Bot removed from guild'
 		};
 	}
 
