@@ -19,6 +19,12 @@ module.exports = class extends Event {
 
 		await guild.init();
 
+		if (this.client.configs.logs.guildCreate) await this.guildCreateLog(guild);
+
+		return;
+	}
+
+	async guildCreateLog(guild) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${guild.name} - (${guild.id})`, guild.iconURL())
 			.setColor('#60fe60')

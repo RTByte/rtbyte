@@ -12,8 +12,12 @@ module.exports = class extends Event {
 
 	async run(guild) {
 		if (guild.available && !this.client.configs.preserveConfigs) guild.configs.destroy().catch(() => null);
-		if (!this.client.configs.logs.guildDelete) return;
+		if (this.client.configs.logs.guildDelete) await this.guildDeleteLog(guild);
 
+		return;
+	}
+
+	async guildDeleteLog(guild) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${guild.name} - (${guild.id})`, guild.iconURL())
 			.setColor('#ff9b9b')
