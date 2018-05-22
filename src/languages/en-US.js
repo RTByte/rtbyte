@@ -178,6 +178,7 @@ module.exports = class extends Language {
 			COMMAND_COINFLIP_DESCRIPTION: 'Flips a coin. 🙂 for heads, 🙃 for tails.',
 			COMMAND_8BALL_DESCRIPTION: 'Magic 8-ball, does exactly what the toy does, memes included.',
 			COMMAND_CHOICE_DESCRIPTION: 'Makes a decision based off of the choices given, no matter how many you include.',
+			COMMAND_SERVERINFO_DESCRIPTION: 'Displays server information.',
 			COMMAND_MODERATION_SILENT: 'Silent action',
 			COMMAND_BAN_DESCRIPTION: 'Bans a mentioned user and logs the reason.',
 			COMMAND_BAN_NO_BAN_SELF: 'Why would you ban yourself?',
