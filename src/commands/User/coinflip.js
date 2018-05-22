@@ -5,7 +5,7 @@ module.exports = class extends Command {
 	constructor(...args) {
 		super(...args, {
 			runIn: ['text'],
-			aliases: ['coin'],
+			aliases: ['coin', 'flip'],
 			description: (msg) => msg.language.get('COMMAND_COINFLIP_DESCRIPTION')
 		});
 	}

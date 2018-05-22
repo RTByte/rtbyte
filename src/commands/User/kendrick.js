@@ -5,6 +5,7 @@ module.exports = class extends Command {
 
 	constructor(...args) {
 		super(...args, {
+			aliases: ['lamar'],
 			enabled: true,
 			runIn: ['text'],
 			requiredSettings: [],

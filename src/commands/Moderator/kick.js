@@ -5,6 +5,7 @@ module.exports = class extends Command {
 
 	constructor(...args) {
 		super(...args, {
+			aliases: ['k'],
 			permissionLevel: 5,
 			requiredPermissions: ['KICK_MEMBERS', 'ADD_REACTIONS', 'USE_EXTERNAL_EMOJIS', 'SEND_MESSAGES', 'EMBED_LINKS'],
 			runIn: ['text'],

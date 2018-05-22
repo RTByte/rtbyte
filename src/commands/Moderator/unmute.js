@@ -5,6 +5,7 @@ module.exports = class extends Command {
 
 	constructor(...args) {
 		super(...args, {
+			aliases: ['um'],
 			permissionLevel: 5,
 			requiredPermissions: ['MANAGE_ROLES', 'MANAGE_CHANNELS', 'ADD_REACTIONS', 'USE_EXTERNAL_EMOJIS', 'SEND_MESSAGES', 'EMBED_LINKS'],
 			runIn: ['text'],

@@ -99,7 +99,7 @@ module.exports = class extends Command {
 
 	constructor(...args) {
 		super(...args, {
-			aliases: ['mirror', 'magic'],
+			aliases: ['mirror', 'magic', 'conch'],
 			description: (msg) => msg.language.get('COMMAND_8BALL_DESCRIPTION'),
 			usage: '<Question:str>'
 		});
