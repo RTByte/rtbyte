@@ -208,6 +208,7 @@ module.exports = class extends Language {
 			COMMAND_VCUNBAN_NO_VCUNBAN_SELF: 'You can\'t unban yourself from voice chat.',
 			COMMAND_VCUNBAN_NO_VCUNBAN_CLIENT: 'Why was I banned from voice chat?',
 			COMMAND_VCUNBAN_NO_PERMS: (user) => `You don't have permission to unban ${user} from voice chat.`,
+			COMMAND_SENDMSG_DESCRIPTION: 'Sends a message to the specified channel or user as the bot.',
 			GUILD_LOG_CHANNELCREATE: 'Channel created',
 			GUILD_LOG_CHANNELDELETE: 'Channel deleted',
 			GUILD_LOG_GUILDMEMBERADD: 'User joined',

@@ -19,11 +19,9 @@ module.exports = class extends Command {
 		if (user.id === this.client.user.id) throw msg.language.get('COMMAND_BAN_NO_BAN_CLIENT');
 		if (!msg.member.canMod(user)) throw msg.language.get('COMMAND_BAN_NO_PERMS', user);
 
-		const options = {};
 		reason = reason.join(' ');
-		if (reason) options.reason = reason;
 
-		await msg.guild.members.ban(user, options);
+		await msg.guild.members.ban(user, { days: 1, reason: reason });
 
 		if (reason.includes('-s', reason.length - 2)) return msg.delete({ reason: msg.language.get('COMMAND_MODERATION_SILENT') });
 
