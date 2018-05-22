@@ -61,8 +61,6 @@ module.exports = class extends Event {
 		if (!this.client.gateways.guilds.schema.has('roles')) await this.client.gateways.guilds.schema.add('roles');
 		if (!this.client.gateways.guilds.schema.roles.has('administrator')) await this.client.gateways.guilds.schema.roles.add('administrator', { type: 'Role', array: false });
 		if (!this.client.gateways.guilds.schema.roles.has('moderator')) await this.client.gateways.guilds.schema.roles.add('moderator', { type: 'Role', array: false });
-		if (!this.client.gateways.guilds.schema.roles.has('voiceBanned')) await this.client.gateways.guilds.schema.roles.add('voiceBanned', { type: 'Role', array: false });
-		if (!this.client.gateways.guilds.schema.roles.has('muted')) await this.client.gateways.guilds.schema.roles.add('muted', { type: 'Role', array: false });
 		if (!this.client.gateways.guilds.schema.has('channels')) await this.client.gateways.guilds.schema.add('channels');
 		if (!this.client.gateways.guilds.schema.channels.has('serverLog')) await this.client.gateways.guilds.schema.channels.add('serverLog', { type: 'TextChannel', array: false });
 		return;

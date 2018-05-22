@@ -5,7 +5,7 @@ module.exports = class extends Command {
 	constructor(...args) {
 		super(...args, {
 			permissionLevel: 5,
-			requiredPermissions: ['BAN_MEMBERS'],
+			requiredPermissions: ['BAN_MEMBERS', 'ADD_REACTIONS', 'USE_EXTERNAL_EMOJIS'],
 			runIn: ['text'],
 			description: (msg) => msg.language.get('COMMAND_BAN_DESCRIPTION'),
 			usage: '<member:user> <reason:string> [...]',
@@ -26,8 +26,7 @@ module.exports = class extends Command {
 
 		if (reason.includes('-s', reason.length - 2)) return msg.delete({ reason: msg.language.get('COMMAND_MODERATION_SILENT') });
 
-		const affirmEmoji = await this.client.emojis.get(this.client.configs.emoji.affirm);
-		return msg.react(affirmEmoji);
+		return msg.affirm();
 	}
 
 };

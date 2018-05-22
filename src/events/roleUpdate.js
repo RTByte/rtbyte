@@ -18,7 +18,7 @@ module.exports = class extends Event {
 
 	async roleUpdateLog(oldRole, role) {
 		const embed = new MessageEmbed()
-			.setAuthor(`#${role.name}`, role.guild.iconURL())
+			.setAuthor(`${role.name}`, role.guild.iconURL())
 			.setColor('#4286f4')
 			.setTimestamp()
 			.setFooter(role.guild.language.get('GUILD_LOG_ROLEUPDATE'));

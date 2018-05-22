@@ -19,11 +19,8 @@ module.exports = class extends Extendable {
 		// Creating necessary roles on new Guild
 		const adminRole = await this.roles.create({ data: { name: 'Admin' }, reason: `${this.client.user.username} initialization: Admin Role` });
 		const modRole = await this.roles.create({ data: { name: 'Moderator' }, reason: `${this.client.user.username} initialization: Moderator Role` });
-		const voiceBannedRole = await this.roles.create({ data: { name: 'Voice Chat Banned' }, reason: `${this.client.user.username} initialization: Voice Chat Banned Role` });
-		const mutedRole = await this.roles.create({ data: { name: 'Muted' }, reason: `${this.client.user.username} initialization: Muted Role` });
 
-		// Adding necessary roles to Guild Configs
-		await this.configs.update({ roles: { administrator: adminRole, moderator: modRole, voiceBanned: voiceBannedRole, muted: mutedRole } }, this);
+		await this.configs.update({ roles: { administrator: adminRole, moderator: modRole } }, this);
 
 		await this.configs.sync(true);
 
@@ -39,27 +36,6 @@ module.exports = class extends Extendable {
 
 		// Giving the guild owner the rank of Administrator
 		await this.owner.roles.add(adminRole, `${this.client.user.username} initialization: Granting Guild Owner Admin Status`);
-
-		// Removing respective permissions for Muted and Voice Banned roles
-		await this.channels.forEach(async (channel) => {
-			if (channel.type === 'text') {
-				// Removing permissions for mutedRole in text channels
-				await channel.overwritePermissions({
-					overwrites: [{ id: mutedRole.id, denied: ['CREATE_INSTANT_INVITE', 'ADD_REACTIONS', 'SEND_MESSAGES', 'SEND_TTS_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES', 'USE_EXTERNAL_EMOJIS'] }],
-					reason: `${this.client.user.username} initialization: Denying text channel permissions for Muted Role`
-				});
-			}
-
-			if (channel.type === 'voice') {
-				// Removing permissions for mutedRole and voiceBannedRole in voice channels
-				await channel.overwritePermissions({
-					overwrites: [
-						{ id: mutedRole.id, denied: ['SPEAK'] },
-						{ id: voiceBannedRole.id, denied: ['CONNECT', 'SPEAK'] }],
-					reason: `${this.client.user.username} initialization: Denying voice channel permissions for Muted and Voice Chat Banned Roles`
-				});
-			}
-		});
 
 		// Removing respective permissions for server log channel
 		await logChannel.overwritePermissions({

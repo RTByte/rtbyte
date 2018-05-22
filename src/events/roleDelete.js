@@ -18,7 +18,7 @@ module.exports = class extends Event {
 
 	async roleDeleteLog(role) {
 		const embed = new MessageEmbed()
-			.setAuthor(`#${role.name}`, role.guild.iconURL())
+			.setAuthor(`${role.name}`, role.guild.iconURL())
 			.setColor('#ff9b9b')
 			.setTimestamp()
 			.setFooter(role.guild.language.get('GUILD_LOG_ROLEDELETE'));
