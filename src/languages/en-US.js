@@ -106,7 +106,7 @@ module.exports = class extends Language {
 			],
 			COMMAND_INVITE_DESCRIPTION: 'Displays the join server link of the bot.',
 			COMMAND_INFO: [
-				"Klasa is a 'plug-and-play' framework built on top of the Discord.js library.",
+				'Klasa is a \'plug-and-play\' framework built on top of the Discord.js library.',
 				'Most of the code is modularized, which allows developers to edit Klasa to suit their needs.',
 				'',
 				'Some features of Klasa include:',
@@ -122,7 +122,7 @@ module.exports = class extends Language {
 				'• ⏲ "Tasks", which can be scheduled to run in the future, optionally repeating',
 				'',
 				'We hope to be a 100% customizable framework that can cater to all audiences. We do frequent updates and bugfixes when available.',
-				"If you're interested in us, check us out at https://klasa.js.org"
+				'If you\'re interested in us, check us out at https://klasa.js.org'
 			],
 			COMMAND_INFO_DESCRIPTION: 'Provides some information about this bot.',
 			COMMAND_HELP_DESCRIPTION: 'Display help for a command.',
@@ -184,6 +184,11 @@ module.exports = class extends Language {
 			COMMAND_BAN_NO_BAN_SELF: 'Why would you ban yourself?',
 			COMMAND_BAN_NO_BAN_CLIENT: 'Have I done something wrong?',
 			COMMAND_BAN_NO_PERMS: (user) => `You don't have permission to ban ${user}.`,
+			COMMAND_SOFTBAN_DESCRIPTION: 'Bans a mentioned user and logs the reason.',
+			COMMAND_SOFTBAN_NO_SOFTBAN_SELF: 'Why would you ban yourself?',
+			COMMAND_SOFTBAN_NO_SOFTBAN_CLIENT: 'Have I done something wrong?',
+			COMMAND_SOFTBAN_SOFTBAN_RELEASED: 'Softban released',
+			COMMAND_SOFTBAN_NO_PERMS: (user) => `You don't have permission to ban ${user}.`,
 			COMMAND_KICK_DESCRIPTION: 'Kicks a mentioned user and logs the reason.',
 			COMMAND_KICK_NO_KICK_SELF: 'Why would you kick yourself?',
 			COMMAND_KICK_NO_KICK_CLIENT: 'Have I done something wrong?',
@@ -228,6 +233,7 @@ module.exports = class extends Language {
 			GUILD_LOG_ROLEUPDATE_MENTIONABLE: 'Mentionable toggled',
 			GUILD_LOG_ROLEUPDATE_PERMISSIONS: 'Permissions changed',
 			GUILD_LOG_GUILDBANADD: 'User banned',
+			GUILD_LOG_GUILDSOFTBANADD: 'User softbanned',
 			GUILD_LOG_GUILDBANREMOVE: 'User unbanned',
 			GUILD_LOG_GUILDMEMBERKICK: 'User kicked',
 			GUILD_LOG_GUILDMEMBERMUTE: 'User muted',
