@@ -183,6 +183,7 @@ module.exports = class extends Language {
 			COMMAND_BAN_NO_BAN_SELF: 'Why would you ban yourself?',
 			COMMAND_BAN_NO_BAN_CLIENT: 'Have I done something wrong?',
 			COMMAND_BAN_NO_PERMS: (user) => `You don't have permission to ban ${user}`,
+			GUILD_LOG_REASON: 'Reason',
 			GUILD_LOG_CHANNELCREATE: 'Channel created',
 			GUILD_LOG_CHANNELDELETE: 'Channel deleted',
 			GUILD_LOG_GUILDMEMBERADD: 'User joined',
@@ -200,6 +201,8 @@ module.exports = class extends Language {
 			GUILD_LOG_ROLEUPDATE_HOIST: 'Hoist toggled',
 			GUILD_LOG_ROLEUPDATE_MENTIONABLE: 'Mentionable toggled',
 			GUILD_LOG_ROLEUPDATE_PERMISSIONS: 'Permissions changed',
+			GUILD_LOG_GUILDBANADD: 'User banned',
+			GUILD_LOG_GUILDBANREMOVE: 'User unbanned',
 			GLOBAL_LOG_GUILDCREATE: 'Bot added to guild',
 			GLOBAL_LOG_GUILDDELETE: 'Bot removed from guild'
 		};
