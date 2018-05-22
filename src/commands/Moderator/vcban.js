@@ -21,6 +21,9 @@ module.exports = class extends Command {
 		if (user.id === this.client.user.id) throw msg.language.get('COMMAND_VCBAN_NO_VCBAN_CLIENT');
 		if (!msg.member.canMod(user)) throw msg.language.get('COMMAND_VCBAN_NO_PERMS', user);
 
+		const vckick = await this.client.commands.get('vckick');
+		await vckick.run(msg, [user, ...reason]);
+
 		reason = reason.join(' ');
 
 		const member = await msg.guild.members.fetch(user);

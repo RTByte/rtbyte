@@ -199,6 +199,10 @@ module.exports = class extends Language {
 			COMMAND_VCBAN_NO_VCBAN_SELF: 'Why would you ban yourself from voice chat?',
 			COMMAND_VCBAN_NO_VCBAN_CLIENT: 'Have I done something wrong?',
 			COMMAND_VCBAN_NO_PERMS: (user) => `You don't have permission to ban ${user} from voice chat.`,
+			COMMAND_VCKICK_DESCRIPTION: 'Kicks a mentioned user from voice chat and logs the reason.',
+			COMMAND_VCKICK_NO_VCKICK_SELF: 'Why would you kick yourself from voice chat?',
+			COMMAND_VCKICK_NO_VCKICK_CLIENT: 'Have I done something wrong?',
+			COMMAND_VCKICK_NO_PERMS: (user) => `You don't have permission to kick ${user} from voice chat.`,
 			GUILD_LOG_CHANNELCREATE: 'Channel created',
 			GUILD_LOG_CHANNELDELETE: 'Channel deleted',
 			GUILD_LOG_GUILDMEMBERADD: 'User joined',
@@ -222,6 +226,8 @@ module.exports = class extends Language {
 			GUILD_LOG_GUILDMEMBERKICK: 'User kicked',
 			GUILD_LOG_GUILDMEMBERMUTE: 'User muted',
 			GUILD_LOG_GUILDMEMBERUNMUTE: 'User unmuted',
+			GUILD_LOG_GUILDMEMBERVCBAN: 'User banned from voice chat',
+			GUILD_LOG_GUILDMEMBERVCKICK: 'User kicked from voice chat',
 			GLOBAL_LOG_GUILDCREATE: 'Bot added to guild',
 			GLOBAL_LOG_GUILDDELETE: 'Bot removed from guild'
 		};
