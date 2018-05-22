@@ -7,25 +7,27 @@ module.exports = class extends Command {
 			permissionLevel: 5,
 			requiredPermissions: ['BAN_MEMBERS'],
 			runIn: ['text'],
-			description: 'Bans a mentioned user and logs the reason.',
+			description: (msg) => msg.language.get('COMMAND_BAN_DESCRIPTION'),
 			usage: '<member:user> <reason:string> [...]',
 			usageDelim: ' '
 		});
 	}
 
 	async run(msg, [user, ...reason]) {
-		if (user.id === msg.author.id) throw 'Why would you ban yourself?';
-		if (user.id === this.client.user.id) throw 'Have I done something wrong?';
-
-		if (!msg.member.canMod(user)) throw `You don't have permission to moderate ${user}`;
+		if (user.id === msg.author.id) throw msg.language.get('COMMAND_BAN_NO_BAN_SELF');
+		if (user.id === this.client.user.id) throw msg.language.get('COMMAND_BAN_NO_BAN_CLIENT');
+		if (!msg.member.canMod(user)) throw msg.language.get('COMMAND_BAN_NO_PERMS', user);
 
 		const options = {};
 		reason = reason.join(' ');
 		if (reason) options.reason = reason;
 
 		await msg.guild.members.ban(user, options);
-		if (reason.includes('-s', reason.length - 2)) return msg.delete({ reason: 'Silent action' });
-		return msg.sendMessage(`${user.tag} got banned.${reason ? ` With reason of: ${reason}` : ''}`); // eslint-disable-line
+
+		if (reason.includes('-s', reason.length - 2)) return msg.delete({ reason: msg.language.get('COMMAND_MODERATION_SILENT') });
+
+		const affirmEmoji = await this.client.emojis.get(this.client.configs.emoji.affirm);
+		return msg.react(affirmEmoji);
 	}
 
 };
