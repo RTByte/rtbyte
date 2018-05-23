@@ -15,11 +15,6 @@ module.exports = class extends Command {
 		});
 	}
 
-	async init() {
-		if (!this.client.gateways.guilds.schema.has('roles')) await this.client.gateways.guilds.schema.add('roles');
-		if (!this.client.gateways.guilds.schema.roles.has('joinable')) await this.client.gateways.guilds.schema.roles.add('joinable', { type: 'Role', array: true, default: [] });
-	}
-
 	async list(msg) {
 		if (!msg.guild.configs.roles.joinable.length) return msg.reply(msg.language.get('COMMAND_ROLES_NONE_JOINABLE'));
 
@@ -134,6 +129,17 @@ module.exports = class extends Command {
 
 	async leave(msg, params) {
 		return this.remove(msg, params);
+	}
+
+	async init() {
+		await this.ensureGuildVars();
+		return;
+	}
+
+	async ensureGuildVars() {
+		if (!this.client.gateways.guilds.schema.has('roles')) await this.client.gateways.guilds.schema.add('roles');
+		if (!this.client.gateways.guilds.schema.roles.has('joinable')) await this.client.gateways.guilds.schema.roles.add('joinable', { type: 'Role', array: true, default: [] });
+		return;
 	}
 
 };
