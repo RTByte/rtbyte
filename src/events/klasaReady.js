@@ -1,4 +1,5 @@
 const { Event } = require('klasa');
+const { MessageEmbed } = require('discord.js');
 
 module.exports = class extends Event {
 
@@ -35,12 +36,25 @@ module.exports = class extends Event {
 		});
 
 		await this.client.emit('verbose', 'All Guilds Verified!');
+		if (this.client.configs.logs.botReady) await this.botReadyLog();
 		return;
 	}
 
 	async init() {
 		await this.ensureGlobalVars();
 		await this.ensureGuildVars();
+		return;
+	}
+
+	async botReadyLog() {
+		const embed = new MessageEmbed()
+			.setAuthor(`${this.client.user.username}`, this.client.user.avatarURL())
+			.setColor('#fff200')
+			.setTimestamp()
+			.setFooter('Bot restarted');
+
+		const globalLog = await this.client.channels.get(this.client.configs.channels.globalLog);
+		await globalLog.send('', { disableEveryone: true, embed: embed });
 		return;
 	}
 
@@ -53,6 +67,8 @@ module.exports = class extends Event {
 		if (!this.client.gateways.clientStorage.schema.has('emoji')) await this.client.gateways.clientStorage.schema.add('emoji');
 		if (!this.client.gateways.clientStorage.schema.emoji.has('affirm')) await this.client.gateways.clientStorage.schema.emoji.add('affirm', { type: 'String', array: false });
 		if (!this.client.gateways.clientStorage.schema.emoji.has('reject')) await this.client.gateways.clientStorage.schema.emoji.add('reject', { type: 'String', array: false });
+		if (!this.client.gateways.clientStorage.schema.has('logs')) await this.client.gateways.clientStorage.schema.add('logs');
+		if (!this.client.gateways.clientStorage.schema.logs.has('botReady')) await this.client.gateways.clientStorage.schema.logs.add('botReady', { type: 'Boolean', array: false, default: true });
 		return;
 	}
 

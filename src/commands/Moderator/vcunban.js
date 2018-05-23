@@ -27,12 +27,12 @@ module.exports = class extends Command {
 		const voiceBannedRole = await msg.guild.roles.get(msg.guild.configs.roles.voiceBanned);
 		await member.roles.remove(voiceBannedRole);
 
-		if (msg.guild.configs.logs.guildMemberMute) await this.vcunban(member);
+		if (msg.guild.configs.logs.guildMemberMute) await this.vcunbanLog(member);
 
 		return msg.affirm();
 	}
 
-	async vcunban(member) {
+	async vcunbanLog(member) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${member.user.tag} - (${member.id})`, member.user.avatarURL())
 			.setColor('#60fe60')
@@ -58,19 +58,8 @@ module.exports = class extends Command {
 	}
 
 	async createRole(guild) {
-		const voiceBannedRole = await guild.roles.create({ data: { name: 'Voice Chat Banned' }, reason: `${this.client.user.username} initialization: Voice Chat Banned Role` });
-		await guild.configs.update({ roles: { voiceBanned: voiceBannedRole } }, guild);
-
-		await guild.channels.forEach(async (channel) => {
-			if (channel.type === 'voice') {
-				await channel.overwritePermissions({
-					overwrites: [{ id: voiceBannedRole.id, denied: ['CONNECT', 'SPEAK'] }],
-					reason: `${this.client.user.username} initialization: Denying voice channel permissions for Voice Chat Banned Role`
-				});
-			}
-		});
-
-		return;
+		const vcban = await this.client.commands.get('vcban');
+		return vcban.createRole(guild);
 	}
 
 };

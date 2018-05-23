@@ -58,26 +58,8 @@ module.exports = class extends Command {
 	}
 
 	async createRole(guild) {
-		const mutedRole = await guild.roles.create({ data: { name: 'Muted' }, reason: `${this.client.user.username} initialization: Muted Role` });
-		await guild.configs.update({ roles: { muted: mutedRole } }, guild);
-
-		await guild.channels.forEach(async (channel) => {
-			if (channel.type === 'text') {
-				await channel.overwritePermissions({
-					overwrites: [{ id: mutedRole.id, denied: ['CREATE_INSTANT_INVITE', 'ADD_REACTIONS', 'SEND_MESSAGES', 'SEND_TTS_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES', 'USE_EXTERNAL_EMOJIS'] }],
-					reason: `${this.client.user.username} initialization: Denying text channel permissions for Muted Role`
-				});
-			}
-
-			if (channel.type === 'voice') {
-				await channel.overwritePermissions({
-					overwrites: [{ id: mutedRole.id, denied: ['SPEAK'] }],
-					reason: `${this.client.user.username} initialization: Denying voice channel permissions for Muted and Voice Chat Banned Roles`
-				});
-			}
-		});
-
-		return;
+		const mute = await this.client.commands.get('mute');
+		return mute.createRole(guild);
 	}
 
 };

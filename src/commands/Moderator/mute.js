@@ -68,17 +68,20 @@ module.exports = class extends Command {
 
 		await guild.channels.forEach(async (channel) => {
 			if (channel.type === 'text') {
-				await channel.overwritePermissions({
-					overwrites: [{ id: mutedRole.id, denied: ['CREATE_INSTANT_INVITE', 'ADD_REACTIONS', 'SEND_MESSAGES', 'SEND_TTS_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES', 'USE_EXTERNAL_EMOJIS'] }],
-					reason: `${this.client.user.username} initialization: Denying text channel permissions for Muted Role`
-				});
+				await channel.updateOverwrite(mutedRole, {
+					CREATE_INSTANT_INVITE: false,
+					ADD_REACTIONS: false,
+					SEND_MESSAGES: false,
+					SEND_TTS_MESSAGES: false,
+					EMBED_LINKS: false,
+					ATTACH_FILES: false,
+					USE_EXTERNAL_EMOJIS: false
+				},
+				`${this.client.user.username} initialization: Adjusting Channel Permissions for Muted role`);
 			}
 
 			if (channel.type === 'voice') {
-				await channel.overwritePermissions({
-					overwrites: [{ id: mutedRole.id, denied: ['SPEAK'] }],
-					reason: `${this.client.user.username} initialization: Denying voice channel permissions for Muted and Voice Chat Banned Roles`
-				});
+				await channel.updateOverwrite(mutedRole, { SPEAK: false }, `${this.client.user.username} initialization: Adjusting Channel Permissions for Muted role`);
 			}
 		});
 

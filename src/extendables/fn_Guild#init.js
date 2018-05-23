@@ -38,17 +38,62 @@ module.exports = class extends Extendable {
 		await this.owner.roles.add(adminRole, `${this.client.user.username} initialization: Granting Guild Owner Admin Status`);
 
 		// Removing respective permissions for server log channel
-		await logChannel.overwritePermissions({
-			overwrites: [
-				// eslint-disable-next-line max-len
-				{ id: this.client.user.id, allowed: ['CREATE_INSTANT_INVITE', 'MANAGE_CHANNELS', 'ADD_REACTIONS', 'VIEW_CHANNEL', 'SEND_MESSAGES', 'SEND_TTS_MESSAGES', 'MANAGE_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY', 'MENTION_EVERYONE', 'USE_EXTERNAL_EMOJIS', 'MANAGE_ROLES', 'MANAGE_WEBHOOKS'] },
-				// eslint-disable-next-line max-len
-				{ id: this.defaultRole.id, denied: ['CREATE_INSTANT_INVITE', 'MANAGE_CHANNELS', 'ADD_REACTIONS', 'VIEW_CHANNEL', 'SEND_MESSAGES', 'SEND_TTS_MESSAGES', 'MANAGE_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY', 'MENTION_EVERYONE', 'USE_EXTERNAL_EMOJIS', 'MANAGE_ROLES', 'MANAGE_WEBHOOKS'] },
-				// eslint-disable-next-line max-len
-				{ id: adminRole.id, allowed: ['CREATE_INSTANT_INVITE', 'MANAGE_CHANNELS', 'ADD_REACTIONS', 'VIEW_CHANNEL', 'SEND_MESSAGES', 'SEND_TTS_MESSAGES', 'MANAGE_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY', 'MENTION_EVERYONE', 'USE_EXTERNAL_EMOJIS', 'MANAGE_ROLES', 'MANAGE_WEBHOOKS'] },
-				{ id: modRole.id, allowed: ['VIEW_CHANNEL', 'READ_MESSAGE_HISTORY'] }],
-			reason: `${this.client.user.username} initialization: Adjusting Log Channel Permissions`
-		});
+		await logChannel.updateOverwrite(this.client.user, {
+			CREATE_INSTANT_INVITE: true,
+			MANAGE_CHANNELS: true,
+			ADD_REACTIONS: true,
+			VIEW_CHANNEL: true,
+			SEND_MESSAGES: true,
+			SEND_TTS_MESSAGES: true,
+			MANAGE_MESSAGES: true,
+			EMBED_LINKS: true,
+			ATTACH_FILES: true,
+			READ_MESSAGE_HISTORY: true,
+			MENTION_EVERYONE: true,
+			USE_EXTERNAL_EMOJIS: true,
+			MANAGE_ROLES: true,
+			MANAGE_WEBHOOKS: true
+		},
+		`${this.client.user.username} initialization: Adjusting Log Channel Permissions for bot`);
+		await logChannel.updateOverwrite(this.defaultRole, {
+			CREATE_INSTANT_INVITE: false,
+			MANAGE_CHANNELS: false,
+			ADD_REACTIONS: false,
+			VIEW_CHANNEL: false,
+			SEND_MESSAGES: false,
+			SEND_TTS_MESSAGES: false,
+			MANAGE_MESSAGES: false,
+			EMBED_LINKS: false,
+			ATTACH_FILES: false,
+			READ_MESSAGE_HISTORY: false,
+			MENTION_EVERYONE: false,
+			USE_EXTERNAL_EMOJIS: false,
+			MANAGE_ROLES: false,
+			MANAGE_WEBHOOKS: false
+		},
+		`${this.client.user.username} initialization: Adjusting Log Channel Permissions for @everyone`);
+		await logChannel.updateOverwrite(adminRole, {
+			CREATE_INSTANT_INVITE: true,
+			MANAGE_CHANNELS: true,
+			ADD_REACTIONS: true,
+			VIEW_CHANNEL: true,
+			SEND_MESSAGES: true,
+			SEND_TTS_MESSAGES: true,
+			MANAGE_MESSAGES: true,
+			EMBED_LINKS: true,
+			ATTACH_FILES: true,
+			READ_MESSAGE_HISTORY: true,
+			MENTION_EVERYONE: true,
+			USE_EXTERNAL_EMOJIS: true,
+			MANAGE_ROLES: true,
+			MANAGE_WEBHOOKS: true
+		},
+		`${this.client.user.username} initialization: Adjusting Log Channel Permissions for Administrator role`);
+		await logChannel.updateOverwrite(modRole, {
+			VIEW_CHANNEL: true,
+			READ_MESSAGE_HISTORY: true
+		},
+		`${this.client.user.username} initialization: Adjusting Log Channel Permissions for Moderator role`);
 
 		// Specific Setup for the Command and Control Server
 		if (type === 'control') {
@@ -58,17 +103,62 @@ module.exports = class extends Extendable {
 				reason: `${this.client.user.username} initialization: Global Log Channel`
 			});
 
-			await globalLogChannel.overwritePermissions({
-				overwrites: [
-					// eslint-disable-next-line max-len
-					{ id: this.client.user.id, allowed: ['CREATE_INSTANT_INVITE', 'MANAGE_CHANNELS', 'ADD_REACTIONS', 'VIEW_CHANNEL', 'SEND_MESSAGES', 'SEND_TTS_MESSAGES', 'MANAGE_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY', 'MENTION_EVERYONE', 'USE_EXTERNAL_EMOJIS', 'MANAGE_ROLES', 'MANAGE_WEBHOOKS'] },
-					// eslint-disable-next-line max-len
-					{ id: this.defaultRole.id, denied: ['CREATE_INSTANT_INVITE', 'MANAGE_CHANNELS', 'ADD_REACTIONS', 'VIEW_CHANNEL', 'SEND_MESSAGES', 'SEND_TTS_MESSAGES', 'MANAGE_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY', 'MENTION_EVERYONE', 'USE_EXTERNAL_EMOJIS', 'MANAGE_ROLES', 'MANAGE_WEBHOOKS'] },
-					// eslint-disable-next-line max-len
-					{ id: adminRole.id, allowed: ['CREATE_INSTANT_INVITE', 'MANAGE_CHANNELS', 'ADD_REACTIONS', 'VIEW_CHANNEL', 'SEND_MESSAGES', 'SEND_TTS_MESSAGES', 'MANAGE_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY', 'MENTION_EVERYONE', 'USE_EXTERNAL_EMOJIS', 'MANAGE_ROLES', 'MANAGE_WEBHOOKS'] },
-					{ id: modRole.id, allowed: ['VIEW_CHANNEL', 'READ_MESSAGE_HISTORY'] }],
-				reason: `${this.client.user.username} initialization: Adjusting Global Log Channel Permissions`
-			});
+			await globalLogChannel.updateOverwrite(this.client.user, {
+				CREATE_INSTANT_INVITE: true,
+				MANAGE_CHANNELS: true,
+				ADD_REACTIONS: true,
+				VIEW_CHANNEL: true,
+				SEND_MESSAGES: true,
+				SEND_TTS_MESSAGES: true,
+				MANAGE_MESSAGES: true,
+				EMBED_LINKS: true,
+				ATTACH_FILES: true,
+				READ_MESSAGE_HISTORY: true,
+				MENTION_EVERYONE: true,
+				USE_EXTERNAL_EMOJIS: true,
+				MANAGE_ROLES: true,
+				MANAGE_WEBHOOKS: true
+			},
+			`${this.client.user.username} initialization: Adjusting Log Channel Permissions for bot`);
+			await globalLogChannel.updateOverwrite(this.defaultRole, {
+				CREATE_INSTANT_INVITE: false,
+				MANAGE_CHANNELS: false,
+				ADD_REACTIONS: false,
+				VIEW_CHANNEL: false,
+				SEND_MESSAGES: false,
+				SEND_TTS_MESSAGES: false,
+				MANAGE_MESSAGES: false,
+				EMBED_LINKS: false,
+				ATTACH_FILES: false,
+				READ_MESSAGE_HISTORY: false,
+				MENTION_EVERYONE: false,
+				USE_EXTERNAL_EMOJIS: false,
+				MANAGE_ROLES: false,
+				MANAGE_WEBHOOKS: false
+			},
+			`${this.client.user.username} initialization: Adjusting Log Channel Permissions for @everyone`);
+			await globalLogChannel.updateOverwrite(adminRole, {
+				CREATE_INSTANT_INVITE: true,
+				MANAGE_CHANNELS: true,
+				ADD_REACTIONS: true,
+				VIEW_CHANNEL: true,
+				SEND_MESSAGES: true,
+				SEND_TTS_MESSAGES: true,
+				MANAGE_MESSAGES: true,
+				EMBED_LINKS: true,
+				ATTACH_FILES: true,
+				READ_MESSAGE_HISTORY: true,
+				MENTION_EVERYONE: true,
+				USE_EXTERNAL_EMOJIS: true,
+				MANAGE_ROLES: true,
+				MANAGE_WEBHOOKS: true
+			},
+			`${this.client.user.username} initialization: Adjusting Log Channel Permissions for Administrator role`);
+			await globalLogChannel.updateOverwrite(modRole, {
+				VIEW_CHANNEL: true,
+				READ_MESSAGE_HISTORY: true
+			},
+			`${this.client.user.username} initialization: Adjusting Log Channel Permissions for Moderator role`);
 
 			// Setting Control Guild and Global Log Channel in clientStorage
 			await this.client.configs.update({ guilds: { controlGuild: this.id } }, this);

@@ -219,7 +219,6 @@ module.exports = class extends Language {
 			GUILD_LOG_CHANNELUPDATE_NAME: 'Name changed',
 			GUILD_LOG_CHANNELUPDATE_NSFW: 'NSFW toggled',
 			GUILD_LOG_CHANNELUPDATE_TOPIC: 'Topic changed',
-			GUILD_LOG_CHANNELUPDATE_PERMISSIONOVERWRITES: 'Permission Overwrites changed',
 			GUILD_LOG_CHANNELDELETE: 'Channel deleted',
 			GUILD_LOG_GUILDMEMBERADD: 'User joined',
 			GUILD_LOG_GUILDMEMBERREMOVE: 'User left',

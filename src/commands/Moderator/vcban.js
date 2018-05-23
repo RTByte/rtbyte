@@ -71,10 +71,11 @@ module.exports = class extends Command {
 
 		await guild.channels.forEach(async (channel) => {
 			if (channel.type === 'voice') {
-				await channel.overwritePermissions({
-					overwrites: [{ id: voiceBannedRole.id, denied: ['CONNECT', 'SPEAK'] }],
-					reason: `${this.client.user.username} initialization: Denying voice channel permissions for Voice Chat Banned Role`
-				});
+				await channel.updateOverwrite(voiceBannedRole, {
+					CONNECT: false,
+					SPEAK: false
+				},
+				`${this.client.user.username} initialization: Adjusting Channel Permissions for Voice Chat Banned role`);
 			}
 		});
 
