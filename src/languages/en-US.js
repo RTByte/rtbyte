@@ -216,6 +216,8 @@ module.exports = class extends Language {
 			COMMAND_SENDMSG_DESCRIPTION: 'Sends a message to the specified channel or user as the bot.',
 			COMMAND_PURGE_DESCRIPTION: 'Removes X amount of messages, optionally sent by Y user. Append the word \'all\' to ignore the role hierarchy.',
 			COMMAND_PURGE_NO_PERMS: (member) => `You don't have permission to purge messages from ${member}.`,
+			COMMAND_REPORT_DESCRIPTION: 'Reports mentioned user to the mod team, reason required. Screenshots appreciated. Append -s to report silently.',
+			COMMAND_REPORT_NO_REPORT_CLIENT: 'Have I done something wrong?',
 			GUILD_LOG_CHANNELCREATE: 'Channel created',
 			GUILD_LOG_CHANNELUPDATE: 'Channel updated',
 			GUILD_LOG_CHANNELUPDATE_NAME: 'Name changed',
@@ -250,6 +252,8 @@ module.exports = class extends Language {
 			GUILD_LOG_MESSAGEPURGE: 'Messages purged',
 			GUILD_LOG_MESSAGEPURGE_AMOUNT: 'Amount of Messages removed:',
 			GUILD_LOG_MESSAGEPURGE_TARGET: 'Purged Messages from:',
+			GUILD_LOG_REPORT: 'Report received',
+			GUILD_LOG_REPORT_REPORTER: 'Reported by:',
 			GLOBAL_LOG_GUILDCREATE: 'Bot added to guild',
 			GLOBAL_LOG_GUILDDELETE: 'Bot removed from guild'
 		};
