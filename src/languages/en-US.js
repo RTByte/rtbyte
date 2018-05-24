@@ -214,6 +214,8 @@ module.exports = class extends Language {
 			COMMAND_VCUNBAN_NO_VCUNBAN_CLIENT: 'Why was I banned from voice chat?',
 			COMMAND_VCUNBAN_NO_PERMS: (user) => `You don't have permission to unban ${user} from voice chat.`,
 			COMMAND_SENDMSG_DESCRIPTION: 'Sends a message to the specified channel or user as the bot.',
+			COMMAND_PURGE_DESCRIPTION: 'Removes X amount of messages, optionally sent by Y user. Append the word \'all\' to ignore the role hierarchy.',
+			COMMAND_PURGE_NO_PERMS: (member) => `You don't have permission to purge messages from ${member}.`,
 			GUILD_LOG_CHANNELCREATE: 'Channel created',
 			GUILD_LOG_CHANNELUPDATE: 'Channel updated',
 			GUILD_LOG_CHANNELUPDATE_NAME: 'Name changed',
@@ -245,6 +247,9 @@ module.exports = class extends Language {
 			GUILD_LOG_GUILDMEMBERVCBAN: 'User banned from voice chat',
 			GUILD_LOG_GUILDMEMBERVCUNBAN: 'User unbanned from voice chat',
 			GUILD_LOG_GUILDMEMBERVCKICK: 'User kicked from voice chat',
+			GUILD_LOG_MESSAGEPURGE: 'Messages purged',
+			GUILD_LOG_MESSAGEPURGE_AMOUNT: 'Amount of Messages removed:',
+			GUILD_LOG_MESSAGEPURGE_TARGET: 'Purged Messages from:',
 			GLOBAL_LOG_GUILDCREATE: 'Bot added to guild',
 			GLOBAL_LOG_GUILDDELETE: 'Bot removed from guild'
 		};
