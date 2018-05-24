@@ -14,6 +14,7 @@
     "erlpack": "github:discordapp/erlpack",
     "eslint": "^4.19.1",
     "klasa": "github:dirigeants/klasa",
+    "snekfetch": "^4.0.0",
     "uws": "^9.148.0",
     "zlib-sync": "^0.1.4"
   }
