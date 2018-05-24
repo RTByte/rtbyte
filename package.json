@@ -1,5 +1,5 @@
 {
-  "name": "cockbyte",
+  "name": "rooco",
   "version": "0.0.1",
   "description": "A Discord Bot for the Rooster Teeth Community family of Discord Servers",
   "main": "src/index.js",

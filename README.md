@@ -1,9 +1,9 @@
-# cockbyte
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2878b3d9eded4d4998cd29dbdf3e98ec)](https://www.codacy.com/app/mcumbers/cockbyte?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ChopBot/cockbyte&amp;utm_campaign=Badge_Grade)
+# rooco
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2878b3d9eded4d4998cd29dbdf3e98ec)](https://www.codacy.com/app/mcumbers/rooco?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ChopBot/rooco&amp;utm_campaign=Badge_Grade)
 
-cockbyte is a multipurpose Discord Bot built on the incredible [Klasa](https://github.com/dirigeants/klasa) framework for [discord.js](https://github.com/discordjs/discord.js).
+rooco is a multipurpose Discord Bot built on the incredible [Klasa](https://github.com/dirigeants/klasa) framework for [discord.js](https://github.com/discordjs/discord.js).
 
-cockbyte is a rewrite of [ChopBot](https://github.com/chopbot/chopbot)--a Discord Bot written for the [Rooster Teeth](https://roosterteeth.com/) Family of Community Discord Servers. 
+rooco is a rewrite of [ChopBot](https://github.com/chopbot/chopbot)--a Discord Bot written for the [Rooster Teeth](https://roosterteeth.com/) Family of Community Discord Servers. 
 
 ## Features
 
