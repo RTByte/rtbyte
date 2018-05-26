@@ -15,9 +15,9 @@ module.exports = class extends Command {
 	}
 
 	async run(msg, [user, ...reason]) {
-		if (user.id === msg.author.id) throw msg.language.get('COMMAND_BAN_NO_BAN_SELF');
-		if (user.id === this.client.user.id) throw msg.language.get('COMMAND_BAN_NO_BAN_CLIENT');
-		if (!msg.member.canMod(user)) throw msg.language.get('COMMAND_BAN_NO_PERMS', user);
+		if (user.id === msg.author.id) return msg.reject(msg.language.get('COMMAND_BAN_NO_BAN_SELF'));
+		if (user.id === this.client.user.id) return msg.reject(msg.language.get('COMMAND_BAN_NO_BAN_CLIENT'));
+		if (!msg.member.canMod(user)) return msg.reject(msg.language.get('COMMAND_BAN_NO_PERMS', user));
 
 		reason = reason.join(' ');
 

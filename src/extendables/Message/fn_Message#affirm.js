@@ -11,10 +11,10 @@ module.exports = class extends Extendable {
 		});
 	}
 
-	async extend() {
+	async extend(message = null, messageOptions = {}) {
 		const affirmEmoji = await this.client.emojis.get(this.client.configs.emoji.affirm);
 		await this.react(affirmEmoji);
-		return this;
+		return message ? this.sendMessage(`${this.author}\n${affirmEmoji}${message}`, messageOptions) : this;
 	}
 
 };

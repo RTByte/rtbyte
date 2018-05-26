@@ -16,7 +16,7 @@ module.exports = class extends Command {
 	}
 
 	async list(msg) {
-		if (!msg.guild.configs.roles.joinable.length) return msg.reply(msg.language.get('COMMAND_ROLES_NONE_JOINABLE'));
+		if (!msg.guild.configs.roles.joinable.length) return msg.reject(msg.language.get('COMMAND_ROLES_NONE_JOINABLE'));
 
 		const rolesList = ['**ROLES:**', '```asciidoc'];
 
@@ -26,101 +26,78 @@ module.exports = class extends Command {
 		}
 
 		rolesList.push('```');
+		await msg.affirm();
 		return msg.sendMessage(rolesList, { split: { char: '\u200b' } });
 	}
 
 	async add(msg, [target = msg.member, ...roleName]) {
 		// Fail if there are no joinable roles
-		if (!msg.guild.configs.roles.joinable.length) return msg.reply(msg.language.get('COMMAND_ROLES_NONE_JOINABLE'));
-		if (!roleName.length) return msg.reply(msg.language.get('COMMAND_ROLES_NO_ROLE_NAME'));
+		if (!msg.guild.configs.roles.joinable.length) return msg.reject(msg.language.get('COMMAND_ROLES_NONE_JOINABLE'));
+		if (!roleName.length) return msg.reject(msg.language.get('COMMAND_ROLES_NO_ROLE_NAME'));
 
 		if (target.id !== msg.member.id) {
-			if (!msg.hasAtLeastPermissionLevel(5) || !msg.member.permissions.has('MANAGE_ROLES')) {
-				// Fail if user is not at least a moderator and is trying to add roles to other users
-				return msg.reply(msg.language.get('COMMAND_ROLES_NO_PERMISSION'));
-			}
-			if (msg.member.roles.highest.comparePositionTo(target.roles.highest) <= 0) {
-				// Fail if user is trying to add roles to someone higher on the hierarchy than themself
-				return msg.reply(msg.language.get('COMMAND_MODERATION_NOT_MODABLE', target));
-			}
+			// Fail if user is not at least a moderator and is trying to add roles to other users
+			if (!msg.hasAtLeastPermissionLevel(5) || !msg.member.permissions.has('MANAGE_ROLES')) return msg.reject(msg.language.get('COMMAND_ROLES_NO_PERMISSION'));
+
+			const canMod = await msg.member.canMod(target);
+
+			// Fail if user is trying to add roles to someone higher on the hierarchy than themself
+			if (!canMod) return msg.reject(msg.language.get('COMMAND_ROLES_NO_PERMS', target));
 		}
 
 		// Parsing the roleName array into a string
 		roleName = roleName.join(' ');
 
-		if (!msg.guild.roles.exists(role => role.name.toLowerCase() === roleName.toLowerCase())) {
-			const rejectEmoji = await this.client.emojis.get(this.client.configs.emoji.reject);
-			// Fail if there is no role with this name
-			return msg.send(msg.language.get('COMMAND_ROLES_DOES_NOT_EXIST', rejectEmoji, roleName));
-		}
+		// Fail if there is no role with this name
+		if (!msg.guild.roles.tap(role => role.name.toLowerCase() === roleName.toLowerCase())) return msg.reject(msg.language.get('COMMAND_ROLES_DOES_NOT_EXIST', roleName));
 
 		// Fetching role specified by the user
 		const targetRole = await msg.guild.roles.find(role => role.name.toLowerCase() === roleName.toLowerCase());
 
-		if (!msg.guild.configs.roles.joinable.includes(targetRole.id)) {
-			const rejectEmoji = await this.client.emojis.get(this.client.configs.emoji.reject);
-			// Fail if this role isn't joinable
-			return msg.send(msg.language.get('COMMAND_ROLES_NOT_JOINABLE', rejectEmoji, roleName));
-		}
+		// Fail if this role isn't joinable
+		if (!msg.guild.configs.roles.joinable.includes(targetRole.id)) return msg.reject(msg.language.get('COMMAND_ROLES_NOT_JOINABLE', roleName));
 
-		if (target.roles.has(targetRole.id)) {
-			const rejectEmoji = await this.client.emojis.get(this.client.configs.emoji.reject);
-			// Fail if target already has this role
-			return msg.send(msg.language.get('COMMAND_ROLES_ALREADY_HAVE', rejectEmoji, roleName, target));
-		}
+		// Fail if target already has this role
+		if (target.roles.has(targetRole.id)) return msg.reject(msg.language.get('COMMAND_ROLES_ALREADY_HAVE', roleName, target));
 
 		// Add the role to the target
 		await target.roles.add(targetRole);
-
-		const affirmEmoji = await this.client.emojis.get(this.client.configs.emoji.affirm);
-		return msg.react(affirmEmoji);
+		return msg.affirm();
 	}
 
 	async remove(msg, [target = msg.member, ...roleName]) {
 		// Fail if there are no joinable roles
-		if (!msg.guild.configs.roles.joinable.length) return msg.reply(msg.language.get('COMMAND_ROLES_NONE_JOINABLE'));
-		if (!roleName.length) return msg.reply(msg.language.get('COMMAND_ROLES_NO_ROLE_NAME'));
+		if (!msg.guild.configs.roles.joinable.length) return msg.reject(msg.language.get('COMMAND_ROLES_NONE_JOINABLE'));
+		if (!roleName.length) return msg.reject(msg.language.get('COMMAND_ROLES_NO_ROLE_NAME'));
 
 		if (target.id !== msg.member.id) {
-			if (!msg.hasAtLeastPermissionLevel(5) || !msg.member.permissions.has('MANAGE_ROLES')) {
-				// Fail if user is not at least a moderator and is trying to add roles to other users
-				return msg.reply(msg.language.get('COMMAND_ROLES_NO_PERMISSION'));
-			}
-			if (msg.member.roles.highest.comparePositionTo(target.roles.highest) <= 0) {
-				// Fail if user is trying to add roles to someone higher on the hierarchy than themself
-				return msg.reply(msg.language.get('COMMAND_MODERATION_NOT_MODABLE', target));
-			}
+			// Fail if user is not at least a moderator and is trying to add roles to other users
+			if (!msg.hasAtLeastPermissionLevel(5) || !msg.member.permissions.has('MANAGE_ROLES')) return msg.reject(msg.language.get('COMMAND_ROLES_NO_PERMISSION'));
+
+			const canMod = await msg.member.canMod(target);
+
+			// Fail if user is trying to add roles to someone higher on the hierarchy than themself
+			if (!canMod) return msg.reject(msg.language.get('COMMAND_ROLES_NO_PERMS', target));
 		}
 
 		// Parsing the roleName array into a string
 		roleName = roleName.join(' ');
 
-		if (!msg.guild.roles.exists(role => role.name.toLowerCase() === roleName.toLowerCase())) {
-			const rejectEmoji = await this.client.emojis.get(this.client.configs.emoji.reject);
-			// Fail if there is no role with this name
-			return msg.send(msg.language.get('COMMAND_ROLES_DOES_NOT_EXIST', rejectEmoji, roleName));
-		}
+		// Fail if there is no role with this name
+		if (!msg.guild.roles.tap(role => role.name.toLowerCase() === roleName.toLowerCase())) return msg.reject(msg.language.get('COMMAND_ROLES_DOES_NOT_EXIST', roleName));
 
 		// Fetching role specified by the user
 		const targetRole = await msg.guild.roles.find(role => role.name.toLowerCase() === roleName.toLowerCase());
 
-		if (!msg.guild.configs.roles.joinable.includes(targetRole.id)) {
-			const rejectEmoji = await this.client.emojis.get(this.client.configs.emoji.reject);
-			// Fail if this role isn't joinable (or leavable)
-			return msg.send(msg.language.get('COMMAND_ROLES_NOT_LEAVABLE', rejectEmoji, roleName));
-		}
+		// Fail if this role isn't joinable (or leavable)
+		if (!msg.guild.configs.roles.joinable.includes(targetRole.id)) return msg.reject(msg.language.get('COMMAND_ROLES_NOT_LEAVABLE', roleName));
 
-		if (!target.roles.has(targetRole.id)) {
-			const rejectEmoji = await this.client.emojis.get(this.client.configs.emoji.reject);
-			// Fail if target does not have this role
-			return msg.send(msg.language.get('COMMAND_ROLES_DOES_NOT_HAVE', rejectEmoji, roleName, target));
-		}
+		// Fail if target does not have this role
+		if (!target.roles.has(targetRole.id)) return msg.reject(msg.language.get('COMMAND_ROLES_DOES_NOT_HAVE', roleName, target));
 
 		// Remove the role from the target
 		await target.roles.remove(targetRole);
-
-		const affirmEmoji = await this.client.emojis.get(this.client.configs.emoji.affirm);
-		return msg.react(affirmEmoji);
+		return msg.affirm();
 	}
 
 	async join(msg, params) {

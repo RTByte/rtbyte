@@ -18,16 +18,19 @@ module.exports = class extends Command {
 	async run(msg, [user, ...reason]) {
 		if (!msg.guild.configs.roles.voiceBanned || !msg.guild.roles.has(msg.guild.configs.roles.voiceBanned)) await this.createRole(msg.guild);
 
-		if (user.id === msg.author.id) throw msg.language.get('COMMAND_VCBAN_NO_VCBAN_SELF');
-		if (user.id === this.client.user.id) throw msg.language.get('COMMAND_VCBAN_NO_VCBAN_CLIENT');
-		if (!msg.member.canMod(user)) throw msg.language.get('COMMAND_VCBAN_NO_PERMS', user);
+		if (user.id === msg.author.id) return msg.reject(msg.language.get('COMMAND_VCBAN_NO_VCBAN_SELF'));
+		if (user.id === this.client.user.id) return msg.reject(msg.language.get('COMMAND_VCBAN_NO_VCBAN_CLIENT'));
+		if (!await msg.member.canMod(user)) return msg.reject(msg.language.get('COMMAND_VCBAN_NO_PERMS', user));
 
-		const vckick = await this.client.commands.get('vckick');
-		await vckick.run(msg, [user, ...reason]);
+		const member = await msg.guild.members.fetch(user);
+
+		if (member.voiceChannel) {
+			const vckick = await this.client.commands.get('vckick');
+			await vckick.run(msg, [user, ...reason]);
+		}
 
 		reason = reason.join(' ');
 
-		const member = await msg.guild.members.fetch(user);
 		if (member.roles.has(msg.guild.configs.roles.voiceBanned)) return msg.affirm();
 		const voiceBannedRole = await msg.guild.roles.get(msg.guild.configs.roles.voiceBanned);
 		await member.roles.add(voiceBannedRole);

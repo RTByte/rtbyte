@@ -18,9 +18,9 @@ module.exports = class extends Command {
 	async run(msg, [user, ...reason]) {
 		if (!msg.guild.configs.roles.muted || !msg.guild.roles.has(msg.guild.configs.roles.muted)) await this.createRole(msg.guild);
 
-		if (user.id === msg.author.id) throw msg.language.get('COMMAND_MUTE_NO_MUTE_SELF');
-		if (user.id === this.client.user.id) throw msg.language.get('COMMAND_MUTE_NO_MUTE_CLIENT');
-		if (!msg.member.canMod(user)) throw msg.language.get('COMMAND_MUTE_NO_PERMS', user);
+		if (user.id === msg.author.id) return msg.reject(msg.language.get('COMMAND_MUTE_NO_MUTE_SELF'));
+		if (user.id === this.client.user.id) return msg.reject(msg.language.get('COMMAND_MUTE_NO_MUTE_CLIENT'));
+		if (!await msg.member.canMod(user)) return msg.reject(msg.language.get('COMMAND_MUTE_NO_PERMS', user));
 
 		reason = reason.join(' ');
 

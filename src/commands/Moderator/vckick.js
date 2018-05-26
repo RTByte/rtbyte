@@ -16,15 +16,15 @@ module.exports = class extends Command {
 	}
 
 	async run(msg, [user, ...reason]) {
-		if (user.id === msg.author.id) throw msg.language.get('COMMAND_VCKICK_NO_VCKICK_SELF');
-		if (user.id === this.client.user.id) throw msg.language.get('COMMAND_VCKICK_NO_VCKICK_CLIENT');
-		if (!msg.member.canMod(user)) throw msg.language.get('COMMAND_VCKICK_NO_PERMS', user);
+		if (user.id === msg.author.id) return msg.reject(msg.language.get('COMMAND_VCKICK_NO_VCKICK_SELF'));
+		if (user.id === this.client.user.id) return msg.reject(msg.language.get('COMMAND_VCKICK_NO_VCKICK_CLIENT'));
+		if (!await msg.member.canMod(user)) return msg.reject(msg.language.get('COMMAND_VCKICK_NO_PERMS', user));
 
 		reason = reason.join(' ');
 
 		const member = await msg.guild.members.fetch(user);
 
-		if (!member.voiceChannel) throw msg.language.get('COMMAND_VCKICK_NO_VOICE_CHANNEL');
+		if (!member.voiceChannel) return msg.affirm();
 
 		const tempVC = await msg.guild.channels.create(member.id, { type: 'voice', userLimit: 1, reason: `Temporary Channel to kick ${member.user.tag} from voice chat.` });
 		await member.setVoiceChannel(tempVC);

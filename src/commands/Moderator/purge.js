@@ -16,7 +16,7 @@ module.exports = class extends Command {
 	}
 
 	async run(msg, [member = null, amount, all = null, silent = null]) {
-		if (member && !msg.member.canMod(member)) throw msg.language.get('COMMAND_PURGE_NO_PERMS', member);
+		if (member && !msg.member.canMod(member)) return msg.reject(msg.language.get('COMMAND_PURGE_NO_PERMS', this.client.emojis.get(this.client.configs.emoji.reject), member));
 
 		let messages = await msg.channel.messages.fetch({ limit: amount });
 
@@ -38,7 +38,7 @@ module.exports = class extends Command {
 		if (msg.guild.configs.logs.messagePurge && messages.size) await this.purgeLog(msg.member, messages.size, member);
 
 		if (silent && !(all && (!member || member.id === msg.author.id))) await msg.delete({ reason: msg.language.get('COMMAND_MODERATION_SILENT') });
-		if (!messages.size) return msg.reject();
+
 		if (silent) return null;
 		if (all && (!member || member.id === msg.author.id)) return null;
 		return msg.affirm();
