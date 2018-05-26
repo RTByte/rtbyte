@@ -220,6 +220,7 @@ module.exports = class extends Language {
 			COMMAND_PURGE_NO_PERMS: (member) => `You don't have permission to purge messages from ${member}.`,
 			COMMAND_REPORT_DESCRIPTION: 'Reports mentioned user to the mod team, reason required. Screenshots appreciated. Append -s to report silently.',
 			COMMAND_REPORT_NO_REPORT_CLIENT: 'Have I done something wrong?',
+			COMMAND_MODERATION_BOILERPLATE: (guild) => `This action was performed manually by a moderator of ${guild.name} Discord. If you are confused, or need help, feel free to DM the the owner of the server, listed below.`, // eslint-disable-line max-len
 			GUILD_LOG_CHANNELCREATE: 'Channel created',
 			GUILD_LOG_CHANNELUPDATE: 'Channel updated',
 			GUILD_LOG_CHANNELUPDATE_NAME: 'Name changed',
