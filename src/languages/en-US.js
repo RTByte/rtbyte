@@ -177,6 +177,9 @@ module.exports = class extends Language {
 			],
 			COMMAND_STATS_DESCRIPTION: 'Provides some details about the bot and stats.',
 			MESSAGE_PROMPT_TIMEOUT: 'The prompt has timed out.',
+			COMMAND_JOINDATE_DESCRIPTION: 'Displays your account creation date along with the date you joined the current server you\'re on.Other users can be specified to fetch their account creation and server join dates.', // eslint-disable-line max-len
+			COMMAND_QUOTE_DESCRIPTION: 'Quotes a message by ID.',
+			COMMAND_QUOTE_NO_MESSAGE_FOUND: (messageID, origin) => `Could not find a message with ID of \`${messageID}\` in ${origin}`,
 			COMMAND_COINFLIP_DESCRIPTION: 'Flips a coin. 🙂 for heads, 🙃 for tails.',
 			COMMAND_8BALL_DESCRIPTION: 'Magic 8-ball, does exactly what the toy does, memes included.',
 			COMMAND_CHOICE_DESCRIPTION: 'Makes a decision based off of the choices given, no matter how many you include.',
