@@ -10,7 +10,7 @@ module.exports = class extends Command {
 			requiredPermissions: ['ADD_REACTIONS', 'USE_EXTERNAL_EMOJIS', 'SEND_MESSAGES', 'EMBED_LINKS'],
 			runIn: ['text'],
 			description: (msg) => msg.language.get('COMMAND_ROLL_DESCRIPTION'),
-			usage: '[amount:int{1,10}] [d4|d6|d8|d10|d12|d20]',
+			usage: '[amount:int{1,10}] [type:string]',
 			usageDelim: ' '
 		});
 	}
@@ -25,7 +25,6 @@ module.exports = class extends Command {
 	}
 
 	async rollDice(faces, amount) {
-		console.log(`Rolling ${amount} d${faces}`);
 		const dice = [];
 
 		for (let i = 0; i < amount; i++) {
