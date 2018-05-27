@@ -177,6 +177,8 @@ module.exports = class extends Language {
 			],
 			COMMAND_STATS_DESCRIPTION: 'Provides some details about the bot and stats.',
 			MESSAGE_PROMPT_TIMEOUT: 'The prompt has timed out.',
+			COMMAND_ROLL_INVALID_DIE: (validTypes) => `I can only roll up to 10 of the following types of dice:\n${validTypes.join(', ')}`,
+			COMMAND_ROLL_DESCRIPTION: 'Rolls a die. Optionally specify the amount of dice and their type.',
 			COMMAND_JOINDATE_DESCRIPTION: 'Displays your account creation date along with the date you joined the current server you\'re on.Other users can be specified to fetch their account creation and server join dates.', // eslint-disable-line max-len
 			COMMAND_QUOTE_DESCRIPTION: 'Quotes a message by ID.',
 			COMMAND_QUOTE_NO_MESSAGE_FOUND: (messageID, origin) => `Could not find a message with ID of \`${messageID}\` in ${origin}`,
