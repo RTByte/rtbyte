@@ -5,25 +5,19 @@ module.exports = class extends Monitor {
 
 	constructor(...args) {
 		super(...args, {
-			enabled: true,
-			ignoreBots: true,
-			ignoreSelf: true,
-			ignoreOthers: true,
-			ignoreWebhooks: true,
+			ignoreOthers: false,
 			ignoreEdits: false
 		});
 	}
 
 	async run(msg) {
-		console.log(`${msg.guild.configs.wordBlacklist.enabled}, ${msg.guild.configs.wordBlacklist.words.length}`);
 		if (!msg.guild.configs.wordBlacklist.enabled || !msg.guild.configs.wordBlacklist.words.length) return;
 		const words = msg.content.split(' ');
-		console.log(`${msg.content}\n${words}`);
 		const wordBlacklist = msg.guild.configs.wordBlacklist.words;
 
 		if (!await this.cycleWords(words, wordBlacklist)) return;
 
-		if (msg.guild.cofigs.logs.blacklistedWord) await this.blacklistedWordLog(msg);
+		if (msg.guild.configs.logs.blacklistedWord) await this.blacklistedWordLog(msg);
 		if (msg.guild.configs.wordBlacklist.warn) await this.warnUser(msg);
 		if (msg.guild.configs.wordBlacklist.delete) await msg.delete();
 		return;
@@ -44,7 +38,7 @@ module.exports = class extends Monitor {
 			.setAuthor(`${msg.author.tag} - (${msg.author.id})`, msg.author.avatarURL())
 			.setColor('#ff0000')
 			.setTimestamp()
-			.addField(msg.guild.language.get('GUILD_LOG_REASON'), msg.guild.language.get('GUILD_LOG_BLACKLISTEDWORD'))
+			.addField(msg.guild.language.get('GUILD_LOG_REASON'), msg.guild.language.get('GUILD_LOG_BLACKLISTEDWORD', msg.channel))
 			.setFooter(msg.guild.language.get('GUILD_LOG_GUILDMEMBERWARN'));
 
 		const logChannel = await this.client.channels.get(msg.guild.configs.channels.serverLog);
@@ -59,7 +53,7 @@ module.exports = class extends Monitor {
 			.setColor('#ff0000')
 			.setTimestamp()
 			.addField('Message:', msg.content)
-			.setFooter(msg.guild.language.get('GUILD_LOG_BLACKLISTEDWORD'));
+			.setFooter(msg.guild.language.get('GUILD_LOG_BLACKLISTEDWORD', msg.channel));
 
 		const logChannel = await this.client.channels.get(msg.guild.configs.channels.serverLog);
 		await logChannel.send('', { disableEveryone: true, embed: embed });

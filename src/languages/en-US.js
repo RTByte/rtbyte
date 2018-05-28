@@ -262,7 +262,8 @@ module.exports = class extends Language {
 			GUILD_LOG_MESSAGEPURGE_TARGET: 'Purged Messages from:',
 			GUILD_LOG_REPORT: 'Report received',
 			GUILD_LOG_REPORT_REPORTER: 'Reported by:',
-			GUILD_LOG_BLACKLISTEDWORD: 'Blacklisted Word Detected',
+			GUILD_LOG_GUILDMEMBERWARN: 'Warning Issued',
+			GUILD_LOG_BLACKLISTEDWORD: (channel) => `Blacklisted Word Detected in ${channel}`,
 			GLOBAL_LOG_GUILDCREATE: 'Bot added to guild',
 			GLOBAL_LOG_GUILDDELETE: 'Bot removed from guild'
 		};
