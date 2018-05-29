@@ -267,7 +267,8 @@ module.exports = class extends Language {
 			GUILD_LOG_AUTOSELENER: 'Changed name with blacklisted word',
 			GUILD_LOG_BLACKLISTEDWORD: (channel) => `Blacklisted Word Detected in ${channel}`,
 			GLOBAL_LOG_GUILDCREATE: 'Bot added to guild',
-			GLOBAL_LOG_GUILDDELETE: 'Bot removed from guild'
+			GLOBAL_LOG_GUILDDELETE: 'Bot removed from guild',
+			GLOBAL_LOG_COMMANDRUN: 'Command Run'
 		};
 	}
 

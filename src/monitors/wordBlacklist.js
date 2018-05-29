@@ -61,6 +61,11 @@ module.exports = class extends Monitor {
 	}
 
 	async init() {
+		await this.ensureGuildVars();
+		return;
+	}
+
+	async ensureGuildVars() {
 		if (!this.client.gateways.guilds.schema.has('logs')) await this.client.gateways.guilds.schema.add('logs');
 		if (!this.client.gateways.guilds.schema.logs.has('blacklistedWord')) await this.client.gateways.guilds.schema.logs.add('blacklistedWord', { type: 'Boolean', array: false, default: true });
 		if (!this.client.gateways.guilds.schema.has('wordBlacklist')) await this.client.gateways.guilds.schema.add('wordBlacklist');
