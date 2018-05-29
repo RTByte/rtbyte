@@ -44,8 +44,8 @@ module.exports = class extends Event {
 		if (!this.client.gateways.guilds.schema.logs.has('guildMemberRemove')) await this.client.gateways.guilds.schema.logs.add('guildMemberRemove', { type: 'Boolean', array: false, default: false });
 		if (!this.client.gateways.guilds.schema.has('goodbye')) await this.client.gateways.guilds.schema.add('goodbye');
 		if (!this.client.gateways.guilds.schema.goodbye.has('dismissUsers')) await this.client.gateways.guilds.schema.goodbye.add('dismissUsers', { type: 'Boolean', array: false, default: false });
-		if (!this.client.gateways.guilds.schema.goodbye.has('leaveMessage')) await this.client.gateways.guilds.schema.goodbye.add('leaveMessage', { type: 'String', array: false });
-		if (!this.client.gateways.guilds.schema.goodbye.has('leaveMessageChannel')) await this.client.gateways.guilds.schema.goodbye.add('leaveMessageChannel', { type: 'TextChannel', array: false });
+		if (!this.client.gateways.guilds.schema.goodbye.has('leaveMessage')) await this.client.gateways.guilds.schema.goodbye.add('leaveMessage', { type: 'String', array: false, default: '' });
+		if (!this.client.gateways.guilds.schema.goodbye.has('leaveMessageChannel')) await this.client.gateways.guilds.schema.goodbye.add('leaveMessageChannel', { type: 'TextChannel', array: false, default: null });
 		return;
 	}
 

@@ -51,8 +51,8 @@ module.exports = class extends Event {
 		const oldName = member.displayName;
 		await member.setNickname(alternateNames[`${Math.floor(Math.random() * alternateNames.length)}`]);
 
-		if (member.guild.configs.wordBlacklist.warn) await this.warnUser(member);
 		if (member.guild.configs.logs.blacklistedNickname) await this.autoSelenerLog(oldName, member);
+		if (member.guild.configs.wordBlacklist.warn) await this.warnUser(member);
 		return;
 	}
 
@@ -70,7 +70,7 @@ module.exports = class extends Event {
 		return;
 	}
 
-	async warnUser(oldName, member) {
+	async warnUser(member) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${member.user.tag} - (${member.user.id})`, member.user.avatarURL())
 			.setColor(this.client.configs.colors.red)
@@ -104,8 +104,8 @@ module.exports = class extends Event {
 
 	async ensureGuildVars() {
 		if (!this.client.gateways.guilds.schema.has('logs')) await this.client.gateways.guilds.schema.add('logs');
-		if (!this.client.gateways.guilds.schema.logs.has('memberUpdate')) await this.client.gateways.guilds.schema.logs.add('memberUpdate', { type: 'Boolean', array: false, default: false });
-		if (!this.client.gateways.guilds.schema.logs.has('blacklistedNickname')) await this.client.gateways.guilds.schema.logs.add('blacklistedNickname');
+		if (!this.client.gateways.guilds.schema.logs.has('memberUpdate')) await this.client.gateways.guilds.schema.logs.add('memberUpdate', { type: 'Boolean', array: false, default: true });
+		if (!this.client.gateways.guilds.schema.logs.has('blacklistedNickname')) await this.client.gateways.guilds.schema.logs.add('blacklistedNickname', { type: 'Boolean', array: false, default: true });
 		if (!this.client.gateways.guilds.schema.has('wordBlacklist')) await this.client.gateways.guilds.schema.add('wordBlacklist');
 		if (!this.client.gateways.guilds.schema.wordBlacklist.has('checkDisplayNames')) await this.client.gateways.guilds.schema.wordBlacklist.add('checkDisplayNames', { type: 'Boolean', array: false, default: false }); // eslint-disable-line max-len
 		return;

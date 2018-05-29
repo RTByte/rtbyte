@@ -35,7 +35,7 @@ module.exports = class extends Event {
 
 	async ensureGuildVars() {
 		if (!this.client.gateways.guilds.schema.has('logs')) await this.client.gateways.guilds.schema.add('logs');
-		if (!this.client.gateways.guilds.schema.logs.has('guildBanRemove')) await this.client.gateways.guilds.schema.logs.add('guildBanRemove', { type: 'Boolean', array: false, default: false });
+		if (!this.client.gateways.guilds.schema.logs.has('guildBanRemove')) await this.client.gateways.guilds.schema.logs.add('guildBanRemove', { type: 'Boolean', array: false, default: true });
 		return;
 	}
 

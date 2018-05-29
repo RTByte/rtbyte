@@ -45,8 +45,8 @@ module.exports = class extends Event {
 
 		if (!this.client.gateways.guilds.schema.has('welcome')) await this.client.gateways.guilds.schema.add('welcome');
 		if (!this.client.gateways.guilds.schema.welcome.has('welcomeNewUsers')) await this.client.gateways.guilds.schema.welcome.add('welcomeNewUsers', { type: 'Boolean', array: false, default: false });
-		if (!this.client.gateways.guilds.schema.welcome.has('welcomeMessage')) await this.client.gateways.guilds.schema.welcome.add('welcomeMessage', { type: 'String', array: false });
-		if (!this.client.gateways.guilds.schema.welcome.has('welcomeChannel')) await this.client.gateways.guilds.schema.welcome.add('welcomeChannel', { type: 'TextChannel', array: false });
+		if (!this.client.gateways.guilds.schema.welcome.has('welcomeMessage')) await this.client.gateways.guilds.schema.welcome.add('welcomeMessage', { type: 'String', array: false, default: '' });
+		if (!this.client.gateways.guilds.schema.welcome.has('welcomeChannel')) await this.client.gateways.guilds.schema.welcome.add('welcomeChannel', { type: 'TextChannel', array: false, default: null });
 		return;
 	}
 
