@@ -177,6 +177,7 @@ module.exports = class extends Language {
 			],
 			COMMAND_STATS_DESCRIPTION: 'Provides some details about the bot and stats.',
 			MESSAGE_PROMPT_TIMEOUT: 'The prompt has timed out.',
+			DISPLAY_NAME: 'Display Name',
 			COMMAND_ROLL_INVALID_DIE: (validTypes) => `I can only roll up to 10 of the following types of dice:\n${validTypes.join(', ')}`,
 			COMMAND_ROLL_DESCRIPTION: 'Rolls a die. Optionally specify the amount of dice and their type.',
 			COMMAND_JOINDATE_DESCRIPTION: 'Displays your account creation date along with the date you joined the current server you\'re on.Other users can be specified to fetch their account creation and server join dates.', // eslint-disable-line max-len
@@ -263,6 +264,7 @@ module.exports = class extends Language {
 			GUILD_LOG_REPORT: 'Report received',
 			GUILD_LOG_REPORT_REPORTER: 'Reported by:',
 			GUILD_LOG_GUILDMEMBERWARN: 'Warning Issued',
+			GUILD_LOG_AUTOSELENER: 'Changed name with blacklisted word',
 			GUILD_LOG_BLACKLISTEDWORD: (channel) => `Blacklisted Word Detected in ${channel}`,
 			GLOBAL_LOG_GUILDCREATE: 'Bot added to guild',
 			GLOBAL_LOG_GUILDDELETE: 'Bot removed from guild'
