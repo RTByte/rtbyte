@@ -58,7 +58,7 @@ module.exports = class extends Command {
 	async purgeLog(executor, numPurged, member = null) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${executor.user.tag} - (${executor.id})`, executor.user.avatarURL())
-			.setColor('#ff0000')
+			.setColor(this.client.configs.colors.red)
 			.setTimestamp()
 			.addField(executor.guild.language.get('GUILD_LOG_MESSAGEPURGE_AMOUNT'), numPurged)
 			.setFooter(executor.guild.language.get('GUILD_LOG_MESSAGEPURGE'));

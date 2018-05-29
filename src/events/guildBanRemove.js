@@ -19,7 +19,7 @@ module.exports = class extends Event {
 	async unbanLog(guild, user) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${user.tag} - (${user.id})`, user.avatarURL())
-			.setColor('#60fe60')
+			.setColor(this.client.configs.colors.yellow)
 			.setTimestamp()
 			.setFooter(guild.language.get('GUILD_LOG_GUILDBANREMOVE'));
 

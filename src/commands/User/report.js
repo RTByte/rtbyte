@@ -30,7 +30,7 @@ module.exports = class extends Command {
 	async reportLog(member, reason, reporter) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${member.user.tag} - (${member.id})`, member.user.avatarURL())
-			.setColor('#ff0000')
+			.setColor(this.client.configs.colors.red)
 			.setTimestamp()
 			.addField(member.guild.language.get('GUILD_LOG_REASON'), reason)
 			.addField(member.guild.language.get('GUILD_LOG_REPORT_REPORTER'), reporter)

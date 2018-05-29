@@ -18,7 +18,7 @@ module.exports = class extends Command {
 	async run(msg, target = msg.member) {
 		const embed = new MessageEmbed()
 			.setAuthor(target.user.tag, target.user.avatarURL())
-			.setColor('#4286f4')
+			.setColor(this.client.configs.colors.blurple)
 			.addField('Joined Discord', target.user.createdAt, true)
 			.addField('Joined Server', target.joinedAt, true);
 

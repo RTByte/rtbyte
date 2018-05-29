@@ -22,7 +22,7 @@ module.exports = class extends Event {
 
 		const embed = new MessageEmbed()
 			.setAuthor(`${user.tag} - (${user.id})`, user.avatarURL())
-			.setColor('#ff0000')
+			.setColor(this.client.configs.colors.red)
 			.setTimestamp()
 			.addField(guild.language.get('GUILD_LOG_REASON'), banInfo.reason)
 			.setFooter(guild.language.get('GUILD_LOG_GUILDBANADD'));

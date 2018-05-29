@@ -27,7 +27,7 @@ module.exports = class extends Event {
 	async guildCreateLog(guild) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${guild.name} - (${guild.id})`, guild.iconURL())
-			.setColor('#60fe60')
+			.setColor(this.client.configs.colors.green)
 			.setTimestamp()
 			.setFooter(guild.language.get('GLOBAL_LOG_GUILDCREATE'));
 

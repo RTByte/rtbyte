@@ -48,8 +48,8 @@ module.exports = class extends Event {
 
 	async botReadyLog() {
 		const embed = new MessageEmbed()
-			.setAuthor(`${this.client.user.username}`, this.client.user.avatarURL())
-			.setColor('#fff200')
+			.setAuthor(this.client.user.username, this.client.user.avatarURL())
+			.setColor(this.client.configs.colors.yellow)
 			.setTimestamp()
 			.setFooter('Bot restarted');
 
@@ -69,6 +69,12 @@ module.exports = class extends Event {
 		if (!this.client.gateways.clientStorage.schema.emoji.has('reject')) await this.client.gateways.clientStorage.schema.emoji.add('reject', { type: 'String', array: false });
 		if (!this.client.gateways.clientStorage.schema.has('logs')) await this.client.gateways.clientStorage.schema.add('logs');
 		if (!this.client.gateways.clientStorage.schema.logs.has('botReady')) await this.client.gateways.clientStorage.schema.logs.add('botReady', { type: 'Boolean', array: false, default: true });
+		if (!this.client.gateways.clientStorage.schema.has('colors')) await this.client.gateways.clientStorage.schema.add('colors');
+		if (!this.client.gateways.clientStorage.schema.colors.has('blurple')) await this.client.gateways.clientStorage.schema.colors.add('blurple', { type: 'String', array: false, default: '#7289DA' });
+		if (!this.client.gateways.clientStorage.schema.colors.has('red')) await this.client.gateways.clientStorage.schema.colors.add('red', { type: 'String', array: false, default: '#FF9B9B' });
+		if (!this.client.gateways.clientStorage.schema.colors.has('yellow')) await this.client.gateways.clientStorage.schema.colors.add('yellow', { type: 'String', array: false, default: '#FFF200' });
+		if (!this.client.gateways.clientStorage.schema.colors.has('green')) await this.client.gateways.clientStorage.schema.colors.add('green', { type: 'String', array: false, default: '#60FE60' });
+
 		return;
 	}
 

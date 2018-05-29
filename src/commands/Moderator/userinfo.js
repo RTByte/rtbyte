@@ -19,7 +19,7 @@ module.exports = class extends Command {
 
 	async run(msg, [member = msg.member]) {
 		const userInfo = new MessageEmbed()
-			.setColor(member.displayHexColor || 0xFFFFFF)
+			.setColor(this.client.configs.colors.blurple)
 			.setThumbnail(member.user.displayAvatarURL())
 			.addField('❯ Name', member.user.tag, true)
 			.addField('❯ ID', member.id, true)

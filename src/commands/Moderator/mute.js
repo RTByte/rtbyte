@@ -39,7 +39,7 @@ module.exports = class extends Command {
 	async muteLog(member, reason) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${member.user.tag} - (${member.id})`, member.user.avatarURL())
-			.setColor('#ff0000')
+			.setColor(this.client.configs.colors.red)
 			.setTimestamp()
 			.addField(member.guild.language.get('GUILD_LOG_REASON'), reason)
 			.setFooter(member.guild.language.get('GUILD_LOG_GUILDMEMBERMUTE'));

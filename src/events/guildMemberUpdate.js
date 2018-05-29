@@ -31,7 +31,7 @@ module.exports = class extends Event {
 	async memberUpdateLog(oldMember, member) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${member.displayName} (${member.user.tag}) `, member.guild.iconURL())
-			.setColor('#4286f4')
+			.setColor(this.client.configs.colors.blurple)
 			.setTimestamp()
 			.setFooter(member.guild.language.get('GUILD_LOG_MEMBERUPDATE'));
 
@@ -60,7 +60,7 @@ module.exports = class extends Event {
 		const newMember = await member.guild.members.get(member.id);
 		const embed = new MessageEmbed()
 			.setAuthor(`${member.user.tag} - (${member.user.id})`, member.user.avatarURL())
-			.setColor('#ff0000')
+			.setColor(this.client.configs.colors.red)
 			.setTimestamp()
 			.addField(member.guild.language.get('DISPLAY_NAME'), `${oldName} ➡️ ${newMember.displayName}`)
 			.setFooter(member.guild.language.get('GUILD_LOG_AUTOSELENER'));
@@ -73,7 +73,7 @@ module.exports = class extends Event {
 	async warnUser(oldName, member) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${member.user.tag} - (${member.user.id})`, member.user.avatarURL())
-			.setColor('#ff0000')
+			.setColor(this.client.configs.colors.red)
 			.setTimestamp()
 			.addField(member.guild.language.get('GUILD_LOG_REASON'), member.guild.language.get('GUILD_LOG_BLACKLISTEDWORD', 'Nickname'))
 			.setFooter(member.guild.language.get('GUILD_LOG_GUILDMEMBERWARN'));
@@ -87,7 +87,7 @@ module.exports = class extends Event {
 	async blacklistedWordLog(msg) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${msg.author.tag} - (${msg.author.id})`, msg.author.avatarURL())
-			.setColor('#ff0000')
+			.setColor(this.client.configs.colors.red)
 			.setTimestamp()
 			.addField('Message:', msg.content)
 			.setFooter(msg.guild.language.get('GUILD_LOG_BLACKLISTEDWORD', msg.channel));

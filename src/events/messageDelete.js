@@ -23,7 +23,7 @@ module.exports = class extends Event {
 
 		const embed = new MessageEmbed()
 			.setAuthor(`#${msg.channel.name}`, msg.guild.iconURL())
-			.setColor('#ff9b9b')
+			.setColor(this.client.configs.colors.blurple)
 			.setTitle(msg.guild.language.get('GUILD_LOG_MESSAGEDELETE'))
 			.addField(msg.guild.language.get('GUILD_LOG_MESSAGE'), msg.cleanContent)
 			.setTimestamp()

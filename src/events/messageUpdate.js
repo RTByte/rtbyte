@@ -22,8 +22,8 @@ module.exports = class extends Event {
 		if (!msg.guild.configs.logs.messageUpdate) return;
 
 		const embed = new MessageEmbed()
-			.setAuthor(`#${msg.channel.name}`, msg.guild.iconURL())
-			.setColor('#4286f4')
+			.setAuthor(msg.channel.name, msg.guild.iconURL())
+			.setColor(this.client.configs.colors.blurple)
 			.setTitle(msg.guild.language.get('GUILD_LOG_MESSAGEUPDATE'))
 			.addField(msg.guild.language.get('GUILD_LOG_BEFORE'), old.cleanContent)
 			.addField(msg.guild.language.get('GUILD_LOG_AFTER'), msg.cleanContent)

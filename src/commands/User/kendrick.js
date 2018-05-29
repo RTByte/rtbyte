@@ -22,6 +22,7 @@ module.exports = class extends Command {
 
 		const embed = new MessageEmbed()
 			.setAuthor(`Kendrick Lamar - ${song.title}`)
+			.setColor(this.client.configs.colors.blurple)
 			.setDescription(lyric)
 			.setFooter(`${song.album} - ${song.year}`);
 

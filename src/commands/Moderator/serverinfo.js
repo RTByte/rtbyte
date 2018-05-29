@@ -17,7 +17,7 @@ module.exports = class extends Command {
 	async run(msg) {
 		const embed = new MessageEmbed()
 			.setAuthor(msg.guild.name, msg.guild.iconURL())
-			.setColor('#ffffff')
+			.setColor(this.client.configs.colors.blurple)
 			.addField('ID', msg.guild.id, true)
 			.addField('Name', msg.guild.name, true)
 			.addField('Owner', msg.guild.owner, true)

@@ -16,7 +16,7 @@ module.exports = class extends Finalizer {
 	async commandRunLog(msg, runTime) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${msg.author.tag} - (${msg.channel.guild.name})`, msg.channel.guild.iconURL())
-			.setColor('#7289DA')
+			.setColor(this.client.configs.colors.blurple)
 			.setTimestamp()
 			.addField('Message:', msg.content)
 			.addField('Runtime:', runTime)

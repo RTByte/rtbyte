@@ -36,7 +36,7 @@ module.exports = class extends Monitor {
 	async warnUser(msg) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${msg.author.tag} - (${msg.author.id})`, msg.author.avatarURL())
-			.setColor('#ff0000')
+			.setColor(this.client.configs.colors.red)
 			.setTimestamp()
 			.addField(msg.guild.language.get('GUILD_LOG_REASON'), msg.guild.language.get('GUILD_LOG_BLACKLISTEDWORD', msg.channel))
 			.setFooter(msg.guild.language.get('GUILD_LOG_GUILDMEMBERWARN'));
@@ -50,7 +50,7 @@ module.exports = class extends Monitor {
 	async blacklistedWordLog(msg) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${msg.author.tag} - (${msg.author.id})`, msg.author.avatarURL())
-			.setColor('#ff0000')
+			.setColor(this.client.configs.colors.red)
 			.setTimestamp()
 			.addField('Message:', msg.content)
 			.setFooter(msg.guild.language.get('GUILD_LOG_BLACKLISTEDWORD', msg.channel));

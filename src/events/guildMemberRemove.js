@@ -20,7 +20,7 @@ module.exports = class extends Event {
 	async leaveLog(guildMember) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${guildMember.user.tag} - (${guildMember.id})`, guildMember.user.avatarURL())
-			.setColor('#ff9b9b')
+			.setColor(this.client.configs.colors.red)
 			.setTimestamp()
 			.setFooter(guildMember.guild.language.get('GUILD_LOG_GUILDMEMBERREMOVE'));
 

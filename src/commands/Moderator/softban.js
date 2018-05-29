@@ -36,7 +36,7 @@ module.exports = class extends Command {
 	async softbanLog(member) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${member.user.tag} - (${member.id})`, member.user.avatarURL())
-			.setColor('#ff0000')
+			.setColor(this.client.configs.colors.red)
 			.setTimestamp()
 			.setFooter(member.guild.language.get('GUILD_LOG_GUILDSOFTBANADD'));
 

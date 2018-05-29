@@ -26,7 +26,7 @@ module.exports = class extends Command {
 	async sendQuote(msg, qmsg) {
 		const embed = new MessageEmbed()
 			.setAuthor(qmsg.author.tag, qmsg.author.avatarURL())
-			.setColor('#ffffff')
+			.setColor(this.client.configs.colors.blurple)
 			.addField('Message:', `${qmsg.content}`, true)
 			.setFooter(`Originally Sent on ${qmsg.createdAt} in #${qmsg.channel.name} on the ${qmsg.guild.name} Discord`);
 

@@ -20,7 +20,7 @@ module.exports = class extends Event {
 	async guildDeleteLog(guild) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${guild.name} - (${guild.id})`, guild.iconURL())
-			.setColor('#ff9b9b')
+			.setColor(this.client.configs.colors.red)
 			.setTimestamp()
 			.setFooter(guild.language.get('GLOBAL_LOG_GUILDDELETE'));
 

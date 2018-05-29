@@ -16,7 +16,7 @@ module.exports = class extends Command {
 	async run(msg) {
 		const embed = new MessageEmbed()
 			.setAuthor('RT Family Discord Servers', this.client.user.avatarURL())
-			.setColor('#ffffff')
+			.setColor(this.client.configs.colors.blurple)
 			.setDescription('Click the name of the Discord server you want to join!')
 			.addField('Let\'s Play Network', '• [Cow Chop Community](https://discord.gg/cowchop)\n• [Kinda Funny](https://discord.gg/kindafunny)\n• [Sugar Pine 7 Community](https://discord.gg/HUHExdK)\n• [Game Attack/Screwattack G1](https://discord.gg/F8fncjr)', true) // eslint-disable-line max-len
 			.addField('Rooster Teeth', '• [Rooster Teeth Community](https://https://discord.gg/roosterteeth)\n• [Achievement Hunter Community](https://discord.gg/P8cJ9vC)\n• [RTX 2018](https://discord.gg/0oqF8OqUW3gQDZD2)', true) // eslint-disable-line max-len

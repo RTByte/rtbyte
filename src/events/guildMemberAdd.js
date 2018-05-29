@@ -20,7 +20,7 @@ module.exports = class extends Event {
 	async newMemberLog(guildMember) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${guildMember.user.tag} - (${guildMember.id})`, guildMember.user.avatarURL())
-			.setColor('#60fe60')
+			.setColor(this.client.configs.colors.green)
 			.setTimestamp()
 			.setFooter(guildMember.guild.language.get('GUILD_LOG_GUILDMEMBERADD'));
 

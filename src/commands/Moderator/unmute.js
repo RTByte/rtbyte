@@ -35,7 +35,7 @@ module.exports = class extends Command {
 	async unmuteLog(member) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${member.user.tag} - (${member.id})`, member.user.avatarURL())
-			.setColor('#60fe60')
+			.setColor(this.client.configs.colors.yellow)
 			.setTimestamp()
 			.setFooter(member.guild.language.get('GUILD_LOG_GUILDMEMBERUNMUTE'));
 
