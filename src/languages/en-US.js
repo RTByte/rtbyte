@@ -259,16 +259,16 @@ module.exports = class extends Language {
 			GUILD_LOG_GUILDMEMBERVCUNBAN: 'User unbanned from voice chat',
 			GUILD_LOG_GUILDMEMBERVCKICK: 'User kicked from voice chat',
 			GUILD_LOG_MESSAGEPURGE: 'Messages purged',
-			GUILD_LOG_MESSAGEPURGE_AMOUNT: 'Amount of Messages removed:',
-			GUILD_LOG_MESSAGEPURGE_TARGET: 'Purged Messages from:',
+			GUILD_LOG_MESSAGEPURGE_AMOUNT: 'Amount of messages removed:',
+			GUILD_LOG_MESSAGEPURGE_TARGET: 'Purged messages from:',
 			GUILD_LOG_REPORT: 'Report received',
 			GUILD_LOG_REPORT_REPORTER: 'Reported by:',
-			GUILD_LOG_GUILDMEMBERWARN: 'Warning Issued',
+			GUILD_LOG_GUILDMEMBERWARN: 'Warning issued',
 			GUILD_LOG_AUTOSELENER: 'Changed name with blacklisted word',
-			GUILD_LOG_BLACKLISTEDWORD: (channel) => `Blacklisted Word Detected in ${channel}`,
+			GUILD_LOG_BLACKLISTEDWORD: (channel) => `Blacklisted word Detected in ${channel}`,
 			GLOBAL_LOG_GUILDCREATE: 'Bot added to guild',
 			GLOBAL_LOG_GUILDDELETE: 'Bot removed from guild',
-			GLOBAL_LOG_COMMANDRUN: 'Command Run'
+			GLOBAL_LOG_COMMANDRUN: 'Command ran'
 		};
 	}
 
