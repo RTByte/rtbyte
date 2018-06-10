@@ -90,7 +90,8 @@ const answers = [
 	'If you say so.',
 	'Yes, my dude.',
 	'No, my dude.',
-	'Never, ever, ever, ever. Ever.'
+	'Never, ever, ever, ever. Ever.',
+	'Oh, hold on. I was making brownies.'
 ];
 
 const { Command } = require('klasa');
