@@ -186,7 +186,7 @@ module.exports = class extends Language {
             COMMAND_COINFLIP_DESCRIPTION: 'Flips a coin. 🙂 for heads, 🙃 for tails.',
             COMMAND_8BALL_DESCRIPTION: 'Magic 8-ball, does exactly what the toy does, memes included.',
             COMMAND_CHOICE_DESCRIPTION: 'Makes a decision based off of the choices given, no matter how many you include.',
-            COMMAND_KENDRICK_DESCRIPTION: 'Prints random song lyric by Kendrick Lemar, album and year also.',
+            COMMAND_KENDRICK_DESCRIPTION: 'Prints random song lyric by Kendrick Lamar, album and year also.',
             COMMAND_SERVERS_DESCRIPTION: 'Provides a quick links to the RT Family Discord servers.',
             COMMAND_SERVERINFO_DESCRIPTION: 'Displays server information.',
             COMMAND_MODERATION_SILENT: 'Silent action',
