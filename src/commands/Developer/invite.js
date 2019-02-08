@@ -6,14 +6,16 @@ module.exports = class extends Command {
 		super(...args, {
 			runIn: ['text'],
 			guarded: true,
-			description: (msg) => msg.language.get('COMMAND_INVITE_DESCRIPTION')
+			description: language => language.get('COMMAND_INVITE_DESCRIPTION')
 		});
 	}
 
-	async run(msg) {
-		if (!this.client.user.bot) return msg.reply(msg.language.get('COMMAND_INVITE_SELFBOT'));
+	async run(message) {
+		return message.sendLocale('COMMAND_INVITE');
+	}
 
-		return msg.sendMessage(msg.language.get('COMMAND_INVITE', this.client));
+	async init() {
+		if (this.client.application && !this.client.application.botPublic) this.permissionLevel = 10;
 	}
 
 };

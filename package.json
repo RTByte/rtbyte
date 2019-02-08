@@ -1,21 +1,18 @@
 {
   "name": "RTByte",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A Discord Bot for the Rooster Teeth Community family of Discord Servers",
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
     "test": "echo 'No Test Yet!'"
   },
-  "author": "Michael Cumbers, Rasmus Gerdin, Killian Higgins",
+  "author": "Rasmus Gerdin, Michael Cumbers, Killian Higgins",
   "license": "MIT",
   "dependencies": {
-    "discord.js": "github:discordjs/discord.js#master",
+    "discord.js": "github:discordjs/discord.js",
     "erlpack": "github:discordapp/erlpack",
-    "klasa": "github:dirigeants/klasa",
-    "snekfetch": "^4.0.0",
-    "uws": "^9.148.0",
-    "zlib-sync": "^0.1.4"
+    "klasa": "github:dirigeants/klasa#master"
   },
   "devDependencies": {
     "eslint": "^4.19.1"

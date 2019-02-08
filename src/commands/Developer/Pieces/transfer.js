@@ -6,29 +6,29 @@ module.exports = class extends Command {
 
 	constructor(...args) {
 		super(...args, {
-			permLevel: 10,
+			permissionLevel: 10,
 			guarded: true,
-			description: (msg) => msg.language.get('COMMAND_TRANSFER_DESCRIPTION'),
+			description: language => language.get('COMMAND_TRANSFER_DESCRIPTION'),
 			usage: '<Piece:piece>'
 		});
 	}
 
-	async run(msg, [piece]) {
+	async run(message, [piece]) {
 		const file = join(...piece.file);
-		const fileLocation = resolve(piece.store.coreDir, file);
-		await fs.access(fileLocation).catch(() => { throw msg.language.get('COMMAND_TRANSFER_ERROR'); });
+		const fileLocation = resolve(piece.directory, file);
+		await fs.access(fileLocation).catch(() => { throw message.language.get('COMMAND_TRANSFER_ERROR'); });
 		try {
-			await fs.copy(fileLocation, join(piece.store.userDir, file));
-			piece.store.load(piece.file);
+			await fs.copy(fileLocation, join(piece.store.userDirectory, file));
+			piece.store.load(piece.store.userDirectory, piece.file);
 			if (this.client.shard) {
 				await this.client.shard.broadcastEval(`
-					if (this.shard.id !== ${this.client.shard.id}) this.${piece.store}.load(${JSON.stringify(piece.file)});
+					if (String(this.shard.id) !== '${this.client.shard.id}') this.${piece.store}.load(${piece.store.userDirectory}, ${JSON.stringify(piece.file)});
 				`);
 			}
-			return msg.sendMessage(msg.language.get('COMMAND_TRANSFER_SUCCESS', piece.type, piece.name));
+			return message.sendLocale('COMMAND_TRANSFER_SUCCESS', [piece.type, piece.name]);
 		} catch (err) {
 			this.client.emit('error', err.stack);
-			return msg.sendMessage(msg.language.get('COMMAND_TRANSFER_FAILED', piece.type, piece.name));
+			return message.sendLocale('COMMAND_TRANSFER_FAILED', [piece.type, piece.name]);
 		}
 	}
 
