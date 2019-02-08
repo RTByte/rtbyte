@@ -41,4 +41,4 @@ Coming Soon™
 
 [Amish Shah](https://github.com/hydrabolt), [and the rest of the team behind discord.js](https://github.com/discordjs): These ladies and gentlemen have poured countless hours into making one of the best interfaces around.
 
-[Vicky]
+[MokkaQuill](http://mokkaquillart.tumblr.com/): Thanks to MokkaQuill for providing us with our logo.
