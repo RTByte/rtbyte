@@ -173,6 +173,13 @@ module.exports = class extends Language {
 
 			MESSAGE_PROMPT_TIMEOUT: 'The prompt has timed out.',
 
+			GUILD_LOG_CHANNELCREATE: 'Channel created',
+			GUILD_LOG_CHANNELDELETE: 'Channel deleted',
+			GUILD_LOG_CHANNELUPDATE: 'Channel updated',
+			GUILD_LOG_CHANNELUPDATE_NAME: 'Name changed',
+			GUILD_LOG_CHANNELUPDATE_NSFW: 'NSFW toggled',
+			GUILD_LOG_CHANNELUPDATE_TOPIC: 'Topic changed',
+
 			GLOBAL_LOG_COMMANDRUN: 'Command ran'
 		};
 	}

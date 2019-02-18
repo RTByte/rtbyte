@@ -88,8 +88,12 @@ module.exports = class extends Extendable {
 			// Adding and initializing the affirmative and negative emojis for the bot to use
 			const affirmEmoji = await this.emojis.create('./src/assets/img/emoji/affirm.png', 'affirm', { reason: `${this.client.user.username} initialization: Creating affirm emoji` });
 			const rejectEmoji = await this.emojis.create('./src/assets/img/emoji/reject.png', 'reject', { reason: `${this.client.user.username} initialization: Creating reject emoji` });
+			const arrowLeftEmoji = await this.emojis.create('./src/assets/img/emoji/arrowLeft.png', 'reject', { reason: `${this.client.user.username} initialization: Creating arrow-left emoji` });
+			const arrowRightEmoji = await this.emojis.create('./src/assets/img/emoji/arrowRight.png', 'reject', { reason: `${this.client.user.username} initialization: Creating arrow-right emoji` });
 			await this.client.settings.update('emoji.affirm', affirmEmoji.id, this);
 			await this.client.settings.update('emoji.reject', rejectEmoji.id, this);
+			await this.client.settings.update('emoji.arrowLeft', arrowLeftEmoji.id, this);
+			await this.client.settings.update('emoji.arrowRight', arrowRightEmoji.id, this);
 			await this.client.settings.sync(true);
 		}
 

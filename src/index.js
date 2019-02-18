@@ -9,7 +9,9 @@ Client.defaultClientSchema
 		.add('globalLog', 'textchannel', { default: '450829695513001984' }))
 	.add('emoji', folder => folder
 		.add('affirm', 'string')
-		.add('reject', 'string'))
+		.add('reject', 'string')
+		.add('arrowLeft', 'string')
+		.add('arrowRight', 'string'))
 	.add('logs', folder => folder
 		.add('botReady', 'boolean', { default: true })
 		.add('commandRun', 'boolean', { default: true }))
@@ -29,7 +31,10 @@ Client.defaultGuildSchema
 		.add('moderator', 'role')
 		.add('muted', 'role'))
 	.add('logs', folder => folder
-		.add('guildMemberMute', 'boolean'));
+		.add('channelCreate', 'boolean', { default: false })
+		.add('channelDelete', 'boolean', { default: false })
+		.add('channelUpdate', 'boolean', { default: false })
+		.add('guildMemberMute', 'boolean', { default: false }));
 
 class Bot extends Client {}
 
