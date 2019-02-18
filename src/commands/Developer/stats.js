@@ -1,5 +1,7 @@
 const { Command, version: klasaVersion, Duration } = require('klasa');
+const { MessageEmbed } = require('discord.js');
 const { version: discordVersion } = require('discord.js');
+const os = require('os');
 
 module.exports = class extends Command {
 
@@ -11,26 +13,23 @@ module.exports = class extends Command {
 	}
 
 	async run(message) {
-		let [users, guilds, channels, memory] = [0, 0, 0, 0];
+		const date = new Date(null);
+		date.setSeconds(os.uptime());
+		const uptimeResult = date.toISOString().substr(11, 8);
 
-		if (this.client.shard) {
-			const results = await this.client.shard.broadcastEval(`[this.users.size, this.guilds.size, this.channels.size, (process.memoryUsage().heapUsed / 1024 / 1024)]`);
-			for (const result of results) {
-				users += result[0];
-				guilds += result[1];
-				channels += result[2];
-				memory += result[3];
-			}
-		}
-
-		return message.sendCode('asciidoc', message.language.get('COMMAND_STATS',
-			(memory || process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2),
-			Duration.toNow(Date.now() - (process.uptime() * 1000)),
-			(users || this.client.users.size).toLocaleString(),
-			(guilds || this.client.guilds.size).toLocaleString(),
-			(channels || this.client.channels.size).toLocaleString(),
-			klasaVersion, discordVersion, process.version, message
-		));
+		const embed = new MessageEmbed()
+			.setAuthor('RTByte Stats', this.client.user.avatarURL())
+			.setColor('#ffffff')
+			.addField('Memory usage', `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`, true)
+			.addField('Uptime', Duration.toNow(Date.now() - (process.uptime() * 1000)), true)
+			// eslint-disable-next-line max-len
+			.addField('Connections', `Operating on **${this.client.guilds.size.toLocaleString()}** servers,\nWatching **${this.client.channels.size.toLocaleString()}** channels,\nServing **${this.client.users.size.toLocaleString()}** users`, true)
+			.addField('Libraries', `• Klasa v${klasaVersion}\n• Discord.js v${discordVersion}\n• Node.js ${process.version}`, true)
+			.addField('Host info', `${os.type()} (${os.arch()}), ${os.hostname()}`, true)
+			.addField('Host uptime', uptimeResult, true)
+			.setTimestamp()
+			.setFooter(`Requested by ${message.author.tag}`, message.author.avatarURL());
+		await message.send('', { disableEveryone: true, embed: embed });
 	}
 
 };
