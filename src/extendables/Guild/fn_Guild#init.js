@@ -6,7 +6,7 @@ module.exports = class extends Extendable {
 		super(...args, { appliesTo: [KlasaGuild] });
 	}
 
-	async rtbyteInit() {
+	async rtbyteInit(type = null) {
 		if (!this.available) return;
 
 		await this.client.emit('verbose', `Initializing guild: ${this.name} (${this.id})`);
@@ -32,7 +32,7 @@ module.exports = class extends Extendable {
 		// Giving the guild owner the rank of Administrator
 		await this.owner.roles.add(adminRole, `${this.client.user.username} initialization: Granting guild owner admin status`)
 
-		// Removing respective permissions for server log channel
+		// Removing respective permissions for server log channels
 		await logChannel.updateOverwrite(this.client.user, {
 			VIEW_CHANNEL: true,
 			READ_MESSAGE_HISTORY: true,
