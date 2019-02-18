@@ -11,8 +11,10 @@ Client.defaultClientSchema
 		.add('affirm', 'string')
 		.add('reject', 'string'))
 	.add('logs', folder => folder
-		.add('botReady', 'boolean', { default: true }))
+		.add('botReady', 'boolean', { default: true })
+		.add('commandRun', 'boolean', { default: true }))
 	.add('colors', folder => folder
+		.add('white', 'string', { default: '#FFFFFF' })
 		.add('red', 'string', { default: '#FF9B9B' })
 		.add('green', 'string', { default: '#9BFF9B' })
 		.add('yellow', 'string', { default: '#FFFF9B' })

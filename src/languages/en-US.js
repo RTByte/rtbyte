@@ -170,8 +170,10 @@ module.exports = class extends Language {
 			COMMAND_CONF_USER_DESCRIPTION: 'Define per-user settings.',
 			COMMAND_CONF_USER: (key, list) => `**User Settings${key}**\n${list}`,
 			COMMAND_STATS_DESCRIPTION: 'Provides bot owners with statistics.',
-		
-			MESSAGE_PROMPT_TIMEOUT: 'The prompt has timed out.'
+
+			MESSAGE_PROMPT_TIMEOUT: 'The prompt has timed out.',
+
+			GLOBAL_LOG_COMMANDRUN: 'Command ran'
 		};
 	}
 
