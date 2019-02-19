@@ -21,11 +21,11 @@ module.exports = class extends Event {
 	async channelUpdateLog(oldChannel, channel) {
 		const embed = new MessageEmbed()
 			.setAuthor(`#${channel.name}`, channel.guild.iconURL())
-			.setColor(this.client.settings.colors.white)
+			.setColor(this.client.settings.colors.blue)
 			.setTimestamp()
 			.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE'));
 
-		if (oldChannel.name !== channel.name) embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_NAME'), `${oldChannel.name} <:arrowRight:547464582739001384> ${channel.name}`);
+		if (oldChannel.name !== channel.name) embed.addField(channel.guild.language.get('GUILD_LOG_UPDATE_NAME'), `${oldChannel.name} <:arrowRight:547464582739001384> ${channel.name}`);
 		if (oldChannel.nsfw !== channel.nsfw) embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_NSFW'), this.status[channel.nsfw]);
 		if (oldChannel.topic !== channel.topic) embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_TOPIC'), `${oldChannel.topic} <:arrowRight:547464582739001384> ${channel.topic}`);
 

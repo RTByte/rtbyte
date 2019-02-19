@@ -17,7 +17,7 @@ module.exports = class extends Event {
 	async channelDeleteLog(channel) {
 		const embed = new MessageEmbed()
 			.setAuthor(`#${channel.name}`, channel.guild.iconURL())
-			.setColor(this.client.settings.colors.white)
+			.setColor(this.client.settings.colors.red)
 			.setTimestamp()
 			.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELDELETE'));
 

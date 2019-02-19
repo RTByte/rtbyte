@@ -16,7 +16,7 @@ module.exports = class extends Event {
 	async newRoleLog(role) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${role.name}`, role.guild.iconURL())
-			.setColor(this.client.settings.colors.blue)
+			.setColor(this.client.settings.colors.green)
 			.setTimestamp()
 			.setFooter(role.guild.language.get('GUILD_LOG_ROLECREATE'));
 

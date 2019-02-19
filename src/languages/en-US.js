@@ -179,12 +179,13 @@ module.exports = class extends Language {
 			GUILD_LOG_MESSAGE: 'Message',
 			GUILD_LOG_BEFORE: 'Before',
 			GUILD_LOG_AFTER: 'After',
+			GUILD_LOG_EMOJI: 'Emoji',
+			GUILD_LOG_UPDATE_NAME: 'Name changed',
 			GUILD_LOG_MESSAGEDELETE: 'Message deleted',
 			GUILD_LOG_MESSAGEUPDATE: 'Message edited',
 			GUILD_LOG_ROLECREATE: 'Role created',
 			GUILD_LOG_ROLEDELETE: 'Role deleted',
 			GUILD_LOG_ROLEUPDATE: 'Role updated',
-			GUILD_LOG_ROLEUPDATE_NAME: 'Name changed',
 			GUILD_LOG_ROLEUPDATE_COLOR: 'Color changed',
 			GUILD_LOG_ROLEUPDATE_HOIST: 'Hoist toggled',
 			GUILD_LOG_ROLEUPDATE_MENTIONABLE: 'Mentionable toggled',
@@ -192,9 +193,11 @@ module.exports = class extends Language {
 			GUILD_LOG_CHANNELCREATE: 'Channel created',
 			GUILD_LOG_CHANNELDELETE: 'Channel deleted',
 			GUILD_LOG_CHANNELUPDATE: 'Channel updated',
-			GUILD_LOG_CHANNELUPDATE_NAME: 'Name changed',
 			GUILD_LOG_CHANNELUPDATE_NSFW: 'NSFW toggled',
 			GUILD_LOG_CHANNELUPDATE_TOPIC: 'Topic changed',
+			GUILD_LOG_EMOJICREATE: 'Emoji created',
+			GUILD_LOG_EMOJIDELETE: 'Emoji deleted',
+			GUILD_LOG_EMOJIUPDATE: 'Emoji updated',
 			GUILD_LOG_GUILDBANADD: 'User banned',
 			GUILD_LOG_GUILDBANREMOVE: 'User unbanned',
 			GUILD_LOG_GUILDMEMBERADD: 'User joined',
@@ -207,6 +210,9 @@ module.exports = class extends Language {
 
 			GLOBAL_LOG_GUILDCREATE: 'Bot added to guild',
 			GLOBAL_LOG_GUILDDELETE: 'Bot removed from guild',
+			GLOBAL_LOG_GUILDUPDATED: 'Guild name changed',
+			GLOBAL_LOG_UPDATE_NAME: 'Name changed',
+			GLOBAL_LOG_GUILDUNAVAILABLE: 'Guild unavailable, likely due to a server outage',
 			GLOBAL_LOG_COMMANDRUN: 'Command ran'
 		};
 	}

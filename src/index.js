@@ -16,7 +16,8 @@ Client.defaultClientSchema
 		.add('botReady', 'boolean', { default: true })
 		.add('commandRun', 'boolean', { default: true })
 		.add('guildCreate', 'boolean', { default: true })
-		.add('guildDelete', 'boolean', { default: true }))
+		.add('guildDelete', 'boolean', { default: true })
+		.add('guildUnavailable', 'boolean', { default: true }))
 	.add('colors', folder => folder
 		// Informative, neutral
 		.add('white', 'string', { default: '#FFFFFF' })
@@ -43,6 +44,9 @@ Client.defaultGuildSchema
 			.add('channelCreate', 'boolean', { default: false })
 			.add('channelDelete', 'boolean', { default: false })
 			.add('channelUpdate', 'boolean', { default: false })
+			.add('emojiCreate', 'boolean', { default: false })
+			.add('emojiDelete', 'boolean', { default: false })
+			.add('emojiUpdate', 'boolean', { default: false })
 			.add('guildBanAdd', 'boolean', { default: false })
 			.add('guildBanRemove', 'boolean', { default: false })
 			.add('guildMemberAdd', 'boolean', { default: false })

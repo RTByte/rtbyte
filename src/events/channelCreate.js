@@ -17,7 +17,7 @@ module.exports = class extends Event {
 	async channelCreateLog(channel) {
 		const embed = new MessageEmbed()
 			.setAuthor(`#${channel.name}`, channel.guild.iconURL())
-			.setColor(this.client.settings.colors.white)
+			.setColor(this.client.settings.colors.green)
 			.setTimestamp()
 			.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELCREATE'));
 
