@@ -6,14 +6,14 @@ module.exports = class extends Event {
 	constructor(...args) {
 		super(...args, { event: 'channelUpdate'	});
 		this.status = {
-			true: 'Enabled',
-			false: 'Disabled',
+			true: '<:affirm:547464582763905033>',
+			false: '<:reject:547464582780944384>'
 		};
 	}
 
 	async run(oldChannel, channel) {
 		if (!channel.guild) return;
-		if (channel.guild.available && channel.guild.settings.logs.channelUpdate) await this.channelUpdateLog(oldChannel, channel);
+		if (channel.guild.available && channel.guild.settings.logs.events.channelUpdate) await this.channelUpdateLog(oldChannel, channel);
 
 		return;
 	}
@@ -25,9 +25,9 @@ module.exports = class extends Event {
 			.setTimestamp()
 			.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE'));
 
-		if (oldChannel.name !== channel.name) embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_NAME'), `${oldChannel.name} ➡️ ${channel.name}`);
+		if (oldChannel.name !== channel.name) embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_NAME'), `${oldChannel.name} <:arrowRight:547464582739001384> ${channel.name}`);
 		if (oldChannel.nsfw !== channel.nsfw) embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_NSFW'), this.status[channel.nsfw]);
-		if (oldChannel.topic !== channel.topic) embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_TOPIC'), `${oldChannel.topic} ➡️ ${channel.topic}`);
+		if (oldChannel.topic !== channel.topic) embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_TOPIC'), `${oldChannel.topic} <:arrowRight:547464582739001384> ${channel.topic}`);
 
 		const logChannel = await this.client.channels.get(channel.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });

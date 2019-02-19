@@ -9,7 +9,7 @@ module.exports = class extends Event {
 
 	async run(channel) {
 		if (!channel.guild) return;
-		if (channel.guild.available && channel.guild.settings.logs.channelCreate) await this.channelCreateLog(channel);
+		if (channel.guild.available && channel.guild.settings.logs.events.channelCreate) await this.channelCreateLog(channel);
 
 		return;
 	}

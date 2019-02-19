@@ -18,7 +18,7 @@ module.exports = class extends Command {
 		const uptimeResult = date.toISOString().substr(11, 8);
 
 		const embed = new MessageEmbed()
-			.setAuthor('RTByte Stats', this.client.user.avatarURL())
+			.setAuthor('RTByte Stats', this.client.user.displayAvatarURL())
 			.setColor('#ffffff')
 			.addField('Memory usage', `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`, true)
 			.addField('Uptime', Duration.toNow(Date.now() - (process.uptime() * 1000)), true)
@@ -28,7 +28,7 @@ module.exports = class extends Command {
 			.addField('Host info', `${os.type()} (${os.arch()}), ${os.hostname()}`, true)
 			.addField('Host uptime', uptimeResult, true)
 			.setTimestamp()
-			.setFooter(`Requested by ${message.author.tag}`, message.author.avatarURL());
+			.setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL());
 		await message.send('', { disableEveryone: true, embed: embed });
 	}
 

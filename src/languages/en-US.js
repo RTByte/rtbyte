@@ -11,6 +11,7 @@ module.exports = class extends Language {
 				`es for this guild are: ${prefix.map(pre => `\`${pre}\``).join(', ')}` :
 				` in this guild is set to: \`${prefix}\``
 			}`,
+			DISPLAY_NAME: 'Display Name',
 			
 			SETTING_GATEWAY_EXPECTS_GUILD: 'The parameter <Guild> expects either a Guild or a Guild Object.',
 			SETTING_GATEWAY_VALUE_FOR_KEY_NOEXT: (data, key) => `The value ${data} for the key ${key} does not exist.`,
@@ -170,16 +171,42 @@ module.exports = class extends Language {
 			COMMAND_CONF_USER_DESCRIPTION: 'Define per-user settings.',
 			COMMAND_CONF_USER: (key, list) => `**User Settings${key}**\n${list}`,
 			COMMAND_STATS_DESCRIPTION: 'Provides bot owners with statistics.',
+			COMMAND_MODERATION_BOILERPLATE: (guild) => `This action was performed by a moderator of the ${guild.name} Discord.`,
 
 			MESSAGE_PROMPT_TIMEOUT: 'The prompt has timed out.',
 
+			GUILD_LOG_REASON: 'Reason',
+			GUILD_LOG_MESSAGE: 'Message',
+			GUILD_LOG_BEFORE: 'Before',
+			GUILD_LOG_AFTER: 'After',
+			GUILD_LOG_MESSAGEDELETE: 'Message deleted',
+			GUILD_LOG_MESSAGEUPDATE: 'Message edited',
+			GUILD_LOG_ROLECREATE: 'Role created',
+			GUILD_LOG_ROLEDELETE: 'Role deleted',
+			GUILD_LOG_ROLEUPDATE: 'Role updated',
+			GUILD_LOG_ROLEUPDATE_NAME: 'Name changed',
+			GUILD_LOG_ROLEUPDATE_COLOR: 'Color changed',
+			GUILD_LOG_ROLEUPDATE_HOIST: 'Hoist toggled',
+			GUILD_LOG_ROLEUPDATE_MENTIONABLE: 'Mentionable toggled',
+			GUILD_LOG_ROLEUPDATE_PERMISSIONS: 'Permissions changed',
 			GUILD_LOG_CHANNELCREATE: 'Channel created',
 			GUILD_LOG_CHANNELDELETE: 'Channel deleted',
 			GUILD_LOG_CHANNELUPDATE: 'Channel updated',
 			GUILD_LOG_CHANNELUPDATE_NAME: 'Name changed',
 			GUILD_LOG_CHANNELUPDATE_NSFW: 'NSFW toggled',
 			GUILD_LOG_CHANNELUPDATE_TOPIC: 'Topic changed',
+			GUILD_LOG_GUILDBANADD: 'User banned',
+			GUILD_LOG_GUILDBANREMOVE: 'User unbanned',
+			GUILD_LOG_GUILDMEMBERADD: 'User joined',
+			GUILD_LOG_GUILDMEMBERREMOVE: 'User left',
+			GUILD_LOG_MEMBERUPDATE: 'User updated',
+			GUILD_LOG_MEMBERUPDATE_DISPLAYNAME: 'Nickname changed',
+			GUILD_LOG_GUILDMEMBERWARN: 'Warning issued',
+			GUILD_LOG_AUTOSELENER: 'Changed name with blacklisted word',
+			GUILD_LOG_BLACKLISTEDWORD: (channel) => `Blacklisted word detected in ${channel}.`,
 
+			GLOBAL_LOG_GUILDCREATE: 'Bot added to guild',
+			GLOBAL_LOG_GUILDDELETE: 'Bot removed from guild',
 			GLOBAL_LOG_COMMANDRUN: 'Command ran'
 		};
 	}
