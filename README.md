@@ -35,6 +35,8 @@ Coming Soon™
 
 [Killian Higgins](https://github.com/Uzui2012): british man
 
+[Justin Shull](https://github.com/JShull97): not british
+
 #### People Who Made It Possible
 
 [Évelyne Lachance](https://github.com/eslachance): Evie made the original [Komada](https://github.com/dirigeants/komada) framework and has done incredible amounts of work to help the [discord.js](https://github.com/discordjs/discord.js) community.
