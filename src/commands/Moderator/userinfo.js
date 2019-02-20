@@ -40,11 +40,13 @@ module.exports = class extends Command {
 			.addField(msg.guild.language.get('COMMAND_USERINFO_JOINED'), this.timestamp.display(member.user.createdAt), true)
 			.addField(msg.guild.language.get('COMMAND_USERINFO_REGISTERED'), this.timestamp.display(member.joinedTimestamp), true)
 			.addField(msg.guild.language.get('COMMAND_USERINFO_STATUS'), statuses[member.user.presence.status], true)
-			.addField(msg.guild.language.get('COMMAND_USERINFO_ACTIVITY', member), member.user.presence.activity ? member.user.presence.activity.name : 'N/A', true)
 			.setThumbnail(member.user.displayAvatarURL())
 			.setTimestamp()
 			.setFooter(`Requested by ${msg.author.tag}`, msg.author.displayAvatarURL());
 
+		if (member.user.presence.activity) {
+			embed.addField(msg.guild.language.get('COMMAND_USERINFO_ACTIVITY', member), member.user.presence.activity ? member.user.presence.activity.name : 'N/A', true)
+		}
 		if (actualRoles) {
 			embed.addField(msg.guild.language.get('COMMAND_USERINFO_ROLES'), actualRoles);
 		}
