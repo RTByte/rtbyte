@@ -90,10 +90,18 @@ module.exports = class extends Extendable {
 			const rejectEmoji = await this.emojis.create('./src/assets/img/emoji/reject.png', 'reject', { reason: `${this.client.user.username} initialization: Creating reject emoji` });
 			const arrowLeftEmoji = await this.emojis.create('./src/assets/img/emoji/arrowLeft.png', 'reject', { reason: `${this.client.user.username} initialization: Creating arrow-left emoji` });
 			const arrowRightEmoji = await this.emojis.create('./src/assets/img/emoji/arrowRight.png', 'reject', { reason: `${this.client.user.username} initialization: Creating arrow-right emoji` });
+			const onlineEmoji = await this.emojis.create('./src/assets/img/emoji/online.png', 'reject', { reason: `${this.client.user.username} initialization: Creating online emoji` });
+			const idleEmoji = await this.emojis.create('./src/assets/img/emoji/idle.png', 'reject', { reason: `${this.client.user.username} initialization: Creating idle emoji` });
+			const dndEmoji = await this.emojis.create('./src/assets/img/emoji/dnd.png', 'reject', { reason: `${this.client.user.username} initialization: Creating dnd emoji` });
+			const offlineEmoji = await this.emojis.create('./src/assets/img/emoji/offline.png', 'reject', { reason: `${this.client.user.username} initialization: Creating offline emoji` });
 			await this.client.settings.update('emoji.affirm', affirmEmoji.id, this);
 			await this.client.settings.update('emoji.reject', rejectEmoji.id, this);
 			await this.client.settings.update('emoji.arrowLeft', arrowLeftEmoji.id, this);
 			await this.client.settings.update('emoji.arrowRight', arrowRightEmoji.id, this);
+			await this.client.settings.update('emoji.online', onlineEmoji.id, this);
+			await this.client.settings.update('emoji.idle', idleEmoji.id, this);
+			await this.client.settings.update('emoji.dnd', dndEmoji.id, this);
+			await this.client.settings.update('emoji.offline', offlineEmoji.id, this);
 			await this.client.settings.sync(true);
 		}
 

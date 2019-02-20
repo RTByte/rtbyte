@@ -1,9 +1,10 @@
-const { Extendable, KlasaUser } = require('klasa');
+const { Extendable } = require('klasa');
+const { GuildMember } = require('discord.js');
 
 module.exports = class extends Extendable {
 
 	constructor(...args) {
-		super(...args, { appliesTo: [KlasaUser] });
+		super(...args, { appliesTo: [GuildMember] });
 	}
 
 	async canMod(user) {

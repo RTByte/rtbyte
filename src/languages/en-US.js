@@ -4,6 +4,11 @@ module.exports = class extends Language {
 
 	constructor(...args) {
 		super(...args);
+		this.presenceTypes = {
+			PLAYING: 'Playing',
+			LISTENING: 'Listening to',
+			WATCHING: 'Watching'
+		};
 		this.language = {
 			DEFAULT: (key) => `${key} has not been localized for en-US yet.`,
 			DEFAULT_LANGUAGE: 'Default language',
@@ -12,7 +17,7 @@ module.exports = class extends Language {
 				` in this guild is set to: \`${prefix}\``
 			}`,
 			DISPLAY_NAME: 'Display Name',
-			
+
 			SETTING_GATEWAY_EXPECTS_GUILD: 'The parameter <Guild> expects either a Guild or a Guild Object.',
 			SETTING_GATEWAY_VALUE_FOR_KEY_NOEXT: (data, key) => `The value ${data} for the key ${key} does not exist.`,
 			SETTING_GATEWAY_VALUE_FOR_KEY_ALREXT: (data, key) => `The value ${data} for the key ${key} already exists.`,
@@ -21,7 +26,7 @@ module.exports = class extends Language {
 			SETTING_GATEWAY_KEY_NOEXT: (key) => `The key ${key} does not exist in the current data schema.`,
 			SETTING_GATEWAY_INVALID_TYPE: 'The type parameter must be either add or remove.',
 			SETTING_GATEWAY_INVALID_FILTERED_VALUE: (piece, value) => `${piece.key} doesn't accept the value: ${value}`,
-			
+
 			RESOLVER_MULTI_TOO_FEW: (name, min = 1) => `Provided too few ${name}s. At least ${min} ${min === 1 ? 'is' : 'are'} required.`,
 			RESOLVER_INVALID_BOOL: (name) => `${name} must be true or false.`,
 			RESOLVER_INVALID_CHANNEL: (name) => `${name} must be a channel tag or valid channel ID.`,
@@ -47,14 +52,14 @@ module.exports = class extends Language {
 			RESOLVER_MINMAX_BOTH: (name, min, max, suffix) => `${name} must be between ${min} and ${max}${suffix}.`,
 			RESOLVER_MINMAX_MIN: (name, min, suffix) => `${name} must be greater than ${min}${suffix}.`,
 			RESOLVER_MINMAX_MAX: (name, max, suffix) => `${name} must be less than ${max}${suffix}.`,
-			
+
 			REACTIONHANDLER_PROMPT: 'Which page would you like to jump to?',
-			
+
 			COMMANDMESSAGE_MISSING: 'Missing one or more required arguments after end of input.',
 			COMMANDMESSAGE_MISSING_REQUIRED: (name) => `${name} is a required argument.`,
 			COMMANDMESSAGE_MISSING_OPTIONALS: (possibles) => `Missing a required option: (${possibles})`,
 			COMMANDMESSAGE_NOMATCH: (possibles) => `Your option didn't match any of the possibilities: (${possibles})`,
-			
+
 			// eslint-disable-next-line max-len
 			MONITOR_COMMAND_HANDLER_REPROMPT: (tag, error, time, abortOptions) => `${tag} | **${error}** | You have **${time}** seconds to respond to this prompt with a valid argument. Type **${abortOptions.join('**, **')}** to abort this prompt.`,
 			// eslint-disable-next-line max-len
@@ -62,7 +67,7 @@ module.exports = class extends Language {
 			MONITOR_COMMAND_HANDLER_ABORTED: 'Aborted',
 			MONITOR_COMMAND_HANDLER_POSSIBILITIES: ['abort', 'stop'],
 			MONITOR_COMMAND_HANDLER_REPEATING_POSSIBLITIES: ['cancel'],
-			
+
 			INHIBITOR_COOLDOWN: (remaining) => `You have just used this command. You can use this command again in ${remaining} second${remaining === 1 ? '' : 's'}.`,
 			INHIBITOR_DISABLED_GUILD: 'This command has been disabled by an admin in this guild.',
 			INHIBITOR_DISABLED_GLOBAL: 'This command has been globally disabled by a bot owner.',
@@ -72,7 +77,7 @@ module.exports = class extends Language {
 			INHIBITOR_REQUIRED_SETTINGS: (settings) => `The guild is missing the **${settings.join(', ')}** guild setting${settings.length !== 1 ? 's' : ''} and thus the command cannot run.`,
 			INHIBITOR_RUNIN: (types) => `This command is only available in ${types} channels.`,
 			INHIBITOR_RUNIN_NONE: (name) => `The ${name} command is not configured to run in any channel.`,
-			
+
 			COMMAND_BLACKLIST_DESCRIPTION: 'Blacklists or un-blacklists users and guilds from the bot.',
 			COMMAND_BLACKLIST_SUCCESS: (usersAdded, usersRemoved, guildsAdded, guildsRemoved) => [
 				usersAdded.length ? `**Users Added**\n${util.codeBlock('', usersAdded.join(', '))}` : '',
@@ -171,7 +176,57 @@ module.exports = class extends Language {
 			COMMAND_CONF_USER_DESCRIPTION: 'Define per-user settings.',
 			COMMAND_CONF_USER: (key, list) => `**User Settings${key}**\n${list}`,
 			COMMAND_STATS_DESCRIPTION: 'Provides bot owners with statistics.',
+			COMMAND_STATS_EMBEDTITLE: 'RTByte Stats',
+			COMMAND_STATS_MEMUSAGE: 'Memory usage',
+			COMMAND_STATS_UPTIME: 'Uptime',
+			COMMAND_STATS_CONNECTIONS: 'Connections',
+			COMMAND_STATS_LIBRARIES: 'Libraries',
+			COMMAND_STATS_HOSTINFO: 'Host information',
+			COMMAND_STATS_HOSTUPTIME: 'Host uptime',
 			COMMAND_MODERATION_BOILERPLATE: (guild) => `This action was performed by a moderator of the ${guild.name} Discord.`,
+			COMMAND_MODERATION_SILENT: 'Silent action',
+			COMMAND_BAN_DESCRIPTION: 'Bans a mentioned user and logs the reason.',
+			COMMAND_BAN_NO_BAN_SELF: 'You cannot ban yourself.',
+			COMMAND_BAN_NO_BAN_CLIENT: 'I cannot ban myself.',
+			COMMAND_BAN_NO_PERMS: (user) => `You don't have permission to ban ${user}.`,
+			COMMAND_KICK_DESCRIPTION: 'Kicks a mentioned user and logs the reason.',
+			COMMAND_KICK_NO_KICK_SELF: 'You cannot kick yourself.',
+			COMMAND_KICK_NO_KICK_CLIENT: 'I cannot kick myself.',
+			COMMAND_KICK_NO_PERMS: (user) => `You don't have permission to kick ${user}.`,
+			COMMAND_MUTE_DESCRIPTION: 'Mutes a mentioned user and logs the reason.',
+			COMMAND_MUTE_NO_MUTE_SELF: 'You cannot mute yourself.',
+			COMMAND_MUTE_NO_MUTE_CLIENT: 'I cannot mute myself.',
+			COMMAND_MUTE_NO_PERMS: (user) => `You don't have permission to mute ${user}.`,
+			COMMAND_PURGE_DESCRIPTION: 'Removes X amount of messages, optionally sent by Y user. Append the word \'all\' to ignore the role hierarchy.',
+			COMMAND_PURGE_NO_PERMS: (member) => `You don't have permission to purge messages from ${member}.`,
+			COMMAND_SENDMSG_DESCRIPTION: 'Sends a message to the specified channel or user as the bot.',
+			COMMAND_SERVERINFO_ID: 'ID',
+			COMMAND_SERVERINFO_NAME: 'Name',
+			COMMAND_SERVERINFO_OWNER: 'Owner',
+			COMMAND_SERVERINFO_MEMBERS: 'Members',
+			COMMAND_SERVERINFO_CHANNELS: 'Channels',
+			COMMAND_SERVERINFO_EMOJIS: 'Emojis',
+			COMMAND_SERVERINFO_ROLES: 'Roles',
+			COMMAND_SERVERINFO_REGION: 'Region',
+			COMMAND_SERVERINFO_CREATEDON: 'Created on',
+			COMMAND_SOFTBAN_DESCRIPTION: 'Bans a mentioned user and logs the reason.',
+			COMMAND_SOFTBAN_NO_SOFTBAN_SELF: 'You cannot softban yourself.',
+			COMMAND_SOFTBAN_NO_SOFTBAN_CLIENT: 'I cannot softban myself.',
+			COMMAND_SOFTBAN_SOFTBAN_RELEASED: 'Softban released.',
+			COMMAND_SOFTBAN_NO_PERMS: (user) => `You don't have permission to ban ${user}.`,
+			COMMAND_UNMUTE_DESCRIPTION: 'Unmutes a mentioned user.',
+			COMMAND_UNMUTE_NO_UNMUTE_SELF: 'You cannot unmute yourself.',
+			COMMAND_UNMUTE_NO_UNMUTE_CLIENT: 'I cannot unmute myself.',
+			COMMAND_UNMUTE_NO_PERMS: (user) => `You don't have permission to unmute ${user}.`,
+			COMMAND_USERINFO_NAME: 'Name',
+			COMMAND_USERINFO_ID: 'ID',
+			COMMAND_USERINFO_JOINED: 'Joined',
+			COMMAND_USERINFO_REGISTERED: 'Registered',
+			COMMAND_USERINFO_STATUS: 'Status',
+			COMMAND_USERINFO_ACTIVITY: (user) => `${this.presenceTypes[user.presence.activity.type]}`,
+			COMMAND_USERINFO_ROLES: 'Roles',
+			COMMAND_8BALL_DESCRIPTION: 'Magic 8-ball, does exactly what the toy does, memes included.',
+			COMMAND_COINFLIP_DESCRIPTION: 'Flips a coin. 🙂 for heads, 🙃 for tails.',
 
 			MESSAGE_PROMPT_TIMEOUT: 'The prompt has timed out.',
 
@@ -183,6 +238,9 @@ module.exports = class extends Language {
 			GUILD_LOG_UPDATE_NAME: 'Name changed',
 			GUILD_LOG_MESSAGEDELETE: 'Message deleted',
 			GUILD_LOG_MESSAGEUPDATE: 'Message edited',
+			GUILD_LOG_MESSAGEPURGE: 'Messages purged',
+			GUILD_LOG_MESSAGEPURGE_AMOUNT: 'Amount of messages removed:',
+			GUILD_LOG_MESSAGEPURGE_TARGET: 'Purged messages from:',
 			GUILD_LOG_ROLECREATE: 'Role created',
 			GUILD_LOG_ROLEDELETE: 'Role deleted',
 			GUILD_LOG_ROLEUPDATE: 'Role updated',
@@ -202,9 +260,13 @@ module.exports = class extends Language {
 			GUILD_LOG_GUILDBANREMOVE: 'User unbanned',
 			GUILD_LOG_GUILDMEMBERADD: 'User joined',
 			GUILD_LOG_GUILDMEMBERREMOVE: 'User left',
+			GUILD_LOG_GUILDMEMBERKICK: 'User kicked',
+			GUILD_LOG_GUILDMEMBERMUTE: 'User muted',
+			GUILD_LOG_GUILDSOFTBANADD: 'User softbanned',
+			GUILD_LOG_GUILDMEMBERUNMUTE: 'User unmuted',
+			GUILD_LOG_GUILDMEMBERWARN: 'Warning issued',
 			GUILD_LOG_MEMBERUPDATE: 'User updated',
 			GUILD_LOG_MEMBERUPDATE_DISPLAYNAME: 'Nickname changed',
-			GUILD_LOG_GUILDMEMBERWARN: 'Warning issued',
 			GUILD_LOG_AUTOSELENER: 'Changed name with blacklisted word',
 			GUILD_LOG_BLACKLISTEDWORD: (channel) => `Blacklisted word detected in ${channel}.`,
 
