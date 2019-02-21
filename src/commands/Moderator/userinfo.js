@@ -5,7 +5,11 @@ module.exports = class extends Command {
 
 	constructor(...args) {
 		super(...args, {
-			description: 'Get information on a mentioned user.',
+			aliases: ['uinfo'],
+			permissionLevel: 5,
+			requiredPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
+			runIn: ['text'],
+			description: language => language.get('COMMAND_USERINFO_DESCRIPTION'),
 			usage: '[Member:member]'
 		});
 		this.timestamp = new Timestamp('d MMMM YYYY, h:mm A');
@@ -48,7 +52,7 @@ module.exports = class extends Command {
 			embed.addField(msg.guild.language.get('COMMAND_USERINFO_ACTIVITY', member), member.user.presence.activity ? member.user.presence.activity.name : 'N/A', true)
 		}
 		if (actualRoles) {
-			embed.addField(msg.guild.language.get('COMMAND_USERINFO_ROLES'), actualRoles);
+			embed.addField(msg.guild.language.get('COMMAND_USERINFO_ROLES'), actualRoles, true);
 		}
 
 		await msg.send('', { disableEveryone: true, embed: embed });

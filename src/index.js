@@ -41,7 +41,8 @@ Client.defaultGuildSchema
 	.add('roles', folder => folder
 		.add('administrator', 'role')
 		.add('moderator', 'role')
-		.add('muted', 'role'))
+		.add('muted', 'role')
+		.add('joinable', 'role', { array: true }))
 	.add('logs', folder => folder
 		.add('verboseLogging', 'boolean', { default: false })
 		.add('events', folder => folder
@@ -60,6 +61,7 @@ Client.defaultGuildSchema
 			.add('guildMemberKick', 'boolean', { default: false })
 			.add('guildMemberMute', 'boolean', { default: false })
 			.add('guildMemberUnmute', 'boolean', { default: false })
+			.add('guildMemberWarn', 'boolean', { default: false })
 			.add('messageDelete', 'boolean', { default: false })
 			.add('messageUpdate', 'boolean', { default: false })
 			.add('roleCreate', 'boolean', { default: false })

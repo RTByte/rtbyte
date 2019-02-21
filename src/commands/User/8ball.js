@@ -100,13 +100,13 @@ module.exports = class extends Command {
 
 	constructor(...args) {
 		super(...args, {
-			aliases: ['mirror', 'magic', 'conch'],
+			aliases: ['mirror', 'magicconch'],
 			description: language => language.get('COMMAND_8BALL_DESCRIPTION'),
 			usage: '<Question:str>'
 		});
 	}
 
 	async run(msg) {
-		return msg.reply(`🎱 ${answers[Math.floor(Math.random() * answers.length)]}`);
+		return msg.reply(`\n🎱 ${answers[Math.floor(Math.random() * answers.length)]}`);
 	}
 };

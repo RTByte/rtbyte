@@ -8,7 +8,7 @@ module.exports = class extends Command {
 			requiredPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
 			aliases: ['sendmessage', 'message', 'msg'],
 			permissionLevel: 5,
-			description: (msg) => msg.language.get('COMMAND_SENDMSG_DESCRIPTION'),
+			description: language => language.get('COMMAND_SENDMSG_DESCRIPTION'),
 			extendedHelp: '',
 			usage: '<targetUser:user|targetChannel:channel> <message:string> [...]',
 			usageDelim: ' '

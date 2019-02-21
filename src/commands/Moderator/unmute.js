@@ -9,7 +9,7 @@ module.exports = class extends Command {
 			permissionLevel: 5,
 			requiredPermissions: ['MANAGE_ROLES', 'MANAGE_CHANNELS', 'ADD_REACTIONS', 'USE_EXTERNAL_EMOJIS', 'SEND_MESSAGES', 'EMBED_LINKS'],
 			runIn: ['text'],
-			description: (msg) => msg.language.get('COMMAND_UNMUTE_DESCRIPTION'),
+			description: language => language.get('COMMAND_UNMUTE_DESCRIPTION'),
 			usage: '<member:user>',
 			usageDelim: ' '
 		});

@@ -9,7 +9,7 @@ module.exports = class extends Command {
 			permissionLevel: 5,
 			requiredPermissions: ['KICK_MEMBERS', 'ADD_REACTIONS', 'USE_EXTERNAL_EMOJIS', 'SEND_MESSAGES', 'EMBED_LINKS'],
 			runIn: ['text'],
-			description: (msg) => msg.language.get('COMMAND_KICK_DESCRIPTION'),
+			description: language => language.get('COMMAND_KICK_DESCRIPTION'),
 			usage: '<member:user> <reason:string> [...]',
 			usageDelim: ' '
 		});

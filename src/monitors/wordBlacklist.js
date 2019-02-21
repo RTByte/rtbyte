@@ -43,7 +43,7 @@ module.exports = class extends Monitor {
 
 		const logChannel = await this.client.channels.get(msg.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });
-		await msg.author.send(msg.guild.language.get('COMMAND_MODERATION_BOILERPLATE', msg.guild), { disableEveryone: true, embed: embed });
+		await msg.author.send(msg.guild.language.get('MONITOR_MODERATION_AUTO_BOILERPLATE', msg.guild), { disableEveryone: true, embed: embed });
 		return;
 	}
 
