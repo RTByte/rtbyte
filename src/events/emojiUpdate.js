@@ -16,10 +16,12 @@ module.exports = class extends Event {
 	}
 
 	async emojiCreateLog(oldEmoji, emoji) {
+		const arrowRightEmoji = this.client.emojis.get(this.client.settings.emoji.arrowRight);
+
 		const embed = new MessageEmbed()
 			.setAuthor(`:${emoji.name}:`, emoji.guild.iconURL())
 			.setColor(this.client.settings.colors.blue)
-			.addField(emoji.guild.language.get('GUILD_LOG_UPDATE_NAME'), `:${oldEmoji.name}: <:arrowRight:547464582739001384> :${emoji.name}:`)
+			.addField(emoji.guild.language.get('GUILD_LOG_UPDATE_NAME'), `:${oldEmoji.name}: ${arrowRightEmoji} :${emoji.name}:`)
 			.setTimestamp()
 			.setFooter(emoji.guild.language.get('GUILD_LOG_EMOJIUPDATE'));
 
@@ -29,10 +31,12 @@ module.exports = class extends Event {
 	}
 
 	async animatedEmojiCreateLog(oldEmoji, emoji) {
+		const arrowRightEmoji = this.client.emojis.get(this.client.settings.emoji.arrowRight);
+
 		const embed = new MessageEmbed()
 			.setAuthor(`:${emoji.name}:`, emoji.guild.iconURL())
 			.setColor(this.client.settings.colors.blue)
-			.addField(emoji.guild.language.get('GUILD_LOG_UPDATE_NAME'), `:${oldEmoji.name}: <:arrowRight:547464582739001384> :${emoji.name}:`)
+			.addField(emoji.guild.language.get('GUILD_LOG_UPDATE_NAME'), `:${oldEmoji.name}: ${arrowRightEmoji} :${emoji.name}:`)
 			.setTimestamp()
 			.setFooter(emoji.guild.language.get('GUILD_LOG_EMOJIUPDATE'));
 

@@ -7,6 +7,7 @@ module.exports = class extends Command {
 
 	constructor(...args) {
 		super(...args, {
+			permissionLevel: 10,
 			guarded: true,
 			description: language => language.get('COMMAND_STATS_DESCRIPTION')
 		});

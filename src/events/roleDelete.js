@@ -20,6 +20,10 @@ module.exports = class extends Event {
 			.setTimestamp()
 			.setFooter(role.guild.language.get('GUILD_LOG_ROLEDELETE'));
 
+		if (role.guild.settings.logs.verboseLogging) {
+			embed.addField(role.guild.language.get('GUILD_LOG_ROLEDELETE_V_ID'), role.id, true);
+		}
+
 		const logChannel = await this.client.channels.get(role.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		return;

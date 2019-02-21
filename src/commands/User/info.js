@@ -7,7 +7,8 @@ module.exports = class extends Command {
 		super(...args, {
 			aliases: ['details', 'what'],
 			guarded: true,
-			description: language => language.get('COMMAND_INFO_DESCRIPTION')
+			description: language => language.get('COMMAND_INFO_DESCRIPTION'),
+			enabled: false
 		});
 	}
 

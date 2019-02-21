@@ -19,10 +19,13 @@ module.exports = class extends Event {
 		const embed = new MessageEmbed()
 			.setAuthor(`:${emoji.name}:`, emoji.guild.iconURL())
 			.setColor(this.client.settings.colors.green)
-			.addField(emoji.guild.language.get('GUILD_LOG_EMOJI'), `<:${emoji.name}:${emoji.id}>`)
+			.addField(emoji.guild.language.get('GUILD_LOG_EMOJI'), `<:${emoji.name}:${emoji.id}>`, true)
 			.setTimestamp()
 			.setFooter(emoji.guild.language.get('GUILD_LOG_EMOJICREATE'));
 
+		if (emoji.guild.settings.logs.verboseLogging) {
+			embed.addField(emoji.guild.language.get('GUILD_LOG_EMOJICREATE_V_ID'), emoji.id, true);
+		}
 		const logChannel = await this.client.channels.get(emoji.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		return;
@@ -36,6 +39,7 @@ module.exports = class extends Event {
 			.setTimestamp()
 			.setFooter(emoji.guild.language.get('GUILD_LOG_EMOJICREATE'));
 
+		if (emoji.guild.settings.logs.verboseLogging) embed.addField(emoji.guild.language.get('GUILD_LOG_EMOJICREATE_V_ID'), emoji.id, true);
 		const logChannel = await this.client.channels.get(emoji.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		return;

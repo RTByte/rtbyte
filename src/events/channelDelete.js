@@ -21,6 +21,11 @@ module.exports = class extends Event {
 			.setTimestamp()
 			.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELDELETE'));
 
+		if (channel.type === 'voice') embed.setAuthor(channel.name, channel.guild.iconURL()).setFooter(channel.guild.language.get('GUILD_LOG_CHANNELDELETE_VOICE'));
+		if (channel.guild.settings.logs.verboseLogging) {
+			embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELCREATE_V_ID'), channel.id, true);
+			embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELCREATE_V_PARENT'), channel.parent, true);
+		}
 		const logChannel = await this.client.channels.get(channel.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		return;

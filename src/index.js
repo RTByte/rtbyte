@@ -45,7 +45,7 @@ Client.defaultGuildSchema
 		.add('joinable', 'role', { array: true }))
 	.add('logs', folder => folder
 		.add('verboseLogging', 'boolean', { default: false })
-		.add('events', folder => folder
+		.add('events', folder => folder // eslint-disable-line
 			.add('channelCreate', 'boolean', { default: false })
 			.add('channelDelete', 'boolean', { default: false })
 			.add('channelUpdate', 'boolean', { default: false })
@@ -82,6 +82,7 @@ Client.defaultGuildSchema
 		.add('warn', 'boolean', { default: false })
 		.add('delete', 'boolean', { default: false })
 		.add('checkDisplayNames', 'boolean', { default: false })
+		.add('modBypass', 'boolean', { default: false })
 		.add('words', 'string', { array: true }));
 
 class Bot extends Client {}

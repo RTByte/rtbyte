@@ -6,8 +6,6 @@ module.exports = class extends Command {
 	constructor(...args) {
 		super(...args, {
 			aliases: ['me', 'myself', 'age'],
-			permissionLevel: 0,
-			requiredPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
 			runIn: ['text'],
 			description: language => language.get('COMMAND_JOINDATE_DESCRIPTION'),
 			usage: '[Member:member]',

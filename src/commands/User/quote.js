@@ -6,8 +6,6 @@ module.exports = class extends Command {
 	constructor(...args) {
 		super(...args, {
 			aliases: ['q'],
-			permissionLevel: 0,
-			requiredPermissions: ['ADD_REACTIONS', 'USE_EXTERNAL_EMOJIS', 'SEND_MESSAGES', 'EMBED_LINKS'],
 			runIn: ['text'],
 			description: language => language.get('COMMAND_QUOTE_DESCRIPTION'),
 			usage: '<messageID:string> [origin:channel]',
