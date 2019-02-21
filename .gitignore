@@ -1,0 +1,5 @@
+node_modules
+package-lock.json
+src/bwd
+src/config.js
+.DS_Store
