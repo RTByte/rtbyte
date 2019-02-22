@@ -29,6 +29,7 @@ module.exports = class extends Event {
 			.setTimestamp()
 			.setFooter(member.guild.language.get('GUILD_LOG_MEMBERUPDATE'));
 
+		// eslint-disable-next-line max-len
 		if (oldMember.displayName !== member.displayName) embed.addField(member.guild.language.get('GUILD_LOG_MEMBERUPDATE_DISPLAYNAME'), `${oldMember.displayName} <:arrowRight:547464582739001384> ${member.displayName}`);
 
 		const logChannel = await this.client.channels.get(member.guild.settings.channels.log);
@@ -84,7 +85,7 @@ module.exports = class extends Event {
 			.setColor(this.client.settings.colors.red)
 			.setTimestamp()
 			.addField('Message', msg.content)
-			.setFooter(message.guild.language.get('GUILD_LOG_BLACKLISTEDWORD', msg.channel));
+			.setFooter(msg.guild.language.get('GUILD_LOG_BLACKLISTEDWORD', msg.channel));
 
 		const logChannel = await this.client.channels.get(msg.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });

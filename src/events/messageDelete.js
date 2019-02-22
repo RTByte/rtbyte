@@ -8,10 +8,10 @@ module.exports = class extends Event {
 	}
 
 	async run(msg) {
-		if (msg.command && msg.command.deletable) {
-			for (const message of msg.responses) {
-				msg.delete();
-			}
+		if (msg.command && msg.command.deletable && msg.responses.length) {
+			await msg.responses.forEach(async (response) => {
+				await response.delete();
+			});
 		}
 
 		if (msg.guild.available && msg.guild.settings.logs.events.messageDelete) await this.deleteLog(msg);
