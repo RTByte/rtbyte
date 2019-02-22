@@ -3,6 +3,7 @@ const { config, token } = require('./config');
 
 // Defining global variables
 Client.defaultClientSchema
+	.add('botOwners', 'string', { array: true })
 	.add('guilds', folder => folder
 		.add('controlGuild', 'guild'))
 	.add('channels', folder => folder
@@ -76,8 +77,8 @@ Client.defaultGuildSchema
 		.add('dismissUsers', 'boolean', { default: false })
 		.add('goodbyeChannel', 'textchannel')
 		.add('goodbyeMessage', 'string'))
-	.add('wordBlacklist', folder => folder
-		.add('enabled', 'boolean', { default: false })
+	.add('filters', folder => folder
+		.add('wordBlacklistEnabled', 'boolean', { default: false })
 		.add('warn', 'boolean', { default: false })
 		.add('delete', 'boolean', { default: false })
 		.add('checkDisplayNames', 'boolean', { default: false })

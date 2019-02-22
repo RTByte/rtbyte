@@ -5,22 +5,23 @@ module.exports = class extends Monitor {
 
 	constructor(...args) {
 		super(...args, {
+			ignoreSelf: true,
 			ignoreOthers: false,
 			ignoreEdits: false
 		});
 	}
 
 	async run(msg) {
-		if (!msg.guild.settings.wordBlacklist.enabled || !msg.guild.settings.wordBlacklist.words.length) return;
-		if (msg.guild.settings.wordBlacklist.modBypass && msg.member.roles.has(msg.guild.settings.roles.moderator)) return;
+		if (!msg.guild.settings.filters.wordBlacklistEnabled || !msg.guild.settings.filters.words.length) return;
+		if (msg.guild.settings.filters.modBypass && msg.member.roles.has(msg.guild.settings.roles.moderator)) return;
 		const words = msg.content.split(' ');
-		const wordBlacklist = msg.guild.settings.wordBlacklist.words;
+		const wordBlacklist = msg.guild.settings.filters.words;
 
 		if (!await this.cycleWords(words, wordBlacklist)) return;
 
-		if (msg.guild.settings.logs.blacklistedWord) await this.blacklistedWordLog(msg);
-		if (msg.guild.settings.wordBlacklist.warn) await this.warnUser(msg);
-		if (msg.guild.settings.wordBlacklist.delete) await msg.delete();
+		if (msg.guild.settings.logs.events.blacklistedWord) await this.blacklistedWordLog(msg);
+		if (msg.guild.settings.filters.warn) await this.warnUser(msg);
+		if (msg.guild.settings.filters.delete) await msg.delete();
 		return;
 	}
 

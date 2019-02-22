@@ -18,11 +18,13 @@ module.exports = class extends Event {
 
 	async run(oldMember, member) {
 		if (member.guild.available && member.guild.settings.logs.events.guildMemberUpdate) await this.memberUpdateLog(oldMember, member);
-		if (member.guild.settings.wordBlacklist.checkDisplayNames) await this.autoSelener(member);
+		if (member.guild.settings.filters.checkDisplayNames) await this.autoSelener(member);
 		return;
 	}
 
 	async memberUpdateLog(oldMember, member) {
+		const arrowRightEmoji = this.client.emojis.get(this.client.settings.emoji.arrowRight);
+
 		const embed = new MessageEmbed()
 			.setAuthor(`${member.displayName} (${member.user.tag}) `, member.user.displayAvatarURL())
 			.setColor(this.client.settings.colors.blue)
@@ -41,23 +43,25 @@ module.exports = class extends Event {
 		const words = member.displayName.split(' ');
 
 		const wordBlacklist = this.client.monitors.get('wordBlacklist');
-		if (!await wordBlacklist.cycleWords(words, member.guild.settings.wordBlacklist.words)) return;
+		if (!await wordBlacklist.cycleWords(words, member.guild.settings.filters.words)) return;
 
 		const oldName = member.displayName;
 		await member.setNickname(alternateNames[`${Math.floor(Math.random() * alternateNames.length)}`]);
 
 		if (member.guild.settings.logs.blacklistedNickname) await this.autoSelenerLog(oldName, member);
-		if (member.guild.settings.wordBlacklist.warn) await this.warnUser(member);
+		if (member.guild.settings.filters.warn) await this.warnUser(member);
 		return;
 	}
 
 	async autoSelenerLog(oldName, member) {
+		const arrowRightEmoji = this.client.emojis.get(this.client.settings.emoji.arrowRight);
+
 		const newMember = await member.guild.members.get(member.id);
 		const embed = new MessageEmbed()
 			.setAuthor(`${member.user.tag} (${member.user.id})`, member.user.displayAvatarURL())
 			.setColor(this.client.settings.colors.red)
 			.setTimestamp()
-			.addField(member.guild.language.get('DISPLAY_NAME'), `${oldName} <:arrowRight:547464582739001384> ${newMember.displayName}`)
+			.addField(member.guild.language.get('DISPLAY_NAME'), `${oldName} ${arrowRightEmoji} ${newMember.displayName}`)
 			.setFooter(member.guild.language.get('GUILD_LOG_AUTOSELENER'));
 
 		const logChannel = await this.client.channels.get(member.guild.settings.channels.log);
