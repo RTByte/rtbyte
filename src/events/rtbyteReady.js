@@ -1,4 +1,4 @@
-const { Client, Event } = require('klasa');
+const { Event } = require('klasa');
 const { MessageEmbed } = require('discord.js');
 
 module.exports = class extends Event {
