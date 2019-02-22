@@ -4,9 +4,9 @@ const { config, token } = require('./config');
 // Defining global variables
 Client.defaultClientSchema
 	.add('guilds', folder => folder
-		.add('controlGuild', 'guild', { default: '450163430373064704' }))
+		.add('controlGuild', 'guild'))
 	.add('channels', folder => folder
-		.add('globalLog', 'textchannel', { default: '450829695513001984' }))
+		.add('globalLog', 'textchannel'))
 	.add('emoji', folder => folder
 		.add('affirm', 'string')
 		.add('reject', 'string')
