@@ -277,7 +277,7 @@ module.exports = class extends Language {
 			GUILD_LOG_MESSAGEPURGE_TARGET: 'Purged messages from:',
 			GUILD_LOG_ROLECREATE: 'Role created',
 			GUILD_LOG_ROLECREATE_V_ID: 'ID',
-			GUILD_LOG_ROLECREATE_V_JOINED: 'Tag',
+			GUILD_LOG_ROLECREATE_V_TAG: 'Tag',
 			GUILD_LOG_ROLEDELETE: 'Role deleted',
 			GUILD_LOG_ROLEDELETE_V_ID: 'ID',
 			GUILD_LOG_ROLEUPDATE: 'Role updated',
