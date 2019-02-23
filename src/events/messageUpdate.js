@@ -24,6 +24,7 @@ module.exports = class extends Event {
 			.setTitle(msg.guild.language.get('GUILD_LOG_MESSAGEUPDATE'))
 			.addField(msg.guild.language.get('GUILD_LOG_BEFORE'), old.cleanContent)
 			.addField(msg.guild.language.get('GUILD_LOG_AFTER'), msg.cleanContent)
+			.setURL(msg.url)
 			.setTimestamp()
 			.setFooter(msg.author.tag, msg.author.displayAvatarURL());
 
