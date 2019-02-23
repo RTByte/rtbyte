@@ -273,6 +273,7 @@ module.exports = class extends Language {
 			GUILD_LOG_UPDATE_NAME: 'Name changed',
 			GUILD_LOG_MESSAGEDELETE: 'Message deleted',
 			GUILD_LOG_MESSAGEUPDATE: 'Message edited',
+			GUILD_LOG_MESSAGEUPDATEVIEW: 'Click to view',
 			GUILD_LOG_MESSAGEPURGE: 'Messages purged',
 			GUILD_LOG_MESSAGEPURGE_AMOUNT: 'Amount of messages removed:',
 			GUILD_LOG_MESSAGEPURGE_TARGET: 'Purged messages from:',
@@ -325,7 +326,8 @@ module.exports = class extends Language {
 			GLOBAL_LOG_GUILDUPDATED: 'Guild name changed',
 			GLOBAL_LOG_UPDATE_NAME: 'Name changed',
 			GLOBAL_LOG_GUILDUNAVAILABLE: 'Guild unavailable, likely due to a server outage',
-			GLOBAL_LOG_COMMANDRUN: 'Command ran'
+			GLOBAL_LOG_COMMANDRUN: 'Command ran',
+			GLOBAL_LOG_COMMANDRUNVIEW: 'Click to view'
 		};
 	}
 
