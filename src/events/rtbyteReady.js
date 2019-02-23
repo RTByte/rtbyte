@@ -47,7 +47,7 @@ module.exports = class extends Event {
 			.setTimestamp()
 			.setFooter('Bot restarted');
 		const globalLog = await this.client.channels.get(this.client.settings.channels.globalLog);
-		await globalLog.send('', { disableEveryone: true, embed: embed });
+		if (globalLog) await globalLog.send('', { disableEveryone: true, embed: embed });
 		return;
 	}
 

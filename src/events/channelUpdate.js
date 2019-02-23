@@ -34,10 +34,35 @@ module.exports = class extends Event {
 		if (oldChannel.topic !== channel.topic) embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_TOPIC'), `${oldChannel.topic} ${arrowRightEmoji} ${channel.topic}`);
 		if (channel.type === 'voice') embed.setAuthor(channel.name, channel.guild.iconURL()).setFooter(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_VOICE'));
 		if (oldChannel.parent.name !== channel.parent.name) embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_CATEGORY'), `${oldChannel.parent.name} ${arrowRightEmoji} ${channel.parent.name}`); // eslint-disable-line
+		await this.permissionUpdateCheck(oldChannel, channel, embed);
 
 		const logChannel = await this.client.channels.get(channel.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		return;
+	}
+
+	async permissionUpdateCheck(oldChannel, channel, embed) {
+		await channel.permissionOverwrites.forEach(async (overwrite) => {
+			const subject = await this.resolveSubject(channel, overwrite);
+			if (!oldChannel.permissionOverwrites.has(overwrite.id)) return embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_PERMISSIONOVERWRITECREATE'), subject);
+
+			const oldOverwrite = await oldChannel.permissionOverwrites.get(overwrite.id);
+			if (oldOverwrite.allow.bitfield !== overwrite.allow.bitfield || oldOverwrite.deny.bitfield !== overwrite.deny.bitfield) return embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_PERMISSIONOVERWRITEUPDATE'), subject); // eslint-disable-line
+
+			return null;
+		});
+		await oldChannel.permissionOverwrites.forEach(async (overwrite) => {
+			const subject = await this.resolveSubject(channel, overwrite);
+			if (!channel.permissionOverwrites.has(overwrite.id)) return embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_PERMISSIONOVERWRITEREMOVE'), subject);
+
+			return null;
+		});
+	}
+
+	async resolveSubject(channel, overwrite) {
+		if (overwrite.type === 'member') return channel.guild.members.resolve(overwrite.id);
+		if (overwrite.type === 'role') return channel.guild.roles.resolve(overwrite.id);
+		return null;
 	}
 
 };

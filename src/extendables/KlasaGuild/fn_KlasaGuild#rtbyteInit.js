@@ -88,8 +88,8 @@ module.exports = class extends Extendable {
 			// Adding and initializing the affirmative and negative emojis for the bot to use
 			const affirmEmoji = await this.emojis.create('./src/assets/img/emoji/affirm.png', 'affirm', { reason: `${this.client.user.username} initialization: Creating affirm emoji` });
 			const rejectEmoji = await this.emojis.create('./src/assets/img/emoji/reject.png', 'reject', { reason: `${this.client.user.username} initialization: Creating reject emoji` });
-			const arrowLeftEmoji = await this.emojis.create('./src/assets/img/emoji/arrowLeft.png', 'arrow-left', { reason: `${this.client.user.username} initialization: Creating arrow-left emoji` });
-			const arrowRightEmoji = await this.emojis.create('./src/assets/img/emoji/arrowRight.png', 'arrow-right', { reason: `${this.client.user.username} initialization: Creating arrow-right emoji` });
+			const arrowLeftEmoji = await this.emojis.create('./src/assets/img/emoji/arrowLeft.png', 'arrow_left', { reason: `${this.client.user.username} initialization: Creating arrowLeft emoji` });
+			const arrowRightEmoji = await this.emojis.create('./src/assets/img/emoji/arrowRight.png', 'arrow_right', { reason: `${this.client.user.username} initialization: Creating arrowRight emoji` });
 			const onlineEmoji = await this.emojis.create('./src/assets/img/emoji/online.png', 'online', { reason: `${this.client.user.username} initialization: Creating online emoji` });
 			const idleEmoji = await this.emojis.create('./src/assets/img/emoji/idle.png', 'idle', { reason: `${this.client.user.username} initialization: Creating idle emoji` });
 			const dndEmoji = await this.emojis.create('./src/assets/img/emoji/dnd.png', 'dnd', { reason: `${this.client.user.username} initialization: Creating dnd emoji` });
