@@ -24,15 +24,13 @@ module.exports = class extends Event {
 
 	async memberUpdateLog(oldMember, member) {
 		const arrowRightEmoji = this.client.emojis.get(this.client.settings.emoji.arrowRight);
-
 		const embed = new MessageEmbed()
 			.setAuthor(`${member.displayName} (${member.user.tag}) `, member.user.displayAvatarURL())
 			.setColor(this.client.settings.colors.blue)
 			.setTimestamp()
 			.setFooter(member.guild.language.get('GUILD_LOG_MEMBERUPDATE'));
 
-		// eslint-disable-next-line max-len
-		if (oldMember.displayName !== member.displayName) embed.addField(member.guild.language.get('GUILD_LOG_MEMBERUPDATE_DISPLAYNAME'), `${oldMember.displayName} <:arrowRight:547464582739001384> ${member.displayName}`);
+		if (oldMember.displayName !== member.displayName) embed.addField(member.guild.language.get('GUILD_LOG_MEMBERUPDATE_DISPLAYNAME'), `${oldMember.displayName} ${arrowRightEmoji} ${member.displayName}`); // eslint-disable-line
 
 		const logChannel = await this.client.channels.get(member.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });

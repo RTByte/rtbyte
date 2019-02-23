@@ -22,7 +22,7 @@ module.exports = class extends Event {
 
 		if (role.guild.settings.logs.verboseLogging) {
 			embed.addField(role.guild.language.get('GUILD_LOG_ROLECREATE_V_ID'), role.id, true);
-			embed.addField(role.guild.language.get('GUILD_LOG_ROLECREATE_V_TAG'), `<@&${role.id}>`, true);
+			embed.addField(role.guild.language.get('GUILD_LOG_ROLECREATE_V_TAG'), role, true);
 		}
 
 		const logChannel = await this.client.channels.get(role.guild.settings.channels.log);

@@ -8,6 +8,7 @@ exports.config = {
 	prefix: '-',
 	preserveSettings: false,
 	commandEditing: true,
+	commandLogging: true,
 	consoleEvents: {
 		debug: false,
 		error: true,
