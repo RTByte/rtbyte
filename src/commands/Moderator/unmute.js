@@ -30,8 +30,6 @@ module.exports = class extends Command {
 
 		if (msg.guild.settings.logs.events.guildMemberUnmute) await this.unmuteLog(member);
 
-		await this.messageUser(msg, member);
-
 		return msg.affirm();
 	}
 
