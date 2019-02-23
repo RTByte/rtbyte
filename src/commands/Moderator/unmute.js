@@ -23,11 +23,14 @@ module.exports = class extends Command {
 		if (!await msg.member.canMod(user)) return msg.reject(msg.language.get('COMMAND_UNMUTE_NO_PERMS', user));
 
 		const member = await msg.guild.members.fetch(user);
+
 		if (!member.roles.has(msg.guild.settings.roles.muted)) return msg.affirm();
 		const mutedRole = await msg.guild.roles.get(msg.guild.settings.roles.muted);
 		await member.roles.remove(mutedRole);
 
 		if (msg.guild.settings.logs.events.guildMemberUnmute) await this.unmuteLog(member);
+
+		await this.messageUser(msg, member);
 
 		return msg.affirm();
 	}
@@ -49,4 +52,14 @@ module.exports = class extends Command {
 		return mute.createRole(guild);
 	}
 
+	async messageUser(msg, member) {
+		if (!msg.guild.settings.moderation.notifyUser) return;
+		const embed = new MessageEmbed()
+			.setAuthor(`${msg.guild} (${msg.guild.id})`, msg.guild.iconURL())
+			.setColor(this.client.settings.colors.red)
+			.setTimestamp()
+			.setFooter(msg.guild.language.get('GUILD_LOG_GUILDMEMBERUNMUTE'));
+		await member.send(msg.guild.language.get('MONITOR_MODERATION_AUTO_BOILERPLATE', msg.guild), { disableEveryone: true, embed: embed });
+		return;
+	}
 };

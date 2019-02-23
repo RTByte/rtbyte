@@ -18,7 +18,7 @@ module.exports = class extends Event {
 			.setAuthor(`${guild.name} (${guild.id})`, guild.iconURL())
 			.setColor(this.client.settings.colors.yellow)
 			.setTimestamp()
-			.setFooter(guild.language.get('GLOBAL_LOG_GUILDUNAVAILBLE'));
+			.setFooter(guild.language.get('GLOBAL_LOG_GUILDUNAVAILABLE'));
 
 		const globalLogChannel = await this.client.channels.get(this.client.settings.channels.globalLog);
 		await globalLogChannel.send('', { disableEveryone: true, embed: embed });

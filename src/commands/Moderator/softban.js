@@ -24,6 +24,8 @@ module.exports = class extends Command {
 
 		const member = await msg.guild.members.fetch(user);
 
+		await this.messageUser(msg, member, reason);
+
 		await msg.guild.members.ban(user, { days: 1, reason: reason });
 		if (msg.guild.settings.logs.events.guildSoftbanAdd) await this.softbanLog(member);
 		await msg.guild.members.unban(user, msg.language.get('COMMAND_SOFTBAN_SOFTBAN_RELEASED'));
@@ -42,6 +44,18 @@ module.exports = class extends Command {
 
 		const logChannel = await this.client.channels.get(member.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });
+		return;
+	}
+
+	async messageUser(msg, member, reason) {
+		if (!msg.guild.settings.moderation.notifyUser) return;
+		const embed = new MessageEmbed()
+			.setAuthor(`${msg.guild} (${msg.guild.id})`, msg.guild.iconURL())
+			.setColor(this.client.settings.colors.red)
+			.setTimestamp()
+			.addField(msg.guild.language.get('GUILD_LOG_REASON'), reason)
+			.setFooter(msg.guild.language.get('GUILD_LOG_GUILDSOFTBANADD'));
+		await member.send(msg.guild.language.get('MONITOR_MODERATION_AUTO_BOILERPLATE', msg.guild), { disableEveryone: true, embed: embed });
 		return;
 	}
 

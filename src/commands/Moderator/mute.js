@@ -25,6 +25,9 @@ module.exports = class extends Command {
 		reason = reason.join(' ');
 
 		const member = await msg.guild.members.fetch(user);
+
+		await this.messageUser(msg, member, reason);
+
 		if (member.roles.has(msg.guild.settings.roles.muted)) return msg.affirm();
 		const mutedRole = await msg.guild.roles.get(msg.guild.settings.roles.muted);
 		await member.roles.add(mutedRole);
@@ -72,6 +75,18 @@ module.exports = class extends Command {
 			}
 		});
 
+		return;
+	}
+
+	async messageUser(msg, member, reason) {
+		if (!msg.guild.settings.moderation.notifyUser) return;
+		const embed = new MessageEmbed()
+			.setAuthor(`${msg.guild} (${msg.guild.id})`, msg.guild.iconURL())
+			.setColor(this.client.settings.colors.red)
+			.setTimestamp()
+			.addField(msg.guild.language.get('GUILD_LOG_REASON'), reason)
+			.setFooter(msg.guild.language.get('GUILD_LOG_GUILDMEMBERMUTE'));
+		await member.send(msg.guild.language.get('MONITOR_MODERATION_AUTO_BOILERPLATE', msg.guild), { disableEveryone: true, embed: embed });
 		return;
 	}
 

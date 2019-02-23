@@ -83,7 +83,9 @@ Client.defaultGuildSchema
 		.add('delete', 'boolean', { default: false })
 		.add('checkDisplayNames', 'boolean', { default: false })
 		.add('modBypass', 'boolean', { default: false })
-		.add('words', 'string', { array: true }));
+		.add('words', 'string', { array: true }))
+	.add('moderation', folder => folder
+		.add('notifyUser', 'boolean', { defualt: false }));
 
 class Bot extends Client {}
 

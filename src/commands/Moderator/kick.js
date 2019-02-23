@@ -6,6 +6,7 @@ module.exports = class extends Command {
 	constructor(...args) {
 		super(...args, {
 			aliases: ['k'],
+			event: 'kickDM',
 			permissionLevel: 5,
 			requiredPermissions: ['KICK_MEMBERS', 'ADD_REACTIONS', 'USE_EXTERNAL_EMOJIS', 'SEND_MESSAGES', 'EMBED_LINKS'],
 			runIn: ['text'],
@@ -23,6 +24,9 @@ module.exports = class extends Command {
 		reason = reason.join(' ');
 
 		const member = await msg.guild.members.fetch(user);
+
+		await this.messageUser(msg, member, reason);
+
 		await member.kick(reason);
 
 		if (msg.guild.settings.logs.events.guildMemberKick) await this.kickLog(member, reason);
@@ -42,6 +46,18 @@ module.exports = class extends Command {
 
 		const logChannel = await this.client.channels.get(member.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });
+		return;
+	}
+
+	async messageUser(msg, member, reason) {
+		if (!msg.guild.settings.moderation.notifyUser) return;
+		const embed = new MessageEmbed()
+			.setAuthor(`${msg.guild} (${msg.guild.id})`, msg.guild.iconURL())
+			.setColor(this.client.settings.colors.red)
+			.setTimestamp()
+			.addField(msg.guild.language.get('GUILD_LOG_REASON'), reason)
+			.setFooter(msg.guild.language.get('GUILD_LOG_GUILDMEMBERKICK'));
+		await member.send(msg.guild.language.get('MONITOR_MODERATION_AUTO_BOILERPLATE', msg.guild), { disableEveryone: true, embed: embed });
 		return;
 	}
 
