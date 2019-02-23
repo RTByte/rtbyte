@@ -23,14 +23,35 @@ module.exports = class extends Event {
 	}
 
 	async memberUpdateLog(oldMember, member) {
+		const oldRoleCollection = oldMember.roles.reduce((userRoles, roles) => {
+			if (!roles.name.includes('everyone')) {
+				userRoles.push(roles);
+			}
+			return userRoles;
+		}, []);
+		const newRoleCollection = member.roles.reduce((userRoles, roles) => {
+			if (!roles.name.includes('everyone')) {
+				userRoles.push(roles);
+			}
+			return userRoles;
+		}, []);
+
+		const oldActualRoles = oldRoleCollection.map(userRoles => `${userRoles}`).join(', ');
+		const newActualRoles = newRoleCollection.map(userRoles => `${userRoles}`).join(', ');
+
 		const arrowRightEmoji = this.client.emojis.get(this.client.settings.emoji.arrowRight);
+
 		const embed = new MessageEmbed()
 			.setAuthor(`${member.displayName} (${member.user.tag}) `, member.user.displayAvatarURL())
 			.setColor(this.client.settings.colors.blue)
 			.setTimestamp()
 			.setFooter(member.guild.language.get('GUILD_LOG_MEMBERUPDATE'));
 
-		if (oldMember.displayName !== member.displayName) embed.addField(member.guild.language.get('GUILD_LOG_MEMBERUPDATE_DISPLAYNAME'), `${oldMember.displayName} ${arrowRightEmoji} ${member.displayName}`); // eslint-disable-line
+		if (oldMember.displayName !== member.displayName) await embed.addField(member.guild.language.get('GUILD_LOG_MEMBERUPDATE_DISPLAYNAME'), `${oldMember.displayName} ${arrowRightEmoji} ${member.displayName}`); // eslint-disable-line
+		if (oldMember.roles !== member.roles) {
+			await embed.addField(member.guild.language.get('GUILD_LOG_BEFORE'), oldActualRoles.length < 1 ? oldMember.roles.map(roles => `${roles}`).join(', ') : oldActualRoles);
+			await embed.addField(member.guild.language.get('GUILD_LOG_AFTER'), newActualRoles.length > 1 ? newActualRoles : member.roles.map(roles => `${roles}`).join(', '));
+		}
 
 		const logChannel = await this.client.channels.get(member.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });
@@ -77,7 +98,7 @@ module.exports = class extends Event {
 
 		const logChannel = await this.client.channels.get(member.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });
-		await member.user.send(member.guild.language.get('COMMAND_MODERATION_BOILERPLATE', member.guild), { disableEveryone: true, embed: embed });
+		await member.user.send(member.guild.language.get('MONITOR_MODERATION_AUTO_BOILERPLATE', member.guild), { disableEveryone: true, embed: embed });
 		return;
 	}
 

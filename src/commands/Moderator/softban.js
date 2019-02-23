@@ -1,4 +1,4 @@
-const { Command } = require('klasa');
+const { Command, util } = require('klasa');
 const { MessageEmbed } = require('discord.js');
 
 module.exports = class extends Command {
@@ -24,10 +24,9 @@ module.exports = class extends Command {
 
 		const member = await msg.guild.members.fetch(user);
 
-		await this.messageUser(msg, member, reason);
-
+		if (msg.guild.settings.logs.events.guildSoftbanAdd) await this.softbanLog(member, reason);
 		await msg.guild.members.ban(user, { days: 1, reason: reason });
-		if (msg.guild.settings.logs.events.guildSoftbanAdd) await this.softbanLog(member);
+		await util.sleep(500);
 		await msg.guild.members.unban(user, msg.language.get('COMMAND_SOFTBAN_SOFTBAN_RELEASED'));
 
 		if (reason.includes('-s', reason.length - 2)) return msg.delete({ reason: msg.language.get('COMMAND_MODERATION_SILENT') });
@@ -35,27 +34,18 @@ module.exports = class extends Command {
 		return msg.affirm();
 	}
 
-	async softbanLog(member) {
+	async softbanLog(member, reason) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${member.user.tag} (${member.id})`, member.user.displayAvatarURL())
 			.setColor(this.client.settings.colors.red)
 			.setTimestamp()
+			.addField(member.guild.language.get('GUILD_LOG_REASON'), reason)
 			.setFooter(member.guild.language.get('GUILD_LOG_GUILDSOFTBANADD'));
 
 		const logChannel = await this.client.channels.get(member.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });
-		return;
-	}
-
-	async messageUser(msg, member, reason) {
-		if (!msg.guild.settings.moderation.notifyUser) return;
-		const embed = new MessageEmbed()
-			.setAuthor(`${msg.guild} (${msg.guild.id})`, msg.guild.iconURL())
-			.setColor(this.client.settings.colors.red)
-			.setTimestamp()
-			.addField(msg.guild.language.get('GUILD_LOG_REASON'), reason)
-			.setFooter(msg.guild.language.get('GUILD_LOG_GUILDSOFTBANADD'));
-		await member.send(msg.guild.language.get('MONITOR_MODERATION_AUTO_BOILERPLATE', msg.guild), { disableEveryone: true, embed: embed });
+		// eslint-disable-next-line max-len
+		if (member.guild.settings.moderation.notifyUser && !reason.includes('-s', reason.length - 2)) await member.send(member.guild.language.get('COMMAND_MODERATION_BOILERPLATE', member.guild), { disableEveryone: true, embed: embed });
 		return;
 	}
 

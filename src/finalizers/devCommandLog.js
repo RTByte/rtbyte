@@ -15,12 +15,12 @@ module.exports = class extends Finalizer {
 
 	async commandRunLog(message, runTime) {
 		const embed = new MessageEmbed()
-			.setAuthor(`#${message.channel.name} | ${message.guild.name}`, message.guild.iconURL())
+			.setAuthor(`${message.guild.name} (#${message.channel.name})`, message.guild.iconURL())
 			.setColor(this.client.settings.colors.white)
 			.setTitle(message.guild.language.get('GLOBAL_LOG_COMMANDRUN'))
 			.setDescription(`[${message.guild.language.get('GLOBAL_LOG_COMMANDRUNVIEW')}](${message.url})`)
-			.addField('Message', message.content, true)
-			.addField('Runtime', runTime, true)
+			.addField('Message', message.content)
+			.addField('Runtime', runTime)
 			.setTimestamp()
 			.setFooter(message.author.tag, message.author.displayAvatarURL());
 

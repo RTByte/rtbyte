@@ -24,8 +24,7 @@ module.exports = class extends Command {
 
 		const member = await msg.guild.members.fetch(user);
 
-		await this.messageUser(msg, member, reason);
-
+		if (msg.guild.settings.moderation.notifyUser && !reason.includes('-s', reason.length - 2)) await this.notifyUser(member, reason);
 		await msg.guild.members.ban(user, { days: 1, reason: reason });
 
 		if (reason.includes('-s', reason.length - 2)) return msg.delete();
@@ -33,15 +32,14 @@ module.exports = class extends Command {
 		return msg.affirm();
 	}
 
-	async messageUser(msg, member, reason) {
-		if (!msg.guild.settings.moderation.notifyUser) return;
+	async notifyUser(member, reason) {
 		const embed = new MessageEmbed()
-			.setAuthor(`${msg.guild} (${msg.guild.id})`, msg.guild.iconURL())
+			.setAuthor(`${member.user.tag} (${member.user.id})`, member.user.displayAvatarURL())
 			.setColor(this.client.settings.colors.red)
 			.setTimestamp()
-			.addField(msg.guild.language.get('GUILD_LOG_REASON'), reason)
-			.setFooter(msg.guild.language.get('GUILD_LOG_GUILDBANADD'));
-		await member.send(msg.guild.language.get('MONITOR_MODERATION_AUTO_BOILERPLATE', msg.guild), { disableEveryone: true, embed: embed });
+			.addField(member.guild.language.get('GUILD_LOG_REASON'), reason)
+			.setFooter(member.guild.language.get('GUILD_LOG_GUILDBANADD'));
+		await member.send(member.guild.language.get('COMMAND_MODERATION_BOILERPLATE', member.guild), { disableEveryone: true, embed: embed });
 		return;
 	}
 };

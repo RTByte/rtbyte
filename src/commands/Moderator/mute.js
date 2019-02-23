@@ -26,8 +26,6 @@ module.exports = class extends Command {
 
 		const member = await msg.guild.members.fetch(user);
 
-		await this.messageUser(msg, member, reason);
-
 		if (member.roles.has(msg.guild.settings.roles.muted)) return msg.affirm();
 		const mutedRole = await msg.guild.roles.get(msg.guild.settings.roles.muted);
 		await member.roles.add(mutedRole);
@@ -49,6 +47,8 @@ module.exports = class extends Command {
 
 		const logChannel = await this.client.channels.get(member.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });
+		// eslint-disable-next-line max-len
+		if (member.guild.settings.moderation.notifyUser && !reason.includes('-s', reason.length - 2)) await member.send(member.guild.language.get('COMMAND_MODERATION_BOILERPLATE', member.guild), { disableEveryone: true, embed: embed });
 		return;
 	}
 
@@ -75,18 +75,6 @@ module.exports = class extends Command {
 			}
 		});
 
-		return;
-	}
-
-	async messageUser(msg, member, reason) {
-		if (!msg.guild.settings.moderation.notifyUser) return;
-		const embed = new MessageEmbed()
-			.setAuthor(`${msg.guild} (${msg.guild.id})`, msg.guild.iconURL())
-			.setColor(this.client.settings.colors.red)
-			.setTimestamp()
-			.addField(msg.guild.language.get('GUILD_LOG_REASON'), reason)
-			.setFooter(msg.guild.language.get('GUILD_LOG_GUILDMEMBERMUTE'));
-		await member.send(msg.guild.language.get('MONITOR_MODERATION_AUTO_BOILERPLATE', msg.guild), { disableEveryone: true, embed: embed });
 		return;
 	}
 

@@ -35,7 +35,6 @@ module.exports = class extends Command {
 		}, []);
 
 		const actualRoles = roleCollection.map(userRoles => `${userRoles}`).join(', ');
-		console.log(actualRoles);
 
 		const embed = new MessageEmbed()
 			.setColor(this.client.settings.colors.white)
@@ -49,10 +48,10 @@ module.exports = class extends Command {
 			.setFooter(`Requested by ${msg.author.tag}`, msg.author.displayAvatarURL());
 
 		if (member.user.presence.activity) {
-			embed.addField(msg.guild.language.get('COMMAND_USERINFO_ACTIVITY', member), member.user.presence.activity ? member.user.presence.activity.name : 'N/A', true)
+			await embed.addField(msg.guild.language.get('COMMAND_USERINFO_ACTIVITY', member), member.user.presence.activity ? member.user.presence.activity.name : 'N/A', true);
 		}
 		if (actualRoles) {
-			embed.addField(msg.guild.language.get('COMMAND_USERINFO_ROLES'), actualRoles, true);
+			await embed.addField(msg.guild.language.get('COMMAND_USERINFO_ROLES'), actualRoles, true);
 		}
 
 		await msg.send('', { disableEveryone: true, embed: embed });

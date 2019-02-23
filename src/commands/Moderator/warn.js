@@ -24,8 +24,6 @@ module.exports = class extends Command {
 
 		const member = await msg.guild.members.fetch(user);
 
-		await this.messageUser(msg, member, reason);
-
 		if (msg.guild.settings.logs.events.guildMemberWarn) await this.warnLog(member, reason);
 
 		if (reason.includes('-s', reason.length - 2)) return msg.delete({ reason: msg.language.get('COMMAND_MODERATION_SILENT') });
@@ -44,18 +42,6 @@ module.exports = class extends Command {
 		const logChannel = await this.client.channels.get(member.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		await member.send(member.guild.language.get('COMMAND_MODERATION_BOILERPLATE', member.guild), { disableEveryone: true, embed: embed });
-		return;
-	}
-
-	async messageUser(msg, member, reason) {
-		if (!msg.guild.settings.moderation.notifyUser) return;
-		const embed = new MessageEmbed()
-			.setAuthor(`${msg.guild} (${msg.guild.id})`, msg.guild.iconURL())
-			.setColor(this.client.settings.colors.red)
-			.setTimestamp()
-			.addField(msg.guild.language.get('GUILD_LOG_WARNING'), reason)
-			.setFooter(msg.guild.language.get('GUILD_LOG_GUILDMEMBERWARN'));
-		await member.send(msg.guild.language.get('MONITOR_MODERATION_AUTO_BOILERPLATE', msg.guild), { disableEveryone: true, embed: embed });
 		return;
 	}
 

@@ -44,6 +44,7 @@ module.exports = class extends Command {
 
 		const logChannel = await this.client.channels.get(member.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });
+		if (member.guild.settings.moderation.notifyUser) await member.send(member.guild.language.get('COMMAND_MODERATION_BOILERPLATE', member.guild), { disableEveryone: true, embed: embed });
 		return;
 	}
 
@@ -52,14 +53,4 @@ module.exports = class extends Command {
 		return mute.createRole(guild);
 	}
 
-	async messageUser(msg, member) {
-		if (!msg.guild.settings.moderation.notifyUser) return;
-		const embed = new MessageEmbed()
-			.setAuthor(`${msg.guild} (${msg.guild.id})`, msg.guild.iconURL())
-			.setColor(this.client.settings.colors.red)
-			.setTimestamp()
-			.setFooter(msg.guild.language.get('GUILD_LOG_GUILDMEMBERUNMUTE'));
-		await member.send(msg.guild.language.get('MONITOR_MODERATION_AUTO_BOILERPLATE', msg.guild), { disableEveryone: true, embed: embed });
-		return;
-	}
 };

@@ -24,11 +24,9 @@ module.exports = class extends Command {
 
 		const member = await msg.guild.members.fetch(user);
 
-		await this.messageUser(msg, member, reason);
+		if (msg.guild.settings.logs.events.guildMemberKick) await this.kickLog(member, reason);
 
 		await member.kick(reason);
-
-		if (msg.guild.settings.logs.events.guildMemberKick) await this.kickLog(member, reason);
 
 		if (reason.includes('-s', reason.length - 2)) return msg.delete({ reason: msg.language.get('COMMAND_MODERATION_SILENT') });
 
@@ -45,18 +43,8 @@ module.exports = class extends Command {
 
 		const logChannel = await this.client.channels.get(member.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });
-		return;
-	}
-
-	async messageUser(msg, member, reason) {
-		if (!msg.guild.settings.moderation.notifyUser) return;
-		const embed = new MessageEmbed()
-			.setAuthor(`${msg.guild} (${msg.guild.id})`, msg.guild.iconURL())
-			.setColor(this.client.settings.colors.red)
-			.setTimestamp()
-			.addField(msg.guild.language.get('GUILD_LOG_REASON'), reason)
-			.setFooter(msg.guild.language.get('GUILD_LOG_GUILDMEMBERKICK'));
-		await member.send(msg.guild.language.get('MONITOR_MODERATION_AUTO_BOILERPLATE', msg.guild), { disableEveryone: true, embed: embed });
+		// eslint-disable-next-line max-len
+		if (member.guild.settings.moderation.notifyUser && !reason.includes('-s', reason.length - 2)) await member.send(member.guild.language.get('COMMAND_MODERATION_BOILERPLATE', member.guild), { disableEveryone: true, embed: embed });
 		return;
 	}
 
