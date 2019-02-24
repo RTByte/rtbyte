@@ -10,12 +10,12 @@ module.exports = class extends Command {
 			requiredPermissions: ['MANAGE_ROLES', 'MANAGE_CHANNELS', 'ADD_REACTIONS', 'USE_EXTERNAL_EMOJIS', 'SEND_MESSAGES', 'EMBED_LINKS'],
 			runIn: ['text'],
 			description: language => language.get('COMMAND_MUTE_DESCRIPTION'),
-			usage: '<member:user> <reason:string> [...]',
+			usage: '<member:user> [when:time] <reason:...string>',
 			usageDelim: ' '
 		});
 	}
 
-	async run(msg, [user, ...reason]) {
+	async run(msg, [user, when, ...reason]) {
 		if (!msg.guild.settings.roles.muted || !msg.guild.roles.has(msg.guild.settings.roles.muted)) await this.createRole(msg.guild);
 
 		if (user.id === msg.author.id) return msg.reject(msg.language.get('COMMAND_MUTE_NO_MUTE_SELF'));
@@ -30,20 +30,32 @@ module.exports = class extends Command {
 		const mutedRole = await msg.guild.roles.get(msg.guild.settings.roles.muted);
 		await member.roles.add(mutedRole);
 
-		if (msg.guild.settings.logs.events.guildMemberMute) await this.muteLog(member, reason);
+		if (when) {
+			await this.client.schedule.create('timedUnmute', when, {
+				data: {
+					guild: msg.guild.id,
+					user: member.id
+				}
+			});
+		}
+
+		if (msg.guild.settings.logs.events.guildMemberMute) await this.muteLog(member, when, reason);
 
 		if (reason.includes('-s', reason.length - 2)) return msg.delete({ reason: msg.language.get('COMMAND_MODERATION_SILENT') });
 
 		return msg.affirm();
+
 	}
 
-	async muteLog(member, reason) {
+	async muteLog(member, when, reason) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${member.user.tag} (${member.id})`, member.user.displayAvatarURL())
 			.setColor(this.client.settings.colors.red)
 			.setTimestamp()
 			.addField(member.guild.language.get('GUILD_LOG_REASON'), reason)
 			.setFooter(member.guild.language.get('GUILD_LOG_GUILDMEMBERMUTE'));
+
+		if (when) await embed.setFooter(member.guild.language.get('GUILD_LOG_GUILDMEMBERMUTE_TIMED', when));
 
 		const logChannel = await this.client.channels.get(member.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });

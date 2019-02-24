@@ -10,7 +10,7 @@ module.exports = class extends Command {
 			requiredPermissions: ['BAN_MEMBERS', 'ADD_REACTIONS', 'USE_EXTERNAL_EMOJIS'],
 			runIn: ['text'],
 			description: language => language.get('COMMAND_BAN_DESCRIPTION'),
-			usage: '<member:user> <reason:string> [...]',
+			usage: '<member:user> <reason:...string>',
 			usageDelim: ' '
 		});
 	}

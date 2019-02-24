@@ -26,7 +26,6 @@ module.exports = class extends Command {
 
 		if (msg.guild.settings.logs.events.guildSoftbanAdd) await this.softbanLog(member, reason);
 		await msg.guild.members.ban(user, { days: 1, reason: reason });
-		await util.sleep(500);
 		await msg.guild.members.unban(user, msg.language.get('COMMAND_SOFTBAN_SOFTBAN_RELEASED'));
 
 		if (reason.includes('-s', reason.length - 2)) return msg.delete({ reason: msg.language.get('COMMAND_MODERATION_SILENT') });

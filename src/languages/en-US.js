@@ -1,4 +1,4 @@
-const { Language, util } = require('klasa');
+const { Language, util, Timestamp } = require('klasa');
 
 module.exports = class extends Language {
 
@@ -9,6 +9,7 @@ module.exports = class extends Language {
 			LISTENING: 'Listening to',
 			WATCHING: 'Watching'
 		};
+		this.timestamp = new Timestamp('d MMMM YYYY, h:mm A');
 		this.language = {
 			DEFAULT: (key) => `${key} has not been localized for en-US yet.`,
 			DEFAULT_LANGUAGE: 'Default language',
@@ -308,6 +309,7 @@ module.exports = class extends Language {
 			GUILD_LOG_EMOJIDELETE_V_ID: 'ID',
 			GUILD_LOG_EMOJIUPDATE: 'Emoji updated',
 			GUILD_LOG_GUILDBANADD: 'User banned',
+			GUILD_LOG_GUILDBANADD_TIMED: (when) => `User banned until ${this.timestamp.display(when)}`,
 			GUILD_LOG_GUILDBANREMOVE: 'User unbanned',
 			GUILD_LOG_GUILDMEMBERADD: 'User joined',
 			GUILD_LOG_GUILDMEMBERADD_V_REGISTERED: 'Registered',
