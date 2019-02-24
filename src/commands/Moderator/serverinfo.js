@@ -12,7 +12,7 @@ module.exports = class extends Command {
 			description: language => language.get('COMMAND_SERVERINFO_DESCRIPTION'),
 			extendedHelp: ''
 		});
-		this.timestamp = new Timestamp('d MMMM YYYY, h:mm A');
+		this.timestamp = new Timestamp('d MMMM YYYY');
 		this.regions = {
 			brazil: '🇧🇷 Brazil',
 			'vip-us-west': '🇺🇸 VIP US West',
@@ -34,6 +34,18 @@ module.exports = class extends Command {
 			frankfurt: '🇩🇪 Frankfurt',
 			russia: '🇷🇺 Russia'
 		};
+		this.verificationLevels = [
+			'None',
+			'Low',
+			'Medium',
+			'(╯°□°）╯︵ ┻━┻',
+			'┻━┻ ﾐヽ(ಠ益ಠ)ノ彡┻━┻'
+		];
+		this.filterLevels = [
+			'Off',
+			'On for unroled users',
+			'On for everyone'
+		];
 	}
 
 	async run(msg) {
@@ -48,6 +60,8 @@ module.exports = class extends Command {
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_EMOJIS'), `${msg.guild.emojis.size}/50`, true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_ROLES'), msg.guild.roles.size, true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_REGION'), this.regions[msg.guild.region], true)
+			.addField(msg.guild.language.get('COMMAND_SERVERINFO_VLEVEL'), this.verificationLevels[msg.guild.verificationLevel], true)
+			.addField(msg.guild.language.get('COMMAND_SERVERINFO_ECFILTER'), this.filterLevels[msg.guild.explicitContentFilter], true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_CREATED'), this.timestamp.display(msg.guild.createdAt), true)
 			.setThumbnail(msg.guild.iconURL(), 50, 50)
 			.setImage(msg.guild.splashURL())

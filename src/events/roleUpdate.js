@@ -5,6 +5,37 @@ module.exports = class extends Event {
 
 	constructor(...args) {
 		super(...args, { event: 'roleUpdate' });
+		this.perms = {
+			ADMINISTRATOR: 'Administrator',
+			VIEW_AUDIT_LOG: 'View Audit Log',
+			MANAGE_GUILD: 'Manage Server',
+			MANAGE_ROLES: 'Manage Roles',
+			MANAGE_CHANNELS: 'Manage Channels',
+			KICK_MEMBERS: 'Kick Members',
+			BAN_MEMBERS: 'Ban Members',
+			CREATE_INSTANT_INVITE: 'Create Instant Invite',
+			CHANGE_NICKNAME: 'Change Nickname',
+			MANAGE_NICKNAMES: 'Manage Nicknames',
+			MANAGE_EMOJIS: 'Manage Emojis',
+			MANAGE_WEBHOOKS: 'Manage Webhooks',
+			VIEW_CHANNEL: 'Read Text Channels and See Voice Channels',
+			SEND_MESSAGES: 'Send Messages',
+			SEND_TTS_MESSAGES: 'Send TTS Messages',
+			MANAGE_MESSAGES: 'Manage Messages',
+			EMBED_LINKS: 'Embed Links',
+			ATTACH_FILES: 'Attach Files',
+			READ_MESSAGE_HISTORY: 'Read Message History',
+			MENTION_EVERYONE: 'Mention Everyone',
+			USE_EXTERNAL_EMOJIS: 'Use External Emojis',
+			ADD_REACTIONS: 'Add Reactions',
+			CONNECT: 'Connect',
+			SPEAK: 'Speak',
+			MUTE_MEMBERS: 'Mute Members',
+			DEAFEN_MEMBERS: 'Deafen Members',
+			MOVE_MEMBERS: 'Move Members',
+			USE_VAD: 'Use Voice Activity',
+			PRIORITY_SPEAKER: 'Priority Speaker'
+		};
 	}
 
 	async run(oldRole, role) {
@@ -17,6 +48,8 @@ module.exports = class extends Event {
 		const affirmEmoji = this.client.emojis.get(this.client.settings.emoji.affirm);
 		const rejectEmoji = this.client.emojis.get(this.client.settings.emoji.reject);
 		const arrowRightEmoji = this.client.emojis.get(this.client.settings.emoji.arrowRight);
+		const oldPermissions = Object.entries(oldRole.permissions.serialize()).filter(perm => perm[1]).map(([perm]) => this.perms[perm]).join(', ');
+		const newPermissions = Object.entries(role.permissions.serialize()).filter(perm => perm[1]).map(([perm]) => this.perms[perm]).join(', ');
 		const status = {
 			true: affirmEmoji,
 			false: rejectEmoji
@@ -32,7 +65,7 @@ module.exports = class extends Event {
 		if (oldRole.color !== role.color) embed.addField(role.guild.language.get('GUILD_LOG_ROLEUPDATE_COLOR'), `${oldRole.hexColor} ${arrowRightEmoji} ${role.hexColor}`);
 		if (oldRole.hoist !== role.hoist) embed.addField(role.guild.language.get('GUILD_LOG_ROLEUPDATE_HOIST'), status[role.hoist]);
 		if (oldRole.mentionable !== role.mentionable) embed.addField(role.guild.language.get('GUILD_LOG_ROLEUPDATE_MENTIONABLE'), status[role.mentionable]);
-		if (oldRole.permissions.bitfield !== role.permissions.bitfield) embed.addField(role.guild.language.get('GUILD_LOG_ROLEUPDATE_PERMISSIONS'), `\`\`\`${oldRole.permissions.toArray().join(', ')}\`\`\` \n${arrowRightEmoji} \n\`\`\`${role.permissions.toArray().join(', ')}\`\`\``); // eslint-disable-line
+		if (oldRole.permissions.bitfield !== role.permissions.bitfield) embed.addField(role.guild.language.get('GUILD_LOG_ROLEUPDATE_PERMISSIONS'), `\`\`\`${oldPermissions ? oldPermissions : 'None'}\`\`\`\n ${arrowRightEmoji} \n\n\`\`\`${newPermissions ? newPermissions : 'None'}\`\`\``); // eslint-disable-line
 
 		const logChannel = await this.client.channels.get(role.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });
