@@ -49,6 +49,15 @@ module.exports = class extends Command {
 	}
 
 	async run(msg) {
+		const roleCollection = msg.guild.roles.reduce((serverRoles, roles) => {
+			if (!roles.name.includes('everyone')) {
+				serverRoles.push(roles);
+			}
+			return serverRoles;
+		}, []);
+
+		const actualRoles = roleCollection.map(serverRoles => `${serverRoles}`).join(', ');
+
 		const embed = new MessageEmbed()
 			.setAuthor(msg.guild.name, msg.guild.iconURL())
 			.setColor(this.client.settings.colors.white)
@@ -56,13 +65,13 @@ module.exports = class extends Command {
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_NAME'), msg.guild.name, true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_OWNER'), msg.guild.owner, true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_MEMBERS'), msg.guild.memberCount, true)
-			.addField(msg.guild.language.get('COMMAND_SERVERINFO_CHANNELS'), msg.guild.channels.size, true)
-			.addField(msg.guild.language.get('COMMAND_SERVERINFO_EMOJIS'), `${msg.guild.emojis.size}/50`, true)
-			.addField(msg.guild.language.get('COMMAND_SERVERINFO_ROLES'), msg.guild.roles.size, true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_REGION'), this.regions[msg.guild.region], true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_VLEVEL'), this.verificationLevels[msg.guild.verificationLevel], true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_ECFILTER'), this.filterLevels[msg.guild.explicitContentFilter], true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_CREATED'), this.timestamp.display(msg.guild.createdAt), true)
+			.addField(msg.guild.language.get('COMMAND_SERVERINFO_ROLES'), actualRoles, true)
+			.addField(msg.guild.language.get('COMMAND_SERVERINFO_CHANNELS'), msg.guild.channels.map(channels => channels.toString()).join(', '), true)
+			.addField(msg.guild.language.get('COMMAND_SERVERINFO_EMOJIS'), msg.guild.emojis.map(emojis => emojis.toString()).join(' '), true)
 			.setThumbnail(msg.guild.iconURL(), 50, 50)
 			.setImage(msg.guild.splashURL())
 			.setTimestamp()
