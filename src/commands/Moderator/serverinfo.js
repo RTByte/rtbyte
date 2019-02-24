@@ -58,6 +58,8 @@ module.exports = class extends Command {
 
 		const actualRoles = roleCollection.map(serverRoles => `${serverRoles}`).join(', ');
 
+		const emojis = msg.guild.emojis.map(emojis => emojis.toString()).join(' ')
+
 		const embed = new MessageEmbed()
 			.setAuthor(msg.guild.name, msg.guild.iconURL())
 			.setColor(this.client.settings.colors.white)
@@ -69,13 +71,18 @@ module.exports = class extends Command {
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_VLEVEL'), this.verificationLevels[msg.guild.verificationLevel], true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_ECFILTER'), this.filterLevels[msg.guild.explicitContentFilter], true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_CREATED'), this.timestamp.display(msg.guild.createdAt), true)
-			.addField(msg.guild.language.get('COMMAND_SERVERINFO_ROLES'), actualRoles, true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_CHANNELS'), msg.guild.channels.map(channels => channels.toString()).join(', '), true)
-			.addField(msg.guild.language.get('COMMAND_SERVERINFO_EMOJIS'), msg.guild.emojis.map(emojis => emojis.toString()).join(' '), true)
 			.setThumbnail(msg.guild.iconURL(), 50, 50)
 			.setImage(msg.guild.splashURL())
 			.setTimestamp()
 			.setFooter(`Requested by ${msg.author.tag}`, msg.author.displayAvatarURL());
+
+		if (actualRoles) {
+			await embed.addField(msg.guild.language.get('COMMAND_SERVERINFO_ROLES'), actualRoles, true);
+		}
+		if (emojis) {
+			embed.addField(msg.guild.language.get('COMMAND_SERVERINFO_EMOJIS'), emojis, true);
+		}
 		return msg.channel.send('', { disableEveryone: true, embed: embed });
 	}
 
