@@ -212,6 +212,8 @@ module.exports = class extends Language {
 			COMMAND_SERVERINFO_EMOJIS: 'Emojis',
 			COMMAND_SERVERINFO_ROLES: 'Roles',
 			COMMAND_SERVERINFO_REGION: 'Region',
+			COMMAND_SERVERINFO_VLEVEL: 'Verification level',
+			COMMAND_SERVERINFO_ECFILTER: 'Explicit content filter',
 			COMMAND_SERVERINFO_CREATED: 'Created',
 			COMMAND_SOFTBAN_DESCRIPTION: 'Bans a mentioned user and logs the reason.',
 			COMMAND_SOFTBAN_NO_SOFTBAN_SELF: 'You cannot softban yourself.',
