@@ -10,7 +10,7 @@ module.exports = class extends Command {
 			requiredPermissions: ['BAN_MEMBERS', 'ADD_REACTIONS', 'USE_EXTERNAL_EMOJIS'],
 			runIn: ['text'],
 			description: language => language.get('COMMAND_SOFTBAN_DESCRIPTION'),
-			usage: '<member:user> <reason:string> [...]',
+			usage: '<member:user> <reason:...string>',
 			usageDelim: ' '
 		});
 	}
@@ -19,8 +19,6 @@ module.exports = class extends Command {
 		if (user.id === msg.author.id) return msg.reject(msg.language.get('COMMAND_SOFTBAN_NO_SOFTBAN_SELF'));
 		if (user.id === this.client.user.id) return msg.reject(msg.language.get('COMMAND_SOFTBAN_NO_SOFTBAN_CLIENT'));
 		if (!await msg.member.canMod(user)) return msg.reject(msg.language.get('COMMAND_SOFTBAN_NO_PERMS', user));
-
-		reason = reason.join(' ');
 
 		const member = await msg.guild.members.fetch(user);
 

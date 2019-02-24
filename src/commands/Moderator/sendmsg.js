@@ -10,7 +10,7 @@ module.exports = class extends Command {
 			permissionLevel: 5,
 			description: language => language.get('COMMAND_SENDMSG_DESCRIPTION'),
 			extendedHelp: '',
-			usage: '<targetUser:user|targetChannel:channel> <message:string> [...]',
+			usage: '<targetUser:user|targetChannel:channel> <message:...string>',
 			usageDelim: ' '
 		});
 	}
@@ -20,11 +20,12 @@ module.exports = class extends Command {
 			try {
 				await msg.delete();
 				if (!target.constructor.name === 'KlasaUser') {
-					return target.send(message.join(' '));
+					return target.send(message);
 				} else if (target.constructor.name === 'KlasaUser') {
-					return target.send(message.join(' ')).then(target.send(`This message was sent from the **${msg.guild.name}** Discord and can not be replied to. If you have any questions regarding the contents of it, please contact a moderator.`));
+					// eslint-disable-next-line max-len
+					return target.send(message).then(target.send(`This message was sent from the **${msg.guild.name}** Discord and can not be replied to. If you have any questions regarding the contents of it, please contact a moderator.`));
 				}
-				return target.send(message.join(' '));
+				return target.send(message);
 			} catch (err) {
 				await this.client.emit('taskError', err);
 				return msg.reject();

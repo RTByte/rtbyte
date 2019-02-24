@@ -10,7 +10,7 @@ module.exports = class extends Command {
 			requiredPermissions: ['ADD_REACTIONS', 'USE_EXTERNAL_EMOJIS', 'SEND_MESSAGES', 'EMBED_LINKS'],
 			runIn: ['text'],
 			description: language => language.get('COMMAND_WARN_DESCRIPTION'),
-			usage: '<member:user> <reason:string> [...]',
+			usage: '<member:user> <reason:...string>',
 			usageDelim: ' '
 		});
 	}
@@ -19,8 +19,6 @@ module.exports = class extends Command {
 		if (user.id === msg.author.id) return msg.reject(msg.language.get('COMMAND_WARN_NO_WARN_SELF'));
 		if (user.id === this.client.user.id) return msg.reject(msg.language.get('COMMAND_WARN_NO_WARN_CLIENT'));
 		if (!msg.member.canMod(user)) return msg.reject(msg.language.get('COMMAND_WARN_NO_PERMS', user));
-
-		reason = reason.join(' ');
 
 		const member = await msg.guild.members.fetch(user);
 

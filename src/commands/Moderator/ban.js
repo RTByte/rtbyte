@@ -20,8 +20,6 @@ module.exports = class extends Command {
 		if (user.id === this.client.user.id) return msg.reject(msg.language.get('COMMAND_BAN_NO_BAN_CLIENT'));
 		if (!msg.member.canMod(user)) return msg.reject(msg.language.get('COMMAND_BAN_NO_PERMS', user));
 
-		reason = reason.join(' ');
-
 		const member = await msg.guild.members.fetch(user);
 
 		if (msg.guild.settings.moderation.notifyUser && !reason.includes('-s', reason.length - 2)) await this.notifyUser(member, reason);

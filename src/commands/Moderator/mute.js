@@ -22,8 +22,6 @@ module.exports = class extends Command {
 		if (user.id === this.client.user.id) return msg.reject(msg.language.get('COMMAND_MUTE_NO_MUTE_CLIENT'));
 		if (!await msg.member.canMod(user)) return msg.reject(msg.language.get('COMMAND_MUTE_NO_PERMS', user));
 
-		reason = reason.join(' ');
-
 		const member = await msg.guild.members.fetch(user);
 
 		if (member.roles.has(msg.guild.settings.roles.muted)) return msg.affirm();
