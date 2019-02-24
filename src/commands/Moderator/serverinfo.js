@@ -70,7 +70,7 @@ module.exports = class extends Command {
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_REGION'), this.regions[msg.guild.region], true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_VLEVEL'), this.verificationLevels[msg.guild.verificationLevel], true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_ECFILTER'), this.filterLevels[msg.guild.explicitContentFilter], true)
-			.addField(msg.guild.language.get('COMMAND_SERVERINFO_CREATED'), this.timestamp.display(msg.guild.createdAt), true)
+			.addField(msg.guild.language.get('COMMAND_SERVERINFO_CREATED'), this.timestamp.displayUTC(msg.guild.createdAt), true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_CHANNELS'), msg.guild.channels.map(channels => channels.toString()).join(', '), true)
 			.setThumbnail(msg.guild.iconURL(), 50, 50)
 			.setImage(msg.guild.splashURL())

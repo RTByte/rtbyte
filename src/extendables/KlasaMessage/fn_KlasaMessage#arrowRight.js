@@ -9,7 +9,7 @@ module.exports = class extends Extendable {
 	async arrowRight(message = null, messageOptions = {}) {
 		const arrowRightEmoji = await this.client.emojis.get(this.client.settings.emoji.arrowRight);
 		await this.react(arrowRightEmoji);
-		return message ? this.sendMessage(`${this.author}\n${arrowRightEmoji}${message}`, messageOptions) : this;
+		return message ? this.sendMessage(`${this.author}\n${arrowRightEmoji} ${message}`, messageOptions) : this;
 	}
 
 };

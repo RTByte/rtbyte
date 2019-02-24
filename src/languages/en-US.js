@@ -318,7 +318,7 @@ module.exports = class extends Language {
 			GUILD_LOG_GUILDMEMBERREMOVE: 'User left',
 			GUILD_LOG_GUILDMEMBERKICK: 'User kicked',
 			GUILD_LOG_GUILDMEMBERMUTE: 'User muted',
-			GUILD_LOG_GUILDMEMBERMUTE_TIMED: (when) => `User muted until ${this.timestamp.display(when)}`,
+			GUILD_LOG_GUILDMEMBERMUTE_TIMED: (when) => `User muted until ${this.timestamp.displayUTC(when)}`,
 			GUILD_LOG_GUILDSOFTBANADD: 'User softbanned',
 			GUILD_LOG_GUILDMEMBERUNMUTE: 'User unmuted',
 			GUILD_LOG_GUILDMEMBERVCBAN: 'User banned from voice chat',

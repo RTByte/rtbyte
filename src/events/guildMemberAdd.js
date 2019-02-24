@@ -23,7 +23,7 @@ module.exports = class extends Event {
 			.setFooter(guildMember.guild.language.get('GUILD_LOG_GUILDMEMBERADD'));
 
 		if (guildMember.guild.settings.logs.verboseLogging) {
-			embed.addField(guildMember.guild.language.get('GUILD_LOG_GUILDMEMBERADD_V_REGISTERED'), this.timestamp.display(guildMember.user.createdAt));
+			embed.addField(guildMember.guild.language.get('GUILD_LOG_GUILDMEMBERADD_V_REGISTERED'), this.timestamp.displayUTC(guildMember.user.createdAt));
 		}
 
 		const logChannel = await this.client.channels.get(guildMember.guild.settings.channels.log);

@@ -27,7 +27,7 @@ module.exports = class extends Command {
 			.setAuthor(qmsg.author.tag, qmsg.author.displayAvatarURL())
 			.setColor(this.client.settings.colors.white)
 			.addField('Message:', `${qmsg.content}`, true)
-			.setFooter(`Originally Sent on ${this.timestamp.display(qmsg.createdAt)} in #${qmsg.channel.name} on the ${qmsg.guild.name} Discord`);
+			.setFooter(`Originally Sent on ${this.timestamp.displayUTC(qmsg.createdAt)} in #${qmsg.channel.name} on the ${qmsg.guild.name} Discord`);
 
 		return msg.send('', { disableEveryone: true, embed: embed });
 	}
