@@ -5,7 +5,9 @@
 
 RTByte is a multipurpose Discord Bot built on the incredible [Klasa](https://github.com/dirigeants/klasa) framework for [discord.js](https://github.com/discordjs/discord.js).
 
-RTByte is a rewrite of [ChopBot](https://github.com/chopbot/chopbot) -- a Discord Bot written for the [Rooster Teeth](https://roosterteeth.com/) family of community Discord Servers. 
+RTByte is a rewrite of [ChopBot](https://github.com/chopbot/chopbot) -- a Discord Bot written for the [Rooster Teeth](https://roosterteeth.com/) family of community Discord Servers.
+
+For support, changelogs, and a link to add RTByte to your server, please join our support Discord.
 
 ## Features
 
@@ -29,13 +31,13 @@ Coming Soon™
 
 #### Our Team
 
-[Rasmus Gerdin](https://github.com/raaaasmus): Project manager, creator of ChopBot
+[Rasmus Gerdin](https://github.com/raaaasmus)
 
-[Michael Cumbers](https://github.com/mcumbers): Project manager, guy who likes to play "How many times can we rewrite ChopBot?"
+[Michael Cumbers](https://github.com/mcumbers)
 
-[Killian Higgins](https://github.com/Uzui2012): british man
+[Killian Higgins](https://github.com/Uzui2012)
 
-[Justin Shull](https://github.com/JShull97): not british
+[Justin Shull](https://github.com/JShull97)
 
 #### People Who Made It Possible
 
