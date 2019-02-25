@@ -10,7 +10,6 @@ module.exports = class extends Language {
 			LISTENING: 'Listening to',
 			WATCHING: 'Watching'
 		};
-		this.timestamp = new Timestamp('d MMMM YYYY, h:mm A');
 		this.language = {
 			DEFAULT: (key) => `${key} has not been localized for en-US yet.`,
 			DEFAULT_LANGUAGE: 'Default language',
