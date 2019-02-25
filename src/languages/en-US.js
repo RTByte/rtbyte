@@ -327,6 +327,7 @@ module.exports = class extends Language {
 			GUILD_LOG_MEMBERUPDATE_DISPLAYNAME: 'Nickname changed',
 			GUILD_LOG_AUTOSELENER: 'Changed name with blacklisted word',
 			GUILD_LOG_BLACKLISTEDWORD: (channel) => `Blacklisted word detected in ${channel}.`,
+			GUILD_LOG_ANTIINVITE: (channel) => `Guild invite detected in ${channel}.`,
 
 			GLOBAL_LOG_GUILDCREATE: 'Bot added to guild',
 			GLOBAL_LOG_GUILDDELETE: 'Bot removed from guild',

@@ -69,7 +69,8 @@ Client.defaultGuildSchema
 			.add('roleUpdate', 'boolean', { default: false })
 			.add('messagePurge', 'boolean', { default: false })
 			.add('blacklistedWord', 'boolean', { default: false })
-			.add('blacklistedNickname', 'boolean', { default: false })))
+			.add('blacklistedNickname', 'boolean', { default: false })
+			.add('antiInvite', 'boolean', { default: false })))
 	.add('greetings', folder => folder
 		.add('welcomeNewUsers', 'boolean', { default: false })
 		.add('welcomeChannel', 'textchannel')
@@ -79,11 +80,13 @@ Client.defaultGuildSchema
 		.add('goodbyeMessage', 'string'))
 	.add('filters', folder => folder
 		.add('wordBlacklistEnabled', 'boolean', { default: false })
+		.add('antiInviteEnabled', 'boolean', { default: false })
 		.add('warn', 'boolean', { default: false })
 		.add('delete', 'boolean', { default: false })
 		.add('checkDisplayNames', 'boolean', { default: false })
 		.add('modBypass', 'boolean', { default: false })
-		.add('words', 'string', { array: true }))
+		.add('words', 'string', { array: true })
+		.add('inviteWhitelist', 'string', { array: true }))
 	.add('moderation', folder => folder
 		.add('notifyUser', 'boolean', { defualt: false }));
 
