@@ -42,7 +42,6 @@ module.exports = class extends Command {
 		if (reason.includes('-s', reason.length - 2)) return msg.delete({ reason: msg.language.get('COMMAND_MODERATION_SILENT') });
 
 		return msg.affirm();
-
 	}
 
 	async muteLog(member, when, reason) {

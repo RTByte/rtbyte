@@ -1,11 +1,14 @@
 # RTByte
 [![Discord](https://img.shields.io/discord/450163430373064704.svg?colorB=7289da&label=discord&logo=Discord&logoColor=fff&style=flat)](https://discord.gg/YMAvX3p)
+[![Open Issues](https://img.shields.io/github/issues/RTByte/RTByte.svg)](https://github.com/RTByte/RTByte/issues)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/2878b3d9eded4d4998cd29dbdf3e98ec)](https://www.codacy.com/app/mcumbers/RTByte?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ChopBot/RTByte&amp;utm_campaign=Badge_Grade)
 [![David](https://img.shields.io/david/RTByte/RTByte.svg?maxAge=3600)](https://david-dm.org/RTByte/RTByte)
 
 RTByte is a multipurpose Discord Bot built on the incredible [Klasa](https://github.com/dirigeants/klasa) framework for [discord.js](https://github.com/discordjs/discord.js).
 
-RTByte is a rewrite of [ChopBot](https://github.com/chopbot/chopbot) -- a Discord Bot written for the [Rooster Teeth](https://roosterteeth.com/) family of community Discord Servers. 
+RTByte is a rewrite of [ChopBot](https://github.com/chopbot/chopbot) -- a Discord Bot written for the [Rooster Teeth](https://roosterteeth.com/) family of community Discord Servers.
+
+For support, changelogs, and a link to add RTByte to your server, please join our support Discord.
 
 ## Features
 
@@ -29,13 +32,13 @@ Coming Soon™
 
 #### Our Team
 
-[Rasmus Gerdin](https://github.com/raaaasmus): Project manager, creator of ChopBot
+[Rasmus Gerdin](https://github.com/raaaasmus)
 
-[Michael Cumbers](https://github.com/mcumbers): Project manager, guy who likes to play "How many times can we rewrite ChopBot?"
+[Michael Cumbers](https://github.com/mcumbers)
 
-[Killian Higgins](https://github.com/Uzui2012): british man
+[Killian Higgins](https://github.com/Uzui2012)
 
-[Justin Shull](https://github.com/JShull97): not british
+[Justin Shull](https://github.com/JShull97)
 
 #### People Who Made It Possible
 

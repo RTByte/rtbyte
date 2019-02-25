@@ -7,28 +7,30 @@ module.exports = class extends Event {
 		super(...args, { event: 'guildMemberRemove'	});
 	}
 
-	async run(guildMember) {
-		if (guildMember.guild.available && guildMember.guild.settings.greetings.dismissUsers) await this.dismiss(guildMember);
-		if (guildMember.guild.available && guildMember.guild.settings.logs.events.guildMemberRemove) await this.leaveLog(guildMember);
+	async run(member) {
+		if (member.guild.available && member.guild.settings.greetings.dismissUsers) await this.dismiss(member);
+		if (member.guild.available && member.guild.settings.logs.events.memberRemove) await this.leaveLog(member);
 
 		return;
 	}
 
-	async leaveLog(guildMember) {
+	async leaveLog(member) {
 		const embed = new MessageEmbed()
-			.setAuthor(`${guildMember.user.tag} (${guildMember.id})`, guildMember.user.displayAvatarURL())
+			.setAuthor(`${member.user.tag} (${member.id})`, member.user.displayAvatarURL())
 			.setColor(this.client.settings.colors.red)
 			.setTimestamp()
-			.setFooter(guildMember.guild.language.get('GUILD_LOG_GUILDMEMBERREMOVE'));
+			.setFooter(member.guild.language.get('GUILD_LOG_GUILDMEMBERREMOVE'));
 
-		const logChannel = await this.client.channels.get(guildMember.guild.settings.channels.log);
+		const logChannel = await this.client.channels.get(member.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		return;
 	}
 
-	async dismiss(guildMember) {
-		if (!guildMember.guild.settings.greetings.goodbyeMessage) return;
-		// TODO: Parse goodbye messages
+	async dismiss(member) {
+		if (!member.guild.settings.greetings.goodbyeMessage) return;
+
+		// const goodbyeChannel = await this.client.channels.get(member.guild.settings.greetings.goodbyeChannel);
+		// if (member.guild.settings.greetings.goodbyeMessage) await goodbyeChannel.send(member.guild.settings.greetings.goodbyeMessage);
 	}
 
 };

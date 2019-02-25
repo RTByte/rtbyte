@@ -9,6 +9,9 @@ module.exports = class extends Task {
 		const member = await _guild.members.fetch(user).catch(() => null);
 		if (!member) return;
 		const mutedRole = await _guild.roles.get(_guild.settings.roles.muted);
+
+		if (!member.roles.has(_guild.settings.roles.muted)) return;
+
 		await member.roles.remove(mutedRole);
 
 		if (_guild.settings.logs.events.guildMemberUnmute) await this.unmuteLog(_guild, member);

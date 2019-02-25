@@ -1,4 +1,5 @@
-const { Language, util, Timestamp } = require('klasa');
+const { Language, util } = require('klasa');
+const moment = require('moment');
 
 module.exports = class extends Language {
 
@@ -9,7 +10,6 @@ module.exports = class extends Language {
 			LISTENING: 'Listening to',
 			WATCHING: 'Watching'
 		};
-		this.timestamp = new Timestamp('d MMMM YYYY, h:mm A');
 		this.language = {
 			DEFAULT: (key) => `${key} has not been localized for en-US yet.`,
 			DEFAULT_LANGUAGE: 'Default language',
@@ -310,6 +310,18 @@ module.exports = class extends Language {
 			GUILD_LOG_EMOJIDELETE: 'Emoji deleted',
 			GUILD_LOG_EMOJIDELETE_V_ID: 'ID',
 			GUILD_LOG_EMOJIUPDATE: 'Emoji updated',
+			GUILD_LOG_GUILDUPDATE: 'Guild updated',
+			GUILD_LOG_GUILDUPDATE_AFKCHANNEL: 'AFK channel changed',
+			GUILD_LOG_GUILDUPDATE_AFKTIMEOUT: 'AFK timeout changed',
+			GUILD_LOG_GUILDUPDATE_DEFAULTMSGNOTIF: 'Default notification settings changed',
+			GUILD_LOG_GUILDUPDATE_CONTENTFILTER: 'Explicit content filter level changed',
+			GUILD_LOG_GUILDUPDATE_ICON: 'Server icon changed',
+			GUILD_LOG_GUILDUPDATE_MFALEVEL: 'Server 2FA requirement toggled',
+			GUILD_LOG_GUILDUPDATE_NAME: 'Previous name',
+			GUILD_LOG_GUILDUPDATE_OWNER: 'Ownership transferred',
+			GUILD_LOG_GUILDUPDATE_REGION: 'Region changed',
+			GUILD_LOG_GUILDUPDATE_SPLASH: 'Server invite background changed',
+			GUILD_LOG_GUILDUPDATE_VLEVEL: 'Verification level changed',
 			GUILD_LOG_GUILDBANADD: 'User banned',
 			GUILD_LOG_GUILDBANREMOVE: 'User unbanned',
 			GUILD_LOG_GUILDMEMBERADD: 'User joined',
@@ -318,7 +330,7 @@ module.exports = class extends Language {
 			GUILD_LOG_GUILDMEMBERREMOVE: 'User left',
 			GUILD_LOG_GUILDMEMBERKICK: 'User kicked',
 			GUILD_LOG_GUILDMEMBERMUTE: 'User muted',
-			GUILD_LOG_GUILDMEMBERMUTE_TIMED: (when) => `User muted until ${this.timestamp.displayUTC(when)}`,
+			GUILD_LOG_GUILDMEMBERMUTE_TIMED: (when) => `User muted for ${moment.duration(moment().diff(when)).humanize()}`,
 			GUILD_LOG_GUILDSOFTBANADD: 'User softbanned',
 			GUILD_LOG_GUILDMEMBERUNMUTE: 'User unmuted',
 			GUILD_LOG_GUILDMEMBERVCBAN: 'User banned from voice chat',
@@ -331,7 +343,9 @@ module.exports = class extends Language {
 
 			GLOBAL_LOG_GUILDCREATE: 'Bot added to guild',
 			GLOBAL_LOG_GUILDDELETE: 'Bot removed from guild',
-			GLOBAL_LOG_GUILDUPDATED: 'Guild name changed',
+			GLOBAL_LOG_GUILDUPDATE_NAME: 'Guild name changed',
+			GLOBAL_LOG_GUILDUPDATE_ICON: 'Guild icon changed',
+			GLOBAL_LOG_GUILDUPDATE_PREVNAME: 'Previous name',
 			GLOBAL_LOG_UPDATE_NAME: 'Name changed',
 			GLOBAL_LOG_GUILDUNAVAILABLE: 'Guild unavailable, likely due to a server outage',
 			GLOBAL_LOG_COMMANDRUN: 'Command ran',

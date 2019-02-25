@@ -40,4 +40,5 @@ module.exports = class extends Command {
 		await member.send(member.guild.language.get('COMMAND_MODERATION_BOILERPLATE', member.guild), { disableEveryone: true, embed: embed });
 		return;
 	}
+
 };

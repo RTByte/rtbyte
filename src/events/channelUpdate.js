@@ -29,11 +29,12 @@ module.exports = class extends Event {
 			.setTimestamp()
 			.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE'));
 
-		if (oldChannel.name !== channel.name) embed.addField(channel.guild.language.get('GUILD_LOG_UPDATE_NAME'), `${oldChannel.name} ${arrowRightEmoji} ${channel.name}`);
-		if (oldChannel.nsfw !== channel.nsfw) embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_NSFW'), status[channel.nsfw]);
-		if (oldChannel.topic !== channel.topic) embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_TOPIC'), `${oldChannel.topic} ${arrowRightEmoji} ${channel.topic}`);
-		if (channel.type === 'voice') embed.setAuthor(channel.name, channel.guild.iconURL()).setFooter(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_VOICE'));
-		if (oldChannel.parent.name !== channel.parent.name) embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_CATEGORY'), `${oldChannel.parent.name} ${arrowRightEmoji} ${channel.parent.name}`); // eslint-disable-line
+		if (oldChannel.name !== channel.name) await embed.addField(channel.guild.language.get('GUILD_LOG_UPDATE_NAME'), `${oldChannel.name} ${arrowRightEmoji} ${channel.name}`);
+		if (oldChannel.nsfw !== channel.nsfw) await embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_NSFW'), status[channel.nsfw]);
+		// eslint-disable-next-line max-len
+		if (oldChannel.topic !== channel.topic) await embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_TOPIC'), `${oldChannel.topic ? oldChannel.topic : 'No topic'} ${arrowRightEmoji} ${channel.topic ? channel.topic : 'No topic'}`);
+		if (channel.type === 'voice') await embed.setAuthor(channel.name, channel.guild.iconURL()).setFooter(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_VOICE'));
+		if (oldChannel.parent.name !== channel.parent.name) await embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_CATEGORY'), `${oldChannel.parent.name} ${arrowRightEmoji} ${channel.parent.name}`); // eslint-disable-line
 		await this.permissionUpdateCheck(oldChannel, channel, embed);
 
 		const logChannel = await this.client.channels.get(channel.guild.settings.channels.log);
