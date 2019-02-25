@@ -1,4 +1,4 @@
-const { Language, util, Timestamp } = require('klasa');
+const { Language, util } = require('klasa');
 const moment = require('moment');
 
 module.exports = class extends Language {
