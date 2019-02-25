@@ -109,4 +109,5 @@ module.exports = class extends Command {
 	async run(msg) {
 		return msg.reply(`\n🎱 ${answers[Math.floor(Math.random() * answers.length)]}`);
 	}
+
 };
