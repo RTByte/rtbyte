@@ -1,5 +1,6 @@
 # RTByte
 [![Discord](https://img.shields.io/discord/450163430373064704.svg?colorB=7289da&label=discord&logo=Discord&logoColor=fff&style=flat)](https://discord.gg/YMAvX3p)
+[![Open Issues](https://img.shields.io/github/issues/RTByte/RTByte.svg)](https://github.com/RTByte/RTByte/issues)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/2878b3d9eded4d4998cd29dbdf3e98ec)](https://www.codacy.com/app/mcumbers/RTByte?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ChopBot/RTByte&amp;utm_campaign=Badge_Grade)
 [![David](https://img.shields.io/david/RTByte/RTByte.svg?maxAge=3600)](https://david-dm.org/RTByte/RTByte)
 
