@@ -8,32 +8,34 @@ module.exports = class extends Event {
 		this.timestamp = new Timestamp('d MMMM YYYY, h:mm A');
 	}
 
-	async run(guildMember) {
-		if (guildMember.guild.available && guildMember.guild.settings.welcomeNewUsers) await this.welcome(guildMember);
-		if (guildMember.guild.available && guildMember.guild.settings.logs.events.guildMemberAdd) await this.newMemberLog(guildMember);
+	async run(member) {
+		if (member.guild.available && member.guild.settings.greetings.welcomeNewUsers) await this.welcome(member);
+		if (member.guild.available && member.guild.settings.logs.events.memberAdd) await this.newMemberLog(member);
 
 		return;
 	}
 
-	async newMemberLog(guildMember) {
+	async newMemberLog(member) {
 		const embed = new MessageEmbed()
-			.setAuthor(`${guildMember.user.tag} (${guildMember.id})`, guildMember.user.displayAvatarURL())
+			.setAuthor(`${member.user.tag} (${member.id})`, member.user.displayAvatarURL())
 			.setColor(this.client.settings.colors.green)
 			.setTimestamp()
-			.setFooter(guildMember.guild.language.get('GUILD_LOG_GUILDMEMBERADD'));
+			.setFooter(member.guild.language.get('GUILD_LOG_GUILDMEMBERADD'));
 
-		if (guildMember.guild.settings.logs.verboseLogging) {
-			embed.addField(guildMember.guild.language.get('GUILD_LOG_GUILDMEMBERADD_V_REGISTERED'), this.timestamp.displayUTC(guildMember.user.createdAt));
+		if (member.guild.settings.logs.verboseLogging) {
+			embed.addField(member.guild.language.get('GUILD_LOG_GUILDMEMBERADD_V_REGISTERED'), this.timestamp.displayUTC(member.user.createdAt));
 		}
 
-		const logChannel = await this.client.channels.get(guildMember.guild.settings.channels.log);
+		const logChannel = await this.client.channels.get(member.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		return;
 	}
 
-	async welcome(guildMember) {
-		if (!guildMember.guild.settings.greetings.welcomeMessage) return;
-		// TODO: Parse welcome messages
+	async welcome(member) {
+		if (!member.guild.settings.greetings.welcomeMessage) return;
+
+		// const welcomeChannel = await this.client.channels.get(member.guild.settings.greetings.welcomeChannel);
+		// if (member.guild.settings.greetings.welcomeMessage) await welcomeChannel.send(member.guild.settings.greetings.welcomeMessage);
 	}
 
 };
