@@ -48,7 +48,7 @@ module.exports = class extends Event {
 			.setFooter(member.guild.language.get('GUILD_LOG_MEMBERUPDATE'));
 
 		if (oldMember.displayName !== member.displayName) await embed.addField(member.guild.language.get('GUILD_LOG_MEMBERUPDATE_DISPLAYNAME'), `${oldMember.displayName} ${arrowRightEmoji} ${member.displayName}`); // eslint-disable-line
-		if (oldMember.roles !== member.roles) {
+		if (oldActualRoles !== newActualRoles) {
 			await embed.addField(member.guild.language.get('GUILD_LOG_BEFORE'), oldActualRoles.length < 1 ? oldMember.roles.map(roles => `${roles}`).join(', ') : oldActualRoles);
 			await embed.addField(member.guild.language.get('GUILD_LOG_AFTER'), newActualRoles.length > 1 ? newActualRoles : member.roles.map(roles => `${roles}`).join(', '));
 		}
