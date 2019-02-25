@@ -22,6 +22,7 @@ Client.defaultClientSchema
 		.add('commandRun', 'boolean', { default: true })
 		.add('guildCreate', 'boolean', { default: true })
 		.add('guildDelete', 'boolean', { default: true })
+		.add('guildUpdate', 'boolean', { default: true })
 		.add('guildUnavailable', 'boolean', { default: true }))
 	.add('colors', folder => folder
 		// Informative, neutral
@@ -52,6 +53,7 @@ Client.defaultGuildSchema
 			.add('emojiCreate', 'boolean', { default: false })
 			.add('emojiDelete', 'boolean', { default: false })
 			.add('emojiUpdate', 'boolean', { default: false })
+			.add('guildUpdate', 'boolean', { default: false })
 			.add('guildBanAdd', 'boolean', { default: false })
 			.add('guildBanRemove', 'boolean', { default: false })
 			.add('guildSoftBanAdd', 'boolean', { default: false })
