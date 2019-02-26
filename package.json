@@ -16,7 +16,8 @@
   "dependencies": {
     "discord.js": "github:discordjs/discord.js",
     "erlpack": "github:discordapp/erlpack",
-    "klasa": "github:dirigeants/klasa#master"
+    "klasa": "github:dirigeants/klasa#master",
+    "moment": "^2.24.0"
   },
   "devDependencies": {
     "eslint": "^4.19.1"

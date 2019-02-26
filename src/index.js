@@ -43,7 +43,8 @@ Client.defaultGuildSchema
 	.add('roles', folder => folder
 		.add('administrator', 'role')
 		.add('moderator', 'role')
-		.add('muted', 'role'))
+		.add('muted', 'role')
+		.add('joinable', 'role', { array: true }))
 	.add('logs', folder => folder
 		.add('verboseLogging', 'boolean', { default: false })
 		.add('events', folder => folder // eslint-disable-line
