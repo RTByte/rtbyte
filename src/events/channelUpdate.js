@@ -34,8 +34,13 @@ module.exports = class extends Event {
 		// eslint-disable-next-line max-len
 		if (oldChannel.topic !== channel.topic) await embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_TOPIC'), `${oldChannel.topic ? oldChannel.topic : 'No topic'} ${arrowRightEmoji} ${channel.topic ? channel.topic : 'No topic'}`);
 		if (channel.type === 'voice') await embed.setAuthor(channel.name, channel.guild.iconURL()).setFooter(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_VOICE'));
+
+		// Need to check if oldChannel and/or channel are actually in a category. If they're not, this breaks the event. TODO
 		if (oldChannel.parent.name !== channel.parent.name) await embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_CATEGORY'), `${oldChannel.parent.name} ${arrowRightEmoji} ${channel.parent.name}`); // eslint-disable-line
+
 		await this.permissionUpdateCheck(oldChannel, channel, embed);
+
+		if (!embed.fields.length) return;
 
 		const logChannel = await this.client.channels.get(channel.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });

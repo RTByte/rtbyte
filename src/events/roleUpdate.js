@@ -67,6 +67,8 @@ module.exports = class extends Event {
 		if (oldRole.mentionable !== role.mentionable) embed.addField(role.guild.language.get('GUILD_LOG_ROLEUPDATE_MENTIONABLE'), status[role.mentionable]);
 		if (oldRole.permissions.bitfield !== role.permissions.bitfield) embed.addField(role.guild.language.get('GUILD_LOG_ROLEUPDATE_PERMISSIONS'), `\`\`\`${oldPermissions ? oldPermissions : 'None'}\`\`\`\n ${arrowRightEmoji} \n\n\`\`\`${newPermissions ? newPermissions : 'None'}\`\`\``); // eslint-disable-line
 
+		if (!embed.fields.length) return;
+
 		const logChannel = await this.client.channels.get(role.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		return;
