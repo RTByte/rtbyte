@@ -9,7 +9,7 @@ module.exports = class extends Event {
 
 	async run(member) {
 		if (member.guild.available && member.guild.settings.greetings.dismissUsers) await this.dismiss(member);
-		if (member.guild.available && member.guild.settings.logs.events.memberRemove) await this.leaveLog(member);
+		if (member.guild.available && member.guild.settings.logs.events.guildMemberRemove) await this.leaveLog(member);
 
 		return;
 	}

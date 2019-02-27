@@ -326,7 +326,6 @@ module.exports = class extends Language {
 			GUILD_LOG_GUILDBANREMOVE: 'User unbanned',
 			GUILD_LOG_GUILDMEMBERADD: 'User joined',
 			GUILD_LOG_GUILDMEMBERADD_V_REGISTERED: 'Registered',
-			GUILD_LOG_GUILDMEMBERADD_V_JOINED: 'Joined',
 			GUILD_LOG_GUILDMEMBERREMOVE: 'User left',
 			GUILD_LOG_GUILDMEMBERKICK: 'User kicked',
 			GUILD_LOG_GUILDMEMBERMUTE: 'User muted',
