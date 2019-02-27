@@ -68,23 +68,29 @@ module.exports = class extends Command {
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_OWNER'), msg.guild.owner, true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_MEMBERS'), msg.guild.memberCount, true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_REGION'), this.regions[msg.guild.region], true)
-			.addField(msg.guild.language.get('COMMAND_SERVERINFO_CREATED'), this.timestamp.displayUTC(msg.guild.createdAt), true)
+			.addField(msg.guild.language.get('COMMAND_SERVERINFO_ROLES'), msg.guild.roles.size, true)
+			.addField(msg.guild.language.get('COMMAND_SERVERINFO_CHANNELS'), msg.guild.channels.size, true)
+			.addField(msg.guild.language.get('COMMAND_SERVERINFO_EMOJIS'), `${msg.guild.emojis.size}/100`, true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_VLEVEL'), this.verificationLevels[msg.guild.verificationLevel], true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_ECFILTER'), this.filterLevels[msg.guild.explicitContentFilter], true)
+			.addField(msg.guild.language.get('COMMAND_SERVERINFO_CREATED'), this.timestamp.displayUTC(msg.guild.createdAt), true)
 			.setThumbnail(msg.guild.iconURL(), 50, 50)
 			.setImage(msg.guild.splashURL())
 			.setTimestamp()
 			.setFooter(`Requested by ${msg.author.tag}`, msg.author.displayAvatarURL());
 
-		if (actualRoles) {
-			await embed.addField(msg.guild.language.get('COMMAND_SERVERINFO_ROLES'), actualRoles, true);
-		}
+		// TODO: Find a way to display roles, channels and emoji objects by either limiting to a certain amount, or using multiple embed fields
+		/* if (actualRoles) {
+			// await embed.addField(msg.guild.language.get('COMMAND_SERVERINFO_ROLES'), actualRoles, true);
+	 	}
 
 		embed.addField(msg.guild.language.get('COMMAND_SERVERINFO_CHANNELS'), msg.guild.channels.map(channels => channels.toString()).join(', '), true)
 
 		if (emojis) {
 			embed.addField(msg.guild.language.get('COMMAND_SERVERINFO_EMOJIS'), emojis, true);
 		}
+		*/
+
 		return msg.channel.send('', { disableEveryone: true, embed: embed });
 	}
 
