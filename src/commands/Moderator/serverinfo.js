@@ -50,8 +50,8 @@ module.exports = class extends Command {
 
 	async run(msg) {
 		const roles = await msg.guild.roles.filter(role => role.name !== '@everyone').sort().array();
-
-		const emojis = msg.guild.emojis.map(emoji => emoji.toString()).join(' ');
+		const channels = await msg.guild.channels.filter(channel => channel.type !== 'category' && channel.type !== 'voice').array();
+		const emojis = await msg.guild.emojis.array();
 
 		const embed = new MessageEmbed()
 			.setAuthor(msg.guild.name, msg.guild.iconURL())
@@ -63,7 +63,7 @@ module.exports = class extends Command {
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_REGION'), this.regions[msg.guild.region], true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_ROLES'), msg.guild.roles.size, true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_CHANNELS'), msg.guild.channels.size, true)
-			.addField(msg.guild.language.get('COMMAND_SERVERINFO_EMOJIS'), `${msg.guild.emojis.size}/100`, true)
+			.addField(msg.guild.language.get('COMMAND_SERVERINFO_EMOJIS'), `${emojis.size}/100`, true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_VLEVEL'), this.verificationLevels[msg.guild.verificationLevel], true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_ECFILTER'), this.filterLevels[msg.guild.explicitContentFilter], true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_CREATED'), this.timestamp.displayUTC(msg.guild.createdAt), true)
@@ -72,11 +72,11 @@ module.exports = class extends Command {
 			.setTimestamp()
 			.setFooter(`Requested by ${msg.author.tag}`, msg.author.displayAvatarURL());
 
+		if (!msg.guild.settings.logs.verboseLogging) return msg.channel.send('', { disableEveryone: true, embed: embed });
+
 		await this.embedSplitter(msg.guild.language.get('COMMAND_SERVERINFO_ROLES'), roles, embed);
-
-		embed.addField(msg.guild.language.get('COMMAND_SERVERINFO_CHANNELS'), msg.guild.channels.map(channels => channels.toString()).join(', '), true);
-
-		if (emojis) embed.addField(msg.guild.language.get('COMMAND_SERVERINFO_EMOJIS'), emojis, true);
+		await this.embedSplitter(msg.guild.language.get('COMMAND_SERVERINFO_CHANNELS'), channels, embed);
+		await this.embedSplitter(msg.guild.language.get('COMMAND_SERVERINFO_EMOJIS'), emojis, embed);
 
 		return msg.channel.send('', { disableEveryone: true, embed: embed });
 	}
