@@ -93,6 +93,14 @@ Client.defaultGuildSchema
 	.add('moderation', folder => folder
 		.add('notifyUser', 'boolean', { defualt: false }));
 
+Client.defaultPermissionLevels
+	.add(0, () => true)
+	.add(6, ({ guild, member }) => guild && member.roles.has(guild.settings.roles.moderator))
+	.add(7, ({ guild, member }) => guild && member.roles.has(guild.settings.roles.administrator))
+	.add(8, ({ guild, member }) => guild && member === guild.owner, { fetch: true })
+	.add(9, ({ author, client }) => author === client.owner, { break: true })
+	.add(10, ({ author, client }) => author === client.owner);
+
 class Bot extends Client {}
 
 new Bot(config).login(token);
