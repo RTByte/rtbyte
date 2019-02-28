@@ -3,7 +3,6 @@ const { config, token } = require('./config');
 
 // Defining global variables
 Client.defaultClientSchema
-	.add('botOwners', 'string', { array: true })
 	.add('guilds', folder => folder
 		.add('controlGuild', 'guild'))
 	.add('channels', folder => folder

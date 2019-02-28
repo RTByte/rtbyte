@@ -91,7 +91,9 @@ const answers = [
 	'Yes, my dude.',
 	'No, my dude.',
 	'Never, ever, ever, ever. Ever.',
-	'Oh, hold on. I was making brownies.'
+	'Oh, hold on. I was making brownies.',
+	'I don\'t give a fuck.',
+	'Fuck you, I don\'t care.'
 ];
 
 const { Command } = require('klasa');
