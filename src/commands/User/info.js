@@ -14,7 +14,8 @@ module.exports = class extends Command {
 
 	async run(message) {
 		const embed = new MessageEmbed()
-			.setAuthor('COMMAND_INFO_TITLE', this.client.user.displayAvatarURL())
+			.setAuthor('COMMAND_INFO_TITLE', this.client.user.displayAvatarURL());
+
 		return message.send('', { disableEveryone: true, embed: embed });
 	}
 

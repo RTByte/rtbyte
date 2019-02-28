@@ -49,16 +49,9 @@ module.exports = class extends Command {
 	}
 
 	async run(msg) {
-		const roleCollection = msg.guild.roles.reduce((serverRoles, roles) => {
-			if (!roles.name.includes('everyone')) {
-				serverRoles.push(roles);
-			}
-			return serverRoles;
-		}, []);
+		const roles = await msg.guild.roles.filter(role => role.name !== '@everyone').sort().array();
 
-		const actualRoles = roleCollection.map(serverRoles => `${serverRoles}`).join(', ');
-
-		const emojis = msg.guild.emojis.map(emoji => emoji.toString()).join(' ')
+		const emojis = msg.guild.emojis.map(emoji => emoji.toString()).join(' ');
 
 		const embed = new MessageEmbed()
 			.setAuthor(msg.guild.name, msg.guild.iconURL())
@@ -79,19 +72,40 @@ module.exports = class extends Command {
 			.setTimestamp()
 			.setFooter(`Requested by ${msg.author.tag}`, msg.author.displayAvatarURL());
 
-		// TODO: Find a way to display roles, channels and emoji objects by either limiting to a certain amount, or using multiple embed fields
-		/* if (actualRoles) {
-			// await embed.addField(msg.guild.language.get('COMMAND_SERVERINFO_ROLES'), actualRoles, true);
-	 	}
+		await this.embedSplitter(msg.guild.language.get('COMMAND_SERVERINFO_ROLES'), roles, embed);
 
-		embed.addField(msg.guild.language.get('COMMAND_SERVERINFO_CHANNELS'), msg.guild.channels.map(channels => channels.toString()).join(', '), true)
+		embed.addField(msg.guild.language.get('COMMAND_SERVERINFO_CHANNELS'), msg.guild.channels.map(channels => channels.toString()).join(', '), true);
 
-		if (emojis) {
-			embed.addField(msg.guild.language.get('COMMAND_SERVERINFO_EMOJIS'), emojis, true);
-		}
-		*/
+		if (emojis) embed.addField(msg.guild.language.get('COMMAND_SERVERINFO_EMOJIS'), emojis, true);
 
 		return msg.channel.send('', { disableEveryone: true, embed: embed });
+	}
+
+	async embedSplitter(name, valueArray, embed) {
+		// I don't care if this doesn't have commas, do not touch this rasmus
+		const bigString = valueArray.join(' ') + ' '; // eslint-disable-line
+		if (bigString.length < 1024) return embed.addField(name, bigString);
+
+		const substrings = [];
+		let splitLength = 0;
+
+		while (splitLength < bigString.length) {
+			let validString = bigString.slice(splitLength, splitLength + 1024);
+			validString = validString.slice(0, validString.lastIndexOf(' ') + 1);
+
+			if (!validString.length) {
+				splitLength = bigString.length;
+			} else {
+				substrings.push(validString);
+				splitLength += validString.length;
+			}
+		}
+
+		await substrings.forEach(substring => {
+			if (substring.length) embed.addField(name, substring);
+		});
+
+		return null;
 	}
 
 };

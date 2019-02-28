@@ -27,14 +27,7 @@ module.exports = class extends Command {
 			offline: `${offlineEmoji} Offline`
 		};
 
-		const roleCollection = member.roles.reduce((userRoles, roles) => {
-			if (!roles.name.includes('everyone')) {
-				userRoles.push(roles);
-			}
-			return userRoles;
-		}, []);
-
-		const actualRoles = roleCollection.map(userRoles => `${userRoles}`).join(', ');
+		const roles = await member.roles.filter(role => role.name !== '@everyone').sort().array();
 
 		const embed = new MessageEmbed()
 			.setColor(this.client.settings.colors.white)
@@ -50,12 +43,37 @@ module.exports = class extends Command {
 		if (member.user.presence.activity) {
 			await embed.addField(msg.guild.language.get('COMMAND_USERINFO_ACTIVITY', member), member.user.presence.activity ? member.user.presence.activity.name : 'N/A', true);
 		}
-		if (actualRoles) {
-			await embed.addField(msg.guild.language.get('COMMAND_USERINFO_ROLES'), actualRoles, true);
-		}
+
+		await this.embedSplitter(msg.guild.language.get('COMMAND_SERVERINFO_ROLES'), roles, embed);
 
 		await msg.send('', { disableEveryone: true, embed: embed });
 		return;
+	}
+	async embedSplitter(name, valueArray, embed) {
+		// I don't care if this doesn't have commas, do not touch this rasmus
+		const bigString = valueArray.join(' ') + ' '; // eslint-disable-line
+		if (bigString.length < 1024) return embed.addField(name, bigString);
+
+		const substrings = [];
+		let splitLength = 0;
+
+		while (splitLength < bigString.length) {
+			let validString = bigString.slice(splitLength, splitLength + 1024);
+			validString = validString.slice(0, validString.lastIndexOf(' ') + 1);
+
+			if (!validString.length) {
+				splitLength = bigString.length;
+			} else {
+				substrings.push(validString);
+				splitLength += validString.length;
+			}
+		}
+
+		await substrings.forEach(substring => {
+			if (substring.length) embed.addField(name, substring);
+		});
+
+		return null;
 	}
 
 };
