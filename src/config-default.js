@@ -4,6 +4,7 @@ exports.config = {
 	 * Make a copy of this file with your relevant information and rename it config.js
      */
 	controlGuild: '',
+	botOwners: [''],
 	production: false,
 	prefix: '-',
 	preserveSettings: false,

@@ -98,8 +98,8 @@ Client.defaultPermissionLevels
 	.add(6, ({ guild, member }) => guild && member.roles.has(guild.settings.roles.moderator))
 	.add(7, ({ guild, member }) => guild && member.roles.has(guild.settings.roles.administrator))
 	.add(8, ({ guild, member }) => guild && member === guild.owner, { fetch: true })
-	.add(9, ({ author, client }) => author === client.owner, { break: true })
-	.add(10, ({ author, client }) => author === client.owner);
+	.add(9, ({ author, client }) => client.options.botOwners.includes(author.id), { break: true })
+	.add(10, ({ author, client }) => client.options.botOwners.includes(author.id));
 
 class Bot extends Client {}
 
