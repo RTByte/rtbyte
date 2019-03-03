@@ -265,6 +265,9 @@ module.exports = class extends Language {
 			COMMAND_ROLES_ALREADY_HAVE: (roleName, target) => `${target} already has the role \`${roleName}\`.`,
 			COMMAND_ROLES_NOT_LEAVABLE: (roleName) => `You're not allowed to remove the role \`${roleName}\`.`,
 			COMMAND_ROLES_DOES_NOT_HAVE: (roleName, target) => `${target} does not have the role \`${roleName}\`.`,
+			COMMAND_SUPPORT_DESCRIPTION: 'Contacts the Bot Developers in case of an issue with the bot.',
+			COMMAND_SUPPORT_REQUESTED: 'Support Requested',
+			COMMAND_SUPPORT_CONTACTED: 'The Bot Developers have been notified.',
 
 			MESSAGE_PROMPT_TIMEOUT: 'The prompt has timed out.',
 

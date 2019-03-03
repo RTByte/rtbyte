@@ -37,6 +37,9 @@ Client.defaultClientSchema
 
 // Defining default guild variables.
 Client.defaultGuildSchema
+	.add('developmentSettings', folder => folder
+		.add('developersAreSuperUsers', 'boolean', { default: true })
+		.add('commandAnalytics', 'boolean', { default: true }))
 	.add('channels', folder => folder
 		.add('log', 'textchannel'))
 	.add('roles', folder => folder
@@ -50,6 +53,7 @@ Client.defaultGuildSchema
 			.add('channelCreate', 'boolean', { default: false })
 			.add('channelDelete', 'boolean', { default: false })
 			.add('channelUpdate', 'boolean', { default: false })
+			.add('commandRun', 'boolean', { default: false })
 			.add('emojiCreate', 'boolean', { default: false })
 			.add('emojiDelete', 'boolean', { default: false })
 			.add('emojiUpdate', 'boolean', { default: false })
@@ -97,8 +101,8 @@ Client.defaultPermissionLevels
 	.add(6, ({ guild, member }) => guild && member.roles.has(guild.settings.roles.moderator), { fetch: true })
 	.add(7, ({ guild, member }) => guild && member.roles.has(guild.settings.roles.administrator), { fetch: true })
 	.add(8, ({ guild, member }) => guild && member === guild.owner, { fetch: true })
-	.add(9, ({ author, client }) => client.options.botOwners.includes(author.id), { break: true })
-	.add(10, ({ author, client }) => client.options.botOwners.includes(author.id));
+	.add(9, ({ author, client, guild }) => guild.settings.developersAreSuperUsers && client.options.botOwners.includes(author.id), { break: true })
+	.add(10, ({ author, client, guild }) => guild.settings.developersAreSuperUsers && client.options.botOwners.includes(author.id));
 
 class Bot extends Client {}
 

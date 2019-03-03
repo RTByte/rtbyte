@@ -8,12 +8,13 @@ module.exports = class extends Finalizer {
 	}
 
 	async run(message, command, response, runTime) {
-		if (this.client.settings.logs.commandRun) await this.commandRunLog(message, runTime);
+		if (this.client.settings.logs.commandRun) await this.commandRunLog(message, runTime, this.client.settings.channels.globalLog);
+		if (message.guild && message.guild.settings.logs.events.commandRun) await this.commandRunLog(message, runTime, message.guild.settings.channels.log);
 
 		return;
 	}
 
-	async commandRunLog(message, runTime) {
+	async commandRunLog(message, runTime, logChannel) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${message.guild.name} (#${message.channel.name})`, message.guild.iconURL())
 			.setColor(this.client.settings.colors.white)
@@ -24,9 +25,8 @@ module.exports = class extends Finalizer {
 			.setTimestamp()
 			.setFooter(message.author.tag, message.author.displayAvatarURL());
 
-		const globalLogChannel = await this.client.channels.get(this.client.settings.channels.globalLog);
-		await globalLogChannel.send('', { disableEveryone: true, embed: embed });
-		return;
+		logChannel = await this.client.channels.get(logChannel);
+		return logChannel.send('', { disableEveryone: true, embed: embed });
 	}
 
 };
