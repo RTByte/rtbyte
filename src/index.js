@@ -76,7 +76,8 @@ Client.defaultGuildSchema
 			.add('messagePurge', 'boolean', { default: false })
 			.add('blacklistedWord', 'boolean', { default: false })
 			.add('blacklistedNickname', 'boolean', { default: false })
-			.add('antiInvite', 'boolean', { default: false })))
+			.add('antiInvite', 'boolean', { default: false })
+			.add('mentionSpam', 'boolean', { default: false })))
 	.add('greetings', folder => folder
 		.add('welcomeNewUsers', 'boolean', { default: false })
 		.add('welcomeChannel', 'textchannel')
@@ -87,12 +88,14 @@ Client.defaultGuildSchema
 	.add('filters', folder => folder
 		.add('wordBlacklistEnabled', 'boolean', { default: false })
 		.add('antiInviteEnabled', 'boolean', { default: false })
+		.add('mentionSpamEnabled', 'boolean', { default: false })
 		.add('warn', 'boolean', { default: false })
 		.add('delete', 'boolean', { default: false })
 		.add('checkDisplayNames', 'boolean', { default: false })
 		.add('modBypass', 'boolean', { default: false })
 		.add('words', 'string', { array: true })
-		.add('inviteWhitelist', 'string', { array: true }))
+		.add('inviteWhitelist', 'string', { array: true })
+		.add('mentionSpamThreshold', 'integer', { min: 2, max: 90 }))
 	.add('moderation', folder => folder
 		.add('notifyUser', 'boolean', { defualt: false }));
 
