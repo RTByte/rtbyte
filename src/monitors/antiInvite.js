@@ -51,7 +51,7 @@ module.exports = class extends Monitor {
 
 	async warnUser(msg) {
 		const embed = new MessageEmbed()
-			.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.avatarURL())
+			.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL())
 			.setColor(this.client.settings.colors.red)
 			.setTimestamp()
 			.addField(msg.guild.language.get('GUILD_LOG_REASON'), msg.guild.language.get('GUILD_LOG_ANTIINVITE', msg.channel))
@@ -65,7 +65,7 @@ module.exports = class extends Monitor {
 
 	async antiInviteLog(msg) {
 		const embed = new MessageEmbed()
-			.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.avatarURL())
+			.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL())
 			.setColor(this.client.settings.colors.red)
 			.setTimestamp()
 			.addField('Message', msg.content)
