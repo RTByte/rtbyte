@@ -22,6 +22,7 @@ module.exports = class extends Monitor {
 			if (msg.guild.settings.logs.events.mentionSpam) await this.mentionSpamLog(member);
 			if (msg.guild.settings.filters.delete) await msg.delete();
 			await msg.guild.members.ban(member, { days: 1, reason: msg.guild.language.get('GUILD_LOG_MENTIONSPAM') });
+			await msg.send(msg.guild.language.get('MONITOR_MENTIONSPAM_APOLOGY', msg.guild));
 		}
 
 		return;

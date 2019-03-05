@@ -68,6 +68,8 @@ module.exports = class extends Language {
 			MONITOR_COMMAND_HANDLER_ABORTED: 'Aborted',
 			MONITOR_COMMAND_HANDLER_POSSIBILITIES: ['abort', 'stop'],
 			MONITOR_COMMAND_HANDLER_REPEATING_POSSIBLITIES: ['cancel'],
+			// eslint-disable-next-line max-len
+			MONITOR_MENTIONSPAM_APOLOGY: (guild) => `Hi!\n\nSomeone just executed a mention spam selfbot command or manually mentioned too many people in this channel. The user has been banned. The ${guild} mod team apologizes for the inconvenience.`,
 			MONITOR_MODERATION_AUTO_BOILERPLATE: (guild) => `This action was automatically performed. If you have any questions regarding this, please contact a moderator of the ${guild.name} Discord.`,
 
 			INHIBITOR_COOLDOWN: (remaining) => `You have just used this command. You can use this command again in ${remaining} second${remaining === 1 ? '' : 's'}.`,
@@ -265,9 +267,9 @@ module.exports = class extends Language {
 			COMMAND_ROLES_ALREADY_HAVE: (roleName, target) => `${target} already has the role \`${roleName}\`.`,
 			COMMAND_ROLES_NOT_LEAVABLE: (roleName) => `You're not allowed to remove the role \`${roleName}\`.`,
 			COMMAND_ROLES_DOES_NOT_HAVE: (roleName, target) => `${target} does not have the role \`${roleName}\`.`,
-			COMMAND_SUPPORT_DESCRIPTION: 'Contacts the Bot Developers in case of an issue with the bot.',
-			COMMAND_SUPPORT_REQUESTED: 'Support Requested',
-			COMMAND_SUPPORT_CONTACTED: 'The Bot Developers have been notified.',
+			COMMAND_SUPPORT_DESCRIPTION: 'Contacts the bot developers in case of an issue with the bot.',
+			COMMAND_SUPPORT_REQUESTED: 'Support requested',
+			COMMAND_SUPPORT_CONTACTED: 'The bot developers have been notified.',
 
 			MESSAGE_PROMPT_TIMEOUT: 'The prompt has timed out.',
 

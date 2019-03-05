@@ -27,7 +27,7 @@ module.exports = class extends Command {
 		if (reason.length) embed.addField('Reason', reason.join(' '));
 		await globalLogChannel.send('@everyone', { embed: embed });
 
-		return message.affirm(message.guild.language.get('COMMAND_SUPPORT_CONTACTED'));
+		return message.reply(`\n${message.guild.language.get('COMMAND_SUPPORT_CONTACTED')}`);
 	}
 
 };
