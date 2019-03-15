@@ -9,6 +9,7 @@ module.exports = KlasaClient.defaultGuildSchema
 		.add('administrator', 'role')
 		.add('moderator', 'role')
 		.add('muted', 'role')
+		.add('voiceBanned', 'role')
 		.add('joinable', 'role', { array: true }))
 	.add('logs', folder => folder
 		.add('verboseLogging', 'boolean', { default: false })
@@ -31,6 +32,9 @@ module.exports = KlasaClient.defaultGuildSchema
 			.add('guildMemberMute', 'boolean', { default: false })
 			.add('guildMemberUnmute', 'boolean', { default: false })
 			.add('guildMemberWarn', 'boolean', { default: false })
+			.add('guildMemberVCKick', 'boolean', { default: false })
+			.add('guildMemberVCBanAdd', 'boolean', { default: false })
+			.add('guildMemberVCBanRemove', 'boolean', { default: false })
 			.add('messageDelete', 'boolean', { default: false })
 			.add('messageUpdate', 'boolean', { default: false })
 			.add('roleCreate', 'boolean', { default: false })
