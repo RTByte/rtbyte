@@ -31,8 +31,8 @@ module.exports = class extends Command {
 		if (when) {
 			await this.client.schedule.create('timedUnmute', when, {
 				data: {
-					guild: msg.guild.id,
-					user: member.id
+					guildID: msg.guild.id,
+					userID: member.id
 				}
 			});
 		}
@@ -50,9 +50,7 @@ module.exports = class extends Command {
 			.setColor(this.client.settings.colors.red)
 			.setTimestamp()
 			.addField(member.guild.language.get('GUILD_LOG_REASON'), reason)
-			.setFooter(member.guild.language.get('GUILD_LOG_GUILDMEMBERMUTE'));
-
-		if (when) await embed.setFooter(member.guild.language.get('GUILD_LOG_GUILDMEMBERMUTE_TIMED', when));
+			.setFooter(when ? member.guild.language.get('GUILD_LOG_GUILDMEMBERMUTE_TIMED', when) : member.guild.language.get('GUILD_LOG_GUILDMEMBERMUTE'));
 
 		const logChannel = await this.client.channels.get(member.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });

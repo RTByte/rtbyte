@@ -36,26 +36,26 @@ module.exports = class extends Command {
 		if (when) {
 			await this.client.schedule.create('timedVCBan', when, {
 				data: {
-					guild: msg.guild.id,
-					user: member.id
+					guildID: msg.guild.id,
+					userID: member.id
 				}
 			});
 		}
 
-		if (msg.guild.settings.logs.events.guildMemberVCBanAdd) await this.vcbanLog(member, reason);
+		if (msg.guild.settings.logs.events.guildMemberVCBanAdd) await this.vcbanLog(member, when, reason);
 
 		if (reason.includes('-s', reason.length - 2)) return msg.delete({ reason: msg.language.get('COMMAND_MODERATION_SILENT') });
 
 		return msg.affirm();
 	}
 
-	async vcbanLog(member, reason) {
+	async vcbanLog(member, when, reason) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${member.user.tag} - (${member.id})`, member.user.displayAvatarURL())
 			.setColor(this.client.settings.colors.red)
 			.setTimestamp()
 			.addField(member.guild.language.get('GUILD_LOG_REASON'), reason)
-			.setFooter(member.guild.language.get('GUILD_LOG_GUILDMEMBERVCBAN'));
+			.setFooter(when ? member.guild.language.get('GUILD_LOG_GUILDMEMBERVCBAN_TIMED') : member.guild.language.get('GUILD_LOG_GUILDMEMBERVCBAN'));
 
 		const logChannel = await this.client.channels.get(member.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });

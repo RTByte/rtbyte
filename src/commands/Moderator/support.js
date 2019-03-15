@@ -25,9 +25,9 @@ module.exports = class extends Command {
 			.setFooter(message.author.tag, message.author.displayAvatarURL());
 
 		if (reason.length) embed.addField('Reason', reason.join(' '));
-		await globalLogChannel.send('@everyone', { embed: embed });
+		await globalLogChannel.send('@everyone', { disableEveryone: false, embed: embed });
 
-		return message.reply(`\n${message.guild.language.get('COMMAND_SUPPORT_CONTACTED')}`);
+		return message.affirm(message.guild.language.get('COMMAND_SUPPORT_CONTACTED'));
 	}
 
 };

@@ -3,31 +3,31 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = class extends Task {
 
-	async run({ guild, user }) {
-		const _guild = this.client.guilds.get(guild);
-		if (!_guild) return;
-		const member = await _guild.members.fetch(user).catch(() => null);
+	async run({ guildID, userID }) {
+		const guild = this.client.guilds.get(guildID);
+		if (!guild.available) return;
+		const member = await guild.members.fetch(userID).catch(() => null);
 		if (!member) return;
-		const mutedRole = await _guild.roles.get(_guild.settings.roles.muted);
-
-		if (!member.roles.has(_guild.settings.roles.muted)) return;
+		const mutedRole = await guild.roles.get(guild.settings.roles.muted);
+		if (!member.roles.has(guild.settings.roles.muted)) return;
 
 		await member.roles.remove(mutedRole);
 
-		if (_guild.settings.logs.events.guildMemberUnmute) await this.unmuteLog(_guild, member);
+		if (guild.settings.logs.events.guildMemberUnmute) await this.unmuteLog(guild, member);
+		return;
 	}
 
-	async unmuteLog(_guild, member) {
+	async unmuteLog(guild, member) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${member.user.tag} (${member.user.id})`, member.user.displayAvatarURL())
 			.setColor(this.client.settings.colors.yellow)
 			.setTimestamp()
-			.setFooter(_guild.language.get('GUILD_LOG_GUILDMEMBERUNMUTE'));
+			.setFooter(guild.language.get('GUILD_LOG_GUILDMEMBERUNMUTE'));
 
-		const logChannel = await this.client.channels.get(_guild.settings.channels.log);
+		const logChannel = await this.client.channels.get(guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		// eslint-disable-next-line max-len
-		if (_guild.settings.moderation.notifyUser) await member.user.send(_guild.language.get('MONITOR_MODERATION_AUTO_BOILERPLATE', _guild), { disableEveryone: true, embed: embed });
+		if (guild.settings.moderation.notifyUser) await member.user.send(guild.language.get('MONITOR_MODERATION_AUTO_BOILERPLATE', guild), { disableEveryone: true, embed: embed });
 		return;
 	}
 
