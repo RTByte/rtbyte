@@ -29,4 +29,6 @@ module.exports = KlasaClient.defaultClientSchema
 	// Punishments being taken away, warnings, bot restarts
 		.add('yellow', 'string', { default: '#FFFF4B' })
 	// Message deletions and updates, user updates
-		.add('blue', 'string', { default: '#4B4BFF' }));
+		.add('blue', 'string', { default: '#4B4BFF' }))
+	.add('moderation', folder => folder
+		.add('cases', 'any', { array: true }));

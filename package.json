@@ -14,9 +14,10 @@
     "author": "The RTByte Team",
     "license": "MIT",
     "dependencies": {
-        "discord.js": "github:discordjs/discord.js",
+        "discord.js": "github:discordjs/discord.js#master",
         "erlpack": "github:discordapp/erlpack",
         "klasa": "github:dirigeants/klasa#master",
+        "klasa-member-gateway": "github:dirigeants/klasa-member-gateway#master",
         "moment": "^2.24.0"
     },
     "devDependencies": {
