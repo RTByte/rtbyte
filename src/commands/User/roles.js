@@ -8,8 +8,8 @@ module.exports = class extends Command {
 			requiredPermissions: ['MANAGE_ROLES'],
 			requiredSettings: ['roles.joinable'],
 			aliases: ['roleme', 'team', 'squad'],
-			description: (msg) => msg.language.get('COMMAND_ROLES_DESCRIPTION'),
-			extendedHelp: (msg) => msg.language.get('COMMAND_ROLES_EXTENDED'),
+			description: language => language.get('COMMAND_ROLES_DESCRIPTION'),
+			extendedHelp: language => language.get('COMMAND_ROLES_EXTENDED'),
 			usage: '<list|add|remove|join|leave> [target:member] [roleName:string] [...]',
 			usageDelim: ' ',
 			subcommands: true

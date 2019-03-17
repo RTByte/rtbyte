@@ -85,11 +85,15 @@ module.exports = class extends Extendable {
 			await this.client.settings.update('guilds.controlGuild', this.id, this);
 			await this.client.settings.update('channels.globalLog', globalLogChannel.id, this);
 
-			// Adding and initializing the affirmative and negative emojis for the bot to use
+			// Adding and initializing the emojis for the bot to use
 			const affirmEmoji = await this.emojis.create('./src/assets/img/emoji/affirm.png', 'affirm', { reason: `${this.client.user.username} initialization: Creating affirm emoji` });
 			const rejectEmoji = await this.emojis.create('./src/assets/img/emoji/reject.png', 'reject', { reason: `${this.client.user.username} initialization: Creating reject emoji` });
 			const arrowLeftEmoji = await this.emojis.create('./src/assets/img/emoji/arrowLeft.png', 'arrow_left', { reason: `${this.client.user.username} initialization: Creating arrowLeft emoji` });
+			const arrowToLeftEmoji = await this.emojis.create('./src/assets/img/emoji/arrowToLeft.png', 'arrow_to_left', { reason: `${this.client.user.username} initialization: Creating arrowToLeft emoji` });
 			const arrowRightEmoji = await this.emojis.create('./src/assets/img/emoji/arrowRight.png', 'arrow_right', { reason: `${this.client.user.username} initialization: Creating arrowRight emoji` });
+			const arrowToRightEmoji = await this.emojis.create('./src/assets/img/emoji/arrowToRight.png', 'arrow_to_right', { reason: `${this.client.user.username} initialization: Creating arrowToRight emoji` });
+			const infoEmoji = await this.emojis.create('./src/assets/img/emoji/info.png', 'info', { reason: `${this.client.user.username} initialization: Creating info emoji` });
+			const listEmoji = await this.emojis.create('./src/assets/img/emoji/list.png', 'list', { reason: `${this.client.user.username} initialization: Creating list emoji` });
 			const onlineEmoji = await this.emojis.create('./src/assets/img/emoji/online.png', 'online', { reason: `${this.client.user.username} initialization: Creating online emoji` });
 			const idleEmoji = await this.emojis.create('./src/assets/img/emoji/idle.png', 'idle', { reason: `${this.client.user.username} initialization: Creating idle emoji` });
 			const dndEmoji = await this.emojis.create('./src/assets/img/emoji/dnd.png', 'dnd', { reason: `${this.client.user.username} initialization: Creating dnd emoji` });
@@ -97,7 +101,11 @@ module.exports = class extends Extendable {
 			await this.client.settings.update('emoji.affirm', affirmEmoji.id, this);
 			await this.client.settings.update('emoji.reject', rejectEmoji.id, this);
 			await this.client.settings.update('emoji.arrowLeft', arrowLeftEmoji.id, this);
+			await this.client.settings.update('emoji.arrowToLeft', arrowToLeftEmoji.id, this);
 			await this.client.settings.update('emoji.arrowRight', arrowRightEmoji.id, this);
+			await this.client.settings.update('emoji.arrowToRight', arrowToRightEmoji.id, this);
+			await this.client.settings.update('emoji.info', infoEmoji.id, this);
+			await this.client.settings.update('emoji.list', listEmoji.id, this);
 			await this.client.settings.update('emoji.online', onlineEmoji.id, this);
 			await this.client.settings.update('emoji.idle', idleEmoji.id, this);
 			await this.client.settings.update('emoji.dnd', dndEmoji.id, this);
