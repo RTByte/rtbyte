@@ -70,7 +70,7 @@ module.exports = class extends Command {
 			.setThumbnail(msg.guild.iconURL(), 50, 50)
 			.setImage(msg.guild.splashURL())
 			.setTimestamp()
-			.setFooter(`Requested by ${msg.author.tag}`, msg.author.displayAvatarURL());
+			.setFooter(msg.language.get('COMMAND_REQUESTED_BY', msg), msg.author.displayAvatarURL());
 
 		if (!msg.guild.settings.logs.verboseLogging) return msg.channel.send('', { disableEveryone: true, embed: embed });
 

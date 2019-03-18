@@ -82,6 +82,7 @@ module.exports = class extends Language {
 			INHIBITOR_RUNIN: (types) => `This command is only available in ${types} channels.`,
 			INHIBITOR_RUNIN_NONE: (name) => `The ${name} command is not configured to run in any channel.`,
 
+			COMMAND_REQUESTED_BY: (msg) => `Requested by ${msg.author.tag}`,
 			COMMAND_BLACKLIST_DESCRIPTION: 'Blacklists or un-blacklists users and guilds from the bot.',
 			COMMAND_BLACKLIST_SUCCESS: (usersAdded, usersRemoved, guildsAdded, guildsRemoved) => [
 				usersAdded.length ? `**Users Added**\n${util.codeBlock('', usersAdded.join(', '))}` : '',
@@ -156,11 +157,12 @@ module.exports = class extends Language {
 			],
 			COMMAND_INFO_DESCRIPTION: 'Provides some information about this bot.',
 			COMMAND_HELP_DESCRIPTION: 'Display help for a command.',
+			COMMAND_HELP_EMBEDTITLE: 'RTByte Help',
 			COMMAND_HELP_NO_EXTENDED: 'No extended help available.',
 			COMMAND_HELP_DM: 'The list of commands you have access to has been sent to your DMs.',
 			COMMAND_HELP_NODM: 'You have DMs disabled, I couldn\'t send you the commands in DMs.',
-			COMMAND_HELP_USAGE: (usage) => `Usage :: ${usage}`,
-			COMMAND_HELP_EXTENDED: 'Extended Help ::',
+			COMMAND_HELP_USAGE: 'Usage',
+			COMMAND_HELP_EXTENDED: 'Extended help',
 			COMMAND_ENABLE: (type, name) => `Successfully enabled ${name} ${type}.`,
 			COMMAND_ENABLE_DESCRIPTION: 'Re-enables or temporarily enables a command/inhibitor/monitor/finalizer. Default state restored on reboot.',
 			COMMAND_DISABLE: (type, name) => `Successfully disabled ${name} ${type}.`,
