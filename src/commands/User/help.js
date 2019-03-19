@@ -12,7 +12,7 @@ module.exports = class extends Command {
 			aliases: ['commands', 'cmd', 'cmds'],
 			guarded: true,
 			description: (language) => language.get('COMMAND_HELP_DESCRIPTION'),
-			usage: '(Command:command)'
+			usage: '(command:command)'
 		});
 
 		this.createCustomResolver('command', (arg, possible, msg) => {

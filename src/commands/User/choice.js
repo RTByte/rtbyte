@@ -6,16 +6,18 @@ module.exports = class extends Command {
 		super(...args, {
 			aliases: ['choose', 'decide'],
 			description: language => language.get('COMMAND_CHOICE_DESCRIPTION'),
-			usage: '<Choices:str> [...]',
+			usage: '<choices:str> [...]',
 			usageDelim: ', '
 		});
+		this.customizeResponse('choices', message =>
+			message.language.get('COMMAND_CHOICE_NOPARAM'));
 	}
 
 	async run(msg, [...choices]) {
 		const validChoices = choices.filter(choice => choice);
 
 		if (validChoices.length === 1) {
-			return msg.reply('\n🤔 You only gave me one choice.');
+			return msg.reply(msg.language.get('COMMAND_CHOICE_NOTENOUGH'));
 		} else {
 			return msg.reply(`\n🤔 ${choices[Math.floor(Math.random() * choices.length)]}.`);
 		}

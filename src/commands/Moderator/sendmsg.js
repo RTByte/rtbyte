@@ -13,6 +13,8 @@ module.exports = class extends Command {
 			usage: '<targetUser:user|targetChannel:channel> <message:...string>',
 			usageDelim: ' '
 		});
+		this.customizeResponse('message', message =>
+			message.language.get('COMMAND_SENDMSG_NOPARAM'));
 	}
 
 	async run(msg, [target, ...message]) {

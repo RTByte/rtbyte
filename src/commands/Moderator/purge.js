@@ -13,6 +13,8 @@ module.exports = class extends Command {
 			usage: '[member:member] <amount:int{2,100}> [all] [-s]',
 			usageDelim: ' '
 		});
+		this.customizeResponse('amount', message =>
+			message.language.get('COMMAND_PURGE_NOPARAM'));
 	}
 
 	async run(msg, [member = null, amount, all = null, silent = null]) {

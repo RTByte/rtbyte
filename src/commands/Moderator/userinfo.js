@@ -10,7 +10,7 @@ module.exports = class extends Command {
 			requiredPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
 			runIn: ['text'],
 			description: language => language.get('COMMAND_USERINFO_DESCRIPTION'),
-			usage: '[Member:member]'
+			usage: '[member:member]'
 		});
 		this.timestamp = new Timestamp('d MMMM YYYY, h:mm A');
 	}

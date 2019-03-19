@@ -8,7 +8,7 @@ module.exports = class extends Command {
 			aliases: ['me', 'myself', 'age'],
 			runIn: ['text'],
 			description: language => language.get('COMMAND_JOINDATE_DESCRIPTION'),
-			usage: '[Member:member]',
+			usage: '[member:member]',
 			usageDelim: ' '
 		});
 		this.timestamp = new Timestamp('d MMMM YYYY, h:mm A');
@@ -18,8 +18,8 @@ module.exports = class extends Command {
 		const embed = new MessageEmbed()
 			.setAuthor(member.user.tag, member.user.displayAvatarURL())
 			.setColor(this.client.settings.colors.white)
-			.addField('Registered', this.timestamp.displayUTC(member.user.createdAt))
-			.addField('Joined', this.timestamp.displayUTC(member.joinedTimestamp));
+			.addField(msg.language.get('COMMAND_JOINDATE_REGISTERED'), this.timestamp.displayUTC(member.user.createdAt))
+			.addField(msg.language.get('COMMAND_JOINDATE_JOINED'), this.timestamp.displayUTC(member.joinedTimestamp));
 
 		return msg.send('', { disableEveryone: true, embed: embed });
 	}

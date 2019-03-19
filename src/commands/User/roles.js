@@ -19,7 +19,7 @@ module.exports = class extends Command {
 	async list(msg) {
 		if (!msg.guild.settings.roles.joinable.length) return msg.reject(msg.language.get('COMMAND_ROLES_NONE_JOINABLE'));
 
-		const rolesList = ['**ROLES:**', '```asciidoc'];
+		const rolesList = ['**Roles:**', '```asciidoc'];
 
 		for (let i = 0; i < msg.guild.settings.roles.joinable.length; i++) {
 			const role = msg.guild.roles.get(msg.guild.settings.roles.joinable[i]);

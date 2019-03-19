@@ -104,8 +104,10 @@ module.exports = class extends Command {
 		super(...args, {
 			aliases: ['mirror', 'magicconch'],
 			description: language => language.get('COMMAND_8BALL_DESCRIPTION'),
-			usage: '<Question:str>'
+			usage: '<question:str>'
 		});
+		this.customizeResponse('question', message =>
+			message.language.get('COMMAND_8BALL_NOPARAM'));
 	}
 
 	async run(msg) {
