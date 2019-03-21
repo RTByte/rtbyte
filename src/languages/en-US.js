@@ -134,28 +134,17 @@ module.exports = class extends Language {
 					'If you try to use a command that requires more permissions than the bot is granted, it will let you know.'
 				].join(' ')),
 				'The RTByte Support server can be found using the link below.',
-				'https://discord.gg/YMAvX3p/'
+				'https://discord.gg/eRauWP4/'
 			],
 			COMMAND_INVITE_DESCRIPTION: 'Displays the join guild link of the bot.',
-			COMMAND_INFO: [
-				"Klasa is a 'plug-and-play' framework built on top of the Discord.js library.",
-				'Most of the code is modularized, which allows developers to edit Klasa to suit their needs.',
-				'',
-				'Some features of Klasa include:',
-				'• 🐇💨 Fast loading times with ES2017 support (`async`/`await`)',
-				'• 🎚🎛 Per-client/guild/user settings that can be extended with your own fields',
-				'• 💬 Customizable command system with automated parameter resolving and the ability to load/reload commands on-the-fly',
-				'• 👀 "Monitors", which can watch messages and edits (for swear filters, spam protection, etc.)',
-				'• ⛔ "Inhibitors", which can prevent commands from running based on any condition you wish to apply (for permissions, blacklists, etc.)',
-				'• 🗄 "Providers", which simplify usage of any database of your choosing',
-				'• ✅ "Finalizers", which run after successful commands (for logging, collecting stats, cleaning up responses, etc.)',
-				'• ➕ "Extendables", which passively add methods, getters/setters, or static properties to existing Discord.js or Klasa classes',
-				'• 🌐 "Languages", which allow you to localize your bot\'s responses',
-				'• ⏲ "Tasks", which can be scheduled to run in the future, optionally repeating',
-				'',
-				'We hope to be a 100% customizable framework that can cater to all audiences. We do frequent updates and bugfixes when available.',
-				"If you're interested in us, check us out at https://klasa.js.org"
-			],
+			COMMAND_INFO_EMBEDTITLE: 'RTByte Information',
+			// eslint-disable-next-line max-len
+			COMMAND_INFO_EMBEDDESC: 'RTByte is an open-source modular multipurpose Discord bot built on the incredible [Klasa](https://klasa.js.org/) framework for [discord.js](https://discord.js.org/).\n\nWe aim to provide the most consistent and easy-to-use Discord mod bot solution available, with our key focus areas being modularity, performance, consistency, and choice.',
+			COMMAND_INFO_OURTEAM: 'Our team',
+			// eslint-disable-next-line max-len
+			COMMAND_INFO_TEAMLIST: '• [Rasmus Gerdin](https://github.com/rasmusgerdin/)\n• [Michael Cumbers](https://github.com/mcumbers/)\n• [Justin Shull](https://github.com/JShull97/)\n• [Killian Higgins](https://github.com/Uzui2012/)',
+			COMMAND_INFO_LINKS: 'Links',
+			COMMAND_INFO_LINKLIST: '• [GitHub](https://github.com/RTByte/RTByte)\n• [Discord](https://discord.gg/eRauWP4/)',
 			COMMAND_INFO_DESCRIPTION: 'Provides some information about this bot.',
 			COMMAND_HELP_DESCRIPTION: 'Display help for a command.',
 			COMMAND_HELP_EMBEDTITLE: 'RTByte Help',

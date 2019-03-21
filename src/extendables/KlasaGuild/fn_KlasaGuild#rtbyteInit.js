@@ -116,7 +116,7 @@ module.exports = class extends Extendable {
 		await this.client.emit('verbose', `Initialized guild: ${this.name} (${this.id})`);
 
 		// Informing guild owner of bot initialization
-		await this.owner.send(`**${this.client.user.username}** has been initialized on the **${this.name}** Discord!\nUse \`${this.settings.prefix}help\` to see a list of commands.\n\nJoin the RTByte support server:\nhttps://discord.gg/YMAvX3p`);
+		await this.owner.send(`**${this.client.user.username}** has been initialized on the **${this.name}** Discord!\nUse \`${this.settings.prefix}help\` to see a list of commands.\n\nJoin the RTByte support server:\nhttps://discord.gg/eRauWP4`);
 
 		return;
 	}
