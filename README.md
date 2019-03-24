@@ -33,11 +33,8 @@ Coming Soon™
 #### Our Team
 
 * [Rasmus Gerdin](https://github.com/rasmusgerdin)
-
 * [Michael Cumbers](https://github.com/mcumbers)
-
 * [Killian Higgins](https://github.com/Uzui2012)
-
 * [Justin Shull](https://github.com/JShull97)
 
 #### People Who Made It Possible

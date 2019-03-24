@@ -18,13 +18,22 @@ module.exports = class extends Event {
 	}
 
 	async deleteLog(msg) {
+		let attachment;
 		const embed = new MessageEmbed()
 			.setAuthor(`#${msg.channel.name}`, msg.guild.iconURL())
 			.setColor(this.client.settings.colors.blue)
-			.addField(msg.guild.language.get('GUILD_LOG_MESSAGEDELETE'), msg.cleanContent)
 			.setTimestamp()
 			.setFooter(msg.author.tag, msg.author.displayAvatarURL());
 
+		if (msg.content) await embed.addField(msg.guild.language.get('GUILD_LOG_MESSAGEDELETE'), msg.cleanContent);
+		if (!msg.content) await embed.setTitle(msg.guild.language.get('GUILD_LOG_MESSAGEDELETE'));
+		if (msg.attachments.size > 0) {
+			attachment = msg.attachments.map(atch => atch.url).join(' ');
+			attachment = attachment
+				.replace('//cdn.', '//media.')
+				.replace('.com/', '.net/');
+			await embed.setImage(attachment);
+		}
 		const logChannel = await this.client.channels.get(msg.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		return;
