@@ -12,7 +12,7 @@ module.exports = class extends Event {
 		const banInfo = await bans.get(user.id);
 
 		// Ignore if ban was initiated by command
-		if (banInfo.reason.includes('(fc)', banInfo.reason.length - 4)) return;
+		if (banInfo.reason && banInfo.reason.endsWith('(fc)')) return;
 
 		const modCase = new Case(guild)
 			.setType('ban')

@@ -33,7 +33,6 @@ module.exports = class Case {
 	setUser(user) {
 		if (this.submitted) throw 'user cannot be changed once submitted!';
 		if (!(user instanceof KlasaUser)) throw 'Case#setUser requires a valid KlasaUser!';
-		if (!this.guild.members.has(user.id)) throw `${user.id} is not a member of ${this.guild.name}!`;
 		this.user = user;
 		return this;
 	}
@@ -127,7 +126,7 @@ module.exports = class Case {
 		const member = this.guild.members.get(this.user.id);
 
 		await this.client.settings.update('moderation.cases', await this.pack(), this.guild);
-		if (member.id !== this.client.user.id) await member.settings.update('moderation.cases', this.id, this.guild);
+		if (member && member.id !== this.client.user.id) await member.settings.update('moderation.cases', this.id, this.guild);
 
 		return this;
 	}
