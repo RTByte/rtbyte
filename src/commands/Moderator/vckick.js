@@ -1,5 +1,5 @@
 const { Command } = require('klasa');
-const { MessageEmbed } = require('discord.js');
+const Case = require('../../lib/structures/Case');
 
 module.exports = class extends Command {
 
@@ -20,9 +20,18 @@ module.exports = class extends Command {
 	}
 
 	async run(msg, [user, ...reason]) {
+		const silent = reason[0].endsWith('-s');
 		if (user.id === msg.author.id) return msg.reject(msg.language.get('COMMAND_VCKICK_NO_VCKICK_SELF'));
 		if (user.id === this.client.user.id) return msg.reject(msg.language.get('COMMAND_VCKICK_NO_VCKICK_CLIENT'));
 		if (!await msg.member.canMod(user)) return msg.reject(msg.language.get('COMMAND_VCKICK_NO_PERMS', user));
+
+		const modCase = new Case(msg.guild)
+			.setUser(user)
+			.setType('vckick')
+			.setReason(reason)
+			.setModerator(msg.author)
+			.setSilent(silent);
+		await modCase.submit();
 
 		const member = await msg.guild.members.fetch(user);
 
@@ -32,26 +41,12 @@ module.exports = class extends Command {
 		await member.setVoiceChannel(tempVC);
 		await setTimeout(() => tempVC.delete(`Deleting Channel to kick ${member.user.tag} from voice chat.`), 250);
 
-		if (msg.guild.settings.logs.events.guildMemberVCKick) await this.vckickLog(member, reason);
+		const embed = await modCase.embed();
+		await embed.send();
 
-		if (reason.includes('-s', reason.length - 2)) return msg.delete({ reason: msg.language.get('COMMAND_MODERATION_SILENT') });
+		if (silent) return msg.delete({ reason: msg.language.get('COMMAND_MODERATION_SILENT') });
 
 		return msg.affirm();
-	}
-
-	async vckickLog(member, reason) {
-		const embed = new MessageEmbed()
-			.setAuthor(`${member.user.tag} - (${member.id})`, member.user.displayAvatarURL())
-			.setColor(this.client.settings.colors.red)
-			.setTimestamp()
-			.addField(member.guild.language.get('GUILD_LOG_REASON'), reason)
-			.setFooter(member.guild.language.get('GUILD_LOG_GUILDMEMBERVCKICK'));
-
-		const logChannel = await this.client.channels.get(member.guild.settings.channels.log);
-		await logChannel.send('', { disableEveryone: true, embed: embed });
-		// eslint-disable-next-line max-len
-		if (member.guild.settings.moderation.notifyUser && !reason.includes('-s', reason.length - 2)) await member.send(member.guild.language.get('COMMAND_MODERATION_BOILERPLATE', member.guild), { disableEveryone: true, embed: embed });
-		return;
 	}
 
 };

@@ -1,5 +1,5 @@
 const { Command } = require('klasa');
-const { MessageEmbed } = require('discord.js');
+const Case = require('../../lib/structures/Case');
 
 module.exports = class extends Command {
 
@@ -24,28 +24,22 @@ module.exports = class extends Command {
 		if (user.id === this.client.user.id) return msg.reject(msg.language.get('COMMAND_UNMUTE_NO_UNMUTE_CLIENT'));
 		if (!await msg.member.canMod(user)) return msg.reject(msg.language.get('COMMAND_UNMUTE_NO_PERMS', user));
 
+		const modCase = new Case(msg.guild)
+			.setUser(user)
+			.setType('unmute')
+			.setModerator(msg.author);
+		await modCase.submit();
+
 		const member = await msg.guild.members.fetch(user);
 
 		if (!member.roles.has(msg.guild.settings.roles.muted)) return msg.affirm();
 		const mutedRole = await msg.guild.roles.get(msg.guild.settings.roles.muted);
 		await member.roles.remove(mutedRole);
 
-		if (msg.guild.settings.logs.events.guildMemberUnmute) await this.unmuteLog(member);
+		const embed = await modCase.embed();
+		await embed.send();
 
 		return msg.affirm();
-	}
-
-	async unmuteLog(member) {
-		const embed = new MessageEmbed()
-			.setAuthor(`${member.user.tag} (${member.id})`, member.user.displayAvatarURL())
-			.setColor(this.client.settings.colors.yellow)
-			.setTimestamp()
-			.setFooter(member.guild.language.get('GUILD_LOG_GUILDMEMBERUNMUTE'));
-
-		const logChannel = await this.client.channels.get(member.guild.settings.channels.log);
-		await logChannel.send('', { disableEveryone: true, embed: embed });
-		if (member.guild.settings.moderation.notifyUser) await member.send(member.guild.language.get('COMMAND_MODERATION_BOILERPLATE', member.guild), { disableEveryone: true, embed: embed });
-		return;
 	}
 
 	async createRole(guild) {

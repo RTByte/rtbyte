@@ -1,5 +1,5 @@
 const { Command } = require('klasa');
-const { MessageEmbed } = require('discord.js');
+const Case = require('../../lib/structures/Case');
 
 module.exports = class extends Command {
 
@@ -19,12 +19,22 @@ module.exports = class extends Command {
 				message.language.get('COMMAND_MUTE_NOPARAM_REASON'));
 	}
 
-	async run(msg, [user, when, ...reason]) {
+	async run(msg, [user, when = null, ...reason]) {
+		const silent = reason[0].endsWith('-s');
 		if (!msg.guild.settings.roles.muted || !msg.guild.roles.has(msg.guild.settings.roles.muted)) await this.createRole(msg.guild);
 
 		if (user.id === msg.author.id) return msg.reject(msg.language.get('COMMAND_MUTE_NO_MUTE_SELF'));
 		if (user.id === this.client.user.id) return msg.reject(msg.language.get('COMMAND_MUTE_NO_MUTE_CLIENT'));
 		if (!await msg.member.canMod(user)) return msg.reject(msg.language.get('COMMAND_MUTE_NO_PERMS', user));
+
+		const modCase = new Case(msg.guild)
+			.setUser(user)
+			.setType('mute')
+			.setReason(reason)
+			.setModerator(msg.author)
+			.setSilent(silent)
+			.setDuration(when);
+		await modCase.submit();
 
 		const member = await msg.guild.members.fetch(user);
 
@@ -41,26 +51,12 @@ module.exports = class extends Command {
 			});
 		}
 
-		if (msg.guild.settings.logs.events.guildMemberMute) await this.muteLog(member, when, reason);
+		const embed = await modCase.embed();
+		await embed.send();
 
-		if (reason.includes('-s', reason.length - 2)) return msg.delete({ reason: msg.language.get('COMMAND_MODERATION_SILENT') });
+		if (silent) return msg.delete({ reason: msg.language.get('COMMAND_MODERATION_SILENT') });
 
 		return msg.affirm();
-	}
-
-	async muteLog(member, when, reason) {
-		const embed = new MessageEmbed()
-			.setAuthor(`${member.user.tag} (${member.id})`, member.user.displayAvatarURL())
-			.setColor(this.client.settings.colors.red)
-			.setTimestamp()
-			.addField(member.guild.language.get('GUILD_LOG_REASON'), reason)
-			.setFooter(when ? member.guild.language.get('GUILD_LOG_GUILDMEMBERMUTE_TIMED', when) : member.guild.language.get('GUILD_LOG_GUILDMEMBERMUTE'));
-
-		const logChannel = await this.client.channels.get(member.guild.settings.channels.log);
-		await logChannel.send('', { disableEveryone: true, embed: embed });
-		// eslint-disable-next-line max-len
-		if (member.guild.settings.moderation.notifyUser && !reason.includes('-s', reason.length - 2)) await member.send(member.guild.language.get('COMMAND_MODERATION_BOILERPLATE', member.guild), { disableEveryone: true, embed: embed });
-		return;
 	}
 
 	async createRole(guild) {

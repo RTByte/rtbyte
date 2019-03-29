@@ -375,7 +375,36 @@ module.exports = class extends Language {
 			GLOBAL_LOG_UPDATE_NAME: 'Name changed',
 			GLOBAL_LOG_GUILDUNAVAILABLE: 'Guild unavailable, likely due to a server outage',
 			GLOBAL_LOG_COMMANDRUN: 'Command ran',
-			GLOBAL_LOG_COMMANDRUNVIEW: 'Click to view'
+			GLOBAL_LOG_COMMANDRUNVIEW: 'Click to view',
+
+			MODERATION_LOG_BAN: 'User Banned',
+			MODERATION_LOG_UNBAN: 'User Unbanned',
+			MODERATION_LOG_KICK: 'User Kicked',
+			MODERATION_LOG_MUTE: 'User Muted',
+			MODERATION_LOG_UNMUTE: 'User Unmuted',
+			MODERATION_LOG_PURGE: 'Messages Purged',
+			MODERATION_LOG_SOFTBAN: 'User SoftBanned',
+			MODERATION_LOG_VCBAN: 'User Voice Chat Banned',
+			MODERATION_LOG_VCUNBAN: 'Usr Unbanned from Voice Chat',
+			MODERATION_LOG_VCKICK: 'User Kicked',
+			MODERATION_LOG_ANTIINVITE: 'Invite Deleted',
+			MODERATION_LOG_MENTIONSPAM: 'User Banned for Mention Spam',
+			MODERATION_LOG_BLACKLISTEDWORD: 'Blacklisted Word Detected',
+			MODERATION_LOG_BLACKLISTEDNAME: 'Blacklisted Nickname Detected',
+			MODERATION_LOG_WARN: 'Warning Issued',
+			MODERATION_LOG_CASEID: (caseID) => `Case ID: ${caseID}`,
+			MODERATION_LOG_EVENTLOGGED: 'Event logged',
+			MODERATION_LOG_MODERATOR: 'Moderator',
+			MODERATION_LOG_UNSPECIFIED: 'Unspecified',
+			MODERATION_LOG_REASON: 'Reason',
+			MODERATION_LOG_DURATION: 'Duration',
+			MODERATION_LOG_DURATIONEND: (end) => `Until ${end}`,
+			MODERATION_LOG_DELETEDMESSAGECOUNT: 'Messages Deleted',
+			MODERATION_LOG_DELETEDMESSAGECONTENT: 'Deleted Message',
+			MODERATION_LOG_BADNICKNAME: 'Blacklisted Nickname',
+			MODERATION_LOG_LINK: (link) => `[Click Here to View](${link})`,
+			MODERATION_LOG_SILENT: 'Command Executed Silently',
+			MODERATION_LOG_CHANNEL: 'Channel'
 		};
 	}
 

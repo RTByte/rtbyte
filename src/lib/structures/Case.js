@@ -1,49 +1,51 @@
 const { KlasaUser, KlasaGuild } = require('klasa');
+const { TextChannel } = require('discord.js');
+const ModEmbed = require('./ModEmbed');
 
 module.exports = class Case {
 
 	constructor(guild) {
-		if (!(guild instanceof KlasaGuild)) throw 'Case requires a valid Guild!';
+		if (!(guild instanceof KlasaGuild)) throw 'Case requires a valid KlasaGuild!';
 		// Automatic variables
 		this.client = guild.client;
 		this.guild = guild;
 		this.timestamp = Date.now();
 		this.id = null;
-		this.submitted = true;
+		this.submitted = null;
 		// Required variables
 		this.user = null;
 		this.type = null;
-		// Optional variables
+		// Updateable variables
 		this.moderator = null;
 		this.reason = null;
+		// Optional variables
+		this.channel = null;
 		this.silent = null;
 		this.duration = null;
 		this.deletedMessageCount = null;
 		this.messageContent = null;
 		this.badNickname = null;
+		this.link = null;
 	}
 
 	// Setters
 
 	setUser(user) {
-		if (this.submitted) throw 'Cases cannot be changed once submitted!';
+		if (this.submitted) throw 'user cannot be changed once submitted!';
 		if (!(user instanceof KlasaUser)) throw 'Case#setUser requires a valid KlasaUser!';
-		if (!this.guild.members.has(user)) throw `${user.id} is not a member of ${this.guild.name}!`;
-		this.user = user.id;
+		this.user = user;
 		return this;
 	}
 
 	setModerator(user) {
-		if (this.submitted) throw 'Cases cannot be changed once submitted!';
 		if (!(user instanceof KlasaUser)) throw 'Case#setModerator requires a valid KlasaUser!';
-		if (!this.guild.members.has(user)) throw `${user.id} is not a member of ${this.guild.name}!`;
-		this.moderator = user.id;
+		if (!this.guild.members.has(user.id)) throw `${user.id} is not a member of ${this.guild.name}!`;
+		this.moderator = user;
 		return this;
 	}
 
 	setType(type) {
-		if (this.submitted) throw 'Cases cannot be changed once submitted!';
-		if (!(type instanceof String)) throw 'Case#setType requires a valid String!';
+		if (this.submitted) throw 'type cannot be changed once submitted!';
 		switch (type) {
 			case 'ban':
 			case 'unban':
@@ -66,57 +68,65 @@ module.exports = class Case {
 	}
 
 	setReason(reason) {
-		if (this.submitted) throw 'Cases cannot be changed once submitted!';
-		if (!(reason instanceof String)) throw 'Case#setReason requires a valid String!';
 		this.reason = reason;
 		return this;
 	}
 
 	setSilent(silent = true) {
-		if (this.submitted) throw 'Cases cannot be changed once submitted!';
+		if (this.submitted) throw 'silent flag cannot be changed once submitted!';
 		if (silent) this.silent = true;
 		return this;
 	}
 
 	setDuration(endTimestamp = null) {
-		if (this.submitted) throw 'Cases cannot be changed once submitted!';
+		if (this.submitted) throw 'duration cannot be changed once submitted!';
 		this.duration = parseInt(endTimestamp);
 		return this;
 	}
 
 	setDeletedMessageCount(deletedMessageCount = null) {
-		if (this.submitted) throw 'Cases cannot be changed once submitted!';
+		if (this.submitted) throw 'deletedMessageCount cannot be changed once submitted!';
 		this.deletedMessageCount = deletedMessageCount;
 		return this;
 	}
 
 	setMessageContent(messageContent = null) {
-		if (this.submitted) throw 'Cases cannot be changed once submitted!';
-		if (!(messageContent instanceof String)) throw 'Case#setMessageContent requires a valid String!';
+		if (this.submitted) throw 'messageContent cannot be changed once submitted!';
 		this.messageContent = messageContent;
 		return this;
 	}
 
 	setBadNickname(badNickname = null) {
-		if (this.submitted) throw 'Cases cannot be changed once submitted!';
-		if (!(badNickname instanceof String)) throw 'Case#setBadNickname requires a valid String!';
+		if (this.submitted) throw 'badNickname cannot be changed once submitted!';
 		this.badNickname = badNickname;
+		return this;
+	}
+
+	setLink(link = null) {
+		if (this.submitted) throw 'link cannot be changed once submitted!';
+		this.link = link;
+		return this;
+	}
+
+	setChannel(channel = null) {
+		if (this.submitted) throw 'channel cannot be changed once submitted!';
+		if (!(channel instanceof TextChannel)) throw 'Case#setChannel requires a valid TextChannel!';
+		this.channel = channel;
 		return this;
 	}
 
 	// Finalizer
 
 	async submit() {
-		if (this.submitted) throw 'Cases cannot be changed once submitted!';
+		if (this.submitted) throw 'Cases cannot be re-submitted!';
 		if (!this.user || !this.type) throw 'Case Requires at least a User and a Type to be set!';
 		this.id = await this._getID();
 		this.submitted = true;
 
-		const member = this.guild.members.get(this.user);
-		const pack = await this._getPack();
+		const member = this.guild.members.get(this.user.id);
 
-		await this.client.settings.update('moderation.cases', pack, this.guild);
-		await member.settings.update('moderation.cases', pack.id, this.guild);
+		await this.client.settings.update('moderation.cases', await this.pack(), this.guild);
+		if (member && member.id !== this.client.user.id) await member.settings.update('moderation.cases', this.id, this.guild);
 
 		return this;
 	}
@@ -125,42 +135,14 @@ module.exports = class Case {
 		if (!this.submitted) throw 'Cases cannot be deleted unless submitted first!';
 
 		const member = this.guild.members.get(this.user);
-		const pack = await this._getPack();
 
-		await this.client.settings.update('moderation.cases', pack, this.guild);
-		await member.settings.update('moderation.cases', pack.id, this.guild);
+		await this.client.settings.destroy('moderation.cases', this, this.guild);
+		await member.settings.destroy('moderation.cases', this.id, this.guild);
 
 		return this;
 	}
 
-	async unpack(pack) {
-		this.id = pack.id ? pack.id : null;
-		this.guild = pack.guild ? await this.client.guilds.get(pack.guild) : null;
-		this.timestamp = pack.timestamp ? pack.timestamp : null;
-		this.submitted = pack.submitted ? pack.submitted : null;
-		this.user = pack.user ? await this.client.users.get(pack.user) : null;
-		this.type = pack.type ? pack.type : null;
-		this.moderator = pack.moderator ? await this.client.users.get(pack.moderator) : null;
-		this.reason = pack.reason ? pack.reason : null;
-		this.silent = pack.silent ? pack.silent : null;
-		this.duration = pack.duration ? pack.duration : null;
-		this.deletedMessageCount = pack.deletedMessageCount ? pack.deletedMessageCount : null;
-		this.messageContent = pack.messageContent ? pack.messageContent : null;
-		this.badNickname = pack.badNickname ? pack.badNickname : null;
-		return this;
-	}
-
-	// Internal Functions
-
-	async _getID() {
-		if (this.submitted) throw 'Cases cannot be changed once submitted!';
-		for (let i = 0; ; i++) {
-			if (await this.client.settings.moderation.cases.find(obj => obj.id === `${this.type}_${this.timestamp}${i}`)) continue;
-			return `${this.type}_${this.timestamp}${i}`;
-		}
-	}
-
-	async _getPack() {
+	async pack() {
 		const pack = {};
 		pack.id = this.id ? this.id : null;
 		pack.guild = this.guild ? this.guild.id : null;
@@ -175,8 +157,43 @@ module.exports = class Case {
 		pack.deletedMessageCount = this.deletedMessageCount ? this.deletedMessageCount : null;
 		pack.messageContent = this.messageContent ? this.messageContent : null;
 		pack.badNickname = this.badNickname ? this.badNickname : null;
+		pack.link = this.link ? this.link : null;
+		pack.channel = this.channel ? this.channel.id : null;
 		return pack;
 	}
 
+	async unpack(pack) {
+		this.id = pack.id ? pack.id : null;
+		this.guild = pack.guild && this.client.guilds.has(pack.guild) ? this.client.guilds.get(pack.guild) : this.guild;
+		this.timestamp = pack.timestamp ? pack.timestamp : null;
+		this.submitted = pack.submitted ? pack.submitted : null;
+		this.user = pack.user && this.client.users.has(pack.user) ? this.client.users.get(pack.user) : null;
+		this.type = pack.type ? pack.type : null;
+		this.moderator = pack.moderator && this.client.users.has(pack.moderator) ? this.client.users.get(pack.moderator) : null;
+		this.reason = pack.reason ? pack.reason : null;
+		this.silent = pack.silent ? pack.silent : null;
+		this.duration = pack.duration ? pack.duration : null;
+		this.deletedMessageCount = pack.deletedMessageCount ? pack.deletedMessageCount : null;
+		this.messageContent = pack.messageContent ? pack.messageContent : null;
+		this.badNickname = pack.badNickname ? pack.badNickname : null;
+		this.link = pack.link ? pack.link : null;
+		this.channel = pack.channel && this.client.channels.has(pack.channel) ? this.client.channels.get(pack.channel) : null;
+		return this;
+	}
+
+	async embed() {
+		const caseEmbed = new ModEmbed(this);
+		return await caseEmbed.build();
+	}
+
+	// Internal Functions
+
+	async _getID() {
+		if (this.submitted) throw 'Cases cannot be changed once submitted!';
+		for (let i = 0; ; i++) {
+			if (await this.client.settings.moderation.cases.find(obj => obj.id === `${this.type}_${this.timestamp}${i}`)) continue;
+			return `${this.type}_${this.timestamp}${i}`;
+		}
+	}
 
 };
