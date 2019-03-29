@@ -8,7 +8,7 @@ module.exports = class extends Finalizer {
 	}
 
 	async run(message, command, response, runTime) {
-		if (this.client.settings.logs.commandRun) await this.commandRunLog(message, runTime, this.client.settings.channels.globalLog);
+		if (this.client.settings.logs.commandRun && message.guild.settings.developmentSettings.commandAnalytics) await this.commandRunLog(message, runTime, this.client.settings.channels.globalLog);
 		if (message.guild && message.guild.settings.logs.events.commandRun) await this.commandRunLog(message, runTime, message.guild.settings.channels.log);
 
 		return;

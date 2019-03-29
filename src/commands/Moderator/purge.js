@@ -34,7 +34,7 @@ module.exports = class extends Command {
 		try {
 			await msg.channel.bulkDelete(messages);
 		} catch (err) {
-			await messages.deleteAll();
+			await messages.each(mes => mes.delete());
 		}
 
 		if (msg.guild.settings.logs.events.messagePurge && messages.size) await this.purgeLog(msg.member, messages.size, member);
