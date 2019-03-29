@@ -78,9 +78,9 @@ module.exports = class Case {
 		return this;
 	}
 
-	setDuration(endTimestamp = null) {
+	setDuration(when) {
 		if (this.submitted) throw 'duration cannot be changed once submitted!';
-		this.duration = parseInt(endTimestamp);
+		this.duration = when;
 		return this;
 	}
 
