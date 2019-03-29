@@ -13,6 +13,10 @@ module.exports = class extends Command {
 			usage: '<member:user> <reason:...string>',
 			usageDelim: ' '
 		});
+		this.customizeResponse('member', message =>
+			message.language.get('COMMAND_KICK_NOPARAM_MEMBER'))
+			.customizeResponse('reason', message =>
+				message.language.get('COMMAND_KICK_NOPARAM_REASON'));
 	}
 
 	async run(msg, [user, ...reason]) {

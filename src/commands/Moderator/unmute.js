@@ -13,6 +13,8 @@ module.exports = class extends Command {
 			usage: '<member:user>',
 			usageDelim: ' '
 		});
+		this.customizeResponse('member', message =>
+			message.language.get('COMMAND_VCUNBAN_NOPARAM'));
 	}
 
 	async run(msg, [user]) {

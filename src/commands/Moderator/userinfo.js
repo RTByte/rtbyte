@@ -10,7 +10,7 @@ module.exports = class extends Command {
 			requiredPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
 			runIn: ['text'],
 			description: language => language.get('COMMAND_USERINFO_DESCRIPTION'),
-			usage: '[Member:member]'
+			usage: '[member:member]'
 		});
 		this.timestamp = new Timestamp('d MMMM YYYY, h:mm A');
 	}
@@ -38,7 +38,7 @@ module.exports = class extends Command {
 			.addField(msg.guild.language.get('COMMAND_USERINFO_STATUS'), statuses[member.user.presence.status], true)
 			.setThumbnail(member.user.displayAvatarURL())
 			.setTimestamp()
-			.setFooter(`Requested by ${msg.author.tag}`, msg.author.displayAvatarURL());
+			.setFooter(msg.language.get('COMMAND_REQUESTED_BY', msg), msg.author.displayAvatarURL());
 
 		if (member.user.presence.activity) {
 			await embed.addField(msg.guild.language.get('COMMAND_USERINFO_ACTIVITY', member), member.user.presence.activity ? member.user.presence.activity.name : 'N/A', true);

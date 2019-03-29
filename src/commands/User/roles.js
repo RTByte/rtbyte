@@ -8,8 +8,8 @@ module.exports = class extends Command {
 			requiredPermissions: ['MANAGE_ROLES'],
 			requiredSettings: ['roles.joinable'],
 			aliases: ['roleme', 'team', 'squad'],
-			description: (msg) => msg.language.get('COMMAND_ROLES_DESCRIPTION'),
-			extendedHelp: (msg) => msg.language.get('COMMAND_ROLES_EXTENDED'),
+			description: language => language.get('COMMAND_ROLES_DESCRIPTION'),
+			extendedHelp: language => language.get('COMMAND_ROLES_EXTENDED'),
 			usage: '<list|add|remove|join|leave> [target:member] [roleName:string] [...]',
 			usageDelim: ' ',
 			subcommands: true
@@ -19,7 +19,7 @@ module.exports = class extends Command {
 	async list(msg) {
 		if (!msg.guild.settings.roles.joinable.length) return msg.reject(msg.language.get('COMMAND_ROLES_NONE_JOINABLE'));
 
-		const rolesList = ['**ROLES:**', '```asciidoc'];
+		const rolesList = ['**Roles:**', '```asciidoc'];
 
 		for (let i = 0; i < msg.guild.settings.roles.joinable.length; i++) {
 			const role = msg.guild.roles.get(msg.guild.settings.roles.joinable[i]);

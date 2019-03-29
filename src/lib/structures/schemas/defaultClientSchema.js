@@ -7,7 +7,11 @@ module.exports = KlasaClient.defaultClientSchema
 		.add('affirm', 'string')
 		.add('reject', 'string')
 		.add('arrowLeft', 'string')
+		.add('arrowToLeft', 'string')
 		.add('arrowRight', 'string')
+		.add('arrowToRight', 'string')
+		.add('info', 'string')
+		.add('list', 'string')
 		.add('online', 'string')
 		.add('idle', 'string')
 		.add('dnd', 'string')
@@ -28,7 +32,7 @@ module.exports = KlasaClient.defaultClientSchema
 		.add('green', 'string', { default: '#4BFF4B' })
 	// Punishments being taken away, warnings, bot restarts
 		.add('yellow', 'string', { default: '#FFFF4B' })
-	// Message deletions and updates, user updates
-		.add('blue', 'string', { default: '#4B4BFF' }))
+	// Message deletions and updates, changes
+		.add('blue', 'string', { default: '#4B4BFF' }));
 	.add('moderation', folder => folder
 		.add('cases', 'any', { array: true }));
