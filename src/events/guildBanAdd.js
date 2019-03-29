@@ -1,5 +1,5 @@
 const { Event } = require('klasa');
-const { MessageEmbed } = require('discord.js');
+const Case = require('../lib/structures/Case');
 
 module.exports = class extends Event {
 
@@ -8,24 +8,21 @@ module.exports = class extends Event {
 	}
 
 	async run(guild, user) {
-		if (guild.settings.logs.events.guildBanAdd) await this.banLog(guild, user);
-
-		return;
-	}
-
-	async banLog(guild, user) {
 		const bans = await guild.fetchBans();
 		const banInfo = await bans.get(user.id);
 
-		const embed = new MessageEmbed()
-			.setAuthor(`${user.tag} (${user.id})`, user.displayAvatarURL())
-			.setColor(this.client.settings.colors.red)
-			.setTimestamp()
-			.addField(guild.language.get('GUILD_LOG_REASON'), banInfo.reason)
-			.setFooter(guild.language.get('GUILD_LOG_GUILDBANADD'));
+		// Ignore if ban was initiated by command
+		if (banInfo.reason.includes('(fc)', banInfo.reason.length - 4)) return;
 
-		const logChannel = await this.client.channels.get(guild.settings.channels.log);
-		await logChannel.send('', { disableEveryone: true, embed: embed });
+		const modCase = new Case(guild)
+			.setType('ban')
+			.setUser(user)
+			.setReason(banInfo.reason);
+		await modCase.submit();
+
+		const embed = await modCase.embed();
+		await embed.send();
+
 		return;
 	}
 

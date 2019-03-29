@@ -1,6 +1,5 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license. Modified by Michael Cumbers & Rasmus Gerdin for use in RTByte.
 const { Command, RichDisplay } = require('klasa');
-const { MessageEmbed } = require('discord.js');
 const Case = require('../../lib/structures/Case');
 
 const timeout = 1000 * 60 * 3;
@@ -24,13 +23,12 @@ module.exports = class extends Command {
 
 	async run(msg, [target = msg.member, caseID = null]) {
 		if (caseID) {
-			if (!(this.client.settings.moderation.cases.find(thisCase => thisCase.id === caseID))) return msg.reject(`${caseID} is not a valid Case ID`);
+			if (!this.client.settings.moderation.cases.find(thisCase => thisCase.id === caseID)) return msg.reject(`${caseID} is not a valid Case ID`);
 
 			const modCase = new Case(msg.guild);
 			await modCase.unpack(this.client.settings.moderation.cases.find(thisCase => thisCase.id === caseID));
-			
-			const caseEmbed = await this.buildEmbed(modCase);
-			return msg.send('', { embed: caseEmbed });
+
+			return msg.send('', { embed: await modCase.embed() });
 		}
 
 		if (!target.settings.moderation.cases.length) return msg.affirm(`${target} has no recorded moderation history.`);
@@ -54,56 +52,10 @@ module.exports = class extends Command {
 		for await (const caseID of target.settings.moderation.cases) {
 			const modCase = new Case(msg.guild);
 			await modCase.unpack(this.client.settings.moderation.cases.find(thisCase => thisCase.id === caseID));
-			const caseEmbed = await this.buildEmbed(modCase);
-			caseEmbedArray.push(caseEmbed);
+
+			caseEmbedArray.push(await modCase.embed());
 		}
 		return caseEmbedArray;
-	}
-
-	// eslint-disable-next-line complexity
-	async buildEmbed(modCase) {
-		const caseEmbed = new MessageEmbed()
-			.setAuthor(modCase.guild.language.get(`MODERATION_LOG_${modCase.type.toUpperCase()}:`))
-			.setTitle(`${modCase.user.tag} | (${modCase.user.id})`)
-			.setDescription(`Case ID: \`${modCase.id}\``)
-			.setThumbnail(modCase.user.displayAvatarURL())
-			/* eslint-disable indent */
-			.setColor(
-				modCase.type === 'ban' ? this.client.settings.colors.red :
-				modCase.type === 'unban' ? this.client.settings.colors.red :
-				modCase.type === 'kick' ? this.client.settings.colors.red :
-				modCase.type === 'mute' ? this.client.settings.colors.red :
-				modCase.type === 'unmute' ? this.client.settings.colors.red :
-				modCase.type === 'purge' ? this.client.settings.colors.red :
-				modCase.type === 'softban' ? this.client.settings.colors.red :
-				modCase.type === 'vcban' ? this.client.settings.colors.red :
-				modCase.type === 'vcunban' ? this.client.settings.colors.red :
-				modCase.type === 'vckick' ? this.client.settings.colors.red :
-				modCase.type === 'antiInvite' ? this.client.settings.colors.red :
-				modCase.type === 'mentionSpam' ? this.client.settings.colors.red :
-				modCase.type === 'blacklistedWord' ? this.client.settings.colors.red :
-				modCase.type === 'blacklistedName' ? this.client.settings.colors.red :
-				modCase.type === 'warn' ? this.client.settings.colors.red :
-				this.client.settings.colors.blue)
-			/* eslint-enable indent */
-			.setTimestamp(modCase.timestamp)
-			.setFooter('Event Logged', this.client.user.displayAvatarURL());
-
-		// Fields for all
-		caseEmbed.addField('Moderator:', modCase.moderator ? modCase.moderator : 'Unspecified', true);
-		caseEmbed.addField('Reason:', modCase.reason ? modCase.reason : 'Unspecified', true);
-
-		// Type-specific fields
-		if (modCase.duration) caseEmbed.addField('Duration:', modCase.duration);
-		if (modCase.deletedMessageCount) caseEmbed.addField('Deleted Messages:', modCase.deletedMessageCount);
-		if (modCase.messageContent) caseEmbed.addField('Message Content:', modCase.deletedMessageContent);
-		if (modCase.badNickname) caseEmbed.addField('Blacklisted Nickname:', modCase.badNickname);
-
-		// Optional (for all) fields
-		if (modCase.link) caseEmbed.addField('', `[Click Here to View Action](${modCase.link})`);
-		if (modCase.silent) caseEmbed.addField('', 'Command Executed Silently');
-
-		return caseEmbed;
 	}
 
 	async buildDisplay(caseEmbedArray) {

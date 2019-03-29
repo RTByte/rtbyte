@@ -1,4 +1,6 @@
 const { KlasaUser, KlasaGuild } = require('klasa');
+const { TextChannel } = require('discord.js');
+const ModEmbed = require('./ModEmbed');
 
 module.exports = class Case {
 
@@ -17,6 +19,7 @@ module.exports = class Case {
 		this.moderator = null;
 		this.reason = null;
 		// Optional variables
+		this.channel = null;
 		this.silent = null;
 		this.duration = null;
 		this.deletedMessageCount = null;
@@ -106,6 +109,13 @@ module.exports = class Case {
 		return this;
 	}
 
+	setChannel(channel = null) {
+		if (this.submitted) throw 'channel cannot be changed once submitted!';
+		if (!(channel instanceof TextChannel)) throw 'Case#setChannel requires a valid TextChannel!';
+		this.channel = channel;
+		return this;
+	}
+
 	// Finalizer
 
 	async submit() {
@@ -117,7 +127,7 @@ module.exports = class Case {
 		const member = this.guild.members.get(this.user.id);
 
 		await this.client.settings.update('moderation.cases', await this.pack(), this.guild);
-		await member.settings.update('moderation.cases', this.id, this.guild);
+		if (member.id !== this.client.user.id) await member.settings.update('moderation.cases', this.id, this.guild);
 
 		return this;
 	}
@@ -148,24 +158,33 @@ module.exports = class Case {
 		pack.deletedMessageCount = this.deletedMessageCount ? this.deletedMessageCount : null;
 		pack.messageContent = this.messageContent ? this.messageContent : null;
 		pack.badNickname = this.badNickname ? this.badNickname : null;
+		pack.link = this.link ? this.link : null;
+		pack.channel = this.channel ? this.channel.id : null;
 		return pack;
 	}
 
 	async unpack(pack) {
 		this.id = pack.id ? pack.id : null;
-		this.guild = pack.guild ? await this.client.guilds.get(pack.guild) : null;
+		this.guild = pack.guild && this.client.guilds.has(pack.guild) ? this.client.guilds.get(pack.guild) : this.guild;
 		this.timestamp = pack.timestamp ? pack.timestamp : null;
 		this.submitted = pack.submitted ? pack.submitted : null;
-		this.user = pack.user ? await this.client.users.get(pack.user) : null;
+		this.user = pack.user && this.client.users.has(pack.user) ? this.client.users.get(pack.user) : null;
 		this.type = pack.type ? pack.type : null;
-		this.moderator = pack.moderator ? await this.client.users.get(pack.moderator) : null;
+		this.moderator = pack.moderator && this.client.users.has(pack.moderator) ? this.client.users.get(pack.moderator) : null;
 		this.reason = pack.reason ? pack.reason : null;
 		this.silent = pack.silent ? pack.silent : null;
 		this.duration = pack.duration ? pack.duration : null;
 		this.deletedMessageCount = pack.deletedMessageCount ? pack.deletedMessageCount : null;
 		this.messageContent = pack.messageContent ? pack.messageContent : null;
 		this.badNickname = pack.badNickname ? pack.badNickname : null;
+		this.link = pack.link ? pack.link : null;
+		this.channel = pack.channel && this.client.channels.has(pack.channel) ? this.client.channels.get(pack.channel) : null;
 		return this;
+	}
+
+	async embed() {
+		const caseEmbed = new ModEmbed(this);
+		return await caseEmbed.build();
 	}
 
 	// Internal Functions

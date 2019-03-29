@@ -1,5 +1,5 @@
 const { Command } = require('klasa');
-const { MessageEmbed } = require('discord.js');
+const Case = require('../../lib/structures/Case');
 
 module.exports = class extends Command {
 
@@ -31,13 +31,22 @@ module.exports = class extends Command {
 			messages = await messages.filter(mes => modableMessages.includes(mes.id));
 		}
 
+		const modCase = new Case(msg.guild)
+			.setUser(member ? this.client.users.get(member.id) : this.client.user)
+			.setType('purge')
+			.setModerator(msg.author)
+			.setSilent(silent)
+			.setDeletedMessageCount(messages.size);
+		await modCase.submit();
+
 		try {
 			await msg.channel.bulkDelete(messages);
 		} catch (err) {
 			await messages.each(mes => mes.delete());
 		}
 
-		if (msg.guild.settings.logs.events.messagePurge && messages.size) await this.purgeLog(msg.member, messages.size, member);
+		const embed = await modCase.embed();
+		await embed.send();
 
 		if (silent && !(all && (!member || member.id === msg.author.id))) await msg.delete({ reason: msg.language.get('COMMAND_MODERATION_SILENT') });
 
@@ -55,21 +64,6 @@ module.exports = class extends Command {
 		}
 
 		return modableMessages;
-	}
-
-	async purgeLog(executor, numPurged, member = null) {
-		const embed = new MessageEmbed()
-			.setAuthor(`${executor.user.tag} (${executor.id})`, executor.user.displayAvatarURL())
-			.setColor(this.client.settings.colors.red)
-			.setTimestamp()
-			.addField(executor.guild.language.get('GUILD_LOG_MESSAGEPURGE_AMOUNT'), numPurged)
-			.setFooter(executor.guild.language.get('GUILD_LOG_MESSAGEPURGE'));
-
-		if (member) embed.addField(executor.guild.language.get('GUILD_LOG_MESSAGEPURGE_TARGET'), member);
-
-		const logChannel = await this.client.channels.get(executor.guild.settings.channels.log);
-		await logChannel.send('', { disableEveryone: true, embed: embed });
-		return;
 	}
 
 };
