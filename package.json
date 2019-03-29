@@ -18,7 +18,8 @@
         "erlpack": "github:discordapp/erlpack",
         "klasa": "github:dirigeants/klasa#master",
         "klasa-member-gateway": "github:dirigeants/klasa-member-gateway#master",
-        "moment": "^2.24.0"
+        "moment": "^2.24.0",
+        "node-fetch": "^2.3.0"
     },
     "devDependencies": {
         "eslint": "^5.15.1"
