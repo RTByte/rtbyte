@@ -34,3 +34,5 @@ module.exports = KlasaClient.defaultClientSchema
 		.add('yellow', 'string', { default: '#FFFF4B' })
 	// Message deletions and updates, changes
 		.add('blue', 'string', { default: '#4B4BFF' }));
+	.add('moderation', folder => folder
+		.add('cases', 'any', { array: true }));
