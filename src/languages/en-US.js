@@ -402,7 +402,7 @@ module.exports = class extends Language {
 			MODERATION_LOG_UNSPECIFIED: 'Unspecified',
 			MODERATION_LOG_REASON: 'Reason',
 			MODERATION_LOG_DURATION: 'Duration',
-			MODERATION_LOG_DURATIONEND: (end) => `Until ${end}`,
+			MODERATION_LOG_DURATIONEND: (end) => `For ${moment.duration(moment().diff(end)).humanize()}`,
 			MODERATION_LOG_DELETEDMESSAGECOUNT: 'Messages deleted',
 			MODERATION_LOG_DELETEDMESSAGECONTENT: 'Deleted message',
 			MODERATION_LOG_BADNICKNAME: 'Blacklisted nickname',
