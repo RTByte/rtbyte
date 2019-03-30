@@ -392,7 +392,7 @@ module.exports = class extends Language {
 			MODERATION_LOG_BLACKLISTEDWORD: 'Blacklisted word detected',
 			MODERATION_LOG_BLACKLISTEDNAME: 'Blacklisted nickname detected',
 			MODERATION_LOG_WARN: 'Warning issued',
-			MODERATION_LOG_CASEID: (caseID) => `*Case ID:* ${caseID}`,
+			MODERATION_LOG_CASEID: (caseID) => `**Case ID:** ${caseID}`,
 			MODERATION_LOG_EVENTLOGGED: 'Event logged',
 			MODERATION_LOG_MODERATOR: 'Moderator',
 			MODERATION_LOG_UNSPECIFIED: 'Unspecified',
