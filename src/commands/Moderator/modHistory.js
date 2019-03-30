@@ -23,7 +23,7 @@ module.exports = class extends Command {
 
 	async run(msg, [target = msg.member, caseID = null]) {
 		if (caseID) {
-			if (!this.client.settings.moderation.cases.find(thisCase => thisCase.id === caseID)) return msg.reject(`${caseID} is not a valid Case ID`);
+			if (!this.client.settings.moderation.cases.find(thisCase => thisCase.id === caseID)) return msg.reject(msg.language.get('COMMAND_MODHISTORY_INVALID_CASEID', caseID));
 
 			const modCase = new Case(msg.guild);
 			await modCase.unpack(this.client.settings.moderation.cases.find(thisCase => thisCase.id === caseID));
@@ -31,13 +31,13 @@ module.exports = class extends Command {
 			return msg.send('', { embed: await modCase.embed() });
 		}
 
-		if (!target.settings.moderation.cases.length) return msg.affirm(`${target} has no recorded moderation history.`);
+		if (!target.settings.moderation.cases.length) return msg.affirm(msg.language.get('COMMAND_MODHISTORY_NOMODHISTORY', target));
 
 		const previousHandler = this.handlers.get(msg.author.id);
 		if (previousHandler) previousHandler.stop();
 		const caseEmbedArray = await this.buildEmbedArray(msg, target);
 
-		const handler = await (await this.buildDisplay(caseEmbedArray)).run(await msg.send('Loading moderation history...'), {
+		const handler = await (await this.buildDisplay(caseEmbedArray)).run(await msg.send(msg.language.get('COMMAND_MODHISTORY_LOADING')), {
 			filter: (reaction, user) => user.id === msg.author.id,
 			timeout
 		});
