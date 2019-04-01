@@ -1,4 +1,5 @@
 const { MessageEmbed } = require('discord.js');
+const { Util } = require('../../index');
 
 class ModEmbed extends MessageEmbed {
 
@@ -44,7 +45,7 @@ class ModEmbed extends MessageEmbed {
 		if (this.modCase.channel) this.addField(this.modCase.guild.language.get('MODERATION_LOG_CHANNEL'), this.modCase.channel);
 		if (this.modCase.duration) this.addField(this.modCase.guild.language.get('MODERATION_LOG_DURATION'), this.modCase.guild.language.get('MODERATION_LOG_DURATIONEND', this.modCase.duration), true);
 		if (this.modCase.deletedMessageCount) this.addField(this.modCase.guild.language.get('MODERATION_LOG_DELETEDMESSAGECOUNT'), this.modCase.deletedMessageCount, true);
-		if (this.modCase.messageContent) this.addField(this.modCase.guild.language.get('MODERATION_LOG_DELETEDMESSAGECONTENT'), this.modCase.deletedMessageContent, true);
+		if (this.modCase.messageContent) await Util.embedSplitter(this.modCase.guild.language.get('MODERATION_LOG_DELETEDMESSAGECONTENT'), this.modCase.messageContent.split(' '), this);
 		if (this.modCase.badNickname) this.addField(this.modCase.guild.language.get('MODERATION_LOG_BADNICKNAME'), this.modCase.badNickname, true);
 
 		// Optional (for all) fields

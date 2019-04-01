@@ -1,5 +1,5 @@
 const { Command } = require('klasa');
-const Case = require('../../lib/structures/Case');
+const { ModCase } = require('../../index');
 
 module.exports = class extends Command {
 
@@ -31,7 +31,7 @@ module.exports = class extends Command {
 			messages = await messages.filter(mes => modableMessages.includes(mes.id));
 		}
 
-		const modCase = new Case(msg.guild)
+		const modCase = new ModCase(msg.guild)
 			.setUser(member ? this.client.users.get(member.id) : this.client.user)
 			.setType('purge')
 			.setModerator(msg.author)

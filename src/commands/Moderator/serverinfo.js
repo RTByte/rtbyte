@@ -1,5 +1,6 @@
 const { Command, Timestamp } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { Util } = require('../../index');
 
 module.exports = class extends Command {
 
@@ -74,38 +75,11 @@ module.exports = class extends Command {
 
 		if (!msg.guild.settings.logs.verboseLogging) return msg.channel.send('', { disableEveryone: true, embed: embed });
 
-		await this.embedSplitter(msg.guild.language.get('COMMAND_SERVERINFO_ROLES'), roles, embed);
-		await this.embedSplitter(msg.guild.language.get('COMMAND_SERVERINFO_CHANNELS'), channels, embed);
-		await this.embedSplitter(msg.guild.language.get('COMMAND_SERVERINFO_EMOJIS'), emojis, embed);
+		await Util.embedSplitter(msg.guild.language.get('COMMAND_SERVERINFO_ROLES'), roles, embed);
+		await Util.embedSplitter(msg.guild.language.get('COMMAND_SERVERINFO_CHANNELS'), channels, embed);
+		await Util.embedSplitter(msg.guild.language.get('COMMAND_SERVERINFO_EMOJIS'), emojis, embed);
 
 		return msg.channel.send('', { disableEveryone: true, embed: embed });
-	}
-
-	async embedSplitter(name, valueArray, embed) {
-		// I don't care if this doesn't have commas, do not touch this rasmus
-		const bigString = valueArray.join(' ') + ' '; // eslint-disable-line
-		if (bigString.length < 1024) return embed.addField(name, bigString);
-
-		const substrings = [];
-		let splitLength = 0;
-
-		while (splitLength < bigString.length) {
-			let validString = bigString.slice(splitLength, splitLength + 1024);
-			validString = validString.slice(0, validString.lastIndexOf(' ') + 1);
-
-			if (!validString.length) {
-				splitLength = bigString.length;
-			} else {
-				substrings.push(validString);
-				splitLength += validString.length;
-			}
-		}
-
-		await substrings.forEach(substring => {
-			if (substring.length) embed.addField(name, substring);
-		});
-
-		return null;
 	}
 
 };

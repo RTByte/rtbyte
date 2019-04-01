@@ -1,5 +1,5 @@
 const { Command } = require('klasa');
-const Case = require('../../lib/structures/Case');
+const { ModCase } = require('../../index');
 
 module.exports = class extends Command {
 
@@ -25,7 +25,7 @@ module.exports = class extends Command {
 		if (user.id === this.client.user.id) return msg.reject(msg.language.get('COMMAND_SOFTBAN_NO_SOFTBAN_CLIENT'));
 		if (!await msg.member.canMod(user)) return msg.reject(msg.language.get('COMMAND_SOFTBAN_NO_PERMS', user));
 
-		const modCase = new Case(msg.guild)
+		const modCase = new ModCase(msg.guild)
 			.setUser(user)
 			.setType('softban')
 			.setReason(reason)
