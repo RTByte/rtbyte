@@ -1,6 +1,6 @@
 const { Command, Timestamp } = require('klasa');
 const { MessageEmbed } = require('discord.js');
-const { Util } = require('../../index');
+const Util = require('../../lib/util/Util');
 
 module.exports = class extends Command {
 

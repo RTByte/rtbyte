@@ -23,8 +23,8 @@ module.exports = class extends Monitor {
 			.setUser(msg.author)
 			.setType('antiInvite')
 			.setModerator(this.client.user)
-			.setMessageContent(msg.content)
-			.submit();
+			.setMessageContent(msg.content);
+		await modCase.submit();
 
 		const embed = await modCase.embed();
 		await embed.send();

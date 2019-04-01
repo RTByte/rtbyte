@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js');
-const { Util } = require('../../index');
+const Util = require('../util/Util');
 
 class ModEmbed extends MessageEmbed {
 
@@ -30,7 +30,7 @@ class ModEmbed extends MessageEmbed {
 				this.modCase.type === 'antiInvite' ? this.modCase.client.settings.colors.red :
 				this.modCase.type === 'mentionSpam' ? this.modCase.client.settings.colors.red :
 				this.modCase.type === 'blacklistedWord' ? this.modCase.client.settings.colors.red :
-				this.modCase.type === 'blacklistedName' ? this.modCase.client.settings.colors.red :
+				this.modCase.type === 'blacklistedNickname' ? this.modCase.client.settings.colors.red :
 				this.modCase.type === 'warn' ? this.modCase.client.settings.colors.yellow :
 				this.modCase.client.settings.colors.blue);
 			/* eslint-enable indent */
@@ -60,9 +60,13 @@ class ModEmbed extends MessageEmbed {
 			const logChannel = this.modCase.guild.channels.get(this.modCase.guild.settings.channels.log);
 			await logChannel.send('', { disableEveryone: true, embed: this });
 		}
+
+		if (!this.modCase.guild.settings.moderation.notifyUser) return null;
+		if (this.modCase.silent) return null;
+		if (!this.client.users.has(this.modCase.user.id)) return null;
+		if (this.modCase.user.id !== this.client.user.id) return null;
 		// eslint-disable-next-line max-len
-		if (this.modCase.guild.settings.moderation.notifyUser && !this.modCase.silent && this.client.users.has(this.modCase.user.id) && this.modCase.user.id !== this.client.user.id) await this.modCase.user.send(this.modCase.guild.language.get('COMMAND_MODERATION_BOILERPLATE', this.modCase.guild), { disableEveryone: true, embed: this });
-		return;
+		return await this.modCase.user.send(this.modCase.moderator.id === this.client.user.id ? this.modCase.guild.language.get('MODERATION_LOG_BOILERPLATE', this.modCase.guild) : this.modCase.guild.language.get('MODERATION_LOG_BOILERPLATE_AUTO', this.modCase.guild), { disableEveryone: true, embed: this });
 	}
 
 }

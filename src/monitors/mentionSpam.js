@@ -1,5 +1,5 @@
 const { Monitor } = require('klasa');
-const { MessageEmbed } = require('discord.js');
+const { ModCase } = require('../index');
 
 module.exports = class extends Monitor {
 
@@ -18,27 +18,20 @@ module.exports = class extends Monitor {
 		const member = await msg.guild.members.fetch(msg.author);
 		const mentions = msg.mentions.users.size + msg.mentions.roles.size;
 
-		if (mentions > msg.guild.settings.filters.mentionSpamThreshold) {
-			if (msg.guild.settings.logs.events.mentionSpam) await this.mentionSpamLog(member);
-			if (msg.guild.settings.filters.delete) await msg.delete();
-			await msg.guild.members.ban(member, { days: 1, reason: msg.guild.language.get('GUILD_LOG_MENTIONSPAM') });
-			await msg.send(msg.guild.language.get('MONITOR_MENTIONSPAM_APOLOGY', msg.guild));
-		}
+		if (mentions < msg.guild.settings.filters.mentionSpamThreshold) return;
+		const modCase = new ModCase(msg.guild)
+			.setUser(msg.author)
+			.setType('mentionSpam')
+			.setModerator(this.client.user)
+			.setMessageContent(msg.content);
+		await modCase.submit();
 
-		return;
-	}
+		const embed = await modCase.embed();
+		await embed.send();
 
-	async mentionSpamLog(member) {
-		const embed = new MessageEmbed()
-			.setAuthor(`${member.user.tag} (${member.user.id})`, member.user.displayAvatarURL())
-			.setColor(this.client.settings.colors.red)
-			.setTimestamp()
-			.setFooter(member.guild.language.get('GUILD_LOG_MENTIONSPAM'));
-
-		const logChannel = await this.client.channels.get(member.guild.settings.channels.log);
-		await logChannel.send('', { disableEveryone: true, embed: embed });
-		// eslint-disable-next-line max-len
-		if (member.guild.settings.moderation.notifyUser) await member.send(member.guild.language.get('MONITOR_MODERATION_AUTO_BOILERPLATE', member.guild), { disableEveryone: true, embed: embed });
+		await msg.delete();
+		await msg.guild.members.ban(member, { days: 1, reason: msg.guild.language.get('GUILD_LOG_MENTIONSPAM') });
+		await msg.send(msg.guild.language.get('MONITOR_MENTIONSPAM_APOLOGY', msg.guild));
 		return;
 	}
 

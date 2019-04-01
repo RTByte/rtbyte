@@ -70,7 +70,6 @@ module.exports = class extends Language {
 			MONITOR_COMMAND_HANDLER_REPEATING_POSSIBLITIES: ['cancel'],
 			// eslint-disable-next-line max-len
 			MONITOR_MENTIONSPAM_APOLOGY: (guild) => `Hi!\n\nSomeone just executed a mention spam selfbot command or manually mentioned too many people in this channel. The user has been banned. The ${guild} mod team apologizes for the inconvenience.`,
-			MONITOR_MODERATION_AUTO_BOILERPLATE: (guild) => `This action was automatically performed. If you have any questions regarding this, please contact a moderator of the ${guild.name} Discord.`,
 
 			INHIBITOR_COOLDOWN: (remaining) => `You have just used this command. You can use this command again in ${remaining} second${remaining === 1 ? '' : 's'}.`,
 			INHIBITOR_DISABLED_GUILD: 'This command has been disabled by an admin in this guild.',
@@ -179,8 +178,6 @@ module.exports = class extends Language {
 			COMMAND_STATS_LIBRARIES: 'Libraries',
 			COMMAND_STATS_HOSTINFO: 'Host information',
 			COMMAND_STATS_HOSTUPTIME: 'Host uptime',
-			// eslint-disable-next-line max-len
-			COMMAND_MODERATION_BOILERPLATE: (guild) => `This action was performed by a moderator of the ${guild.name} Discord. If you have any questions about this action, please contact the owner, listed below.\n\n${guild.owner}`,
 			COMMAND_MODERATION_SILENT: 'Silent action',
 			COMMAND_BAN_DESCRIPTION: 'Bans a mentioned user and logs the reason.',
 			COMMAND_BAN_NOPARAM_MEMBER: 'Please mention the user you would like to ban.',
@@ -381,6 +378,9 @@ module.exports = class extends Language {
 			GLOBAL_LOG_COMMANDRUN: 'Command ran',
 			GLOBAL_LOG_COMMANDRUNVIEW: 'Click to view',
 
+			// eslint-disable-next-line max-len
+			MODERATION_LOG_BOILERPLATE: (guild) => `This action was performed by a moderator of the ${guild.name} Discord. If you have any questions about this action, please contact the owner, listed below.\n\n${guild.owner}`,
+			MODERATION_LOG_BOILERPLATE_AUTO: (guild) => `This action was automatically performed. If you have any questions regarding this, please contact a moderator of the ${guild.name} Discord.`,
 			MODERATION_LOG_BAN: 'User banned',
 			MODERATION_LOG_UNBAN: 'User unbanned',
 			MODERATION_LOG_KICK: 'User kicked',
@@ -394,7 +394,7 @@ module.exports = class extends Language {
 			MODERATION_LOG_ANTIINVITE: 'Invite deleted',
 			MODERATION_LOG_MENTIONSPAM: 'User banned for mention spam',
 			MODERATION_LOG_BLACKLISTEDWORD: 'Blacklisted word detected',
-			MODERATION_LOG_BLACKLISTEDNAME: 'Blacklisted nickname detected',
+			MODERATION_LOG_BLACKLISTEDNICKNAME: 'Blacklisted nickname detected',
 			MODERATION_LOG_WARN: 'Warning issued',
 			MODERATION_LOG_CASEID: (caseID) => `**Case ID:** ${caseID}`,
 			MODERATION_LOG_EVENTLOGGED: 'Event logged',

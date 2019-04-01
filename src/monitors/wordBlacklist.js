@@ -1,5 +1,6 @@
 const { Monitor } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { ModCase } = require('../index');
 
 module.exports = class extends Monitor {
 
@@ -19,9 +20,17 @@ module.exports = class extends Monitor {
 
 		if (!await this.cycleWords(words, wordBlacklist)) return;
 
-		if (msg.guild.settings.logs.events.blacklistedWord) await this.blacklistedWordLog(msg);
-		if (msg.guild.settings.filters.warn) await this.warnUser(msg);
-		if (msg.guild.settings.filters.delete) await msg.delete();
+		const modCase = new ModCase(msg.guild)
+			.setUser(msg.author)
+			.setType('blacklistedWord')
+			.setModerator(this.client.user)
+			.setMessageContent(msg.content);
+		await modCase.submit();
+
+		const embed = await modCase.embed();
+		await embed.send();
+
+		await msg.delete();
 		return;
 	}
 
