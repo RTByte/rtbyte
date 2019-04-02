@@ -1,6 +1,6 @@
 const { Command, Timestamp } = require('klasa');
 const { MessageEmbed } = require('discord.js');
-const Util = require('../../lib/util/Util');
+const { embedSplitter } = require('../../lib/util/Util');
 
 module.exports = class extends Command {
 
@@ -45,7 +45,7 @@ module.exports = class extends Command {
 			await embed.addField(msg.guild.language.get('COMMAND_USERINFO_ACTIVITY', member), member.user.presence.activity ? member.user.presence.activity.name : 'N/A', true);
 		}
 
-		await Util.embedSplitter(msg.guild.language.get('COMMAND_SERVERINFO_ROLES'), roles, embed);
+		await embedSplitter(msg.guild.language.get('COMMAND_SERVERINFO_ROLES'), roles, embed);
 
 		await msg.send('', { disableEveryone: true, embed: embed });
 		return;

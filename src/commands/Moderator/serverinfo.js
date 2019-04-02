@@ -1,6 +1,6 @@
 const { Command, Timestamp } = require('klasa');
 const { MessageEmbed } = require('discord.js');
-const Util = require('../../lib/util/Util');
+const { embedSplitter } = require('../../lib/util/Util');
 
 module.exports = class extends Command {
 
@@ -75,9 +75,9 @@ module.exports = class extends Command {
 
 		if (!msg.guild.settings.logs.verboseLogging) return msg.channel.send('', { disableEveryone: true, embed: embed });
 
-		await Util.embedSplitter(msg.guild.language.get('COMMAND_SERVERINFO_ROLES'), roles, embed);
-		await Util.embedSplitter(msg.guild.language.get('COMMAND_SERVERINFO_CHANNELS'), channels, embed);
-		await Util.embedSplitter(msg.guild.language.get('COMMAND_SERVERINFO_EMOJIS'), emojis, embed);
+		await embedSplitter(msg.guild.language.get('COMMAND_SERVERINFO_ROLES'), roles, embed);
+		await embedSplitter(msg.guild.language.get('COMMAND_SERVERINFO_CHANNELS'), channels, embed);
+		await embedSplitter(msg.guild.language.get('COMMAND_SERVERINFO_EMOJIS'), emojis, embed);
 
 		return msg.channel.send('', { disableEveryone: true, embed: embed });
 	}
