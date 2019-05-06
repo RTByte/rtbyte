@@ -7,7 +7,14 @@ const alternateNames = [
 	'Nope.',
 	'Try again, bud',
 	'Nice try',
-	'Bad person'
+	'Bad person',
+	'Assclown',
+	'Idiot',
+	'Dummy',
+	'Shithead',
+	'Fuckface',
+	'Don\'t',
+	'Stop'
 ];
 
 module.exports = class extends Event {

@@ -37,9 +37,7 @@ module.exports = class extends Command {
 
 		if (!member.voice) return msg.affirm();
 
-		const tempVC = await msg.guild.channels.create(member.id, { type: 'voice', userLimit: 1, reason: `Temporary Channel to kick ${member.user.tag} from voice chat.` });
-		await member.setVoiceChannel(tempVC);
-		await setTimeout(() => tempVC.delete(`Deleting Channel to kick ${member.user.tag} from voice chat.`), 250);
+		await member.voice.setChannel(null, reason);
 
 		const embed = await modCase.embed();
 		await embed.send();

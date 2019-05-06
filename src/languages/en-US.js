@@ -17,7 +17,7 @@ module.exports = class extends Language {
 				`es for this guild are: ${prefix.map(pre => `\`${pre}\``).join(', ')}` :
 				` in this guild is set to: \`${prefix}\``
 			}`,
-			DISPLAY_NAME: 'Display Name',
+			DISPLAY_NAME: 'Display name',
 
 			SETTING_GATEWAY_EXPECTS_GUILD: 'The parameter <Guild> expects either a Guild or a Guild Object.',
 			SETTING_GATEWAY_VALUE_FOR_KEY_NOEXT: (data, key) => `The value ${data} for the key ${key} does not exist.`,
@@ -365,7 +365,7 @@ module.exports = class extends Language {
 			GUILD_LOG_GUILDMEMBERVCUNBAN: 'User unbanned from voice chat',
 			GUILD_LOG_GUILDMEMBERWARN: 'Warning issued',
 			GUILD_LOG_MEMBERUPDATE: 'User updated',
-			GUILD_LOG_MEMBERUPDATE_DISPLAYNAME: 'Nickname changed',
+			GUILD_LOG_MEMBERUPDATE_DISPLAYNAME: 'Display name changed',
 			GUILD_LOG_AUTOSELENER: 'Changed name with blacklisted word',
 			GUILD_LOG_BLACKLISTEDWORD: (channel) => `Blacklisted word detected in ${channel}.`,
 			GUILD_LOG_ANTIINVITE: (channel) => `Guild invite detected in ${channel}.`,
