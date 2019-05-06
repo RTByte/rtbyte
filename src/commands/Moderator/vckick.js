@@ -16,7 +16,7 @@ module.exports = class extends Command {
 		this.customizeResponse('member', message =>
 			message.language.get('COMMAND_VCKICK_NOPARAM_MEMBER'))
 			.customizeResponse('reason', message =>
-				message.language.get('COMMAND_VCKICK_NOPARAM_REASON'));
+				message.language.get('COMMAND_MODERATION_NOREASON'));
 	}
 
 	async run(msg, [user, ...reason]) {

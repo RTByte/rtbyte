@@ -21,7 +21,7 @@ module.exports = class extends Event {
 			.setFooter(role.guild.language.get('GUILD_LOG_ROLECREATE'));
 
 		if (role.guild.settings.logs.verboseLogging) {
-			embed.addField(role.guild.language.get('GUILD_LOG_ROLECREATE_V_ID'), role.id);
+			embed.addField(role.guild.language.get('ID'), role.id);
 			embed.addField(role.guild.language.get('GUILD_LOG_ROLECREATE_V_TAG'), role);
 		}
 

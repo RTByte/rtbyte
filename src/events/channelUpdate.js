@@ -29,7 +29,7 @@ module.exports = class extends Event {
 			.setTimestamp()
 			.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE'));
 
-		if (oldChannel.name !== channel.name) await embed.addField(channel.guild.language.get('GUILD_LOG_UPDATE_NAME'), `${oldChannel.name} ${arrowRightEmoji} ${channel.name}`);
+		if (oldChannel.name !== channel.name) await embed.addField(channel.guild.language.get('NAME_CHANGED'), `${oldChannel.name} ${arrowRightEmoji} ${channel.name}`);
 		if (oldChannel.nsfw !== channel.nsfw) await embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_NSFW'), status[channel.nsfw]);
 		// eslint-disable-next-line max-len
 		if (oldChannel.topic !== channel.topic) await embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_TOPIC'), `${oldChannel.topic ? oldChannel.topic : 'No topic'} ${arrowRightEmoji} ${channel.topic ? channel.topic : 'No topic'}`);

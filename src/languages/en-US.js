@@ -11,14 +11,31 @@ module.exports = class extends Language {
 			WATCHING: 'Watching'
 		};
 		this.language = {
+
+			// Default langs
 			DEFAULT: (key) => `${key} has not been localized for en-US yet.`,
 			DEFAULT_LANGUAGE: 'Default language',
 			PREFIX_REMINDER: (prefix = `@${this.client.user.tag}`) => `The prefix${Array.isArray(prefix) ?
 				`es for this guild are: ${prefix.map(pre => `\`${pre}\``).join(', ')}` :
 				` in this guild is set to: \`${prefix}\``
 			}`,
-			DISPLAY_NAME: 'Display name',
 
+
+			// General langs
+			DISPLAY_NAME: 'Display name',
+			ID: 'ID',
+			NAME: 'Name',
+			ROLES: 'Roles',
+			REGISTERED: 'Registered',
+			JOINED: 'Joined',
+			REASON: 'Reason',
+			PREVNAME: 'Previous name',
+			NAME_CHANGED: 'Name changed',
+			WARNING_ISSUED: 'Warning issued',
+			CLICK_TO_VIEW: 'Click to view',
+
+
+			// Setting gateway langs
 			SETTING_GATEWAY_EXPECTS_GUILD: 'The parameter <Guild> expects either a Guild or a Guild Object.',
 			SETTING_GATEWAY_VALUE_FOR_KEY_NOEXT: (data, key) => `The value ${data} for the key ${key} does not exist.`,
 			SETTING_GATEWAY_VALUE_FOR_KEY_ALREXT: (data, key) => `The value ${data} for the key ${key} already exists.`,
@@ -28,6 +45,8 @@ module.exports = class extends Language {
 			SETTING_GATEWAY_INVALID_TYPE: 'The type parameter must be either add or remove.',
 			SETTING_GATEWAY_INVALID_FILTERED_VALUE: (piece, value) => `${piece.key} doesn't accept the value: ${value}`,
 
+
+			// Resolver langs
 			RESOLVER_MULTI_TOO_FEW: (name, min = 1) => `Provided too few ${name}s. At least ${min} ${min === 1 ? 'is' : 'are'} required.`,
 			RESOLVER_INVALID_BOOL: (name) => `${name} must be true or false.`,
 			RESOLVER_INVALID_CHANNEL: (name) => `${name} must be a channel tag or valid channel ID.`,
@@ -54,13 +73,19 @@ module.exports = class extends Language {
 			RESOLVER_MINMAX_MIN: (name, min, suffix) => `${name} must be greater than ${min}${suffix}.`,
 			RESOLVER_MINMAX_MAX: (name, max, suffix) => `${name} must be less than ${max}${suffix}.`,
 
+
+			// Reaction handler langs
 			REACTIONHANDLER_PROMPT: 'Which page would you like to jump to?',
 
+
+			// Command message langs
 			COMMANDMESSAGE_MISSING: 'Missing one or more required arguments after end of input.',
 			COMMANDMESSAGE_MISSING_REQUIRED: (name) => `${name} is a required argument.`,
 			COMMANDMESSAGE_MISSING_OPTIONALS: (possibles) => `Missing a required option: (${possibles})`,
 			COMMANDMESSAGE_NOMATCH: (possibles) => `Your option didn't match any of the possibilities: (${possibles}).`,
 
+
+			// Monitor langs
 			// eslint-disable-next-line max-len
 			MONITOR_COMMAND_HANDLER_REPROMPT: (tag, error, time, abortOptions) => `${tag} | **${error}** | You have **${time}** seconds to respond to this prompt with a valid argument. Type **${abortOptions.join('**, **')}** to abort this prompt.`,
 			// eslint-disable-next-line max-len
@@ -71,8 +96,10 @@ module.exports = class extends Language {
 			// eslint-disable-next-line max-len
 			MONITOR_MENTIONSPAM_APOLOGY: (guild) => `Hi!\n\nSomeone just executed a mention spam selfbot command or manually mentioned too many people in this channel. The user has been banned. The ${guild} mod team apologizes for the inconvenience.`,
 
+
+			// Inhibitor langs
 			INHIBITOR_COOLDOWN: (remaining) => `You have just used this command. You can use this command again in ${remaining} second${remaining === 1 ? '' : 's'}.`,
-			INHIBITOR_DISABLED_GUILD: 'This command has been disabled by an admin in this guild.',
+			INHIBITOR_DISABLED_GUILD: 'This command has been disabled by an administrator in this guild.',
 			INHIBITOR_DISABLED_GLOBAL: 'This command has been globally disabled by a bot owner.',
 			INHIBITOR_MISSING_BOT_PERMS: (missing) => `Insufficient permissions, missing: **${missing}**`,
 			INHIBITOR_NSFW: 'You can only use NSFW commands in NSFW channels.',
@@ -81,6 +108,8 @@ module.exports = class extends Language {
 			INHIBITOR_RUNIN: (types) => `This command is only available in ${types} channels.`,
 			INHIBITOR_RUNIN_NONE: (name) => `The ${name} command is not configured to run in any channel.`,
 
+
+			// Command langs
 			COMMAND_REQUESTED_BY: (msg) => `Requested by ${msg.author.tag}`,
 			COMMAND_BLACKLIST_DESCRIPTION: 'Blacklists or un-blacklists users and guilds from the bot.',
 			COMMAND_BLACKLIST_SUCCESS: (usersAdded, usersRemoved, guildsAdded, guildsRemoved) => [
@@ -103,23 +132,23 @@ module.exports = class extends Language {
 			COMMAND_EVAL_OUTPUT: (time, output, type) => `**Output**:${output}\n**Type**:${type}\n${time}`,
 			COMMAND_EVAL_SENDFILE: (time, type) => `Output was too long... sent the result as a file.\n**Type**:${type}\n${time}`,
 			COMMAND_EVAL_SENDCONSOLE: (time, type) => `Output was too long... sent the result to console.\n**Type**:${type}\n${time}`,
-			COMMAND_UNLOAD: (type, name) => `Unloaded ${type}: ${name}`,
+			COMMAND_UNLOAD: (type, name) => `Unloaded the ${name} ${type}.`,
 			COMMAND_UNLOAD_DESCRIPTION: 'Unloads the klasa piece.',
 			COMMAND_UNLOAD_WARN: 'You probably don\'t want to unload that, since you wouldn\'t be able to run any command to enable it again.',
 			COMMAND_TRANSFER_ERROR: 'That file has been transfered already or never existed.',
-			COMMAND_TRANSFER_SUCCESS: (type, name) => `Successfully transferred ${type}: ${name}.`,
-			COMMAND_TRANSFER_FAILED: (type, name) => `Transfer of ${type}: ${name} to client has failed. Please check your console.`,
+			COMMAND_TRANSFER_SUCCESS: (type, name) => `Successfully transferred the ${name} ${type}.`,
+			COMMAND_TRANSFER_FAILED: (type, name) => `Transfer of the ${name} ${type} to the client has failed. Please check your console.`,
 			COMMAND_TRANSFER_DESCRIPTION: 'Transfers a core piece to its respective folder.',
-			COMMAND_RELOAD: (type, name, time) => `Reloaded ${type}: ${name}. (Took: ${time})`,
-			COMMAND_RELOAD_FAILED: (type, name) => `Failed to reload ${type}: ${name}. Please check your console.`,
-			COMMAND_RELOAD_ALL: (type, time) => `Reloaded all ${type}. (Took: ${time})`,
-			COMMAND_RELOAD_EVERYTHING: (time) => `Reloaded everything. (Took: ${time})`,
+			COMMAND_RELOAD: (type, name, time) => `Reloaded the ${name} ${type}. \`${time}\``,
+			COMMAND_RELOAD_FAILED: (type, name) => `Failed to reload the ${name} ${type}. Please check your console.`,
+			COMMAND_RELOAD_ALL: (type, time) => `Reloaded all ${type}. \`${time}\``,
+			COMMAND_RELOAD_EVERYTHING: (time) => `Reloaded everything. \`${time}\``,
 			COMMAND_RELOAD_DESCRIPTION: 'Reloads a klasa piece, or all pieces of a klasa store.',
 			COMMAND_REBOOT: 'Rebooting...',
 			COMMAND_REBOOT_DESCRIPTION: 'Reboots the bot.',
-			COMMAND_LOAD: (time, type, name) => `Successfully loaded ${type}: ${name}. (Took: ${time})`,
+			COMMAND_LOAD: (time, type, name) => `Successfully loaded the ${name} ${type}. \`${time}\``,
 			COMMAND_LOAD_FAIL: 'The file does not exist, or an error occurred while loading your file. Please check your console.',
-			COMMAND_LOAD_ERROR: (type, name, error) => `Failed to load ${type}: ${name}. Reason:${util.codeBlock('js', error)}`,
+			COMMAND_LOAD_ERROR: (type, name, error) => `Failed to load the ${name} ${type}. Reason:${util.codeBlock('js', error)}`,
 			COMMAND_LOAD_DESCRIPTION: 'Load a piece from your bot.',
 			COMMAND_PING: 'Ping?',
 			COMMAND_PING_DESCRIPTION: 'Runs a connection test to Discord.',
@@ -135,7 +164,7 @@ module.exports = class extends Language {
 				'The RTByte Support server can be found using the link below.',
 				'https://discord.gg/eRauWP4/'
 			],
-			COMMAND_INVITE_DESCRIPTION: 'Displays the join guild link of the bot.',
+			COMMAND_INVITE_DESCRIPTION: 'Displays the link to invite RTByte to your guild.',
 			COMMAND_INFO_EMBEDTITLE: 'RTByte Information',
 			// eslint-disable-next-line max-len
 			COMMAND_INFO_EMBEDDESC: 'RTByte is an open-source modular multipurpose Discord bot built on the incredible [Klasa](https://klasa.js.org/) framework for [discord.js](https://discord.js.org/).\n\nWe aim to provide the most consistent and easy-to-use Discord mod bot solution available, with our key focus areas being modularity, performance, consistency, and choice.',
@@ -152,13 +181,13 @@ module.exports = class extends Language {
 			COMMAND_HELP_NODM: 'You have DMs disabled, I couldn\'t send you the commands in DMs.',
 			COMMAND_HELP_USAGE: 'Usage',
 			COMMAND_HELP_EXTENDED: 'Extended help',
-			COMMAND_ENABLE: (type, name) => `Successfully enabled ${name} ${type}.`,
+			COMMAND_ENABLE: (type, name) => `Successfully enabled the ${name} ${type}.`,
 			COMMAND_ENABLE_DESCRIPTION: 'Re-enables or temporarily enables a command/inhibitor/monitor/finalizer. Default state restored on reboot.',
-			COMMAND_DISABLE: (type, name) => `Successfully disabled ${name} ${type}.`,
+			COMMAND_DISABLE: (type, name) => `Successfully disabled the ${name} ${type}.`,
 			COMMAND_DISABLE_DESCRIPTION: 'Re-disables or temporarily disables a command/inhibitor/monitor/finalizer/event. Default state restored on reboot.',
 			COMMAND_DISABLE_WARN: 'You probably don\'t want to disable that, since you wouldn\'t be able to run any command to enable it again.',
-			COMMAND_CONF_NOKEY: 'You must provide a key',
-			COMMAND_CONF_NOVALUE: 'You must provide a value',
+			COMMAND_CONF_NOKEY: 'You must provide a key.',
+			COMMAND_CONF_NOVALUE: 'You must provide a value.',
 			COMMAND_CONF_GUARDED: (name) => `${util.toTitleCase(name)} may not be disabled.`,
 			COMMAND_CONF_UPDATED: (key, response) => `Successfully updated the key **${key}**: \`${response}\``,
 			COMMAND_CONF_KEY_NOT_ARRAY: 'This key is not array type. Use the action \'reset\' instead.',
@@ -179,15 +208,14 @@ module.exports = class extends Language {
 			COMMAND_STATS_HOSTINFO: 'Host information',
 			COMMAND_STATS_HOSTUPTIME: 'Host uptime',
 			COMMAND_MODERATION_SILENT: 'Silent action',
+			COMMAND_MODERATION_NOREASON: 'Please provide a reason.',
 			COMMAND_BAN_DESCRIPTION: 'Bans a mentioned user and logs the reason.',
 			COMMAND_BAN_NOPARAM_MEMBER: 'Please mention the user you would like to ban.',
-			COMMAND_BAN_NOPARAM_REASON: 'Please provide a reason.',
 			COMMAND_BAN_NO_BAN_SELF: 'You cannot ban yourself.',
 			COMMAND_BAN_NO_BAN_CLIENT: 'I cannot ban myself.',
 			COMMAND_BAN_NO_PERMS: (user) => `You don't have permission to ban ${user}.`,
 			COMMAND_KICK_DESCRIPTION: 'Kicks a mentioned user and logs the reason.',
 			COMMAND_KICK_NOPARAM_MEMBER: 'Please mention the user you would like to kick.',
-			COMMAND_KICK_NOPARAM_REASON: 'Please provide a reason.',
 			COMMAND_KICK_NO_KICK_SELF: 'You cannot kick yourself.',
 			COMMAND_KICK_NO_KICK_CLIENT: 'I cannot kick myself.',
 			COMMAND_KICK_NO_PERMS: (user) => `You don't have permission to kick ${user}.`,
@@ -197,7 +225,6 @@ module.exports = class extends Language {
 			COMMAND_MODHISTORY_LOADING: 'Loading moderation history...',
 			COMMAND_MUTE_DESCRIPTION: 'Mutes a mentioned user and logs the reason.',
 			COMMAND_MUTE_NOPARAM_MEMBER: 'Please mention the user you would like to mute.',
-			COMMAND_MUTE_NOPARAM_REASON: 'Please provide a reason.',
 			COMMAND_MUTE_NO_MUTE_SELF: 'You cannot mute yourself.',
 			COMMAND_MUTE_NO_MUTE_CLIENT: 'I cannot mute myself.',
 			COMMAND_MUTE_NO_PERMS: (user) => `You don't have permission to mute ${user}.`,
@@ -207,46 +234,35 @@ module.exports = class extends Language {
 			COMMAND_SENDMSG_DESCRIPTION: 'Sends a message to the specified channel or user as the bot.',
 			COMMAND_SENDMSG_NOPARAM: 'Please provide a message to send to your mentioned channel or user.',
 			COMMAND_SERVERINFO_DESCRIPTION: 'Displays server information.',
-			COMMAND_SERVERINFO_ID: 'ID',
-			COMMAND_SERVERINFO_NAME: 'Name',
 			COMMAND_SERVERINFO_OWNER: 'Owner',
 			COMMAND_SERVERINFO_MEMBERS: 'Members',
 			COMMAND_SERVERINFO_CHANNELS: 'Channels',
 			COMMAND_SERVERINFO_EMOJIS: 'Emojis',
-			COMMAND_SERVERINFO_ROLES: 'Roles',
 			COMMAND_SERVERINFO_REGION: 'Region',
 			COMMAND_SERVERINFO_VLEVEL: 'Verification level',
 			COMMAND_SERVERINFO_ECFILTER: 'Explicit content filter',
 			COMMAND_SERVERINFO_CREATED: 'Created',
 			COMMAND_SOFTBAN_DESCRIPTION: 'Bans a mentioned user and logs the reason.',
 			COMMAND_SOFTBAN_NOPARAM_MEMBER: 'Please mention the user you would like to softban.',
-			COMMAND_SOFTBAN_NOPARAM_REASON: 'Please provide a reason.',
 			COMMAND_SOFTBAN_NO_SOFTBAN_SELF: 'You cannot softban yourself.',
 			COMMAND_SOFTBAN_NO_SOFTBAN_CLIENT: 'I cannot softban myself.',
 			COMMAND_SOFTBAN_SOFTBAN_RELEASED: 'Softban released.',
-			COMMAND_SOFTBAN_NO_PERMS: (user) => `You don't have permission to ban ${user}.`,
+			COMMAND_SOFTBAN_NO_PERMS: (user) => `You don't have permission to softban ${user}.`,
 			COMMAND_UNMUTE_DESCRIPTION: 'Unmutes a mentioned user.',
 			COMMAND_UNMUTE_NOPARAM: 'Please mention the user you would like to unmute.',
 			COMMAND_UNMUTE_NO_UNMUTE_SELF: 'You cannot unmute yourself.',
 			COMMAND_UNMUTE_NO_UNMUTE_CLIENT: 'I cannot unmute myself.',
 			COMMAND_UNMUTE_NO_PERMS: (user) => `You don't have permission to unmute ${user}.`,
 			COMMAND_USERINFO_DESCRIPTION: 'Get information on a mentioned user.',
-			COMMAND_USERINFO_NAME: 'Name',
-			COMMAND_USERINFO_ID: 'ID',
-			COMMAND_USERINFO_REGISTERED: 'Registered',
-			COMMAND_USERINFO_JOINED: 'Joined',
 			COMMAND_USERINFO_STATUS: 'Status',
 			COMMAND_USERINFO_ACTIVITY: (user) => `${this.presenceTypes[user.presence.activity.type]}`,
-			COMMAND_USERINFO_ROLES: 'Roles',
 			COMMAND_VCBAN_DESCRIPTION: 'Bans a mentioned user from voice chat and logs the reason.',
 			COMMAND_VCBAN_NOPARAM_MEMBER: 'Please mention the user you would like to ban from voice chat.',
-			COMMAND_VCBAN_NOPARAM_REASON: 'Please provide a reason.',
 			COMMAND_VCBAN_NO_VCBAN_SELF: 'You cannot ban yourself from voice chat.',
 			COMMAND_VCBAN_NO_VCBAN_CLIENT: 'I cannot ban myself from voice chat.',
 			COMMAND_VCBAN_NO_PERMS: (user) => `You don't have permission to ban ${user} from voice chat.`,
 			COMMAND_VCKICK_DESCRIPTION: 'Kicks a mentioned user from voice chat and logs the reason.',
 			COMMAND_VCKICK_NOPARAM_MEMBER: 'Please mention the user you would like to kick from voice chat.',
-			COMMAND_VCKICK_NOPARAM_REASON: 'Please provide a reason.',
 			COMMAND_VCKICK_NO_VCKICK_SELF: 'You cannot kick yourself from voice chat.',
 			COMMAND_VCKICK_NO_VCKICK_CLIENT: 'I cannot kick myself from voice chat.',
 			COMMAND_VCKICK_NO_PERMS: (user) => `You don't have permission to kick ${user} from voice chat.`,
@@ -257,7 +273,6 @@ module.exports = class extends Language {
 			COMMAND_VCUNBAN_NO_PERMS: (user) => `You don't have permission to unban ${user} from voice chat.`,
 			COMMAND_WARN_DESCRIPTION: 'Warns a mentioned user and logs the reason.',
 			COMMAND_WARN_NOPARAM_MEMBER: 'Please mention the user you would like to warn.',
-			COMMAND_WARN_NOPARAM_REASON: 'Please provide a reason.',
 			COMMAND_WARN_NO_WARN_SELF: 'You cannot warn yourself.',
 			COMMAND_WARN_NO_WARN_CLIENT: 'I cannot warn myself.',
 			COMMAND_WARN_NO_PERMS: (user) => `You don't have permission to warn ${user}.`,
@@ -268,8 +283,6 @@ module.exports = class extends Language {
 			COMMAND_CHOICE_NOTENOUGH: '\n🤔 You only provided me with one choice.',
 			COMMAND_COINFLIP_DESCRIPTION: 'Flips a coin. 🙂 for heads, 🙃 for tails.',
 			COMMAND_JOINDATE_DESCRIPTION: 'Displays your account creation date along with the date you joined the current server you\'re on. Other users can be specified to fetch their account creation and server join dates.', // eslint-disable-line max-len
-			COMMAND_JOINDATE_REGISTERED: 'Registered',
-			COMMAND_JOINDATE_JOINED: 'Joined',
 			COMMAND_QUOTE_DESCRIPTION: 'Quotes a message by ID.',
 			// eslint-disable-next-line max-len
 			COMMAND_QUOTE_NOPARAM: 'Please specify a message ID for the message you would like to quote.\nMessage IDs can be found by right clicking a message after having turned *Developer Mode* on under **Appearance** in your settings.',
@@ -289,25 +302,24 @@ module.exports = class extends Language {
 			COMMAND_SUPPORT_REQUESTED: 'Support requested',
 			COMMAND_SUPPORT_CONTACTED: 'The bot developers have been notified.',
 
+
+			// Message prompt langs
 			MESSAGE_PROMPT_TIMEOUT: 'The prompt has timed out.',
 
-			GUILD_LOG_REASON: 'Reason',
+
+			// Guild log langs
 			GUILD_LOG_MESSAGE: 'Message',
 			GUILD_LOG_BEFORE: 'Before',
 			GUILD_LOG_AFTER: 'After',
 			GUILD_LOG_EMOJI: 'Emoji',
-			GUILD_LOG_UPDATE_NAME: 'Name changed',
 			GUILD_LOG_MESSAGEDELETE: 'Message deleted',
 			GUILD_LOG_MESSAGEUPDATE: 'Message edited',
-			GUILD_LOG_MESSAGEUPDATEVIEW: 'Click to view',
 			GUILD_LOG_MESSAGEPURGE: 'Messages purged',
 			GUILD_LOG_MESSAGEPURGE_AMOUNT: 'Amount of messages removed:',
 			GUILD_LOG_MESSAGEPURGE_TARGET: 'Purged messages from:',
 			GUILD_LOG_ROLECREATE: 'Role created',
-			GUILD_LOG_ROLECREATE_V_ID: 'ID',
 			GUILD_LOG_ROLECREATE_V_TAG: 'Tag',
 			GUILD_LOG_ROLEDELETE: 'Role deleted',
-			GUILD_LOG_ROLEDELETE_V_ID: 'ID',
 			GUILD_LOG_ROLEUPDATE: 'Role updated',
 			GUILD_LOG_ROLEUPDATE_COLOR: 'Color changed',
 			GUILD_LOG_ROLEUPDATE_HOIST: 'Hoist toggled',
@@ -315,7 +327,6 @@ module.exports = class extends Language {
 			GUILD_LOG_ROLEUPDATE_PERMISSIONS: 'Permissions changed',
 			GUILD_LOG_CHANNELCREATE: 'Channel created',
 			GUILD_LOG_CHANNELCREATE_VOICE: 'Voice channel created',
-			GUILD_LOG_CHANNELCREATE_V_ID: 'ID',
 			GUILD_LOG_CHANNELCREATE_V_PARENT: 'Category',
 			GUILD_LOG_CHANNELDELETE: 'Channel deleted',
 			GUILD_LOG_CHANNELDELETE_VOICE: 'Voice channel deleted',
@@ -329,9 +340,7 @@ module.exports = class extends Language {
 			GUILD_LOG_CHANNELUPDATE_PERMISSIONOVERWRITEREMOVE: 'Permissions defaulted for',
 			GUILD_LOG_CHANNELUPDATE_PERMISSIONOVERWRITEUPDATE: 'Permissions changed for',
 			GUILD_LOG_EMOJICREATE: 'Emoji created',
-			GUILD_LOG_EMOJICREATE_V_ID: 'ID',
 			GUILD_LOG_EMOJIDELETE: 'Emoji deleted',
-			GUILD_LOG_EMOJIDELETE_V_ID: 'ID',
 			GUILD_LOG_EMOJIUPDATE: 'Emoji updated',
 			GUILD_LOG_GUILDUPDATE: 'Guild updated',
 			GUILD_LOG_GUILDUPDATE_AFKCHANNEL: 'AFK channel changed',
@@ -340,7 +349,6 @@ module.exports = class extends Language {
 			GUILD_LOG_GUILDUPDATE_CONTENTFILTER: 'Explicit content filter level changed',
 			GUILD_LOG_GUILDUPDATE_ICON: 'Server icon changed',
 			GUILD_LOG_GUILDUPDATE_MFALEVEL: 'Server 2FA requirement toggled',
-			GUILD_LOG_GUILDUPDATE_NAME: 'Previous name',
 			GUILD_LOG_GUILDUPDATE_OWNER: 'Ownership transferred',
 			GUILD_LOG_GUILDUPDATE_REGION: 'Region changed',
 			GUILD_LOG_GUILDUPDATE_SPLASH: 'Server invite background changed',
@@ -349,7 +357,6 @@ module.exports = class extends Language {
 			GUILD_LOG_GUILDBANADD_TIMED: (when) => `User banned for ${moment.duration(moment().diff(when)).humanize()}`,
 			GUILD_LOG_GUILDBANREMOVE: 'User unbanned',
 			GUILD_LOG_GUILDMEMBERADD: 'User joined',
-			GUILD_LOG_GUILDMEMBERADD_V_REGISTERED: 'Registered',
 			GUILD_LOG_GUILDMEMBERREMOVE: 'User left',
 			GUILD_LOG_GUILDMEMBERKICK: 'User kicked',
 			GUILD_LOG_GUILDMEMBERMUTE: 'User muted',
@@ -368,16 +375,17 @@ module.exports = class extends Language {
 			GUILD_LOG_ANTIINVITE: (channel) => `Guild invite detected in ${channel}.`,
 			GUILD_LOG_MENTIONSPAM: 'Mention spam filter triggered',
 
+
+			// Global log langs
 			GLOBAL_LOG_GUILDCREATE: 'Bot added to guild',
 			GLOBAL_LOG_GUILDDELETE: 'Bot removed from guild',
 			GLOBAL_LOG_GUILDUPDATE_NAME: 'Guild name changed',
 			GLOBAL_LOG_GUILDUPDATE_ICON: 'Guild icon changed',
-			GLOBAL_LOG_GUILDUPDATE_PREVNAME: 'Previous name',
-			GLOBAL_LOG_UPDATE_NAME: 'Name changed',
 			GLOBAL_LOG_GUILDUNAVAILABLE: 'Guild unavailable, likely due to a server outage',
 			GLOBAL_LOG_COMMANDRUN: 'Command ran',
-			GLOBAL_LOG_COMMANDRUNVIEW: 'Click to view',
 
+
+			// Moderation action langs
 			// eslint-disable-next-line max-len
 			MODERATION_LOG_BOILERPLATE: (guild) => `This action was performed by a moderator of the ${guild.name} Discord. If you have any questions about this action, please contact the owner, listed below.\n\n${guild.owner}`,
 			MODERATION_LOG_BOILERPLATE_AUTO: (guild) => `This action was automatically performed. If you have any questions regarding this, please contact a moderator of the ${guild.name} Discord.`,
@@ -395,12 +403,10 @@ module.exports = class extends Language {
 			MODERATION_LOG_MENTIONSPAM: 'User banned for mention spam',
 			MODERATION_LOG_BLACKLISTEDWORD: 'Blacklisted word detected',
 			MODERATION_LOG_BLACKLISTEDNICKNAME: 'Blacklisted nickname detected',
-			MODERATION_LOG_WARN: 'Warning issued',
 			MODERATION_LOG_CASEID: (caseID) => `**Case ID:** ${caseID}`,
 			MODERATION_LOG_EVENTLOGGED: 'Event logged',
 			MODERATION_LOG_MODERATOR: 'Moderator',
 			MODERATION_LOG_UNSPECIFIED: 'Unspecified',
-			MODERATION_LOG_REASON: 'Reason',
 			MODERATION_LOG_DURATION: 'Duration',
 			MODERATION_LOG_DURATIONEND: (end) => `For ${moment.duration(moment().diff(end)).humanize()}`,
 			MODERATION_LOG_DELETEDMESSAGECOUNT: 'Messages deleted',

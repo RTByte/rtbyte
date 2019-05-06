@@ -49,8 +49,8 @@ module.exports = class extends Monitor {
 			.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL())
 			.setColor(this.client.settings.colors.red)
 			.setTimestamp()
-			.addField(msg.guild.language.get('GUILD_LOG_REASON'), msg.guild.language.get('GUILD_LOG_BLACKLISTEDWORD', msg.channel))
-			.setFooter(msg.guild.language.get('GUILD_LOG_GUILDMEMBERWARN'));
+			.addField(msg.guild.language.get('REASON'), msg.guild.language.get('GUILD_LOG_BLACKLISTEDWORD', msg.channel))
+			.setFooter(msg.guild.language.get('WARNING_ISSUED'));
 
 		const logChannel = await this.client.channels.get(msg.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });

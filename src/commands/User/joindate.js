@@ -18,8 +18,8 @@ module.exports = class extends Command {
 		const embed = new MessageEmbed()
 			.setAuthor(member.user.tag, member.user.displayAvatarURL())
 			.setColor(this.client.settings.colors.white)
-			.addField(msg.language.get('COMMAND_JOINDATE_REGISTERED'), this.timestamp.displayUTC(member.user.createdAt))
-			.addField(msg.language.get('COMMAND_JOINDATE_JOINED'), this.timestamp.displayUTC(member.joinedTimestamp));
+			.addField(msg.language.get('REGISTERED'), this.timestamp.displayUTC(member.user.createdAt))
+			.addField(msg.language.get('JOINED'), this.timestamp.displayUTC(member.joinedTimestamp));
 
 		return msg.send('', { disableEveryone: true, embed: embed });
 	}

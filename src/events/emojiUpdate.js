@@ -21,7 +21,7 @@ module.exports = class extends Event {
 		const embed = new MessageEmbed()
 			.setAuthor(`:${emoji.name}:`, emoji.guild.iconURL())
 			.setColor(this.client.settings.colors.blue)
-			.addField(emoji.guild.language.get('GUILD_LOG_UPDATE_NAME'), `:${oldEmoji.name}: ${arrowRightEmoji} :${emoji.name}:`)
+			.addField(emoji.guild.language.get('NAME_CHANGED'), `:${oldEmoji.name}: ${arrowRightEmoji} :${emoji.name}:`)
 			.setTimestamp()
 			.setFooter(emoji.guild.language.get('GUILD_LOG_EMOJIUPDATE'));
 
@@ -36,7 +36,7 @@ module.exports = class extends Event {
 		const embed = new MessageEmbed()
 			.setAuthor(`:${emoji.name}:`, emoji.guild.iconURL())
 			.setColor(this.client.settings.colors.blue)
-			.addField(emoji.guild.language.get('GUILD_LOG_UPDATE_NAME'), `:${oldEmoji.name}: ${arrowRightEmoji} :${emoji.name}:`)
+			.addField(emoji.guild.language.get('NAME_CHANGED'), `:${oldEmoji.name}: ${arrowRightEmoji} :${emoji.name}:`)
 			.setTimestamp()
 			.setFooter(emoji.guild.language.get('GUILD_LOG_EMOJIUPDATE'));
 

@@ -77,7 +77,7 @@ module.exports = class extends Event {
 		if (oldGuild.explicitContentFilter !== guild.explicitContentFilter) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_CONTENTFILTER'), `${this.filterLevels[oldGuild.explicitContentFilter]} ${arrowRightEmoji} ${this.filterLevels[guild.explicitContentFilter]}`);
 		if (oldGuild.iconURL() !== guild.iconURL()) await embed.setTitle(guild.language.get('GUILD_LOG_GUILDUPDATE_ICON'));
 		if (oldGuild.mfaLevel !== guild.mfaLevel) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_MFALEVEL'), status[guild.mfaLevel]);
-		if (oldGuild.name !== guild.name) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_NAME'), oldGuild.name);
+		if (oldGuild.name !== guild.name) await embed.addField(guild.language.get('PREVNAME'), oldGuild.name);
 		if (oldGuild.owner !== guild.owner) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_OWNER'), `${oldGuild.owner} ${arrowRightEmoji} ${guild.owner}`);
 		if (oldGuild.region !== guild.region) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_REGION'), `${this.regions[oldGuild.region]} ${arrowRightEmoji} ${this.regions[guild.region]}`);
 		if (oldGuild.splashURL !== guild.splashURL) {
@@ -99,7 +99,7 @@ module.exports = class extends Event {
 			.setTimestamp();
 
 		if (oldGuild.name !== guild.name) {
-			await embed.addField(guild.language.get('GLOBAL_LOG_GUILDUPDATE_PREVNAME'), oldGuild);
+			await embed.addField(guild.language.get('PREVNAME'), oldGuild);
 			await embed.setFooter(guild.language.get('GLOBAL_LOG_GUILDUPDATE_NAME'));
 		}
 		if (oldGuild.iconURL() !== guild.iconURL()) {

@@ -61,7 +61,7 @@ module.exports = class extends Event {
 			.setTimestamp()
 			.setFooter(role.guild.language.get('GUILD_LOG_ROLEUPDATE'));
 
-		if (oldRole.name !== role.name) embed.addField(role.guild.language.get('GUILD_LOG_UPDATE_NAME'), `${oldRole.name} ${arrowRightEmoji} ${role.name}`);
+		if (oldRole.name !== role.name) embed.addField(role.guild.language.get('NAME_CHANGED'), `${oldRole.name} ${arrowRightEmoji} ${role.name}`);
 		if (oldRole.color !== role.color) embed.addField(role.guild.language.get('GUILD_LOG_ROLEUPDATE_COLOR'), `${oldRole.hexColor} ${arrowRightEmoji} ${role.hexColor}`);
 		if (oldRole.hoist !== role.hoist) embed.addField(role.guild.language.get('GUILD_LOG_ROLEUPDATE_HOIST'), status[role.hoist]);
 		if (oldRole.mentionable !== role.mentionable) embed.addField(role.guild.language.get('GUILD_LOG_ROLEUPDATE_MENTIONABLE'), status[role.mentionable]);

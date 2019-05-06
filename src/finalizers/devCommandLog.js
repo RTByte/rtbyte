@@ -19,7 +19,7 @@ module.exports = class extends Finalizer {
 			.setAuthor(`${message.guild.name} (#${message.channel.name})`, message.guild.iconURL())
 			.setColor(this.client.settings.colors.white)
 			.setTitle(message.guild.language.get('GLOBAL_LOG_COMMANDRUN'))
-			.setDescription(`[${message.guild.language.get('GLOBAL_LOG_COMMANDRUNVIEW')}](${message.url})`)
+			.setDescription(`[${message.guild.language.get('CLICK_TO_VIEW')}](${message.url})`)
 			.addField('Message', message.content)
 			.addField('Runtime', runTime)
 			.setTimestamp()

@@ -39,7 +39,7 @@ class ModEmbed extends MessageEmbed {
 
 		// Fields for all
 		this.addField(this.modCase.guild.language.get('MODERATION_LOG_MODERATOR'), this.modCase.moderator ? this.modCase.moderator : this.modCase.guild.language.get('MODERATION_LOG_UNSPECIFIED'), true);
-		this.addField(this.modCase.guild.language.get('MODERATION_LOG_REASON'), this.modCase.reason ? this.modCase.reason : this.modCase.guild.language.get('MODERATION_LOG_UNSPECIFIED'), true);
+		this.addField(this.modCase.guild.language.get('REASON'), this.modCase.reason ? this.modCase.reason : this.modCase.guild.language.get('MODERATION_LOG_UNSPECIFIED'), true);
 
 		// Type-specific fields
 		if (this.modCase.channel) this.addField(this.modCase.guild.language.get('MODERATION_LOG_CHANNEL'), this.modCase.channel);

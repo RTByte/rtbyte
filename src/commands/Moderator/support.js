@@ -20,7 +20,7 @@ module.exports = class extends Command {
 			.setAuthor(`${message.guild.name} (#${message.channel.name})`, message.guild.iconURL())
 			.setColor(this.client.settings.colors.red)
 			.setTitle(message.guild.language.get('COMMAND_SUPPORT_REQUESTED'))
-			.setDescription(`[${message.guild.language.get('GLOBAL_LOG_COMMANDRUNVIEW')}](${message.url})`)
+			.setDescription(`[${message.guild.language.get('CLICK_TO_VIEW')}](${message.url})`)
 			.setTimestamp()
 			.setFooter(message.author.tag, message.author.displayAvatarURL());
 
