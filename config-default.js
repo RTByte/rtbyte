@@ -7,7 +7,7 @@ exports.config = {
 	botOwners: [''],
 	production: false,
 	prefix: '-',
-	preserveSettings: false,
+	preserveSettings: true,
 	commandEditing: true,
 	commandLogging: true,
 	consoleEvents: {

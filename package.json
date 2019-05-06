@@ -4,7 +4,7 @@
     "description": "A Discord Bot for the Rooster Teeth Community family of Discord Servers",
     "main": "src/index.js",
     "scripts": {
-        "start": "node src/index.js",
+        "start": "node src/app.js",
         "test": "echo 'No Test Yet!'"
     },
     "repository": {

@@ -1,4 +1,5 @@
 const { MessageEmbed } = require('discord.js');
+const { embedSplitter } = require('../util/Util');
 
 class ModEmbed extends MessageEmbed {
 
@@ -29,7 +30,7 @@ class ModEmbed extends MessageEmbed {
 				this.modCase.type === 'antiInvite' ? this.modCase.client.settings.colors.red :
 				this.modCase.type === 'mentionSpam' ? this.modCase.client.settings.colors.red :
 				this.modCase.type === 'blacklistedWord' ? this.modCase.client.settings.colors.red :
-				this.modCase.type === 'blacklistedName' ? this.modCase.client.settings.colors.red :
+				this.modCase.type === 'blacklistedNickname' ? this.modCase.client.settings.colors.red :
 				this.modCase.type === 'warn' ? this.modCase.client.settings.colors.yellow :
 				this.modCase.client.settings.colors.blue);
 			/* eslint-enable indent */
@@ -44,7 +45,7 @@ class ModEmbed extends MessageEmbed {
 		if (this.modCase.channel) this.addField(this.modCase.guild.language.get('MODERATION_LOG_CHANNEL'), this.modCase.channel);
 		if (this.modCase.duration) this.addField(this.modCase.guild.language.get('MODERATION_LOG_DURATION'), this.modCase.guild.language.get('MODERATION_LOG_DURATIONEND', this.modCase.duration), true);
 		if (this.modCase.deletedMessageCount) this.addField(this.modCase.guild.language.get('MODERATION_LOG_DELETEDMESSAGECOUNT'), this.modCase.deletedMessageCount, true);
-		if (this.modCase.messageContent) this.addField(this.modCase.guild.language.get('MODERATION_LOG_DELETEDMESSAGECONTENT'), this.modCase.deletedMessageContent, true);
+		if (this.modCase.messageContent) await embedSplitter(this.modCase.guild.language.get('MODERATION_LOG_DELETEDMESSAGECONTENT'), this.modCase.messageContent.split(' '), this);
 		if (this.modCase.badNickname) this.addField(this.modCase.guild.language.get('MODERATION_LOG_BADNICKNAME'), this.modCase.badNickname, true);
 
 		// Optional (for all) fields
@@ -59,9 +60,13 @@ class ModEmbed extends MessageEmbed {
 			const logChannel = this.modCase.guild.channels.get(this.modCase.guild.settings.channels.log);
 			await logChannel.send('', { disableEveryone: true, embed: this });
 		}
+
+		if (!this.modCase.guild.settings.moderation.notifyUser) return null;
+		if (this.modCase.silent) return null;
+		if (!this.client.users.has(this.modCase.user.id)) return null;
+		if (this.modCase.user.id === this.client.user.id) return null;
 		// eslint-disable-next-line max-len
-		if (this.modCase.guild.settings.moderation.notifyUser && !this.modCase.silent && this.client.users.has(this.modCase.user.id) && this.modCase.user.id !== this.client.user.id) await this.modCase.user.send(this.modCase.guild.language.get('COMMAND_MODERATION_BOILERPLATE', this.modCase.guild), { disableEveryone: true, embed: this });
-		return;
+		return await this.modCase.user.send(this.modCase.moderator.id === this.client.user.id ? this.modCase.guild.language.get('MODERATION_LOG_BOILERPLATE', this.modCase.guild) : this.modCase.guild.language.get('MODERATION_LOG_BOILERPLATE_AUTO', this.modCase.guild), { disableEveryone: true, embed: this });
 	}
 
 }

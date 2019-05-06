@@ -1,5 +1,5 @@
 const { Monitor } = require('klasa');
-const { MessageEmbed } = require('discord.js');
+const { ModCase } = require('../index');
 
 module.exports = class extends Monitor {
 
@@ -19,9 +19,17 @@ module.exports = class extends Monitor {
 
 		if (!await this.cycleWords(words, inviteWhitelist, msg)) return;
 
-		if (msg.guild.settings.logs.events.antiInvite) await this.antiInviteLog(msg);
-		if (msg.guild.settings.filters.warn) await this.warnUser(msg);
-		if (msg.guild.settings.filters.delete) await msg.delete();
+		const modCase = new ModCase(msg.guild)
+			.setUser(msg.author)
+			.setType('antiInvite')
+			.setModerator(this.client.user)
+			.setMessageContent(msg.content);
+		await modCase.submit();
+
+		const embed = await modCase.embed();
+		await embed.send();
+
+		await msg.delete();
 		return;
 	}
 
@@ -47,33 +55,6 @@ module.exports = class extends Monitor {
 			}
 		}
 		return whitelistedInvite;
-	}
-
-	async warnUser(msg) {
-		const embed = new MessageEmbed()
-			.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL())
-			.setColor(this.client.settings.colors.red)
-			.setTimestamp()
-			.addField(msg.guild.language.get('GUILD_LOG_REASON'), msg.guild.language.get('GUILD_LOG_ANTIINVITE', msg.channel))
-			.setFooter(msg.guild.language.get('GUILD_LOG_GUILDMEMBERWARN'));
-
-		const logChannel = await this.client.channels.get(msg.guild.settings.channels.log);
-		await logChannel.send('', { disableEveryone: true, embed: embed });
-		await msg.author.send(msg.guild.language.get('MONITOR_MODERATION_AUTO_BOILERPLATE', msg.guild), { disableEveryone: true, embed: embed });
-		return;
-	}
-
-	async antiInviteLog(msg) {
-		const embed = new MessageEmbed()
-			.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL())
-			.setColor(this.client.settings.colors.red)
-			.setTimestamp()
-			.addField('Message', msg.content)
-			.setFooter(msg.guild.language.get('GUILD_LOG_ANTIINVITE', msg.channel));
-
-		const logChannel = await this.client.channels.get(msg.guild.settings.channels.log);
-		await logChannel.send('', { disableEveryone: true, embed: embed });
-		return;
 	}
 
 };

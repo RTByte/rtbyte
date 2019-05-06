@@ -1,5 +1,5 @@
 const { Event } = require('klasa');
-const Case = require('../lib/structures/Case');
+const { ModCase } = require('../index');
 
 module.exports = class extends Event {
 
@@ -14,7 +14,7 @@ module.exports = class extends Event {
 		// Ignore if ban was initiated by command
 		if (banInfo.reason && banInfo.reason.endsWith('(fc)')) return;
 
-		const modCase = new Case(guild)
+		const modCase = new ModCase(guild)
 			.setType('ban')
 			.setUser(user)
 			.setReason(banInfo.reason);
