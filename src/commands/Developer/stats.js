@@ -1,6 +1,7 @@
 const { Command, version: klasaVersion, Duration } = require('klasa');
 const { MessageEmbed } = require('discord.js');
 const { version: discordVersion } = require('discord.js');
+const moment = require('moment');
 const os = require('os');
 
 module.exports = class extends Command {
@@ -14,9 +15,6 @@ module.exports = class extends Command {
 	}
 
 	async run(msg) {
-		const date = new Date(null);
-		date.setSeconds(os.uptime());
-		const uptimeResult = date.toISOString().substr(11, 8);
 
 		const embed = new MessageEmbed()
 			.setAuthor(msg.guild.language.get('COMMAND_STATS_EMBEDTITLE'), this.client.user.displayAvatarURL())
@@ -28,7 +26,7 @@ module.exports = class extends Command {
 			// eslint-disable-next-line max-len
 			.addField(msg.guild.language.get('COMMAND_STATS_LIBRARIES'), `• [Klasa v${klasaVersion}](https://klasa.js.org/)\n• [Discord.js v${discordVersion}](https://discord.js.org/)\n• [Node.js ${process.version}](https://nodejs.org/)`, true)
 			.addField(msg.guild.language.get('COMMAND_STATS_HOSTINFO'), `${os.type()} (${os.arch()}), ${os.hostname()}`, true)
-			.addField(msg.guild.language.get('COMMAND_STATS_HOSTUPTIME'), uptimeResult, true)
+			.addField(msg.guild.language.get('COMMAND_STATS_HOSTUPTIME'), moment.duration(os.uptime(), 's').humanize(), true)
 			.setThumbnail(this.client.user.displayAvatarURL(), 50, 50)
 			.setTimestamp()
 			.setFooter(msg.language.get('COMMAND_REQUESTED_BY', msg), msg.author.displayAvatarURL());

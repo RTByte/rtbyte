@@ -59,12 +59,12 @@ module.exports = class extends Command {
 			.setColor(this.client.settings.colors.white)
 			.addField(msg.guild.language.get('ID'), msg.guild.id, true)
 			.addField(msg.guild.language.get('NAME'), msg.guild.name, true)
-			.addField(msg.guild.language.get('COMMAND_SERVERINFO_OWNER'), msg.guild.owner, true)
-			.addField(msg.guild.language.get('COMMAND_SERVERINFO_MEMBERS'), msg.guild.memberCount, true)
+			.addField(msg.guild.language.get('OWNER'), msg.guild.owner, true)
+			.addField(msg.guild.language.get('MEMBERS'), msg.guild.memberCount, true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_REGION'), this.regions[msg.guild.region], true)
-			.addField(msg.guild.language.get('COMMAND_SERVERINFO_ROLES'), msg.guild.roles.size, true)
-			.addField(msg.guild.language.get('COMMAND_SERVERINFO_CHANNELS'), msg.guild.channels.size, true)
-			.addField(msg.guild.language.get('COMMAND_SERVERINFO_EMOJIS'), `${emojis.length}/100`, true)
+			.addField(msg.guild.language.get('ROLES'), msg.guild.roles.size, true)
+			.addField(msg.guild.language.get('CHANNELS'), msg.guild.channels.size, true)
+			.addField(msg.guild.language.get('EMOJIS'), `${emojis.length}/100`, true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_VLEVEL'), this.verificationLevels[msg.guild.verificationLevel], true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_ECFILTER'), this.filterLevels[msg.guild.explicitContentFilter], true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_CREATED'), this.timestamp.displayUTC(msg.guild.createdAt), true)
@@ -75,9 +75,9 @@ module.exports = class extends Command {
 
 		if (!msg.guild.settings.logs.verboseLogging) return msg.channel.send('', { disableEveryone: true, embed: embed });
 
-		if (roles.length) await embedSplitter(msg.guild.language.get('COMMAND_SERVERINFO_ROLES'), roles, embed);
-		if (channels.length) await embedSplitter(msg.guild.language.get('COMMAND_SERVERINFO_CHANNELS'), channels, embed);
-		if (emojis.length) await embedSplitter(msg.guild.language.get('COMMAND_SERVERINFO_EMOJIS'), emojis, embed);
+		if (roles.length) await embedSplitter(msg.guild.language.get('ROLES'), roles, embed);
+		if (channels.length) await embedSplitter(msg.guild.language.get('CHANNELS'), channels, embed);
+		if (emojis.length) await embedSplitter(msg.guild.language.get('EMOJIS'), emojis, embed);
 
 		return msg.channel.send('', { disableEveryone: true, embed: embed });
 	}

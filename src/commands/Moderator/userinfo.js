@@ -45,7 +45,7 @@ module.exports = class extends Command {
 			await embed.addField(msg.guild.language.get('COMMAND_USERINFO_ACTIVITY', member), member.user.presence.activity ? member.user.presence.activity.name : 'N/A', true);
 		}
 
-		if (roles.length) await embedSplitter(msg.guild.language.get('COMMAND_SERVERINFO_ROLES'), roles, embed);
+		if (roles.length) await embedSplitter(msg.guild.language.get('ROLES'), roles, embed);
 
 		await msg.send('', { disableEveryone: true, embed: embed });
 		return;
