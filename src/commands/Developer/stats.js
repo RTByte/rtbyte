@@ -22,7 +22,7 @@ module.exports = class extends Command {
 			.addField(msg.guild.language.get('COMMAND_STATS_MEMUSAGE'), `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`, true)
 			.addField(msg.guild.language.get('COMMAND_STATS_UPTIME'), Duration.toNow(Date.now() - (process.uptime() * 1000)), true)
 			// eslint-disable-next-line max-len
-			.addField(msg.guild.language.get('COMMAND_STATS_CONNECTIONS'), `Operating on **${this.client.guilds.size.toLocaleString()}** servers,\nWatching **${this.client.channels.size.toLocaleString()}** channels,\nServing **${this.client.users.size.toLocaleString()}** users`, true)
+			.addField(msg.guild.language.get('COMMAND_STATS_CONNECTIONS'), msg.guild.language.get('COMMAND_STATS_CONNECTIONINFO'), true)
 			// eslint-disable-next-line max-len
 			.addField(msg.guild.language.get('COMMAND_STATS_LIBRARIES'), `• [Klasa v${klasaVersion}](https://klasa.js.org/)\n• [Discord.js v${discordVersion}](https://discord.js.org/)\n• [Node.js ${process.version}](https://nodejs.org/)`, true)
 			.addField(msg.guild.language.get('COMMAND_STATS_HOSTINFO'), `${os.type()} (${os.arch()}), ${os.hostname()}`, true)
