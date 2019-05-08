@@ -83,10 +83,10 @@ module.exports = class extends Language {
 
 
 			// Command message langs
-			COMMANDMESSAGE_MISSING: 'Missing one or more required arguments after end of input.',
-			COMMANDMESSAGE_MISSING_REQUIRED: (name) => `${name} is a required argument.`,
-			COMMANDMESSAGE_MISSING_OPTIONALS: (possibles) => `Missing a required option: (${possibles})`,
-			COMMANDMESSAGE_NOMATCH: (possibles) => `Your option didn't match any of the possibilities: (${possibles}).`,
+			COMMANDMESSAGE_MISSING: 'Saknar ett eller flera nödvändiga resonemang efter inmatningens slut.',
+			COMMANDMESSAGE_MISSING_REQUIRED: (name) => `${name} är ett nödvändigt resonemang.`,
+			COMMANDMESSAGE_MISSING_OPTIONALS: (possibles) => `Saknar ett nödvändigt val: (${possibles})`,
+			COMMANDMESSAGE_NOMATCH: (possibles) => `Ditt val matchade ingen av möjligheterna: (${possibles}).`,
 
 
 			// Monitor langs
