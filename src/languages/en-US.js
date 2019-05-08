@@ -13,7 +13,7 @@ module.exports = class extends Language {
 		this.language = {
 
 			// Default langs
-			DEFAULT: (key) => `${key} has not been localized for en-US yet.`,
+			DEFAULT: (key) => `${key} has not been localized for \`en-US\` yet.`,
 			DEFAULT_LANGUAGE: 'Default language',
 			PREFIX_REMINDER: (prefix = `@${this.client.user.tag}`) => `The prefix${Array.isArray(prefix) ?
 				`es for this guild are: ${prefix.map(pre => `\`${pre}\``).join(', ')}` :
@@ -208,6 +208,8 @@ module.exports = class extends Language {
 			COMMAND_STATS_MEMUSAGE: 'Memory usage',
 			COMMAND_STATS_UPTIME: 'Uptime',
 			COMMAND_STATS_CONNECTIONS: 'Connections',
+			// eslint-disable-next-line max-len
+			COMMAND_STATS_CONNECTIONINFO: `Operating on **${this.client.guilds.size.toLocaleString()}** servers,\nWatching **${this.client.channels.size.toLocaleString()}** channels,\nServing **${this.client.users.size.toLocaleString()}** users`,
 			COMMAND_STATS_LIBRARIES: 'Libraries',
 			COMMAND_STATS_HOSTINFO: 'Host information',
 			COMMAND_STATS_HOSTUPTIME: 'Host uptime',
