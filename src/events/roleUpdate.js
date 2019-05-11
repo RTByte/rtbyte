@@ -61,11 +61,21 @@ module.exports = class extends Event {
 			.setTimestamp()
 			.setFooter(role.guild.language.get('GUILD_LOG_ROLEUPDATE'));
 
+		// Name changed
 		if (oldRole.name !== role.name) embed.addField(role.guild.language.get('NAME_CHANGED'), `${oldRole.name} ${arrowRightEmoji} ${role.name}`);
+
+		// Color changed
 		if (oldRole.color !== role.color) embed.addField(role.guild.language.get('GUILD_LOG_ROLEUPDATE_COLOR'), `${oldRole.hexColor} ${arrowRightEmoji} ${role.hexColor}`);
+
+		// Hoist toggled
 		if (oldRole.hoist !== role.hoist) embed.addField(role.guild.language.get('GUILD_LOG_ROLEUPDATE_HOIST'), status[role.hoist]);
+
+		// Mentionable toggled
 		if (oldRole.mentionable !== role.mentionable) embed.addField(role.guild.language.get('GUILD_LOG_ROLEUPDATE_MENTIONABLE'), status[role.mentionable]);
-		if (oldRole.permissions.bitfield !== role.permissions.bitfield) embed.addField(role.guild.language.get('GUILD_LOG_ROLEUPDATE_PERMISSIONS'), `\`\`\`${oldPermissions ? oldPermissions : 'None'}\`\`\`\n ${arrowRightEmoji} \n\n\`\`\`${newPermissions ? newPermissions : 'None'}\`\`\``); // eslint-disable-line
+
+		// Permissions changed
+		// eslint-disable-next-line max-len
+		if (oldRole.permissions.bitfield !== role.permissions.bitfield) embed.addField(role.guild.language.get('GUILD_LOG_ROLEUPDATE_PERMISSIONS'), `\`\`\`${oldPermissions || 'None'}\`\`\`\n ${arrowRightEmoji} \n\n\`\`\`${newPermissions || 'None'}\`\`\``);
 
 		if (!embed.fields.length) return;
 
