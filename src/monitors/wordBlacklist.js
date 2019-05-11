@@ -24,6 +24,7 @@ module.exports = class extends Monitor {
 			.setUser(msg.author)
 			.setType('blacklistedWord')
 			.setModerator(this.client.user)
+			.setReason(msg.guild.language.get('GUILD_LOG_BLACKLISTEDWORD', msg.channel))
 			.setMessageContent(msg.content);
 		await modCase.submit();
 

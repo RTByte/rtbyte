@@ -15,12 +15,11 @@ module.exports = class extends Command {
 	}
 
 	async run(msg) {
-
 		const embed = new MessageEmbed()
 			.setAuthor(msg.guild.language.get('COMMAND_STATS_EMBEDTITLE'), this.client.user.displayAvatarURL())
 			.setColor('#ffffff')
 			.addField(msg.guild.language.get('COMMAND_STATS_MEMUSAGE'), `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`, true)
-			.addField(msg.guild.language.get('COMMAND_STATS_UPTIME'), Duration.toNow(Date.now() - (process.uptime() * 1000)), true)
+			.addField(msg.guild.language.get('COMMAND_STATS_UPTIME'), moment.duration(this.client.uptime, 'ms').humanize(), true)
 			// eslint-disable-next-line max-len
 			.addField(msg.guild.language.get('COMMAND_STATS_CONNECTIONS'), msg.guild.language.get('COMMAND_STATS_CONNECTIONINFO'), true)
 			// eslint-disable-next-line max-len
