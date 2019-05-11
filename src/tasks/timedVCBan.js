@@ -21,7 +21,7 @@ module.exports = class extends Task {
 			.setAuthor(`${member.user.tag} (${member.user.id})`, member.user.displayAvatarURL())
 			.setColor(this.client.settings.colors.yellow)
 			.setTimestamp()
-			.setFooter(guild.language.get('GUILD_LOG_GUILDMEMBERVCUNBAN'));
+			.setFooter(guild.language.get('MODERATION_LOG_VCUNBAN'));
 
 		const logChannel = await this.client.channels.get(guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });

@@ -22,10 +22,10 @@ module.exports = class extends Command {
 		const dndEmoji = this.client.emojis.get(this.client.settings.emoji.dnd);
 		const offlineEmoji = this.client.emojis.get(this.client.settings.emoji.offline);
 		const statuses = {
-			online: `${onlineEmoji} Online`,
-			idle: `${idleEmoji} Idle`,
-			dnd: `${dndEmoji} Do Not Disturb`,
-			offline: `${offlineEmoji} Offline`
+			online: `${onlineEmoji} ${msg.guild.language.get('ONLINE')}`,
+			idle: `${idleEmoji} ${msg.guild.language.get('IDLE')}`,
+			dnd: `${dndEmoji} ${msg.guild.language.get('DND')}`,
+			offline: `${offlineEmoji} ${msg.guild.language.get('OFFLINE')}`
 		};
 
 		const roles = await member.roles.filter(role => role.name !== '@everyone').sort().array();

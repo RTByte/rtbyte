@@ -35,18 +35,6 @@ module.exports = class extends Command {
 			frankfurt: '🇩🇪 Frankfurt',
 			russia: '🇷🇺 Russia'
 		};
-		this.verificationLevels = [
-			'None',
-			'Low',
-			'Medium',
-			'(╯°□°）╯︵ ┻━┻',
-			'┻━┻ ﾐヽ(ಠ益ಠ)ノ彡┻━┻'
-		];
-		this.filterLevels = [
-			'Off',
-			'On for unroled users',
-			'On for everyone'
-		];
 	}
 
 	async run(msg) {
@@ -65,8 +53,8 @@ module.exports = class extends Command {
 			.addField(msg.guild.language.get('ROLES'), msg.guild.roles.size, true)
 			.addField(msg.guild.language.get('CHANNELS'), msg.guild.channels.size, true)
 			.addField(msg.guild.language.get('EMOJIS'), `${emojis.length}/100`, true)
-			.addField(msg.guild.language.get('COMMAND_SERVERINFO_VLEVEL'), this.verificationLevels[msg.guild.verificationLevel], true)
-			.addField(msg.guild.language.get('COMMAND_SERVERINFO_ECFILTER'), this.filterLevels[msg.guild.explicitContentFilter], true)
+			.addField(msg.guild.language.get('COMMAND_SERVERINFO_VLEVEL'), msg.guild.language.get('COMMAND_SERVERINFO_VLEVEL_LEVELS', msg.guild), true)
+			.addField(msg.guild.language.get('COMMAND_SERVERINFO_ECFILTER'), msg.guild.language.get('COMMAND_SERVERINFO_ECFILTER_LEVELS', msg.guild), true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_CREATED'), this.timestamp.displayUTC(msg.guild.createdAt), true)
 			.setThumbnail(msg.guild.iconURL(), 50, 50)
 			.setImage(msg.guild.splashURL())

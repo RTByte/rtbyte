@@ -10,6 +10,18 @@ module.exports = class extends Language {
 			LISTENING: 'Listening to',
 			WATCHING: 'Watching'
 		};
+		this.verificationLevels = [
+			'None',
+			'Low',
+			'Medium',
+			'(╯°□°）╯︵ ┻━┻',
+			'┻━┻ ﾐヽ(ಠ益ಠ)ノ彡┻━┻'
+		];
+		this.filterLevels = [
+			'Off',
+			'On for unroled users',
+			'On for everyone'
+		]
 		this.language = {
 
 			// Default langs
@@ -22,7 +34,6 @@ module.exports = class extends Language {
 
 
 			// General langs
-			DISPLAY_NAME: 'Display name',
 			ID: 'ID',
 			NAME: 'Name',
 			OWNER: 'Owner',
@@ -38,6 +49,10 @@ module.exports = class extends Language {
 			WARNING_ISSUED: 'Warning issued',
 			CLICK_TO_VIEW: 'Click to view',
 			OFF: 'Off',
+			ONLINE: 'Online',
+			IDLE: 'Idle',
+			DND: 'Do Not Disturb',
+			OFFLINE: 'Offline',
 
 
 			// Setting gateway langs
@@ -243,7 +258,9 @@ module.exports = class extends Language {
 			COMMAND_SERVERINFO_DESCRIPTION: 'Displays server information.',
 			COMMAND_SERVERINFO_REGION: 'Region',
 			COMMAND_SERVERINFO_VLEVEL: 'Verification level',
+			COMMAND_SERVERINFO_VLEVEL_LEVELS: (guild) => `${this.verificationLevels[guild.verificationLevel]}`,
 			COMMAND_SERVERINFO_ECFILTER: 'Explicit content filter',
+			COMMAND_SERVERINFO_ECFILTER_LEVELS: (guild) => `${this.filterLevels[guild.explicitContentFilter]}`,
 			COMMAND_SERVERINFO_CREATED: 'Created',
 			COMMAND_SOFTBAN_DESCRIPTION: 'Softbans a mentioned user and logs the reason.',
 			COMMAND_SOFTBAN_NOPARAM_MEMBER: 'Please mention the user you would like to softban.',
@@ -319,9 +336,6 @@ module.exports = class extends Language {
 			GUILD_LOG_EMOJI: 'Emoji',
 			GUILD_LOG_MESSAGEDELETE: 'Message deleted',
 			GUILD_LOG_MESSAGEUPDATE: 'Message edited',
-			GUILD_LOG_MESSAGEPURGE: 'Messages purged',
-			GUILD_LOG_MESSAGEPURGE_AMOUNT: 'Amount of messages removed:',
-			GUILD_LOG_MESSAGEPURGE_TARGET: 'Purged messages from:',
 			GUILD_LOG_ROLECREATE: 'Role created',
 			GUILD_LOG_ROLECREATE_V_TAG: 'Tag',
 			GUILD_LOG_ROLEDELETE: 'Role deleted',
@@ -361,26 +375,14 @@ module.exports = class extends Language {
 			GUILD_LOG_GUILDUPDATE_REGION: 'Region changed',
 			GUILD_LOG_GUILDUPDATE_SPLASH: 'Server invite background changed',
 			GUILD_LOG_GUILDUPDATE_VLEVEL: 'Verification level changed',
-			GUILD_LOG_GUILDBANADD: 'User banned',
 			GUILD_LOG_GUILDBANADD_TIMED: (when) => `User banned for ${moment.duration(moment().diff(when)).humanize()}`,
 			GUILD_LOG_GUILDBANREMOVE: 'User unbanned',
 			GUILD_LOG_GUILDMEMBERADD: 'User joined',
 			GUILD_LOG_GUILDMEMBERREMOVE: 'User left',
-			GUILD_LOG_GUILDMEMBERKICK: 'User kicked',
-			GUILD_LOG_GUILDMEMBERMUTE: 'User muted',
-			GUILD_LOG_GUILDMEMBERMUTE_TIMED: (when) => `User muted for ${moment.duration(moment().diff(when)).humanize()}`,
-			GUILD_LOG_GUILDSOFTBANADD: 'User softbanned',
 			GUILD_LOG_GUILDMEMBERUNMUTE: 'User unmuted',
-			GUILD_LOG_GUILDMEMBERVCKICK: 'User kicked from voice chat',
-			GUILD_LOG_GUILDMEMBERVCBAN: 'User banned from voice chat',
-			GUILD_LOG_GUILDMEMBERVCBAN_TIMED: (when) => `User banned from voice chat for ${moment.duration(moment().diff(when)).humanize()}`,
-			GUILD_LOG_GUILDMEMBERVCUNBAN: 'User unbanned from voice chat',
-			GUILD_LOG_GUILDMEMBERWARN: 'Warning issued',
 			GUILD_LOG_MEMBERUPDATE: 'User updated',
 			GUILD_LOG_MEMBERUPDATE_DISPLAYNAME: 'Display name changed',
-			GUILD_LOG_AUTOSELENER: 'Changed name with blacklisted word',
 			GUILD_LOG_BLACKLISTEDWORD: (channel) => `Blacklisted word detected in ${channel}.`,
-			GUILD_LOG_ANTIINVITE: (channel) => `Guild invite detected in ${channel}.`,
 			GUILD_LOG_MENTIONSPAM: 'Mention spam filter triggered',
 
 
