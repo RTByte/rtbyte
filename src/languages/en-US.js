@@ -37,6 +37,7 @@ module.exports = class extends Language {
 			NAME_CHANGED: 'Name changed',
 			WARNING_ISSUED: 'Warning issued',
 			CLICK_TO_VIEW: 'Click to view',
+			OFF: 'Off',
 
 
 			// Setting gateway langs
@@ -66,7 +67,7 @@ module.exports = class extends Language {
 			RESOLVER_INVALID_MESSAGE: (name) => `${name} must be a valid message ID.`,
 			RESOLVER_INVALID_PIECE: (name, piece) => `${name} must be a valid ${piece} name.`,
 			RESOLVER_INVALID_REGEX_MATCH: (name, pattern) => `${name} must follow this regex pattern \`${pattern}\`.`,
-			RESOLVER_INVALID_ROLE: (name) => `${name} must be a role mention or role ID.`,
+			RESOLVER_INVALID_ROLE: (name) => `${name} must be a role mention or valid role ID.`,
 			RESOLVER_INVALID_STRING: (name) => `${name} must be a valid string.`,
 			RESOLVER_INVALID_TIME: (name) => `${name} must be a valid duration or date string.`,
 			RESOLVER_INVALID_URL: (name) => `${name} must be a valid URL.`,
@@ -85,7 +86,7 @@ module.exports = class extends Language {
 			// Command message langs
 			COMMANDMESSAGE_MISSING: 'Missing one or more required arguments after end of input.',
 			COMMANDMESSAGE_MISSING_REQUIRED: (name) => `${name} is a required argument.`,
-			COMMANDMESSAGE_MISSING_OPTIONALS: (possibles) => `Missing a required option: (${possibles})`,
+			COMMANDMESSAGE_MISSING_OPTIONALS: (possibles) => `Missing a required option: (${possibles}).`,
 			COMMANDMESSAGE_NOMATCH: (possibles) => `Your option didn't match any of the possibilities: (${possibles}).`,
 
 
@@ -117,10 +118,10 @@ module.exports = class extends Language {
 			COMMAND_REQUESTED_BY: (msg) => `Requested by ${msg.author.tag}`,
 			COMMAND_BLACKLIST_DESCRIPTION: 'Blacklists or un-blacklists users and guilds from the bot.',
 			COMMAND_BLACKLIST_SUCCESS: (usersAdded, usersRemoved, guildsAdded, guildsRemoved) => [
-				usersAdded.length ? `**Users Added**\n${util.codeBlock('', usersAdded.join(', '))}` : '',
-				usersRemoved.length ? `**Users Removed**\n${util.codeBlock('', usersRemoved.join(', '))}` : '',
-				guildsAdded.length ? `**Guilds Added**\n${util.codeBlock('', guildsAdded.join(', '))}` : '',
-				guildsRemoved.length ? `**Guilds Removed**\n${util.codeBlock('', guildsRemoved.join(', '))}` : ''
+				usersAdded.length ? `**Users added**\n${util.codeBlock('', usersAdded.join(', '))}` : '',
+				usersRemoved.length ? `**Users removed**\n${util.codeBlock('', usersRemoved.join(', '))}` : '',
+				guildsAdded.length ? `**Guilds added**\n${util.codeBlock('', guildsAdded.join(', '))}` : '',
+				guildsRemoved.length ? `**Guilds removed**\n${util.codeBlock('', guildsRemoved.join(', '))}` : ''
 			].filter(val => val !== '').join('\n'),
 			COMMAND_EVAL_DESCRIPTION: 'Evaluates arbitrary JS. Reserved for bot owners.',
 			COMMAND_EVAL_EXTENDEDHELP: [
@@ -137,7 +138,7 @@ module.exports = class extends Language {
 			COMMAND_EVAL_SENDFILE: (time, type) => `Output was too long... sent the result as a file.\n**Type**:${type}\n${time}`,
 			COMMAND_EVAL_SENDCONSOLE: (time, type) => `Output was too long... sent the result to console.\n**Type**:${type}\n${time}`,
 			COMMAND_UNLOAD: (type, name) => `Unloaded the ${name} ${type}.`,
-			COMMAND_UNLOAD_DESCRIPTION: 'Unloads the klasa piece.',
+			COMMAND_UNLOAD_DESCRIPTION: 'Unloads a specified Klasa piece.',
 			COMMAND_UNLOAD_WARN: 'You probably don\'t want to unload that, since you wouldn\'t be able to run any command to enable it again.',
 			COMMAND_TRANSFER_ERROR: 'That file has been transfered already or never existed.',
 			COMMAND_TRANSFER_SUCCESS: (type, name) => `Successfully transferred the ${name} ${type}.`,
@@ -147,7 +148,7 @@ module.exports = class extends Language {
 			COMMAND_RELOAD_FAILED: (type, name) => `Failed to reload the ${name} ${type}. Please check your console.`,
 			COMMAND_RELOAD_ALL: (type, time) => `Reloaded all ${type}. \`${time}\``,
 			COMMAND_RELOAD_EVERYTHING: (time) => `Reloaded everything. \`${time}\``,
-			COMMAND_RELOAD_DESCRIPTION: 'Reloads a klasa piece, or all pieces of a klasa store.',
+			COMMAND_RELOAD_DESCRIPTION: 'Reloads a klasa piece, or all pieces of a Klasa store.',
 			COMMAND_REBOOT: 'Rebooting...',
 			COMMAND_REBOOT_DESCRIPTION: 'Reboots the bot.',
 			COMMAND_LOAD: (time, type, name) => `Successfully loaded the ${name} ${type}. \`${time}\``,
@@ -158,7 +159,7 @@ module.exports = class extends Language {
 			COMMAND_PING_DESCRIPTION: 'Runs a connection test to Discord.',
 			COMMAND_PINGPONG: (diff, ping) => `Pong! \`${ping}ms\``,
 			COMMAND_INVITE: () => [
-				`To add ${this.client.user.username} to your discord guild:`,
+				`To add ${this.client.user.username} to your Discord guild:`,
 				`<${this.client.invite}>`,
 				util.codeBlock('', [
 					'The above link is generated requesting the minimum permissions required to use every command currently.',
@@ -244,7 +245,7 @@ module.exports = class extends Language {
 			COMMAND_SERVERINFO_VLEVEL: 'Verification level',
 			COMMAND_SERVERINFO_ECFILTER: 'Explicit content filter',
 			COMMAND_SERVERINFO_CREATED: 'Created',
-			COMMAND_SOFTBAN_DESCRIPTION: 'Bans a mentioned user and logs the reason.',
+			COMMAND_SOFTBAN_DESCRIPTION: 'Softbans a mentioned user and logs the reason.',
 			COMMAND_SOFTBAN_NOPARAM_MEMBER: 'Please mention the user you would like to softban.',
 			COMMAND_SOFTBAN_NO_SOFTBAN_SELF: 'You cannot softban yourself.',
 			COMMAND_SOFTBAN_NO_SOFTBAN_CLIENT: 'I cannot softban myself.',
@@ -280,6 +281,8 @@ module.exports = class extends Language {
 			COMMAND_WARN_NO_PERMS: (user) => `You don't have permission to warn ${user}.`,
 			COMMAND_8BALL_DESCRIPTION: 'Magic 8-ball, does exactly what the toy does, memes included.',
 			COMMAND_8BALL_NOPARAM: '🎱 You didn\'t ask me anything.',
+			// eslint-disable-next-line max-len
+			COMMAND_8BALL_ANSWERS: ['Maybe.', 'Certainly not.', 'I hope so.', 'Not in your wildest dreams.', 'There is a good chance.', 'Quite likely.', 'I think so.', 'I hope not.', 'I hope so.', 'Never!', 'Ahaha! Really?!?', 'Pfft.', 'Sorry, bucko.', 'Hell, yes.', 'Hell to the no.', 'The future is bleak.', 'The future is uncertain.', 'I would rather not say.', 'Who cares?', 'Possibly.', 'Never, ever, ever.', 'There is a small chance.', 'Yes!', "Doesn't look like anything to me.", "I don't know.", 'Ask someone else.', 'No.', 'Yes.', "I'm being forced to do this, please send help.", 'Your mom told me yes.', "If you're wearing pants, yes.", 'When pigs fly.', 'With whipped cream.', "I'll pretend I never heard that.", "I could tell you but I'd have to permanently ban you.", 'Do you *really* want me to answer that?', 'If it fits.', "That's my fetish!", "I'm sorry, but yes.", "I'm sorry, but no.", 'What?', 'Sorry, what was that?', 'i can be your angle...or yuor devil.', "*dude don't even talk to me rn*", '🙅', '🛑', '🛑 STOP 🛑', '👌', '👍', '👎', '👀', "I wouldn't think so.", 'Awhh naaaah dude', "don't", 'Why would you even think to ask that?', 'What now?', 'What do you mean?', 'Not happening.', 'You betcha.', 'Yes, daddy 😭👋', 'Who are you again?', 'YAAASSSS QUEEEN', 'no u', 'Are you sure you should be asking *me* this?', 'Maybe, if you take me to dinner first.', 'get rekt my duder', "If you tell me I'm pretty, maybe you'll find out ;)", "I'd answer but I'm having a rough day. Nobody asks how I'm doing and its tiresome.", 'Not my job.', 'Nothing really matters, anyone can see.', 'Nothing really matters, to meeeeeeeeee.', 'Yes, no, maybe. I don’t know, can you repeat the question?', 'Does a hat take ten gallons?', "We're all going to hell anyway, so yes.", "We're all going to hell anyway, so no.", "I don't get paid enough for this.", 'Why do you keep asking me?', 'Why would you do that? Stop.', "Address me as master and then I'll answer you.", 'wtf u weirdo', 'wtf, get away from me you freak', 'Ask your parents.', 'ya', "If you promise you'll love me, yes.", "If you promise you'll love me, no.", "As long as you're not a jerk about it.", "Just as long as you're not a dick about it.", 'Whenever, wherever.', 'If you say so.', 'Yes, my dude.', 'No, my dude.', 'Never, ever, ever, ever. Ever.', 'Oh, hold on. I was making brownies.', 'I don\'t give a fuck.', "Fuck you, I don't care."],
 			COMMAND_CHOICE_DESCRIPTION: 'Makes a decision based off of the choices given, no matter how many you include.',
 			COMMAND_CHOICE_NOPARAM: '🤔 I can\'t choose for you unless you provide me with at least 2 choices.',
 			COMMAND_CHOICE_NOTENOUGH: '\n🤔 You only provided me with one choice.',
@@ -341,6 +344,9 @@ module.exports = class extends Language {
 			GUILD_LOG_CHANNELUPDATE_PERMISSIONOVERWRITECREATE: 'Permissions created for',
 			GUILD_LOG_CHANNELUPDATE_PERMISSIONOVERWRITEREMOVE: 'Permissions defaulted for',
 			GUILD_LOG_CHANNELUPDATE_PERMISSIONOVERWRITEUPDATE: 'Permissions changed for',
+			GUILD_LOG_CHANNELUPDATE_SLOWMODE: 'Slowmode interval changed',
+			GUILD_LOG_CHANNELUPDATE_BITRATE: 'Bitrate changed',
+			GUILD_LOG_CHANNELUPDATE_USERLIMIT: 'User limit changed',
 			GUILD_LOG_EMOJICREATE: 'Emoji created',
 			GUILD_LOG_EMOJIDELETE: 'Emoji deleted',
 			GUILD_LOG_EMOJIUPDATE: 'Emoji updated',
@@ -399,7 +405,7 @@ module.exports = class extends Language {
 			MODERATION_LOG_PURGE: 'Messages purged',
 			MODERATION_LOG_SOFTBAN: 'User softbanned',
 			MODERATION_LOG_VCBAN: 'User banned from voice chat',
-			MODERATION_LOG_VCUNBAN: 'Usr unbanned from voice chat',
+			MODERATION_LOG_VCUNBAN: 'User unbanned from voice chat',
 			MODERATION_LOG_VCKICK: 'User kicked from voice chat',
 			MODERATION_LOG_ANTIINVITE: 'Invite deleted',
 			MODERATION_LOG_MENTIONSPAM: 'User banned for mention spam',
@@ -414,7 +420,7 @@ module.exports = class extends Language {
 			MODERATION_LOG_DELETEDMESSAGECOUNT: 'Messages deleted',
 			MODERATION_LOG_DELETEDMESSAGECONTENT: 'Deleted message',
 			MODERATION_LOG_BADNICKNAME: 'Blacklisted nickname',
-			MODERATION_LOG_LINK: (link) => `[Click Here to View](${link})`,
+			MODERATION_LOG_LINK: (link) => `[Click here to view](${link})`,
 			MODERATION_LOG_SILENT: 'Command executed silently',
 			MODERATION_LOG_CHANNEL: 'Channel'
 		};

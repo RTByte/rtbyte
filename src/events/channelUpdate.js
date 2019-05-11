@@ -1,5 +1,9 @@
 const { Event } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const moment = require('moment');
+moment.relativeTimeThreshold('s', 60);
+moment.relativeTimeThreshold('ss', 0);
+moment.relativeTimeThreshold('m', 60);
 
 module.exports = class extends Event {
 
@@ -29,13 +33,39 @@ module.exports = class extends Event {
 			.setTimestamp()
 			.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE'));
 
+		// Change author and footer fields if channel is voice channel
+		if (channel.type === 'voice') {
+			await embed.setAuthor(channel.name, channel.guild.iconURL());
+			await embed.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_VOICE'));
+		}
+
+		// Name changed
 		if (oldChannel.name !== channel.name) await embed.addField(channel.guild.language.get('NAME_CHANGED'), `${oldChannel.name} ${arrowRightEmoji} ${channel.name}`);
+
+		// NSFW toggled
 		if (oldChannel.nsfw !== channel.nsfw) await embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_NSFW'), status[channel.nsfw]);
+
+		// Topic changed
 		// eslint-disable-next-line max-len
 		if (oldChannel.topic !== channel.topic) await embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_TOPIC'), `${oldChannel.topic ? oldChannel.topic : 'No topic'} ${arrowRightEmoji} ${channel.topic ? channel.topic : 'No topic'}`);
-		if (channel.type === 'voice') await embed.setAuthor(channel.name, channel.guild.iconURL()).setFooter(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_VOICE'));
 
-		if (oldChannel.parent !== channel.parent) await embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_CATEGORY'), `${oldChannel.parent ? oldChannel.parent.name : 'No category'} ${arrowRightEmoji} ${channel.parent ? channel.parent.name : 'No category'}`); // eslint-disable-line
+		// Slowmode interval changed
+		// eslint-disable-next-line max-len
+		if (oldChannel.rateLimitPerUser !== channel.rateLimitPerUser) await embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_SLOWMODE'), `${oldChannel.rateLimitPerUser > 0 ? moment.duration(oldChannel.rateLimitPerUser, 's').humanize() : channel.guild.language.get('OFF')} ${arrowRightEmoji} ${channel.rateLimitPerUser > 0 ? moment.duration(channel.rateLimitPerUser, 's').humanize() : channel.guild.language.get('OFF')}`);
+
+		// Bitrate changed
+		// eslint-disable-next-line max-len
+		if (oldChannel.bitrate !== channel.bitrate) await embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_BITRATE'), `${(oldChannel.bitrate / 1000).toFixed(0)}kbps ${arrowRightEmoji} ${(channel.bitrate / 1000).toFixed(0)}kbps`);
+
+		// User limit changed
+		// eslint-disable-next-line max-len
+		if (oldChannel.userLimit !== channel.userLimit) await embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_USERLIMIT'), `${oldChannel.userLimit > 0 ? oldChannel.userLimit : 'Unlimited'} users ${arrowRightEmoji} ${channel.userLimit > 0 ? channel.userLimit : 'Unlimited'} users`);
+
+		// Channel moved to different category
+		// eslint-disable-next-line max-len
+		if (oldChannel.parent !== channel.parent) await embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_CATEGORY'), `${oldChannel.parent ? oldChannel.parent.name : 'No category'} ${arrowRightEmoji} ${channel.parent ? channel.parent.name : 'No category'}`);
+
+
 		await this.permissionUpdateCheck(oldChannel, channel, embed);
 
 		if (!embed.fields.length) return;
