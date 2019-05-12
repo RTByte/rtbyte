@@ -11,7 +11,7 @@ module.exports = class extends Command {
 	}
 
 	async run(msg) {
-		return msg.reply(`\n${Math.random() > 0.5 ? '🙂 heads' : '🙃 tails'}.`);
+		return msg.reply(`\n${Math.random() > 0.5 ? `${msg.guild.language.get('COMMAND_COINFLIP_HEADS')}` : `${msg.guild.language.get('COMMAND_COINFLIP_TAILS')}`}.`);
 	}
 
 };
