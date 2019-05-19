@@ -4,6 +4,13 @@ const { version: discordVersion } = require('discord.js');
 const moment = require('moment');
 const os = require('os');
 
+moment.relativeTimeThreshold('s', 60);
+moment.relativeTimeThreshold('ss', 0);
+moment.relativeTimeThreshold('m', 60);
+moment.relativeTimeThreshold('h', 24);
+moment.relativeTimeThreshold('d', 31);
+moment.relativeTimeThreshold('M', 12);
+
 module.exports = class extends Command {
 
 	constructor(...args) {

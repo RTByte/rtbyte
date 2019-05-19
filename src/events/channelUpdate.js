@@ -1,6 +1,7 @@
 const { Event } = require('klasa');
 const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
+
 moment.relativeTimeThreshold('s', 60);
 moment.relativeTimeThreshold('ss', 0);
 moment.relativeTimeThreshold('m', 60);
