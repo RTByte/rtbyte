@@ -184,10 +184,10 @@ module.exports = class extends Language {
 				`The ${this.client.user.username} support server can be found using the link below.`,
 				'https://discord.gg/eRauWP4/'
 			],
-			COMMAND_INVITE_DESCRIPTION: `Displays the link to invite ${this.client.user.username} to your guild.`,
-			COMMAND_INFO_EMBEDTITLE: `${this.client.user.username} Information`,
+			COMMAND_INVITE_DESCRIPTION: () => `Displays the link to invite ${this.client.user.username} to your guild.`,
+			COMMAND_INFO_EMBEDTITLE: () => `${this.client.user.username} Information`,
 			// eslint-disable-next-line max-len
-			COMMAND_INFO_EMBEDDESC: `${this.client.user.username} is an open-source modular multipurpose Discord bot built on the incredible [Klasa](https://klasa.js.org/) framework for [discord.js](https://discord.js.org/).\n\nWe aim to provide the most consistent and easy-to-use Discord mod bot solution available, with our key focus areas being modularity, performance, consistency, and choice.`,
+			COMMAND_INFO_EMBEDDESC: () => `${this.client.user.username} is an open-source modular multipurpose Discord bot built on the incredible [Klasa](https://klasa.js.org/) framework for [discord.js](https://discord.js.org/).\n\nWe aim to provide the most consistent and easy-to-use Discord mod bot solution available, with our key focus areas being modularity, performance, consistency, and choice.`,
 			COMMAND_INFO_OURTEAM: 'Our team',
 			// eslint-disable-next-line max-len
 			COMMAND_INFO_TEAMLIST: '• [Rasmus Gerdin](https://github.com/rasmusgerdin/)\n• [Michael Cumbers](https://github.com/mcumbers/)\n• [Justin Shull](https://github.com/JShull97/)\n• [Killian Higgins](https://github.com/Uzui2012/)',
@@ -195,7 +195,7 @@ module.exports = class extends Language {
 			COMMAND_INFO_LINKLIST: '• [GitHub](https://github.com/RTByte/RTByte)\n• [Discord](https://discord.gg/eRauWP4/)',
 			COMMAND_INFO_DESCRIPTION: 'Provides some information about this bot.',
 			COMMAND_HELP_DESCRIPTION: 'Display help for a command.',
-			COMMAND_HELP_EMBEDTITLE: `${this.client.user.username} Help`,
+			COMMAND_HELP_EMBEDTITLE: () => `${this.client.user.username} Help`,
 			COMMAND_HELP_NO_EXTENDED: 'No extended help available.',
 			COMMAND_HELP_DM: 'The list of commands you have access to has been sent to your DMs.',
 			COMMAND_HELP_NODM: 'You have DMs disabled, I couldn\'t send you the commands in DMs.',
@@ -220,7 +220,7 @@ module.exports = class extends Language {
 			COMMAND_CONF_USER_DESCRIPTION: 'Define per-user settings.',
 			COMMAND_CONF_USER: (key, list) => `**User Settings${key}**\n${list}`,
 			COMMAND_STATS_DESCRIPTION: 'Provides bot owners with statistics.',
-			COMMAND_STATS_EMBEDTITLE: `${this.client.user.username} Stats`,
+			COMMAND_STATS_EMBEDTITLE: () => `${this.client.user.username} Stats`,
 			COMMAND_STATS_MEMUSAGE: 'Memory usage',
 			COMMAND_STATS_UPTIME: 'Uptime',
 			COMMAND_STATS_CONNECTIONS: 'Connections',

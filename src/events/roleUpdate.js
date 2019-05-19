@@ -75,7 +75,7 @@ module.exports = class extends Event {
 
 		// Permissions changed
 		// eslint-disable-next-line max-len
-		if (oldRole.permissions.bitfield !== role.permissions.bitfield) embed.addField(role.guild.language.get('GUILD_LOG_ROLEUPDATE_PERMISSIONS'), `\`\`\`${oldPermissions || 'None'}\`\`\`\n ${arrowRightEmoji} \n\n\`\`\`${newPermissions || 'None'}\`\`\``);
+		if (oldRole.permissions.bitfield !== role.permissions.bitfield && oldPermissions !== newPermissions) embed.addField(role.guild.language.get('GUILD_LOG_ROLEUPDATE_PERMISSIONS'), `\`\`\`${oldPermissions || 'None'}\`\`\`\n ${arrowRightEmoji} \n\n\`\`\`${newPermissions || 'None'}\`\`\``);
 
 		if (!embed.fields.length) return;
 
