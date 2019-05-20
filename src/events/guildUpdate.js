@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 const { Event } = require('klasa');
 const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
@@ -6,15 +7,6 @@ module.exports = class extends Event {
 
 	constructor(...args) {
 		super(...args, { event: 'guildUpdate' });
-		this.defaultMsgNotif = {
-			ALL: 'All Messages',
-			MENTIONS: 'Only @mentions'
-		};
-		this.filterLevels = [
-			'Off',
-			'On for unroled users',
-			'On for everyone'
-		];
 		this.regions = {
 			brazil: '🇧🇷 Brazil',
 			'vip-us-west': '🇺🇸 VIP US West',
@@ -36,13 +28,6 @@ module.exports = class extends Event {
 			frankfurt: '🇩🇪 Frankfurt',
 			russia: '🇷🇺 Russia'
 		};
-		this.verificationLevels = [
-			'None',
-			'Low',
-			'Medium',
-			'(╯°□°）╯︵ ┻━┻',
-			'┻━┻ ﾐヽ(ಠ益ಠ)ノ彡┻━┻'
-		];
 	}
 
 	async run(oldGuild, guild) {
@@ -56,10 +41,14 @@ module.exports = class extends Event {
 		const affirmEmoji = this.client.emojis.get(this.client.settings.emoji.affirm);
 		const rejectEmoji = this.client.emojis.get(this.client.settings.emoji.reject);
 		const arrowRightEmoji = this.client.emojis.get(this.client.settings.emoji.arrowRight);
-		const status = [
+		const arrayStatus = [
 			rejectEmoji,
 			affirmEmoji
 		];
+		const booleanStatus = {
+			true: affirmEmoji,
+			false: rejectEmoji
+		};
 
 		const embed = new MessageEmbed()
 			.setAuthor(guild.name, guild.iconURL())
@@ -83,11 +72,15 @@ module.exports = class extends Event {
 		// eslint-disable-next-line max-len
 		if (oldGuild.explicitContentFilter !== guild.explicitContentFilter) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_CONTENTFILTER'), `${this.filterLevels[oldGuild.explicitContentFilter]} ${arrowRightEmoji} ${this.filterLevels[guild.explicitContentFilter]}`);
 
+		// Verification level changed
+		// eslint-disable-next-line max-len
+		if (oldGuild.verificationLevel !== guild.verificationLevel) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_VLEVEL'), `${this.verificationLevels[oldGuild.verificationLevel]} ${arrowRightEmoji} ${this.verificationLevels[guild.verificationLevel]}`);
+
 		// Icon changed
 		if (oldGuild.iconURL() !== guild.iconURL()) await embed.setTitle(guild.language.get('GUILD_LOG_GUILDUPDATE_ICON'));
 
 		// 2FA requirement toggled
-		if (oldGuild.mfaLevel !== guild.mfaLevel) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_MFALEVEL'), status[guild.mfaLevel]);
+		if (oldGuild.mfaLevel !== guild.mfaLevel) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_MFALEVEL'), arrayStatus[guild.mfaLevel]);
 
 		// Name changed
 		if (oldGuild.name !== guild.name) await embed.addField(guild.language.get('PREVNAME'), oldGuild.name);
@@ -98,15 +91,31 @@ module.exports = class extends Event {
 		// Region changed
 		if (oldGuild.region !== guild.region) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_REGION'), `${this.regions[oldGuild.region]} ${arrowRightEmoji} ${this.regions[guild.region]}`);
 
+		// System messages channel changed
+		// eslint-disable-next-line max-len
+		if (oldGuild.systemChannel !== guild.systemChannel) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_SYSMSGS'), `${oldGuild.systemChannel || guild.language.get('GUILD_LOG_GUILDUPDATE_SYSMSGS_NONE')} ${arrowRightEmoji} ${guild.systemChannel || guild.language.get('GUILD_LOG_GUILDUPDATE_SYSMSGS_NONE')}`);
+
+		// Vanity URL changed
+		// eslint-disable-next-line max-len
+		if (oldGuild.vanityURLCode !== guild.vanityURLCode) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_VANITYURL'), `${oldGuild.vanityURLCode || guild.language.get('GUILD_LOG_GUILDUPDATE_VANITYURL_NONE')} ${arrowRightEmoji} ${guild.vanityURLCode || guild.language.get('GUILD_LOG_GUILDUPDATE_VANITYURL_NONE')}`);
+
+		// Guild description changed
+		// eslint-disable-next-line max-len
+		if (oldGuild.description !== guild.description) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_DESCRIPTION'), `${oldGuild.description || guild.language.get('GUILD_LOG_GUILDUPDATE_DESCRIPTION_NONE')} ${arrowRightEmoji} ${guild.description || guild.language.get('GUILD_LOG_GUILDUPDATE_DESCRIPTION_NONE')}`);
+
+		// Widget channel changed
+		// eslint-disable-next-line max-len
+		if (oldGuild.widgetChannel !== guild.widgetChannel) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_WIDGETCHANNEL'), `${oldGuild.widgetChannel || guild.language.get('GUILD_LOG_GUILDUPDATE_WIDGETCHANNEL_NONE')} ${arrowRightEmoji} ${guild.widgetChannel || guild.language.get('GUILD_LOG_GUILDUPDATE_WIDGETCHANNEL_NONE')}`);
+
+		// Server widget toggled
+		// NSFW toggled
+		if (oldGuild.widgetEnabled !== guild.widgetEnabled) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_WIDGET'), booleanStatus[guild.widgetEnabled]);
+
 		// Splash image changed
 		if (oldGuild.splashURL !== guild.splashURL) {
 			await embed.setTitle(guild.language.get('GUILD_LOG_GUILDUPDATE_SPLASH'));
 			await embed.setImage(guild.splashURL);
 		}
-
-		// Verification level changed
-		// eslint-disable-next-line max-len
-		if (oldGuild.verificationLevel !== guild.verificationLevel) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_VLEVEL'), `${this.verificationLevels[oldGuild.verificationLevel]} ${arrowRightEmoji} ${this.verificationLevels[guild.verificationLevel]}`);
 
 		const logChannel = await this.client.channels.get(guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });
