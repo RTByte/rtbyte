@@ -49,6 +49,8 @@ module.exports = class extends Event {
 			true: affirmEmoji,
 			false: rejectEmoji
 		};
+		const oldVanityURL = `https://discord.gg/${oldGuild.vanityURLCode}/`;
+		const newVanityURL = `https://discord.gg/${guild.vanityURLCode}/`;
 
 		const embed = new MessageEmbed()
 			.setAuthor(guild.name, guild.iconURL())
@@ -97,7 +99,7 @@ module.exports = class extends Event {
 
 		// Vanity URL changed
 		// eslint-disable-next-line max-len
-		if (oldGuild.vanityURLCode !== guild.vanityURLCode) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_VANITYURL'), `${oldGuild.vanityURLCode || guild.language.get('GUILD_LOG_GUILDUPDATE_VANITYURL_NONE')} ${arrowRightEmoji} ${guild.vanityURLCode || guild.language.get('GUILD_LOG_GUILDUPDATE_VANITYURL_NONE')}`);
+		if (oldGuild.vanityURLCode !== guild.vanityURLCode) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_VANITYURL'), `${oldVanityURL || guild.language.get('GUILD_LOG_GUILDUPDATE_VANITYURL_NONE')} ${arrowRightEmoji} ${newVanityURL || guild.language.get('GUILD_LOG_GUILDUPDATE_VANITYURL_NONE')}`);
 
 		// Guild description changed
 		// eslint-disable-next-line max-len
