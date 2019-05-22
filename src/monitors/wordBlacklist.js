@@ -15,10 +15,10 @@ module.exports = class extends Monitor {
 	async run(msg) {
 		if (!msg.guild.settings.filters.wordBlacklistEnabled || !msg.guild.settings.filters.words.length) return;
 		if (msg.guild.settings.filters.modBypass && msg.member.roles.has(msg.guild.settings.roles.moderator)) return;
-		const words = msg.content.split(' ');
-		const wordBlacklist = msg.guild.settings.filters.words;
+		const sentence = msg.content;
+		const blacklist = msg.guild.settings.filters.words;
 
-		if (!await this.cycleWords(words, wordBlacklist)) return;
+		if (!await this.checkMessage(sentence, blacklist)) return;
 
 		const modCase = new ModCase(msg.guild)
 			.setUser(msg.author)
@@ -35,11 +35,13 @@ module.exports = class extends Monitor {
 		return;
 	}
 
-	async cycleWords(words, wordBlacklist) {
+	async checkMessage(sentence, blacklist) {
 		let hasBlacklistedWord = false;
+		let regex;
 
-		for (let i = 0; i < words.length; i++) {
-			if (wordBlacklist.includes(words[i].toLowerCase())) hasBlacklistedWord = true;
+		for (let i = 0; i < blacklist.length; i++) {
+			regex = new RegExp(`${blacklist[i]}`);
+			if (sentence.toLowerCase().match(regex)) hasBlacklistedWord = true;
 		}
 
 		return hasBlacklistedWord;
