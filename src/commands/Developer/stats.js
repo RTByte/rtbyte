@@ -1,4 +1,4 @@
-const { Command, version: klasaVersion, Duration } = require('klasa');
+const { Command, version: klasaVersion } = require('klasa');
 const { MessageEmbed } = require('discord.js');
 const { version: discordVersion } = require('discord.js');
 const moment = require('moment');

@@ -89,8 +89,10 @@ module.exports = class extends Extendable {
 			const affirmEmoji = await this.emojis.create('./src/assets/img/emoji/affirm.png', 'affirm', { reason: `${this.client.user.username} initialization: Creating affirm emoji` });
 			const rejectEmoji = await this.emojis.create('./src/assets/img/emoji/reject.png', 'reject', { reason: `${this.client.user.username} initialization: Creating reject emoji` });
 			const arrowLeftEmoji = await this.emojis.create('./src/assets/img/emoji/arrowLeft.png', 'arrow_left', { reason: `${this.client.user.username} initialization: Creating arrowLeft emoji` });
+			// eslint-disable-next-line max-len
 			const arrowToLeftEmoji = await this.emojis.create('./src/assets/img/emoji/arrowToLeft.png', 'arrow_to_left', { reason: `${this.client.user.username} initialization: Creating arrowToLeft emoji` });
 			const arrowRightEmoji = await this.emojis.create('./src/assets/img/emoji/arrowRight.png', 'arrow_right', { reason: `${this.client.user.username} initialization: Creating arrowRight emoji` });
+			// eslint-disable-next-line max-len
 			const arrowToRightEmoji = await this.emojis.create('./src/assets/img/emoji/arrowToRight.png', 'arrow_to_right', { reason: `${this.client.user.username} initialization: Creating arrowToRight emoji` });
 			const infoEmoji = await this.emojis.create('./src/assets/img/emoji/info.png', 'info', { reason: `${this.client.user.username} initialization: Creating info emoji` });
 			const listEmoji = await this.emojis.create('./src/assets/img/emoji/list.png', 'list', { reason: `${this.client.user.username} initialization: Creating list emoji` });
@@ -116,6 +118,7 @@ module.exports = class extends Extendable {
 		await this.client.emit('verbose', `Initialized guild: ${this.name} (${this.id})`);
 
 		// Informing guild owner of bot initialization
+		// eslint-disable-next-line max-len
 		await this.owner.send(`**${this.client.user.username}** has been initialized on the **${this.name}** Discord!\nUse \`${this.settings.prefix}help\` to see a list of commands.\n\nJoin the RTByte support server:\nhttps://discord.gg/eRauWP4`);
 
 		return;

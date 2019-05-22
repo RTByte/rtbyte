@@ -28,7 +28,7 @@ module.exports = class extends Language {
 			'Off',
 			'On for unroled users',
 			'On for everyone'
-		]
+		];
 		this.language = {
 
 			// Default langs
