@@ -17,6 +17,10 @@ module.exports = class extends Language {
 			LISTENING: 'Listening to',
 			WATCHING: 'Watching'
 		};
+		this.defaultMsgNotifs = {
+			ALL: 'All messages',
+			MENTIONS: 'Only @mentions'
+		}
 		this.verificationLevels = [
 			'None',
 			'Low',
@@ -60,6 +64,9 @@ module.exports = class extends Language {
 			IDLE: 'Idle',
 			DND: 'Do Not Disturb',
 			OFFLINE: 'Offline',
+			UNLIMITED: 'Unlimited',
+			USERS: 'Users',
+			USERS_SMALL: 'users',
 
 
 			// Setting gateway langs
@@ -232,7 +239,7 @@ module.exports = class extends Language {
 			COMMAND_STATS_UPTIME: 'Uptime',
 			COMMAND_STATS_CONNECTIONS: 'Connections',
 			// eslint-disable-next-line max-len
-			COMMAND_STATS_CONNECTIONINFO: `Operating on **${this.client.guilds.size.toLocaleString()}** servers,\nWatching **${this.client.channels.size.toLocaleString()}** channels,\nServing **${this.client.users.size.toLocaleString()}** users`,
+			COMMAND_STATS_CONNECTIONINFO: `Operating on **${this.client.guilds.size}** servers,\nWatching **${this.client.channels.size}** channels,\nServing **${this.client.users.size}** users`,
 			COMMAND_STATS_LIBRARIES: 'Libraries',
 			COMMAND_STATS_HOSTINFO: 'Host information',
 			COMMAND_STATS_HOSTUPTIME: 'Host uptime',
@@ -362,7 +369,9 @@ module.exports = class extends Language {
 			GUILD_LOG_CHANNELUPDATE_VOICE: 'Voice channel updated',
 			GUILD_LOG_CHANNELUPDATE_NSFW: 'NSFW toggled',
 			GUILD_LOG_CHANNELUPDATE_TOPIC: 'Topic changed',
+			GUILD_LOG_CHANNELUPDATE_TOPIC_NONE: 'No topic',
 			GUILD_LOG_CHANNELUPDATE_CATEGORY: 'Category changed',
+			GUILD_LOG_CHANNELUPDATE_CATEGORY_NONE: 'No category',
 			GUILD_LOG_CHANNELUPDATE_POSITIION: 'Position changed',
 			GUILD_LOG_CHANNELUPDATE_PERMISSIONOVERWRITECREATE: 'Permissions created for',
 			GUILD_LOG_CHANNELUPDATE_PERMISSIONOVERWRITEREMOVE: 'Permissions defaulted for',
@@ -375,15 +384,23 @@ module.exports = class extends Language {
 			GUILD_LOG_EMOJIUPDATE: 'Emoji updated',
 			GUILD_LOG_GUILDUPDATE: 'Guild updated',
 			GUILD_LOG_GUILDUPDATE_AFKCHANNEL: 'AFK channel changed',
+			GUILD_LOG_GUILDUPDATE_AFKCHANNEL_NONE: 'No AFK channel',
 			GUILD_LOG_GUILDUPDATE_AFKTIMEOUT: 'AFK timeout changed',
 			GUILD_LOG_GUILDUPDATE_DEFAULTMSGNOTIF: 'Default notification settings changed',
+			GUILD_LOG_GUILDUPDATE_DEFAULTMSGNOTIF_OLD: (oldGuild) => this.defaultMsgNotifs[oldGuild.defaultMessageNotifications],
+			GUILD_LOG_GUILDUPDATE_DEFAULTMSGNOTIF_NEW: (guild) => this.defaultMsgNotifs[guild.defaultMessageNotifications],
 			GUILD_LOG_GUILDUPDATE_CONTENTFILTER: 'Explicit content filter level changed',
+			GUILD_LOG_GUILDUPDATE_CONTENTFILTER_OLD: (oldGuild) => this.filterLevels[oldGuild.explicitContentFilter],
+			GUILD_LOG_GUILDUPDATE_CONTENTFILTER_NEW: (guild) => this.filterLevels[guild.explicitContentFilter],
 			GUILD_LOG_GUILDUPDATE_ICON: 'Server icon changed',
+			GUILD_LOG_GUILDUPDATE_NAME: 'Server name changed',
 			GUILD_LOG_GUILDUPDATE_MFALEVEL: 'Server 2FA requirement toggled',
 			GUILD_LOG_GUILDUPDATE_OWNER: 'Ownership transferred',
 			GUILD_LOG_GUILDUPDATE_REGION: 'Region changed',
 			GUILD_LOG_GUILDUPDATE_SPLASH: 'Server invite background changed',
 			GUILD_LOG_GUILDUPDATE_VLEVEL: 'Verification level changed',
+			GUILD_LOG_GUILDUPDATE_VLEVEL_OLD: (oldGuild) => this.verificationLevels[oldGuild.verificationLevel],
+			GUILD_LOG_GUILDUPDATE_VLEVEL_NEW: (guild) => this.verificationLevels[guild.verificationLevel],
 			GUILD_LOG_GUILDUPDATE_SYSMSGS: 'System messages channel changed',
 			GUILD_LOG_GUILDUPDATE_SYSMSGS_NONE: 'No system messages',
 			GUILD_LOG_GUILDUPDATE_VANITYURL: 'Vanity URL changed',

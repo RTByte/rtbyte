@@ -8,25 +8,26 @@ module.exports = class extends Event {
 	constructor(...args) {
 		super(...args, { event: 'guildUpdate' });
 		this.regions = {
-			brazil: '🇧🇷 Brazil',
-			'vip-us-west': '🇺🇸 VIP US West',
-			'us-west': '🇺🇸 US West',
-			japan: '🇯🇵 Japan',
-			singapore: '🇸🇬 Singapore',
-			'eu-central': '🇪🇺 EU Central',
-			hongkong: '🇭🇰 Hong Kong',
-			'vip-amsterdam': '🇳🇱 VIP Amsterdam',
-			'us-south': '🇺🇸 US South',
-			southafrica: '🇿🇦 South Africa',
-			'vip-us-east': '🇺🇸 VIP US East',
-			'us-central': '🇺🇸 US Central',
-			london: '🇬🇧 London',
-			'us-east': '🇺🇸 US East',
-			sydney: '🇦🇺 Sydney',
-			'eu-west': '🇪🇺 EU West',
-			amsterdam: '🇳🇱 Amsterdam',
-			frankfurt: '🇩🇪 Frankfurt',
-			russia: '🇷🇺 Russia'
+			brazil: '🇧🇷 `Brazil`',
+			'vip-us-west': '🇺🇸 `VIP US West`',
+			'us-west': '🇺🇸 `US West`',
+			japan: '🇯🇵 `Japan`',
+			singapore: '🇸🇬 `Singapore`',
+			'eu-central': '🇪🇺 `EU Central`',
+			hongkong: '🇭🇰 `Hong Kong`',
+			'vip-amsterdam': '🇳🇱 `VIP Amsterdam`',
+			'us-south': '🇺🇸 `US South`',
+			southafrica: '🇿🇦 `South Africa`',
+			'vip-us-east': '🇺🇸 `VIP US East`',
+			'us-central': '🇺🇸 `US Central`',
+			london: '🇬🇧 `London`',
+			'us-east': '🇺🇸 `US East`',
+			sydney: '🇦🇺 `Sydney`',
+			'eu-west': '🇪🇺 `EU West`',
+			amsterdam: '🇳🇱 `Amsterdam`',
+			frankfurt: '🇩🇪 `Frankfurt`',
+			russia: '🇷🇺 `Russia`',
+			india: '🇮🇳 `India`'
 		};
 	}
 
@@ -49,8 +50,8 @@ module.exports = class extends Event {
 			true: affirmEmoji,
 			false: rejectEmoji
 		};
-		const oldVanityURL = `https://discord.gg/${oldGuild.vanityURLCode}/`;
-		const newVanityURL = `https://discord.gg/${guild.vanityURLCode}/`;
+		const oldVanityURL = `discord.gg/${oldGuild.vanityURLCode}`;
+		const newVanityURL = `discord.gg/${guild.vanityURLCode}`;
 
 		const embed = new MessageEmbed()
 			.setAuthor(guild.name, guild.iconURL())
@@ -60,23 +61,23 @@ module.exports = class extends Event {
 
 		// AFK channel changed
 		// eslint-disable-next-line max-len
-		if (oldGuild.afkChannel !== guild.afkChannel) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_AFKCHANNEL'), `${oldGuild.afkChannel ? oldGuild.afkChannel : 'No AFK Channel'} ${arrowRightEmoji} ${guild.afkChannel ? guild.afkChannel : 'No AFK Channel'}`);
+		if (oldGuild.afkChannel !== guild.afkChannel) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_AFKCHANNEL'), `\`${oldGuild.afkChannel ? oldGuild.afkChannel.name : guild.language.get('GUILD_LOG_GUILDUPDATE_AFKCHANNEL_NONE')}\` ${arrowRightEmoji} \`${guild.afkChannel ? guild.afkChannel.name : guild.language.get('GUILD_LOG_GUILDUPDATE_AFKCHANNEL_NONE')}\``);
 
 		// AFK timeout changed
 		// eslint-disable-next-line max-len
-		if (oldGuild.afkTimeout !== guild.afkTimeout) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_AFKTIMEOUT'), `${moment.duration(oldGuild.afkTimeout, 'seconds').humanize()} ${arrowRightEmoji} ${moment.duration(guild.afkTimeout, 'seconds').humanize()}`);
+		if (oldGuild.afkTimeout !== guild.afkTimeout) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_AFKTIMEOUT'), `\`${moment.duration(oldGuild.afkTimeout, 'seconds').humanize()}\` ${arrowRightEmoji} \`${moment.duration(guild.afkTimeout, 'seconds').humanize()}\``);
 
 		// Default notification settings changed
 		// eslint-disable-next-line max-len
-		if (oldGuild.defaultMessageNotifications !== guild.defaultMessageNotifications) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_DEFAULTMSGNOTIF'), `${this.defaultMsgNotif[oldGuild.defaultMessageNotifications]} ${arrowRightEmoji} ${this.defaultMsgNotif[guild.defaultMessageNotifications]}`);
+		if (oldGuild.defaultMessageNotifications !== guild.defaultMessageNotifications) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_DEFAULTMSGNOTIF'), `\`${guild.language.get('GUILD_LOG_GUILDUPDATE_DEFAULTMSGNOTIF_OLD', oldGuild)}\` ${arrowRightEmoji} \`${guild.language.get('GUILD_LOG_GUILDUPDATE_DEFAULTMSGNOTIF_NEW', guild)}\``);
 
 		// Explicit content filter level changed
 		// eslint-disable-next-line max-len
-		if (oldGuild.explicitContentFilter !== guild.explicitContentFilter) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_CONTENTFILTER'), `${this.filterLevels[oldGuild.explicitContentFilter]} ${arrowRightEmoji} ${this.filterLevels[guild.explicitContentFilter]}`);
+		if (oldGuild.explicitContentFilter !== guild.explicitContentFilter) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_CONTENTFILTER'), `\`${guild.language.get('GUILD_LOG_GUILDUPDATE_CONTENTFILTER_OLD', oldGuild)}\` ${arrowRightEmoji} \`${guild.language.get('GUILD_LOG_GUILDUPDATE_CONTENTFILTER_NEW', guild)}\``);
 
 		// Verification level changed
 		// eslint-disable-next-line max-len
-		if (oldGuild.verificationLevel !== guild.verificationLevel) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_VLEVEL'), `${this.verificationLevels[oldGuild.verificationLevel]} ${arrowRightEmoji} ${this.verificationLevels[guild.verificationLevel]}`);
+		if (oldGuild.verificationLevel !== guild.verificationLevel) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_VLEVEL'), `\`${guild.language.get('GUILD_LOG_GUILDUPDATE_VLEVEL_OLD', oldGuild)}\` ${arrowRightEmoji} \`${guild.language.get('GUILD_LOG_GUILDUPDATE_VLEVEL_NEW', guild)}\``);
 
 		// Icon changed
 		if (oldGuild.iconURL() !== guild.iconURL()) await embed.setTitle(guild.language.get('GUILD_LOG_GUILDUPDATE_ICON'));
@@ -85,32 +86,32 @@ module.exports = class extends Event {
 		if (oldGuild.mfaLevel !== guild.mfaLevel) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_MFALEVEL'), arrayStatus[guild.mfaLevel]);
 
 		// Name changed
-		if (oldGuild.name !== guild.name) await embed.addField(guild.language.get('PREVNAME'), oldGuild.name);
+		if (oldGuild.name !== guild.name) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_NAME'), `\`${oldGuild.name}\` ${arrowRightEmoji} \`${guild.name}\``);
 
 		// Ownership transferred
-		if (oldGuild.owner !== guild.owner) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_OWNER'), `${oldGuild.owner} ${arrowRightEmoji} ${guild.owner}`);
+		if (oldGuild.owner !== guild.owner) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_OWNER'), `\`${oldGuild.owner}\` ${arrowRightEmoji} \`${guild.owner}\``);
 
 		// Region changed
+		// eslint-disable-next-line max-len
 		if (oldGuild.region !== guild.region) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_REGION'), `${this.regions[oldGuild.region]} ${arrowRightEmoji} ${this.regions[guild.region]}`);
 
 		// System messages channel changed
 		// eslint-disable-next-line max-len
-		if (oldGuild.systemChannel !== guild.systemChannel) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_SYSMSGS'), `${oldGuild.systemChannel || guild.language.get('GUILD_LOG_GUILDUPDATE_SYSMSGS_NONE')} ${arrowRightEmoji} ${guild.systemChannel || guild.language.get('GUILD_LOG_GUILDUPDATE_SYSMSGS_NONE')}`);
+		if (oldGuild.systemChannel !== guild.systemChannel) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_SYSMSGS'), `\`${oldGuild.systemChannel ? oldGuild.systemChannel.name : guild.language.get('GUILD_LOG_GUILDUPDATE_SYSMSGS_NONE')}\` ${arrowRightEmoji} \`${guild.systemChannel ? guild.systemChannel.name : guild.language.get('GUILD_LOG_GUILDUPDATE_SYSMSGS_NONE')}\``);
 
 		// Vanity URL changed
 		// eslint-disable-next-line max-len
-		if (oldGuild.vanityURLCode !== guild.vanityURLCode) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_VANITYURL'), `${oldGuild.vanityURLCode ? oldVanityURL : guild.language.get('GUILD_LOG_GUILDUPDATE_VANITYURL_NONE')} ${arrowRightEmoji} ${guild.vanityURLCode ? newVanityURL : guild.language.get('GUILD_LOG_GUILDUPDATE_VANITYURL_NONE')}`);
+		if (oldGuild.vanityURLCode !== guild.vanityURLCode) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_VANITYURL'), `\`${oldGuild.vanityURLCode ? oldVanityURL : guild.language.get('GUILD_LOG_GUILDUPDATE_VANITYURL_NONE')}\` ${arrowRightEmoji} \`${guild.vanityURLCode ? newVanityURL : guild.language.get('GUILD_LOG_GUILDUPDATE_VANITYURL_NONE')}\``);
 
 		// Guild description changed
 		// eslint-disable-next-line max-len
-		if (oldGuild.description !== guild.description) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_DESCRIPTION'), `${oldGuild.description || guild.language.get('GUILD_LOG_GUILDUPDATE_DESCRIPTION_NONE')} ${arrowRightEmoji} ${guild.description || guild.language.get('GUILD_LOG_GUILDUPDATE_DESCRIPTION_NONE')}`);
+		if (oldGuild.description !== guild.description) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_DESCRIPTION'), `\`${oldGuild.description || guild.language.get('GUILD_LOG_GUILDUPDATE_DESCRIPTION_NONE')}\` ${arrowRightEmoji} \`${guild.description || guild.language.get('GUILD_LOG_GUILDUPDATE_DESCRIPTION_NONE')}\``);
 
 		// Widget channel changed
 		// eslint-disable-next-line max-len
-		if (oldGuild.widgetChannel !== guild.widgetChannel) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_WIDGETCHANNEL'), `${oldGuild.widgetChannel || guild.language.get('GUILD_LOG_GUILDUPDATE_WIDGETCHANNEL_NONE')} ${arrowRightEmoji} ${guild.widgetChannel || guild.language.get('GUILD_LOG_GUILDUPDATE_WIDGETCHANNEL_NONE')}`);
+		if (oldGuild.widgetChannel !== guild.widgetChannel) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_WIDGETCHANNEL'), `\`${oldGuild.widgetChannel ? oldGuild.widgetChannel.name : guild.language.get('GUILD_LOG_GUILDUPDATE_WIDGETCHANNEL_NONE')}\` ${arrowRightEmoji} \`${guild.widgetChannel ? guild.widgetChannel.name : guild.language.get('GUILD_LOG_GUILDUPDATE_WIDGETCHANNEL_NONE')}\``);
 
 		// Server widget toggled
-		// NSFW toggled
 		if (oldGuild.widgetEnabled !== guild.widgetEnabled) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_WIDGET'), booleanStatus[guild.widgetEnabled]);
 
 		// Splash image changed
