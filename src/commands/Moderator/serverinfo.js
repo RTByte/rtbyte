@@ -33,7 +33,8 @@ module.exports = class extends Command {
 			'eu-west': '🇪🇺 EU West',
 			amsterdam: '🇳🇱 Amsterdam',
 			frankfurt: '🇩🇪 Frankfurt',
-			russia: '🇷🇺 Russia'
+			russia: '🇷🇺 Russia',
+			india: '🇮🇳 India'
 		};
 	}
 
