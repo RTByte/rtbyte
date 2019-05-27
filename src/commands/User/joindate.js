@@ -15,11 +15,16 @@ module.exports = class extends Command {
 	}
 
 	async run(msg, [member = msg.member]) {
+		const joinPosition = await msg.guild.members.array().sort((first, last) => first.joinedTimestamp - last.joinedTimestamp);
+
+		const position = joinPosition.indexOf(member) + 1;
+
 		const embed = new MessageEmbed()
 			.setAuthor(member.user.tag, member.user.displayAvatarURL())
 			.setColor(this.client.settings.colors.white)
-			.addField(msg.language.get('REGISTERED'), this.timestamp.displayUTC(member.user.createdAt))
-			.addField(msg.language.get('JOINED'), this.timestamp.displayUTC(member.joinedTimestamp));
+			.addField(msg.language.get('JOIN_POS'), position)
+			.addField(msg.language.get('JOINED'), this.timestamp.displayUTC(member.joinedTimestamp), true)
+			.addField(msg.language.get('REGISTERED'), this.timestamp.displayUTC(member.user.createdAt), true);
 
 		return msg.send('', { disableEveryone: true, embed: embed });
 	}

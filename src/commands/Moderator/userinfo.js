@@ -30,12 +30,17 @@ module.exports = class extends Command {
 
 		const roles = await member.roles.filter(role => role.name !== '@everyone').sort().array();
 
+		const joinPosition = await msg.guild.members.array().sort((first, last) => first.joinedTimestamp - last.joinedTimestamp);
+
+		const position = joinPosition.indexOf(member) + 1;
+
 		const embed = new MessageEmbed()
 			.setColor(this.client.settings.colors.white)
 			.addField(msg.guild.language.get('NAME'), member.user.tag, true)
 			.addField(msg.guild.language.get('ID'), member.id, true)
-			.addField(msg.guild.language.get('REGISTERED'), this.timestamp.displayUTC(member.user.createdAt), true)
+			.addField(msg.language.get('JOIN_POS'), position)
 			.addField(msg.guild.language.get('JOINED'), this.timestamp.displayUTC(member.joinedTimestamp), true)
+			.addField(msg.guild.language.get('REGISTERED'), this.timestamp.displayUTC(member.user.createdAt), true)
 			.addField(msg.guild.language.get('COMMAND_USERINFO_STATUS'), statuses[member.user.presence.status], true)
 			.setThumbnail(member.user.displayAvatarURL())
 			.setTimestamp()
