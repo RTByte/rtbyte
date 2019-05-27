@@ -1,5 +1,6 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license. Modified by Michael Cumbers & Rasmus Gerdin for use in RTByte.
 const { Command, RichDisplay } = require('klasa');
+const { MessageEmbed } = require('discord.js');
 const { ModCase } = require('../../index');
 
 const timeout = 1000 * 60 * 3;
@@ -37,7 +38,13 @@ module.exports = class extends Command {
 		if (previousHandler) previousHandler.stop();
 		const caseEmbedArray = await this.buildEmbedArray(msg, target);
 
-		const handler = await (await this.buildDisplay(caseEmbedArray)).run(await msg.send(msg.language.get('COMMAND_MODHISTORY_LOADING')), {
+		const loadingEmbed = new MessageEmbed()
+			.setTitle(msg.language.get('COMMAND_MODHISTORY_LOADING'))
+			.setColor(this.client.settings.colors.white)
+			.setThumbnail(target.user.displayAvatarURL(), 50, 50)
+			.setTimestamp();
+
+		const handler = await (await this.buildDisplay(caseEmbedArray)).run(await msg.send('', { disableEveryone: true, embed: loadingEmbed }), {
 			filter: (reaction, user) => user.id === msg.author.id,
 			timeout
 		});

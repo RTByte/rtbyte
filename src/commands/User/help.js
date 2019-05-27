@@ -45,7 +45,14 @@ module.exports = class extends Command {
 			const previousHandler = this.handlers.get(msg.author.id);
 			if (previousHandler) previousHandler.stop();
 
-			const handler = await (await this.buildDisplay(msg)).run(await msg.send('Loading commands...'), {
+			const loadingEmbed = new MessageEmbed()
+				.setAuthor(msg.language.get('COMMAND_HELP_EMBEDTITLE'), this.client.user.displayAvatarURL())
+				.setDescription(msg.language.get('COMMAND_HELP_LOADING'))
+				.setColor(this.client.settings.colors.white)
+				.setThumbnail(this.client.user.displayAvatarURL(), 50, 50)
+				.setTimestamp();
+
+			const handler = await (await this.buildDisplay(msg)).run(await msg.send('', { disableEveryone: true, embed: loadingEmbed }), {
 				filter: (reaction, user) => user.id === msg.author.id,
 				time
 			});
@@ -107,7 +114,7 @@ module.exports = class extends Command {
 
 	formatCommand(msg, prefix, richDisplay, command) {
 		const description = isFunction(command.description) ? command.description(msg.language) : command.description;
-		return richDisplay ? `• **${prefix}${command.name}:** ${description}` : `• **${prefix}${command.name}:** ${description}`;
+		return richDisplay ? `• **${command.name}:** ${description}` : `• **${prefix}${command.name}:** ${description}`;
 	}
 
 	async _fetchCommands(msg) {
