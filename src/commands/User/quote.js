@@ -11,7 +11,7 @@ module.exports = class extends Command {
 			usage: '<messageID:string> [origin:channel]',
 			usageDelim: ' '
 		});
-		this.timestamp = new Timestamp('d MMMM YYYY @ h:mm A');
+		this.timestamp = new Timestamp('YYYY-MM-DD, h:mm A');
 		this.customizeResponse('messageID', message =>
 			message.language.get('COMMAND_QUOTE_NOPARAM'));
 	}
@@ -20,7 +20,6 @@ module.exports = class extends Command {
 		const qmsg = await origin.messages.fetch(messageID).catch(err => err.message === 'Unknown Message' ? null : msg.reject(err));
 		if (!qmsg) return msg.reject(msg.guild.language.get('COMMAND_QUOTE_NO_MESSAGE_FOUND', messageID, origin));
 
-		await msg.affirm();
 		return await this.sendQuote(msg, qmsg);
 	}
 
@@ -28,8 +27,8 @@ module.exports = class extends Command {
 		const embed = new MessageEmbed()
 			.setAuthor(qmsg.author.tag, qmsg.author.displayAvatarURL())
 			.setColor(this.client.settings.colors.white)
-			.addField('Message:', `${qmsg.content}`, true)
-			.setFooter(`Originally sent on ${this.timestamp.displayUTC(qmsg.createdAt)} in #${qmsg.channel.name} on the ${qmsg.guild.name} Discord`);
+			.addField(msg.guild.language.get('MESSAGE'), `${qmsg.content}`, true)
+			.setFooter(`${this.timestamp.displayUTC(qmsg.createdAt)} ${msg.guild.language.get('COMMAND_QUOTE_CHANNEL', qmsg)}`);
 
 		return msg.send('', { disableEveryone: true, embed: embed });
 	}

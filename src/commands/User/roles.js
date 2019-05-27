@@ -10,7 +10,7 @@ module.exports = class extends Command {
 			aliases: ['roleme', 'team', 'squad'],
 			description: language => language.get('COMMAND_ROLES_DESCRIPTION'),
 			extendedHelp: language => language.get('COMMAND_ROLES_EXTENDED'),
-			usage: '<list|add|remove|join|leave> [target:member] [roleName:string] [...]',
+			usage: '<list|add|remove|join|leave> [target:member] [roleName:...string]',
 			usageDelim: ' ',
 			subcommands: true
 		});

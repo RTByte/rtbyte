@@ -52,6 +52,7 @@ module.exports = class extends Language {
 			CHANNELS: 'Channels',
 			EMOJIS: 'Emojis',
 			ROLES: 'Roles',
+			JOIN_POS: 'Join position',
 			REGISTERED: 'Registered',
 			JOINED: 'Joined',
 			REASON: 'Reason',
@@ -67,6 +68,7 @@ module.exports = class extends Language {
 			UNLIMITED: 'Unlimited',
 			USERS: 'Users',
 			USERS_SMALL: 'users',
+			MESSAGE: 'Message',
 
 
 			// Setting gateway langs
@@ -210,6 +212,7 @@ module.exports = class extends Language {
 			COMMAND_INFO_DESCRIPTION: 'Provides some information about this bot.',
 			COMMAND_HELP_DESCRIPTION: 'Display help for a command.',
 			COMMAND_HELP_EMBEDTITLE: () => `${this.client.user.username} Help`,
+			COMMAND_HELP_LOADING: 'Loading commands...',
 			COMMAND_HELP_NO_EXTENDED: 'No extended help available.',
 			COMMAND_HELP_DM: 'The list of commands you have access to has been sent to your DMs.',
 			COMMAND_HELP_NODM: 'You have DMs disabled, I couldn\'t send you the commands in DMs.',
@@ -325,8 +328,9 @@ module.exports = class extends Language {
 			// eslint-disable-next-line max-len
 			COMMAND_QUOTE_NOPARAM: 'Please specify a message ID for the message you would like to quote.\nMessage IDs can be found by right clicking a message after having turned *Developer Mode* on under **Appearance** in your settings.',
 			COMMAND_QUOTE_NO_MESSAGE_FOUND: (messageID, origin) => `Could not find a message with ID of \`${messageID}\` in ${origin}`,
+			COMMAND_QUOTE_CHANNEL: (qmsg) => `in #${qmsg.channel.name}`,
 			COMMAND_ROLES_DESCRIPTION: 'Series of commands to allow you to join roles by yourself.',
-			COMMAND_ROLES_EXTENDED: 'list - Lists joinable roles and ther member counts. :: add - Adds a role by its name. :: remove - Removes a role by its name.',
+			COMMAND_ROLES_EXTENDED: '**list** - Lists joinable roles and their member counts.\n**add** - Adds a role by its name.\n**remove** - Removes a role by its name.',
 			COMMAND_ROLES_NONE_JOINABLE: 'There are no joinable roles on this server.',
 			COMMAND_ROLES_NO_ROLE_NAME: 'Please specify a role by its name.',
 			COMMAND_ROLES_NO_MODERATE: 'You don\'t have permission to change the roles of other users.',
@@ -346,7 +350,6 @@ module.exports = class extends Language {
 
 
 			// Guild log langs
-			GUILD_LOG_MESSAGE: 'Message',
 			GUILD_LOG_BEFORE: 'Before',
 			GUILD_LOG_AFTER: 'After',
 			GUILD_LOG_EMOJI: 'Emoji',
@@ -444,6 +447,7 @@ module.exports = class extends Language {
 			MODERATION_LOG_VCBAN: 'User banned from voice chat',
 			MODERATION_LOG_VCUNBAN: 'User unbanned from voice chat',
 			MODERATION_LOG_VCKICK: 'User kicked from voice chat',
+			MODERATION_LOG_WARN: 'Warning issued',
 			MODERATION_LOG_ANTIINVITE: 'Invite deleted',
 			MODERATION_LOG_MENTIONSPAM: 'User banned for mention spam',
 			MODERATION_LOG_BLACKLISTEDWORD: 'Blacklisted word detected',
