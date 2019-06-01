@@ -56,7 +56,8 @@ module.exports = class extends Event {
 			.setTimestamp()
 			.setFooter(member.guild.language.get('GUILD_LOG_MEMBERUPDATE'));
 
-		if (oldMember.displayName !== member.displayName) await embed.addField(member.guild.language.get('GUILD_LOG_MEMBERUPDATE_DISPLAYNAME'), `${oldMember.displayName} ${arrowRightEmoji} ${member.displayName}`); // eslint-disable-line
+		// eslint-disable-next-line max-len
+		if (oldMember.displayName !== member.displayName) await embed.addField(member.guild.language.get('GUILD_LOG_MEMBERUPDATE_DISPLAYNAME'), `\`${oldMember.displayName}\` ${arrowRightEmoji} \`${member.displayName}\``);
 		if (oldActualRoles !== newActualRoles) {
 			await embed.addField(member.guild.language.get('GUILD_LOG_BEFORE'), oldActualRoles.length < 1 ? oldMember.roles.map(roles => `${roles}`).join(', ') : oldActualRoles);
 			await embed.addField(member.guild.language.get('GUILD_LOG_AFTER'), newActualRoles.length > 1 ? newActualRoles : member.roles.map(roles => `${roles}`).join(', '));
@@ -70,10 +71,12 @@ module.exports = class extends Event {
 	}
 
 	async autoSelener(member) {
-		const words = member.displayName.split(' ');
+		if (!member.manageable) return;
+
+		const name = member.displayName;
 
 		const wordBlacklist = this.client.monitors.get('wordBlacklist');
-		if (!await wordBlacklist.cycleWords(words, member.guild.settings.filters.words)) return;
+		if (!await wordBlacklist.checkMessage(name, member.guild.settings.filters.words)) return;
 
 		const oldName = member.displayName;
 		await member.setNickname(alternateNames[`${Math.floor(Math.random() * alternateNames.length)}`]);
