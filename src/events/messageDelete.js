@@ -25,7 +25,7 @@ module.exports = class extends Event {
 			.setTimestamp()
 			.setFooter(msg.author.tag, msg.author.displayAvatarURL());
 
-		if (msg.content) await embed.addField(msg.guild.language.get('GUILD_LOG_MESSAGEDELETE'), msg.cleanContent);
+		if (msg.content) await embed.addField(msg.guild.language.get('GUILD_LOG_MESSAGEDELETE'), `\`${msg.cleanContent}\``);
 		if (!msg.content) await embed.setTitle(msg.guild.language.get('GUILD_LOG_MESSAGEDELETE'));
 		if (msg.attachments.size > 0) {
 			attachment = msg.attachments.map(atch => atch.url).join(' ');
