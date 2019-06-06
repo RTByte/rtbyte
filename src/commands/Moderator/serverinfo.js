@@ -53,7 +53,7 @@ module.exports = class extends Command {
 			.addField(msg.guild.language.get('MEMBERS'), msg.guild.memberCount, true)
 			.addField(msg.guild.language.get('ROLES'), msg.guild.roles.size, true)
 			.addField(msg.guild.language.get('CHANNELS'), msg.guild.channels.size, true)
-			.addField(msg.guild.language.get('EMOJIS'), `${emojis.length}/100`, true)
+			.addField(msg.guild.language.get('EMOJIS'), msg.guild.emojis.size, true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_VLEVEL'), msg.guild.language.get('COMMAND_SERVERINFO_VLEVEL_LEVELS', msg.guild), true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_ECFILTER'), msg.guild.language.get('COMMAND_SERVERINFO_ECFILTER_LEVELS', msg.guild), true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_CREATED'), this.timestamp.displayUTC(msg.guild.createdAt), true)
@@ -61,6 +61,14 @@ module.exports = class extends Command {
 			.setImage(msg.guild.splashURL())
 			.setTimestamp()
 			.setFooter(msg.language.get('COMMAND_REQUESTED_BY', msg), msg.author.displayAvatarURL());
+
+		if (msg.guild.premiumTier === 0) {
+			embed.addField(msg.guild.language.get('COMMAND_SERVERINFO_NITROTIER'), msg.guild.language.get('COMMAND_SERVERINFO_NITROTIER_LEVELS', msg.guild), true);
+		}
+
+		if (msg.guild.premiumSubscriptionCount === 0) {
+			embed.addField(msg.guild.language.get('COMMAND_SERVERINFO_NITROAMOUNT'), msg.guild.premiumSubscriptionCount, true);
+		}
 
 		if (!msg.guild.settings.logs.verboseLogging) return msg.channel.send('', { disableEveryone: true, embed: embed });
 

@@ -34,6 +34,7 @@ module.exports = class extends Event {
 	async run(oldGuild, guild) {
 		if (this.client.settings.logs.guildCreate) await this.globalGuildUpdateLog(oldGuild, guild);
 		if (guild.available && guild.settings.logs.events.guildUpdate) await this.guildUpdateLog(oldGuild, guild);
+		if (oldGuild.premiumTier !== guild.premiumTier) await this.nitroLevel(guild);
 
 		return;
 	}
@@ -53,6 +54,7 @@ module.exports = class extends Event {
 		const oldVanityURL = `discord.gg/${oldGuild.vanityURLCode}`;
 		const newVanityURL = `discord.gg/${guild.vanityURLCode}`;
 
+		// Base embed
 		const embed = new MessageEmbed()
 			.setAuthor(guild.name, guild.iconURL())
 			.setColor(this.client.settings.colors.blue)
@@ -122,6 +124,20 @@ module.exports = class extends Event {
 
 		const logChannel = await this.client.channels.get(guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });
+		return;
+	}
+
+	async nitroLevel(guild) {
+		// Nitro boost embed
+		const nitroEmbed = new MessageEmbed()
+			.setAuthor(guild.name, guild.iconURL())
+			.setColor(this.client.settings.colors.pink)
+			.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_NITROLEVEL_TITLES', guild), guild.language.get('GUILD_LOG_GUILDUPDATE_NITROLEVEL_DETAILS', guild))
+			.setTimestamp()
+			.setFooter(guild.language.get('GUILD_LOG_GUILDUPDATE_NITROLEVEL'));
+
+		const logChannel = await this.client.channels.get(guild.settings.channels.log);
+		await logChannel.send('', { disableEveryone: true, embed: nitroEmbed });
 		return;
 	}
 

@@ -35,7 +35,7 @@ module.exports = class extends Command {
 		const position = joinPosition.indexOf(member) + 1;
 
 		const embed = new MessageEmbed()
-			.setColor(this.client.settings.colors.white)
+			.setColor(!member.premiumSince ? this.client.settings.colors.white : this.client.settings.colors.pink)
 			.addField(msg.guild.language.get('NAME'), member.user.tag, true)
 			.addField(msg.guild.language.get('ID'), member.id, true)
 			.addField(msg.language.get('JOIN_POS'), position)
@@ -48,6 +48,10 @@ module.exports = class extends Command {
 
 		if (member.user.presence.activity) {
 			await embed.addField(msg.guild.language.get('COMMAND_USERINFO_ACTIVITY', member), member.user.presence.activity ? member.user.presence.activity.name : 'N/A', true);
+		}
+
+		if (member.premiumSince) {
+			await embed.addField(msg.guild.language.get('COMMAND_USERINFO_NITROBOOST'), this.timestamp.displayUTC(member.premiumSince), true);
 		}
 
 		if (roles.length) await embedSplitter(msg.guild.language.get('ROLES'), roles, embed);

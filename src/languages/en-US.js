@@ -33,6 +33,18 @@ module.exports = class extends Language {
 			'On for unroled users',
 			'On for everyone'
 		];
+		this.nitroTierTitles = [
+			'No levels achieved yet',
+			'Level 1 (2 boosts)',
+			'Level 2 (10 boosts)',
+			'Level 3 (50 boosts)'
+		]
+		this.nitroTierDetails = [
+			'No levels achieved yet',
+			'• +50 server emoji slots (for a total of 100)\n• 128 Kbps audio quality\n• Animated server icon\n• Custom server invite splash background',
+			'• +50 server emoji slots (for a total of 150)\n• 256 Kbps audio quality\n• Server banner\n• 50 MB upload limit for all members',
+			'• +100 server emoji slots (for a total of 250)\n• 384 Kbps audio quality\n• Vanity URL for the server\n• 100 MB upload limit for all members'
+		]
 		this.language = {
 
 			// Default langs
@@ -279,6 +291,9 @@ module.exports = class extends Language {
 			COMMAND_SERVERINFO_ECFILTER: 'Explicit content filter',
 			COMMAND_SERVERINFO_ECFILTER_LEVELS: (guild) => `${this.filterLevels[guild.explicitContentFilter]}`,
 			COMMAND_SERVERINFO_CREATED: 'Created',
+			COMMAND_SERVERINFO_NITROTIER: 'Nitro boost level',
+			COMMAND_SERVERINFO_NITROTIER_LEVELS: (guild) => `${this.nitroTierTitles[guild.premiumTier]}`,
+			COMMAND_SERVERINFO_NITROAMOUNT: 'Nitro boosters',
 			COMMAND_SOFTBAN_DESCRIPTION: 'Softbans a mentioned user and logs the reason.',
 			COMMAND_SOFTBAN_NOPARAM_MEMBER: 'Please mention the user you would like to softban.',
 			COMMAND_SOFTBAN_NO_SOFTBAN_SELF: 'You cannot softban yourself.',
@@ -293,6 +308,7 @@ module.exports = class extends Language {
 			COMMAND_USERINFO_DESCRIPTION: 'Get information on a mentioned user.',
 			COMMAND_USERINFO_STATUS: 'Status',
 			COMMAND_USERINFO_ACTIVITY: (user) => `${this.presenceTypes[user.presence.activity.type]}`,
+			COMMAND_USERINFO_NITROBOOST: 'Nitro boosting since',
 			COMMAND_VCBAN_DESCRIPTION: 'Bans a mentioned user from voice chat and logs the reason.',
 			COMMAND_VCBAN_NOPARAM_MEMBER: 'Please mention the user you would like to ban from voice chat.',
 			COMMAND_VCBAN_NO_VCBAN_SELF: 'You cannot ban yourself from voice chat.',
@@ -413,6 +429,9 @@ module.exports = class extends Language {
 			GUILD_LOG_GUILDUPDATE_WIDGET: 'Server widget toggled',
 			GUILD_LOG_GUILDUPDATE_WIDGETCHANNEL: 'Server widget invite channel changed',
 			GUILD_LOG_GUILDUPDATE_WIDGETCHANNEL_NONE: 'No server widget invite channel',
+			GUILD_LOG_GUILDUPDATE_NITROLEVEL: 'Nitro boost level updated',
+			GUILD_LOG_GUILDUPDATE_NITROLEVEL_TITLES: (guild) => `${this.nitroTierTitles[guild.premiumTier]}`,
+			GUILD_LOG_GUILDUPDATE_NITROLEVEL_DETAILS: (guild) => `${this.nitroTierDetails[guild.premiumTier]}`,
 			GUILD_LOG_GUILDBANADD_TIMED: (when) => `User banned for ${moment.duration(moment().diff(when)).humanize()}`,
 			GUILD_LOG_GUILDBANREMOVE: 'User unbanned',
 			GUILD_LOG_GUILDMEMBERADD: 'User joined',
@@ -420,6 +439,7 @@ module.exports = class extends Language {
 			GUILD_LOG_GUILDMEMBERUNMUTE: 'User unmuted',
 			GUILD_LOG_MEMBERUPDATE: 'User updated',
 			GUILD_LOG_MEMBERUPDATE_DISPLAYNAME: 'Display name changed',
+			GUILD_LOG_MEMBERUPDATE_NITROBOOST: 'User Nitro-boosted server',
 			GUILD_LOG_BLACKLISTEDWORD: (channel) => `Blacklisted word detected in ${channel}.`,
 			GUILD_LOG_MENTIONSPAM: 'Mention spam filter triggered',
 

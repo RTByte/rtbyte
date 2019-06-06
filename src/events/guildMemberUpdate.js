@@ -27,11 +27,15 @@ module.exports = class extends Event {
 
 	async run(oldMember, member) {
 		if (member.guild.available && member.guild.settings.logs.events.guildMemberUpdate) await this.memberUpdateLog(oldMember, member);
+		if (oldMember.premiumSince !== member.premiumSince) await this.nitroBoost(member);
 		if (member.guild.settings.filters.checkDisplayNames) await this.autoSelener(member);
 		return;
 	}
 
 	async memberUpdateLog(oldMember, member) {
+		const arrowRightEmoji = this.client.emojis.get(this.client.settings.emoji.arrowRight);
+
+		// Filter the user's roles and remove the @everyone role
 		const oldRoleCollection = oldMember.roles.reduce((userRoles, roles) => {
 			if (!roles.name.includes('everyone')) {
 				userRoles.push(roles);
@@ -45,28 +49,45 @@ module.exports = class extends Event {
 			return userRoles;
 		}, []);
 
+		// Map the filtered roles
 		const oldActualRoles = oldRoleCollection.map(userRoles => `${userRoles}`).join(', ');
 		const newActualRoles = newRoleCollection.map(userRoles => `${userRoles}`).join(', ');
 
-		const arrowRightEmoji = this.client.emojis.get(this.client.settings.emoji.arrowRight);
-
+		// Base embed
 		const embed = new MessageEmbed()
 			.setAuthor(`${member.displayName} (${member.user.tag}) `, member.user.displayAvatarURL())
 			.setColor(this.client.settings.colors.blue)
 			.setTimestamp()
 			.setFooter(member.guild.language.get('GUILD_LOG_MEMBERUPDATE'));
 
+		// User display name changed
 		// eslint-disable-next-line max-len
 		if (oldMember.displayName !== member.displayName) await embed.addField(member.guild.language.get('GUILD_LOG_MEMBERUPDATE_DISPLAYNAME'), `\`${oldMember.displayName}\` ${arrowRightEmoji} \`${member.displayName}\``);
+
+		// User roles changed
 		if (oldActualRoles !== newActualRoles) {
 			await embed.addField(member.guild.language.get('GUILD_LOG_BEFORE'), oldActualRoles.length < 1 ? oldMember.roles.map(roles => `${roles}`).join(', ') : oldActualRoles);
 			await embed.addField(member.guild.language.get('GUILD_LOG_AFTER'), newActualRoles.length > 1 ? newActualRoles : member.roles.map(roles => `${roles}`).join(', '));
 		}
 
+		// Return nothing if no fields are populated
 		if (!embed.fields.length) return;
 
 		const logChannel = await this.client.channels.get(member.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });
+		return;
+	}
+
+	async nitroBoost(member) {
+		// Nitro boost embed
+		const nitroBoost = new MessageEmbed()
+			.setAuthor(`${member.displayName} (${member.user.tag}) `, member.user.displayAvatarURL())
+			.setColor(this.client.settings.colors.pink)
+			.setTimestamp()
+			.setFooter(member.guild.language.get('GUILD_LOG_MEMBERUPDATE_NITROBOOST'));
+
+		const logChannel = await this.client.channels.get(member.guild.settings.channels.log);
+		await logChannel.send('', { disableEveryone: true, embed: nitroBoost });
 		return;
 	}
 
