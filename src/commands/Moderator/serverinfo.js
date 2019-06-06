@@ -62,11 +62,11 @@ module.exports = class extends Command {
 			.setTimestamp()
 			.setFooter(msg.language.get('COMMAND_REQUESTED_BY', msg), msg.author.displayAvatarURL());
 
-		if (msg.guild.premiumTier === 0) {
+		if (msg.guild.premiumTier > 0) {
 			embed.addField(msg.guild.language.get('COMMAND_SERVERINFO_NITROTIER'), msg.guild.language.get('COMMAND_SERVERINFO_NITROTIER_LEVELS', msg.guild), true);
 		}
 
-		if (msg.guild.premiumSubscriptionCount === 0) {
+		if (msg.guild.premiumSubscriptionCount > 0) {
 			embed.addField(msg.guild.language.get('COMMAND_SERVERINFO_NITROAMOUNT'), msg.guild.premiumSubscriptionCount, true);
 		}
 
