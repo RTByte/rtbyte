@@ -122,6 +122,12 @@ module.exports = class extends Event {
 			await embed.setImage(guild.splashURL);
 		}
 
+		// Banner image changed
+		if (oldGuild.bannerURL !== guild.bannerURL) {
+			await embed.setTitle(guild.language.get('GUILD_LOG_GUILDUPDATE_BANNER'));
+			await embed.setImage(guild.bannerURL);
+		}
+
 		const logChannel = await this.client.channels.get(guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		return;
