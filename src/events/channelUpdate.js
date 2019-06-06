@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 const { Event } = require('klasa');
 const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
@@ -38,6 +39,24 @@ module.exports = class extends Event {
 		if (channel.type === 'voice') {
 			await embed.setAuthor(channel.name, channel.guild.iconURL());
 			await embed.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_VOICE'));
+		}
+
+		// Change author and footer fields if channel is category
+		if (channel.type === 'category') {
+			await embed.setAuthor(channel.name, channel.guild.iconURL());
+			await embed.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_CATEGORY'));
+		}
+
+		// Change author and footer fields if channel is news channel
+		if (channel.type === 'news') {
+			await embed.setAuthor(channel.name, channel.guild.iconURL());
+			await embed.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_NEWS'));
+		}
+
+		// Change author and footer fields if channel is news channel
+		if (channel.type === 'store') {
+			await embed.setAuthor(channel.name, channel.guild.iconURL());
+			await embed.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_STORE'));
 		}
 
 		// Name changed

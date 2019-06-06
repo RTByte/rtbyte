@@ -21,7 +21,30 @@ module.exports = class extends Event {
 			.setTimestamp()
 			.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELDELETE'));
 
-		if (channel.type === 'voice') embed.setAuthor(channel.name, channel.guild.iconURL()).setFooter(channel.guild.language.get('GUILD_LOG_CHANNELDELETE_VOICE'));
+		// Change author and footer fields if channel is voice channel
+		if (channel.type === 'voice') {
+			embed.setAuthor(channel.name, channel.guild.iconURL());
+			embed.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELDELETE_VOICE'));
+		}
+
+		// Change author and footer fields if channel is category
+		if (channel.type === 'category') {
+			embed.setAuthor(channel.name, channel.guild.iconURL());
+			embed.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELDELETE_CATEGORY'));
+		}
+
+		// Change author and footer fields if channel is news channel
+		if (channel.type === 'news') {
+			embed.setAuthor(channel.name, channel.guild.iconURL());
+			embed.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELDELETE_NEWS'));
+		}
+
+		// Change author and footer fields if channel is store channel
+		if (channel.type === 'store') {
+			embed.setAuthor(channel.name, channel.guild.iconURL());
+			embed.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELDELETE_STORE'));
+		}
+
 		if (channel.guild.settings.logs.verboseLogging) {
 			embed.addField(channel.guild.language.get('ID'), channel.id);
 			embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELCREATE_V_PARENT'), channel.parent);
