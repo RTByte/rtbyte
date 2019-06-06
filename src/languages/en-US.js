@@ -417,6 +417,7 @@ module.exports = class extends Language {
 			GUILD_LOG_GUILDUPDATE_OWNER: 'Ownership transferred',
 			GUILD_LOG_GUILDUPDATE_REGION: 'Region changed',
 			GUILD_LOG_GUILDUPDATE_SPLASH: 'Server invite background changed',
+			GUILD_LOG_GUILDUPDATE_BANNER: 'Server banner changed',
 			GUILD_LOG_GUILDUPDATE_VLEVEL: 'Verification level changed',
 			GUILD_LOG_GUILDUPDATE_VLEVEL_OLD: (oldGuild) => this.verificationLevels[oldGuild.verificationLevel],
 			GUILD_LOG_GUILDUPDATE_VLEVEL_NEW: (guild) => this.verificationLevels[guild.verificationLevel],
