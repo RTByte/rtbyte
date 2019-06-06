@@ -128,6 +128,9 @@ module.exports = class extends Event {
 			await embed.setImage(guild.bannerURL);
 		}
 
+		// Return null when premiumSubscriptionCount changes
+		if (oldGuild.premiumSubscriptionCount !== guild.premiumSubscriptionCount) return;
+
 		const logChannel = await this.client.channels.get(guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		return;
