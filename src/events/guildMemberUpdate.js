@@ -62,7 +62,7 @@ module.exports = class extends Event {
 
 		// User display name changed
 		// eslint-disable-next-line max-len
-		if (oldMember.displayName !== member.displayName) await embed.addField(member.guild.language.get('GUILD_LOG_MEMBERUPDATE_DISPLAYNAME'), `\`${oldMember.displayName}\` ${arrowRightEmoji} \`${member.displayName}\``);
+		if (oldMember.displayName !== member.displayName) await embed.addField(member.guild.language.get('GUILD_LOG_MEMBERUPDATE_DISPLAYNAME'), `${oldMember.displayName} ${arrowRightEmoji} ${member.displayName}`);
 
 		// User roles changed
 		if (oldActualRoles !== newActualRoles) {
