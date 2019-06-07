@@ -449,7 +449,7 @@ module.exports = class extends Language {
 			GUILD_LOG_GUILDMEMBERUNMUTE: 'User unmuted',
 			GUILD_LOG_MEMBERUPDATE: 'User updated',
 			GUILD_LOG_MEMBERUPDATE_DISPLAYNAME: 'Display name changed',
-			GUILD_LOG_MEMBERUPDATE_NITROBOOST: 'User Nitro-boosted server',
+			GUILD_LOG_MEMBERUPDATE_NITROBOOST: 'User boosted server!',
 			GUILD_LOG_BLACKLISTEDWORD: (channel) => `Blacklisted word detected in ${channel}.`,
 			GUILD_LOG_MENTIONSPAM: 'Mention spam filter triggered',
 
