@@ -2,7 +2,7 @@ const { KlasaClient } = require('klasa');
 
 module.exports = KlasaClient.defaultGuildSchema
 	.add('developmentSettings', folder => folder
-		.add('developersAreSuperUsers', 'boolean', { default: true })
+		.add('developersAreSuperUsers', 'boolean', { default: false })
 		.add('commandAnalytics', 'boolean', { default: true }))
 	.add('channels', folder => folder.add('log', 'textchannel'))
 	.add('roles', folder => folder

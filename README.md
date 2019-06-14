@@ -20,7 +20,7 @@ Coming Soon™
 
 ## Rooster Teeth Community Discord Servers
 
-[Rooster Teeth Community](https://discord.gg/roosterteeth)  
+[Rooster Teeth Community](https://discord.gg/rtcd)  
 [Cow Chop Community](https://discord.gg/cowchop)  
 [Achievement Hunter Community](https://discord.gg/achievementhunter)  
 [Sugar Pine 7 Community](https://discord.gg/HUHExdK)  
