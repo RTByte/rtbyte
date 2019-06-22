@@ -20,11 +20,12 @@ module.exports = class extends Command {
 	}
 
 	async run(msg, [user, when = null, ...reason]) {
+		reason += ' (fc)';
 		const silent = reason[0].endsWith('-s');
 		if (user.id === msg.author.id) return msg.reject(msg.language.get('COMMAND_BAN_NO_BAN_SELF'));
 		if (user.id === this.client.user.id) return msg.reject(msg.language.get('COMMAND_BAN_NO_BAN_CLIENT'));
 		if (!msg.member.canMod(user)) return msg.reject(msg.language.get('COMMAND_BAN_NO_PERMS', user));
-		reason += " (fc)";
+
 		const modCase = new ModCase(msg.guild)
 			.setUser(user)
 			.setType('ban')
