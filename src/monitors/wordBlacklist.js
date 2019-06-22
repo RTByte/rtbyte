@@ -32,7 +32,7 @@ module.exports = class extends Monitor {
 		await embed.send();
 
 		if (msg.guild.settings.filters.delete) await msg.delete();
-		if (msg.guild.settings.filters.ban) await msg.author.ban({ days: 1, reason: msg.guild.language.get('MODERATION_LOG_BLACKLISTEDWORD') });
+		if (msg.guild.settings.filters.ban) await msg.member.ban({ days: 1, reason: msg.guild.language.get('MODERATION_LOG_BLACKLISTEDWORD') });
 		return;
 	}
 
