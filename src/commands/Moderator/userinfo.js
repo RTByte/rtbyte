@@ -7,7 +7,7 @@ module.exports = class extends Command {
 	constructor(...args) {
 		super(...args, {
 			aliases: ['uinfo'],
-			permissionLevel: 5,
+			permissionLevel: 6,
 			requiredPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
 			runIn: ['text'],
 			description: language => language.get('COMMAND_USERINFO_DESCRIPTION'),

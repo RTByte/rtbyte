@@ -9,7 +9,7 @@ module.exports = class extends Command {
 			runIn: ['text'],
 			requiredPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
 			aliases: ['sinfo', 'guildinfo'],
-			permissionLevel: 5,
+			permissionLevel: 6,
 			description: language => language.get('COMMAND_SERVERINFO_DESCRIPTION'),
 			extendedHelp: ''
 		});

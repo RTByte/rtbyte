@@ -6,7 +6,7 @@ module.exports = class extends Command {
 	constructor(...args) {
 		super(...args, {
 			aliases: ['sb'],
-			permissionLevel: 5,
+			permissionLevel: 6,
 			requiredPermissions: ['BAN_MEMBERS', 'ADD_REACTIONS', 'USE_EXTERNAL_EMOJIS'],
 			runIn: ['text'],
 			description: language => language.get('COMMAND_SOFTBAN_DESCRIPTION'),
