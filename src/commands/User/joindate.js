@@ -15,7 +15,7 @@ module.exports = class extends Command {
 	}
 
 	async run(msg, [member = msg.member]) {
-		const joinPosition = await msg.guild.members.array().sort((first, last) => first.joinedTimestamp - last.joinedTimestamp);
+		const joinPosition = await msg.guild.members.array().sort((first, last) => first.joinedAt - last.joinedAt);
 
 		const position = joinPosition.indexOf(member) + 1;
 

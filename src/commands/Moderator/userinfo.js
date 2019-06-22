@@ -30,7 +30,7 @@ module.exports = class extends Command {
 
 		const roles = await member.roles.filter(role => role.name !== '@everyone').sort().array();
 
-		const joinPosition = await msg.guild.members.array().sort((first, last) => first.joinedTimestamp - last.joinedTimestamp);
+		const joinPosition = await msg.guild.members.array().sort((first, last) => first.joinedAt - last.joinedAt);
 
 		const position = joinPosition.indexOf(member) + 1;
 
