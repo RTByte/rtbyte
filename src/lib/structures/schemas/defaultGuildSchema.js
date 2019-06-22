@@ -57,7 +57,7 @@ module.exports = KlasaClient.defaultGuildSchema
 		.add('wordBlacklistEnabled', 'boolean', { default: false })
 		.add('antiInviteEnabled', 'boolean', { default: false })
 		.add('mentionSpamEnabled', 'boolean', { default: false })
-		.add('warn', 'boolean', { default: false })
+		.add('ban', 'boolean', { default: false })
 		.add('delete', 'boolean', { default: false })
 		.add('checkDisplayNames', 'boolean', { default: false })
 		.add('modBypass', 'boolean', { default: false })

@@ -29,7 +29,7 @@ module.exports = class extends Monitor {
 		const embed = await modCase.embed();
 		await embed.send();
 
-		await msg.delete();
+		if (msg.guild.settings.filters.delete) await msg.delete();
 		return;
 	}
 

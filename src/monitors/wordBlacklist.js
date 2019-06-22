@@ -31,7 +31,8 @@ module.exports = class extends Monitor {
 		const embed = await modCase.embed();
 		await embed.send();
 
-		await msg.delete();
+		if (msg.guild.settings.filters.delete) await msg.delete();
+		if (msg.guild.settings.filters.ban) await msg.author.ban({ days: 1, reason: msg.guild.language.get('MODERATION_LOG_BLACKLISTEDWORD') });
 		return;
 	}
 
