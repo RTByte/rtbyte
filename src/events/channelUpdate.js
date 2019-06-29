@@ -81,7 +81,7 @@ module.exports = class extends Event {
 
 		// Channel moved to different category
 		// eslint-disable-next-line max-len
-		if (oldChannel.parent !== channel.parent) await embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_CATEGORY'), `${oldChannel.parent || channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_CATEGORY_NONE')} ${arrowRightEmoji} ${channel.parent || channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_CATEGORY_NONE')}`);
+		if (oldChannel.parent !== channel.parent) await embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_PARENT'), `${oldChannel.parent || channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_PARENT_NONE')} ${arrowRightEmoji} ${channel.parent || channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_PARENT_NONE')}`);
 
 
 		await this.permissionUpdateCheck(oldChannel, channel, embed);
