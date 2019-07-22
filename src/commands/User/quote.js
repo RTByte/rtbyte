@@ -24,11 +24,21 @@ module.exports = class extends Command {
 	}
 
 	async sendQuote(msg, qmsg) {
+		let attachment;
 		const embed = new MessageEmbed()
 			.setAuthor(qmsg.author.tag, qmsg.author.displayAvatarURL())
 			.setColor(this.client.settings.colors.white)
-			.addField(msg.guild.language.get('MESSAGE'), `${qmsg.content}`, true)
 			.setFooter(`${this.timestamp.displayUTC(qmsg.createdAt)} ${msg.guild.language.get('COMMAND_QUOTE_CHANNEL', qmsg)}`);
+
+		if (qmsg.content) await embed.addField(msg.guild.language.get('MESSAGE'), `${qmsg.content}`, true)
+		if (!qmsg.content) await embed.setTitle(msg.guild.language.get('MESSAGE'));
+		if (qmsg.attachments.size > 0) {
+			attachment = qmsg.attachments.map(atch => atch.url).join(' ');
+			attachment = attachment
+				.replace('//cdn.', '//media.')
+				.replace('.com/', '.net/');
+			await embed.setImage(attachment);
+		}
 
 		return msg.send('', { disableEveryone: true, embed: embed });
 	}
