@@ -28,6 +28,7 @@ module.exports = class extends Command {
 		const embed = new MessageEmbed()
 			.setAuthor(qmsg.author.tag, qmsg.author.displayAvatarURL())
 			.setColor(this.client.settings.colors.white)
+			.setDescription(`[${msg.guild.language.get('CLICK_TO_VIEW')}](${qmsg.url})`)
 			.setFooter(`${this.timestamp.displayUTC(qmsg.createdAt)} ${msg.guild.language.get('COMMAND_QUOTE_CHANNEL', qmsg)}`);
 
 		if (qmsg.content) await embed.addField(msg.guild.language.get('MESSAGE'), `${qmsg.content}`, true)
