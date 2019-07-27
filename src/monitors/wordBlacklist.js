@@ -13,6 +13,7 @@ module.exports = class extends Monitor {
 	}
 
 	async run(msg) {
+		if (!msg.guild) return;
 		if (!msg.guild.settings.filters.wordBlacklistEnabled || !msg.guild.settings.filters.words.length) return;
 		if (msg.guild.settings.filters.modBypass && msg.member.roles.has(msg.guild.settings.roles.moderator)) return;
 		const sentence = msg.content;
