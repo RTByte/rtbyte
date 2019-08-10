@@ -62,6 +62,7 @@ module.exports = class extends Command {
 
 			caseEmbedArray.push(await modCase.embed());
 		}
+		caseEmbedArray.reverse();
 		return caseEmbedArray;
 	}
 

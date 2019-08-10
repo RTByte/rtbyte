@@ -11,7 +11,7 @@ module.exports = class extends Command {
 			usage: '<messageID:string> [origin:channel]',
 			usageDelim: ' '
 		});
-		this.timestamp = new Timestamp('YYYY-MM-DD, h:mm A');
+		this.timestamp = new Timestamp('YYYY-MM-DD');
 		this.customizeResponse('messageID', message =>
 			message.language.get('COMMAND_QUOTE_NOPARAM'));
 	}
