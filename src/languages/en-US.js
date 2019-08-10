@@ -461,6 +461,7 @@ module.exports = class extends Language {
 			GLOBAL_LOG_GUILDUPDATE_ICON: 'Guild icon changed',
 			GLOBAL_LOG_GUILDUNAVAILABLE: 'Guild unavailable, likely due to a server outage',
 			GLOBAL_LOG_COMMANDRUN: 'Command ran',
+			GLOBAL_LOG_COMMANDRUN_DM: 'Command ran in DM',
 
 
 			// Moderation action langs

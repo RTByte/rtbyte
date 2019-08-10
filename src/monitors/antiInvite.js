@@ -12,6 +12,7 @@ module.exports = class extends Monitor {
 	}
 
 	async run(msg) {
+		if (!msg.guild) return;
 		if (!msg.guild.settings.filters.antiInviteEnabled) return;
 		if (msg.guild.settings.filters.modBypass && msg.member.roles.has(msg.guild.settings.roles.moderator)) return;
 		const words = msg.content.split(' ');
