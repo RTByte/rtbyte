@@ -56,7 +56,7 @@ module.exports = class extends Command {
 			.addField(msg.guild.language.get('EMOJIS'), msg.guild.emojis.size, true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_VLEVEL'), msg.guild.language.get('COMMAND_SERVERINFO_VLEVEL_LEVELS', msg.guild), true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_ECFILTER'), msg.guild.language.get('COMMAND_SERVERINFO_ECFILTER_LEVELS', msg.guild), true)
-			.addField(msg.guild.language.get('COMMAND_SERVERINFO_CREATED'), this.timestamp.displayUTC(msg.guild.createdAt), true)
+			.addField(msg.guild.language.get('COMMAND_SERVERINFO_CREATED'), `${this.timestamp.displayUTC(msg.guild.createdAt)} (UTC)`, true)
 			.setThumbnail(msg.guild.iconURL(), 50, 50)
 			.setImage(msg.guild.splashURL())
 			.setTimestamp()

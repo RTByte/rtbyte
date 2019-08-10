@@ -23,8 +23,8 @@ module.exports = class extends Command {
 			.setAuthor(member.user.tag, member.user.displayAvatarURL())
 			.setColor(this.client.settings.colors.white)
 			.addField(msg.language.get('JOIN_POS'), position)
-			.addField(msg.language.get('JOINED'), this.timestamp.displayUTC(member.joinedTimestamp), true)
-			.addField(msg.language.get('REGISTERED'), this.timestamp.displayUTC(member.user.createdAt), true)
+			.addField(msg.language.get('JOINED'), `${this.timestamp.displayUTC(member.joinedTimestamp)} (UTC)`, true)
+			.addField(msg.language.get('REGISTERED'), `${this.timestamp.displayUTC(member.user.createdAt)} (UTC)`, true)
 			.setThumbnail(member.user.displayAvatarURL())
 			.setTimestamp()
 			.setFooter(msg.language.get('COMMAND_REQUESTED_BY', msg), msg.author.displayAvatarURL());
