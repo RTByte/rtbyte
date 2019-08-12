@@ -220,7 +220,7 @@ module.exports = class extends Language {
 			// eslint-disable-next-line max-len
 			COMMAND_INFO_TEAMLIST: '• [Rasmus Gerdin](https://github.com/rasmusgerdin/)\n• [Michael Cumbers](https://github.com/mcumbers/)\n• [Justin Shull](https://github.com/JShull97/)\n• [Killian Higgins](https://github.com/Uzui2012/)',
 			COMMAND_INFO_LINKS: 'Links',
-			COMMAND_INFO_LINKLIST: '• [GitHub](https://github.com/RTByte/RTByte)\n• [Discord](https://discord.gg/eRauWP4/)',
+			COMMAND_INFO_LINKLIST: '• [GitHub](https://github.com/RTByte/RTByte)\n• [Discord](https://discord.gg/eRauWP4/)\n• [Ko-fi](https://ko-fi.com/rtbyte)',
 			COMMAND_INFO_DESCRIPTION: 'Provides some information about this bot.',
 			COMMAND_HELP_DESCRIPTION: 'Display help for a command.',
 			COMMAND_HELP_EMBEDTITLE: () => `${this.client.user.username} Help`,
@@ -286,6 +286,7 @@ module.exports = class extends Language {
 			COMMAND_SENDMSG_NOPARAM: 'Please provide a message to send to your mentioned channel or user.',
 			COMMAND_SERVERINFO_DESCRIPTION: 'Displays server information.',
 			COMMAND_SERVERINFO_REGION: 'Region',
+			COMMAND_SERVERINFO_MEMBERCOUNT: (guild) => `${guild.memberCount} (${guild.members.filter(member => member.user.bot).size} bots)`,
 			COMMAND_SERVERINFO_VLEVEL: 'Verification level',
 			COMMAND_SERVERINFO_VLEVEL_LEVELS: (guild) => `${this.verificationLevels[guild.verificationLevel]}`,
 			COMMAND_SERVERINFO_ECFILTER: 'Explicit content filter',

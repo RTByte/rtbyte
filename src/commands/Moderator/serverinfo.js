@@ -50,7 +50,7 @@ module.exports = class extends Command {
 			.addField(msg.guild.language.get('NAME'), msg.guild.name, true)
 			.addField(msg.guild.language.get('OWNER'), msg.guild.owner, true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_REGION'), this.regions[msg.guild.region], true)
-			.addField(msg.guild.language.get('MEMBERS'), msg.guild.memberCount, true)
+			.addField(msg.guild.language.get('MEMBERS'), msg.guild.language.get('COMMAND_SERVERINFO_MEMBERCOUNT', msg.guild), true)
 			.addField(msg.guild.language.get('ROLES'), msg.guild.roles.size, true)
 			.addField(msg.guild.language.get('CHANNELS'), msg.guild.channels.size, true)
 			.addField(msg.guild.language.get('EMOJIS'), msg.guild.emojis.size, true)
