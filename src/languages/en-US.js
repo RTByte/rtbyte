@@ -38,15 +38,15 @@ module.exports = class extends Language {
 			'Level 1 (2 boosts)',
 			'Level 2 (10 boosts)',
 			'Level 3 (50 boosts)'
-		]
+		];
 		this.nitroTierDetails = [
 			'No levels achieved yet',
 			'• +50 server emoji slots (for a total of 100)\n• 128 Kbps audio quality\n• Animated server icon\n• Custom server invite splash background',
 			'• +50 server emoji slots (for a total of 150)\n• 256 Kbps audio quality\n• Server banner\n• 50 MB upload limit for all members',
 			'• +100 server emoji slots (for a total of 250)\n• 384 Kbps audio quality\n• Vanity URL for the server\n• 100 MB upload limit for all members'
-		]
-		this.language = {
+		];
 
+		this.language = {
 			// Default langs
 			DEFAULT: (key) => `${key} has not been localized for \`en-US\` yet.`,
 			DEFAULT_LANGUAGE: 'Default language',

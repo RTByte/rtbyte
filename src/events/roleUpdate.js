@@ -34,7 +34,8 @@ module.exports = class extends Event {
 			DEAFEN_MEMBERS: 'Deafen Members',
 			MOVE_MEMBERS: 'Move Members',
 			USE_VAD: 'Use Voice Activity',
-			PRIORITY_SPEAKER: 'Priority Speaker'
+			PRIORITY_SPEAKER: 'Priority Speaker',
+			STREAM: 'Stream'
 		};
 	}
 
