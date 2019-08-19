@@ -20,7 +20,7 @@ module.exports = class extends Language {
 		this.defaultMsgNotifs = {
 			ALL: 'All messages',
 			MENTIONS: 'Only @mentions'
-		}
+		};
 		this.verificationLevels = [
 			'None',
 			'Low',

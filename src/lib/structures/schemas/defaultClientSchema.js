@@ -35,6 +35,6 @@ module.exports = KlasaClient.defaultClientSchema
 	// Message deletions and updates, changes
 		.add('blue', 'string', { default: '#4B4BFF' })
 	// Nitro Boosts
-		.add('pink', 'string', { default: '#F47FFF'}))
+		.add('pink', 'string', { default: '#F47FFF' }))
 	.add('moderation', folder => folder
 		.add('cases', 'any', { array: true }));

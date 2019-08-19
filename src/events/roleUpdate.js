@@ -5,6 +5,7 @@ module.exports = class extends Event {
 
 	constructor(...args) {
 		super(...args, { event: 'roleUpdate' });
+		// TODO: Move this to language file
 		this.perms = {
 			ADMINISTRATOR: 'Administrator',
 			VIEW_AUDIT_LOG: 'View Audit Log',
