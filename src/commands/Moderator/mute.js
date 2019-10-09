@@ -8,6 +8,7 @@ module.exports = class extends Command {
 			aliases: ['m', 'tm', 'timeout'],
 			permissionLevel: 6,
 			requiredPermissions: ['MANAGE_ROLES', 'MANAGE_CHANNELS', 'ADD_REACTIONS', 'USE_EXTERNAL_EMOJIS', 'SEND_MESSAGES', 'EMBED_LINKS'],
+			requiredSettings: ['roles.muted'],
 			runIn: ['text'],
 			description: language => language.get('COMMAND_MUTE_DESCRIPTION'),
 			usage: '<member:user> [when:time] <reason:...string>',

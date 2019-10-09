@@ -8,6 +8,7 @@ module.exports = class extends Command {
 			aliases: ['vub', 'vcub'],
 			permissionLevel: 6,
 			requiredPermissions: ['MANAGE_ROLES', 'MANAGE_CHANNELS', 'ADD_REACTIONS', 'USE_EXTERNAL_EMOJIS', 'SEND_MESSAGES', 'EMBED_LINKS'],
+			requiredSettings: ['roles.voiceBanned'],
 			runIn: ['text'],
 			description: language => language.get('COMMAND_VCUNBAN_DESCRIPTION'),
 			usage: '<member:user>',

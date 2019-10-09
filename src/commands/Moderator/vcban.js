@@ -8,6 +8,7 @@ module.exports = class extends Command {
 			aliases: ['vb', 'vcb'],
 			permissionLevel: 6,
 			requiredPermissions: ['MANAGE_ROLES', 'MANAGE_CHANNELS', 'ADD_REACTIONS', 'USE_EXTERNAL_EMOJIS', 'SEND_MESSAGES', 'EMBED_LINKS'],
+			requiredSettings: ['roles.voiceBanned'],
 			runIn: ['text'],
 			description: language => language.get('COMMAND_VCBAN_DESCRIPTION'),
 			usage: '<member:user> [when:time] <reason:...string>',

@@ -20,7 +20,7 @@ module.exports = class extends Command {
 		const output = message.language.get(success ? 'COMMAND_EVAL_OUTPUT' : 'COMMAND_EVAL_ERROR',
 			time, util.codeBlock('js', result), footer);
 
-		if ('silent' in message.flags) return null;
+		if ('silent' in message.flagArgs) return null;
 
 		// Handle too-long-messages
 		if (output.length > 2000) {
@@ -39,7 +39,7 @@ module.exports = class extends Command {
 	async eval(message, code) {
 		// eslint-disable-next-line no-unused-vars
 		const msg = message;
-		const { flags } = message;
+		const { flagArgs: flags } = message;
 		code = code.replace(/[“”]/g, '"').replace(/[‘’]/g, "'");
 		const stopwatch = new Stopwatch();
 		let success, syncTime, asyncTime, result;
