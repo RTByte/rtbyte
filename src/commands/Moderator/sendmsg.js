@@ -6,7 +6,7 @@ module.exports = class extends Command {
 		super(...args, {
 			runIn: ['text'],
 			requiredPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
-			aliases: ['sendmessage', 'message', 'msg'],
+			aliases: ['sendmessage', 'message', 'msg', 'echo'],
 			permissionLevel: 6,
 			description: language => language.get('COMMAND_SENDMSG_DESCRIPTION'),
 			extendedHelp: '',

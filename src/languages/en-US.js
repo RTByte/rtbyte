@@ -279,7 +279,7 @@ module.exports = class extends Language {
 			COMMAND_MUTE_NO_MUTE_SELF: 'You cannot mute yourself.',
 			COMMAND_MUTE_NO_MUTE_CLIENT: 'I cannot mute myself.',
 			COMMAND_MUTE_NO_PERMS: (user) => `You don't have permission to mute ${user}.`,
-			COMMAND_PURGE_DESCRIPTION: 'Removes X amount of messages, optionally sent by Y user. Append the word \'all\' to ignore the role hierarchy.',
+			COMMAND_PURGE_DESCRIPTION: 'Removes X amount of messages, optionally sent by Y user. Append \'-all\' to ignore the role hierarchy.',
 			COMMAND_PURGE_NOPARAM: 'Please provide the amount of messages to delete.',
 			COMMAND_PURGE_NO_PERMS: (member) => `You don't have permission to purge messages from ${member}.`,
 			COMMAND_SENDMSG_DESCRIPTION: 'Sends a message to the specified channel or user as the bot.',
@@ -341,6 +341,9 @@ module.exports = class extends Language {
 			COMMAND_COINFLIP_HEADS: '🙂 heads',
 			COMMAND_COINFLIP_TAILS: '🙃 tails',
 			COMMAND_JOINDATE_DESCRIPTION: 'Displays your account creation date along with the date you joined the current server you\'re on. Other users can be specified to fetch their account creation and server join dates.', // eslint-disable-line max-len
+			COMMAND_REMINDER_DESCRIPTION: 'Sets a reminder for you, append \`-dm\` to have the reminder sent to you via DM.',
+			COMMAND_REMINDER_NOPARAM_WHEN: 'When do you want to be reminded? Tell me how long to wait before reminding you.',
+			COMMAND_REMINDER_NOPARAM_MESSAGE: 'What do you want to be reminded about?',
 			COMMAND_QUOTE_DESCRIPTION: 'Quotes a message by ID.',
 			// eslint-disable-next-line max-len
 			COMMAND_QUOTE_NOPARAM: 'Please specify a message ID for the message you would like to quote.\nMessage IDs can be found by right clicking a message after having turned *Developer Mode* on under **Appearance** in your settings.',
