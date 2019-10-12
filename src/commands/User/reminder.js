@@ -8,7 +8,7 @@ module.exports = class extends Command {
 			aliases: ['remindme', 'remind', 'setreminder'],
 			runIn: ['text'],
 			description: language => language.get('COMMAND_REMINDER_DESCRIPTION'),
-			usage: '<when:time> <message:...string>',
+			usage: '<when:time> <message:...string> [-dm]',
 			usageDelim: ' '
 		});
 		this.customizeResponse('when', message =>
@@ -19,6 +19,7 @@ module.exports = class extends Command {
 
 	async run(msg, [when, ...message]) {
 		const sendInDM = message[0].endsWith('-dm');
+		if (sendInDM) message[0].replace('-dm', '');
 
 		await this.client.schedule.create('reminder', when, {
 			data: {
@@ -26,7 +27,7 @@ module.exports = class extends Command {
 				channelID: msg.channel.id,
 				userID: msg.author.id,
 				dmBool: sendInDM,
-				reminderMsg: message[0].replace(' -dm', ''),
+				reminderMsg: message,
 				timestamp: moment().format()
 			}
 		});
