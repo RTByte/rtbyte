@@ -10,7 +10,7 @@ module.exports = class extends Command {
 			requiredPermissions: ['BAN_MEMBERS', 'ADD_REACTIONS', 'USE_EXTERNAL_EMOJIS'],
 			runIn: ['text'],
 			description: language => language.get('COMMAND_BAN_DESCRIPTION'),
-			usage: '<member:user> [when:time] <reason:...string>',
+			usage: '<member:user> [when:time] [reason:...string] [-s]',
 			usageDelim: ' '
 		});
 		this.customizeResponse('member', message =>
@@ -20,7 +20,9 @@ module.exports = class extends Command {
 	}
 
 	async run(msg, [user, when = null, ...reason]) {
+		if (!Array.isArray(reason) || !reason.length) reason.unshift('Unspecified');
 		const silent = reason[0].endsWith('-s');
+		if (silent) reason[0].replace('-s', '');
 		if (user.id === msg.author.id) return msg.reject(msg.language.get('COMMAND_BAN_NO_BAN_SELF'));
 		if (user.id === this.client.user.id) return msg.reject(msg.language.get('COMMAND_BAN_NO_BAN_CLIENT'));
 		if (!msg.member.canMod(user)) return msg.reject(msg.language.get('COMMAND_BAN_NO_PERMS', user));

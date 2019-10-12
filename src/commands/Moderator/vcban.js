@@ -11,17 +11,17 @@ module.exports = class extends Command {
 			requiredSettings: ['roles.voiceBanned'],
 			runIn: ['text'],
 			description: language => language.get('COMMAND_VCBAN_DESCRIPTION'),
-			usage: '<member:user> [when:time] <reason:...string>',
+			usage: '<member:user> [when:time] [reason:...string] [-s]',
 			usageDelim: ' '
 		});
 		this.customizeResponse('member', message =>
-			message.language.get('COMMAND_VCBAN_NOPARAM_MEMBER'))
-			.customizeResponse('reason', message =>
-				message.language.get('COMMAND_MODERATION_NOREASON'));
+			message.language.get('COMMAND_VCBAN_NOPARAM_MEMBER'));
 	}
 
 	async run(msg, [user, when = null, ...reason]) {
+		if (!Array.isArray(reason) || !reason.length) reason.unshift('Unspecified');
 		const silent = reason[0].endsWith('-s');
+		if (silent) reason[0].replace('-s', '');
 		if (!msg.guild.settings.roles.voiceBanned || !msg.guild.roles.has(msg.guild.settings.roles.voiceBanned)) await this.createRole(msg.guild);
 
 		if (user.id === msg.author.id) return msg.reject(msg.language.get('COMMAND_VCBAN_NO_VCBAN_SELF'));

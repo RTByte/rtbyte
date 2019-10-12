@@ -10,7 +10,7 @@ module.exports = class extends Command {
 			requiredPermissions: ['MANAGE_MESSAGES', 'ADD_REACTIONS', 'USE_EXTERNAL_EMOJIS', 'SEND_MESSAGES', 'EMBED_LINKS'],
 			runIn: ['text'],
 			description: language => language.get('COMMAND_PURGE_DESCRIPTION'),
-			usage: '[member:member] <amount:int{2,100}> [all] [-s]',
+			usage: '[member:member] <amount:int{2,100}> [-all] [-s]',
 			usageDelim: ' '
 		});
 		this.customizeResponse('amount', message =>
