@@ -341,6 +341,10 @@ module.exports = class extends Language {
 			COMMAND_COINFLIP_HEADS: '🙂 heads',
 			COMMAND_COINFLIP_TAILS: '🙃 tails',
 			COMMAND_JOINDATE_DESCRIPTION: 'Displays your account creation date along with the date you joined the current server you\'re on. Other users can be specified to fetch their account creation and server join dates.', // eslint-disable-line max-len
+			COMMAND_LYRICS_DESCRIPTION: 'Fetches lyrics and information from Genius for you.',
+			COMMAND_LYRICS_NOTFOUND: 'The specified song could not be found, please try again.',
+			COMMAND_LYRICS_GENIUS: 'View full lyrics on Genius',
+			COMMAND_LYRICS_LYRICS: 'Lyrics',
 			COMMAND_REMINDER_DESCRIPTION: 'Sets a reminder for you, append \`-dm\` to have the reminder sent to you via DM.',
 			COMMAND_REMINDER_NOPARAM_WHEN: 'When do you want to be reminded? Tell me how long to wait before reminding you.',
 			COMMAND_REMINDER_NOPARAM_MESSAGE: 'What do you want to be reminded about?',
