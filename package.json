@@ -14,6 +14,7 @@
     "author": "The RTByte Team",
     "license": "MIT",
     "dependencies": {
+        "cheerio": "^1.0.0-rc.3",
         "discord.js": "github:discordjs/discord.js#master",
         "erlpack": "github:discordapp/erlpack",
         "klasa": "github:dirigeants/klasa#master",
