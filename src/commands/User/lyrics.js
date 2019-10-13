@@ -12,7 +12,7 @@ module.exports = class extends Command {
 			cooldown: 10,
 			aliases: ['songlyrics', 'lyric'],
 			description: language => language.get('COMMAND_LYRICS_DESCRIPTION'),
-			usage: '[song:string]'
+			usage: '<song:string>'
 		});
 	}
 
@@ -37,6 +37,7 @@ module.exports = class extends Command {
 		await fetch(lyricData.result.url)
 			.then(res => res.text())
 			.then(text => {
+				// eslint-disable-next-line id-length
 				const $ = cheerio.load(text);
 				const lyricsText = $('.lyrics');
 				lyricsBody.push(lyricsText ? `${lyricsText.text().trim().substr(0, 1000)}...` : null);
@@ -54,12 +55,12 @@ module.exports = class extends Command {
 			.setAuthor(artist, artistPic)
 			.setColor(this.client.settings.colors.white)
 			.setTitle(songTitle)
-			.setDescription(`[${msg.guild.language.get('COMMAND_LYRICS_GENIUS')}](${geniusLink})`)
+			.setDescription(`[${msg.guild.language.get('COMMAND_LYRICS_LINK')}](${geniusLink})`)
 			.addField(msg.guild.language.get('COMMAND_LYRICS_LYRICS'), lyricsBody)
 			.setThumbnail(songPic)
 			.setTimestamp()
 			.setFooter(msg.language.get('COMMAND_REQUESTED_BY', msg), msg.author.displayAvatarURL());
-
 		return msg.send('', { disableEveryone: true, embed: embed });
 	}
+
 };

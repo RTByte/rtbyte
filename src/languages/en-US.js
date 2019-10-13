@@ -343,7 +343,7 @@ module.exports = class extends Language {
 			COMMAND_JOINDATE_DESCRIPTION: 'Displays your account creation date along with the date you joined the current server you\'re on. Other users can be specified to fetch their account creation and server join dates.', // eslint-disable-line max-len
 			COMMAND_LYRICS_DESCRIPTION: 'Fetches lyrics and information from Genius for you.',
 			COMMAND_LYRICS_NOTFOUND: 'The specified song could not be found, please try again.',
-			COMMAND_LYRICS_GENIUS: 'View full lyrics on Genius',
+			COMMAND_LYRICS_LINK: 'View full lyrics on Genius',
 			COMMAND_LYRICS_LYRICS: 'Lyrics',
 			COMMAND_REMINDER_DESCRIPTION: 'Sets a reminder for you, append \`-dm\` to have the reminder sent to you via DM.',
 			COMMAND_REMINDER_NOPARAM_WHEN: 'When do you want to be reminded? Tell me how long to wait before reminding you.',
@@ -367,6 +367,12 @@ module.exports = class extends Language {
 			COMMAND_SUPPORT_DESCRIPTION: 'Contacts the bot developers in case of an issue with the bot.',
 			COMMAND_SUPPORT_REQUESTED: 'Support requested',
 			COMMAND_SUPPORT_CONTACTED: 'The bot developers have been notified.',
+			COMMAND_WIKI_DESCRIPTION: 'Find a Wikipedia article by title.',
+			COMMAND_WIKI_WIKIPEDIA: 'Wikipedia',
+			COMMAND_WIKI_LINK: 'View full article on Wikipedia',
+			COMMAND_WIKI_EMBED_DESC: 'Description',
+			COMMAND_WIKI_EMBED_INFO: 'Information',
+			COMMAND_WIKI_NOTFOUND: 'The specified article could not be found, please try again.',
 
 
 			// Message prompt langs
