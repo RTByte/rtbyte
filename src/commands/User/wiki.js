@@ -16,7 +16,6 @@ module.exports = class extends Command {
 		await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(query)}`)
 			.then(response => response.json())
 			.then(json => {
-				console.log(json);
 				const embed = new MessageEmbed()
 					.setAuthor(msg.guild.language.get('COMMAND_WIKI_WIKIPEDIA'), 'https://i.imgur.com/fnhlGh5.png')
 					.setColor(this.client.settings.colors.white)
