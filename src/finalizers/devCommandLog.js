@@ -7,9 +7,9 @@ module.exports = class extends Finalizer {
 		super(...args, { enabled: true });
 	}
 
-	async run(message, command, response, runTime) {
+	async run(message, command, response, runTime, custom) {
 		// eslint-disable-next-line max-len
-		if (message.guild && this.client.settings.logs.commandRun && message.guild.settings.developmentSettings.commandAnalytics) await this.commandRunLog(message, runTime, this.client.settings.channels.globalLog);
+		if (message.guild && this.client.settings.logs.commandRun && message.guild.settings.developmentSettings.commandAnalytics && !custom) await this.commandRunLog(message, runTime, this.client.settings.channels.globalLog);
 		if (!message.guild && this.client.settings.logs.commandRun) await this.dmCommandLog(message, runTime, this.client.settings.channels.globalLog);
 		if (message.guild && message.guild.settings.logs.events.commandRun) await this.commandRunLog(message, runTime, message.guild.settings.channels.log);
 
