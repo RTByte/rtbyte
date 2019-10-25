@@ -8,9 +8,12 @@ module.exports = class extends Finalizer {
 	}
 
 	async run(message, command, response, runTime, custom) {
+		// Checks if message sent in guild, command log enabled, guild opted in to command analytics, NOT custom, then calls commandRunLog
 		// eslint-disable-next-line max-len
 		if (message.guild && this.client.settings.logs.commandRun && message.guild.settings.developmentSettings.commandAnalytics && !custom) await this.commandRunLog(message, runTime, this.client.settings.channels.globalLog);
+		// Checks if message NOT sent in guild, command log enabled, then calls dmCommandLog
 		if (!message.guild && this.client.settings.logs.commandRun) await this.dmCommandLog(message, runTime, this.client.settings.channels.globalLog);
+		// Checks if message sent in guild, guild command log enabled, then calls commandRunLog for guild
 		if (message.guild && message.guild.settings.logs.events.commandRun) await this.commandRunLog(message, runTime, message.guild.settings.channels.log);
 
 		return;
