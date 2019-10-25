@@ -101,13 +101,25 @@ module.exports = class extends Command {
 		for (const [category, list] of commands) {
 			display.addPage(new MessageEmbed()
 				.setAuthor(msg.language.get('COMMAND_HELP_EMBEDTITLE'), this.client.user.displayAvatarURL())
-				.setTitle(`${category} commands`)
+				.setTitle(`${category} ${msg.language.get('COMMAND_HELP_COMMANDS')}`)
 				.setColor(this.client.settings.colors.white)
 				.setThumbnail(this.client.user.displayAvatarURL(), 50, 50)
 				.setTimestamp()
 				.setDescription(list.map(this.formatCommand.bind(this, msg, prefix, true)).join('\n'))
 			);
 		}
+
+		if (!msg.guild.settings.commands.customCommandsEnabled || !msg.guild.settings.commands.customCommands.length) return display;
+		const names = msg.guild.settings.commands.customCommands.map(cmd => cmd.name.toLowerCase());
+
+		display.addPage(new MessageEmbed()
+			.setAuthor(msg.language.get('COMMAND_HELP_EMBEDTITLE'), this.client.user.displayAvatarURL())
+			.setTitle(msg.language.get('COMMAND_HELP_CUSTOMCOMMANDS'))
+			.setColor(this.client.settings.colors.white)
+			.setThumbnail(this.client.user.displayAvatarURL(), 50, 50)
+			.setTimestamp()
+			.setDescription(names.map(name => `• **${name}**`))
+		);
 
 		return display;
 	}
