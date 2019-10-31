@@ -251,8 +251,12 @@ module.exports = class extends Language {
 			COMMAND_CONF_USER_DESCRIPTION: 'Define per-user settings.',
 			COMMAND_CONF_USER: (key, list) => `**User Settings${key}**\n${list}`,
 			COMMAND_CREATECMD_DESCRIPTION: 'Creates a custom command for the server.',
+			COMMAND_CREATECMD_ALREADY_EXIST: (name) => `The custom command \`${name}\` already exists in this server.`,
 			COMMAND_DELETECMD_DESCRIPTION: 'Deletes a custom command from the server.',
 			COMMAND_UPDATECMD_DESCRIPTION: 'Updates an existing custom command in the server.',
+			COMMAND_UPDATECMD_ERROR: (name) => `Sorry, an error ocurred while updating the custom command \`${name}\`.`,
+			COMMAND_CUSTOM_CMD_NATIVE: (name) => `A native command called \`${name}\` already exists.`,
+			COMMAND_CUSTOM_CMD_NOT_EXIST: (name) => `The custom command \`${name}\` does not exist in this server.`,
 			COMMAND_STATS_DESCRIPTION: 'Provides bot owners with statistics.',
 			COMMAND_STATS_EMBEDTITLE: () => `${this.client.user.username} Stats`,
 			COMMAND_STATS_MEMUSAGE: 'Memory usage',
@@ -471,7 +475,12 @@ module.exports = class extends Language {
 			GUILD_LOG_MEMBERUPDATE_NITROBOOST: 'User boosted server!',
 			GUILD_LOG_BLACKLISTEDWORD: (channel) => `Blacklisted word detected in ${channel}.`,
 			GUILD_LOG_MENTIONSPAM: 'Mention spam filter triggered',
-
+			GUILD_LOG_CUSTOMCMDCREATE: 'Custom command created',
+			GUILD_LOG_CUSTOMCMDCREATE_RESPONSE: 'Command response',
+			GUILD_LOG_CUSTOMCMDDELETE: 'Custom command deleted',
+			GUILD_LOG_CUSTOMCMDUPDATE: 'Custom command updated',
+			GUILD_LOG_CUSTOMCMDUPDATE_OLD: 'Old command response',
+			GUILD_LOG_CUSTOMCMDUPDATE_NEW: 'New command response',
 
 			// Global log langs
 			GLOBAL_LOG_GUILDCREATE: 'Bot added to guild',
