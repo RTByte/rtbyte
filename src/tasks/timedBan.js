@@ -27,8 +27,6 @@ module.exports = class extends Task {
 
 		embed.setAuthor(`${user.tag ? user.tag : userTag} (${user.id ? user.id : userID})`, user.id ? user.displayAvatarURL() : null);
 
-		// eslint-disable-next-line max-len
-		if (guild.settings.moderation.notifyUser && user.id) await user.send(guild.language.get('MONITOR_MODERATION_AUTO_BOILERPLATE', guild), { disableEveryone: true, embed: embed });
 		return;
 	}
 
