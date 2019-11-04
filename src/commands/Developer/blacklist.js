@@ -7,7 +7,7 @@ module.exports = class extends Command {
 		super(...args, {
 			permissionLevel: 10,
 			description: language => language.get('COMMAND_BLACKLIST_DESCRIPTION'),
-			usage: '<User:user|Guild:guild|guild:str> [...]',
+			usage: '<user:user|guild:guild|guild:str> [...]',
 			usageDelim: ' ',
 			guarded: true
 		});
