@@ -12,7 +12,7 @@ module.exports = class extends Task {
 
 		await guild.members.unban(userID);
 
-		if (guild.settings.logs.events.guildMemberBanRemove) await this.unBanLog(guild, userID, userTag);
+		if (guild.settings.logs.moderation.unban) await this.unBanLog(guild, userID, userTag);
 	}
 
 	async unBanLog(guild, userID, userTag) {
