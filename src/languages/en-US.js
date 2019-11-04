@@ -36,13 +36,13 @@ module.exports = class extends Language {
 		this.nitroTierTitles = [
 			'No levels achieved yet',
 			'Level 1 (2 boosts)',
-			'Level 2 (10 boosts)',
-			'Level 3 (50 boosts)'
+			'Level 2 (15 boosts)',
+			'Level 3 (30 boosts)'
 		];
 		this.nitroTierDetails = [
 			'No levels achieved yet',
-			'• +50 server emoji slots (for a total of 100)\n• 128 Kbps audio quality\n• Animated server icon\n• Custom server invite splash background',
-			'• +50 server emoji slots (for a total of 150)\n• 256 Kbps audio quality\n• Server banner\n• 50 MB upload limit for all members',
+			'• +50 server emoji slots (for a total of 100)\n• 128 Kbps audio quality\n• Animated server icon\n• Custom server invite background\n• 720p 60fps Go Live streams',
+			'• +50 server emoji slots (for a total of 150)\n• 256 Kbps audio quality\n• Server banner\n• 50 MB upload limit for all members\n• 1080p 60fps Go Live streams',
 			'• +100 server emoji slots (for a total of 250)\n• 384 Kbps audio quality\n• Vanity URL for the server\n• 100 MB upload limit for all members'
 		];
 
