@@ -14,7 +14,7 @@ module.exports = class extends Command {
 			requiredPermissions: ['ADD_REACTIONS', 'USE_EXTERNAL_EMOJIS', 'SEND_MESSAGES', 'MANAGE_MESSAGES', 'EMBED_LINKS'],
 			runIn: ['text'],
 			description: language => language.get('COMMAND_MODHISTORY_DESCRIPTION'),
-			usage: '[target:member] [caseID:string]',
+			usage: '[target:membername] [caseID:string]',
 			usageDelim: ' '
 		});
 

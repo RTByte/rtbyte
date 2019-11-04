@@ -10,20 +10,20 @@ module.exports = class extends Command {
 			requiredPermissions: ['MANAGE_MESSAGES', 'ADD_REACTIONS', 'USE_EXTERNAL_EMOJIS', 'SEND_MESSAGES', 'EMBED_LINKS'],
 			runIn: ['text'],
 			description: language => language.get('COMMAND_PURGE_DESCRIPTION'),
-			usage: '[member:member] <amount:int{2,100}> [-all] [-s]',
+			usage: '[member:membername] <amount:int{2,100}> [-all] [-s]',
 			usageDelim: ' '
 		});
 		this.customizeResponse('amount', message =>
 			message.language.get('COMMAND_PURGE_NOPARAM'));
 	}
 
-	async run(msg, [member = null, amount, all = null, silent = null]) {
-		if (member && !msg.member.canMod(member)) return msg.reject(msg.language.get('COMMAND_PURGE_NO_PERMS', this.client.emojis.get(this.client.settings.emoji.reject), member));
+	async run(msg, [membername = null, amount, all = null, silent = null]) {
+		if (membername && !msg.member.canMod(membername)) return msg.reject(msg.language.get('COMMAND_PURGE_NO_PERMS', this.client.emojis.get(this.client.settings.emoji.reject), membername));
 
 		let messages = await msg.channel.messages.fetch({ limit: amount });
 
-		if (member) {
-			messages = await messages.filter(mes => mes.author.id === member.id);
+		if (membername) {
+			messages = await messages.filter(mes => mes.author.id === membername.id);
 		}
 
 		if (!all) {
@@ -32,7 +32,7 @@ module.exports = class extends Command {
 		}
 
 		const modCase = new ModCase(msg.guild)
-			.setUser(member ? this.client.users.get(member.id) : this.client.user)
+			.setUser(membername ? this.client.users.get(membername.id) : this.client.user)
 			.setType('purge')
 			.setModerator(msg.author)
 			.setSilent(silent)
@@ -48,10 +48,10 @@ module.exports = class extends Command {
 		const embed = await modCase.embed();
 		await embed.send();
 
-		if (silent && !(all && (!member || member.id === msg.author.id))) await msg.delete({ reason: msg.language.get('COMMAND_MODERATION_SILENT') });
+		if (silent && !(all && (!membername || membername.id === msg.author.id))) await msg.delete({ reason: msg.language.get('COMMAND_MODERATION_SILENT') });
 
 		if (silent) return null;
-		if (all && (!member || member.id === msg.author.id)) return null;
+		if (all && (!membername || membername.id === msg.author.id)) return null;
 		return msg.affirm();
 	}
 
