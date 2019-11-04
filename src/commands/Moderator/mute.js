@@ -11,25 +11,25 @@ module.exports = class extends Command {
 			requiredSettings: ['roles.muted'],
 			runIn: ['text'],
 			description: language => language.get('COMMAND_MUTE_DESCRIPTION'),
-			usage: '<member:user> [when:time] [reason:...string] [-s]',
+			usage: '<member:username> [when:time] [reason:...string] [-s]',
 			usageDelim: ' '
 		});
 		this.customizeResponse('member', message =>
 			message.language.get('COMMAND_MUTE_NOPARAM_MEMBER'));
 	}
 
-	async run(msg, [user, when = null, ...reason]) {
+	async run(msg, [username, when = null, ...reason]) {
 		if (!Array.isArray(reason) || !reason.length) reason.unshift('Unspecified');
 		const silent = reason[0].endsWith('-s');
 		if (silent) reason[0].replace('-s', '');
 		if (!msg.guild.settings.roles.muted || !msg.guild.roles.has(msg.guild.settings.roles.muted)) await this.createRole(msg.guild);
 
-		if (user.id === msg.author.id) return msg.reject(msg.language.get('COMMAND_MUTE_NO_MUTE_SELF'));
-		if (user.id === this.client.user.id) return msg.reject(msg.language.get('COMMAND_MUTE_NO_MUTE_CLIENT'));
-		if (!await msg.member.canMod(user)) return msg.reject(msg.language.get('COMMAND_MUTE_NO_PERMS', user));
+		if (username.id === msg.author.id) return msg.reject(msg.language.get('COMMAND_MUTE_NO_MUTE_SELF'));
+		if (username.id === this.client.user.id) return msg.reject(msg.language.get('COMMAND_MUTE_NO_MUTE_CLIENT'));
+		if (!await msg.member.canMod(username)) return msg.reject(msg.language.get('COMMAND_MUTE_NO_PERMS', username));
 
 		const modCase = new ModCase(msg.guild)
-			.setUser(user)
+			.setUser(username)
 			.setType('mute')
 			.setReason(reason)
 			.setModerator(msg.author)
@@ -37,14 +37,14 @@ module.exports = class extends Command {
 			.setDuration(when);
 		await modCase.submit();
 
-		const member = await msg.guild.members.fetch(user);
+		const member = await msg.guild.members.fetch(username);
 
 		if (member.roles.has(msg.guild.settings.roles.muted)) return msg.affirm();
 		const mutedRole = await msg.guild.roles.get(msg.guild.settings.roles.muted);
 		await member.roles.add(mutedRole);
 
 		if (when) {
-			await this.client.schedule.create('timedUnmute', when, {
+			await this.client.schedule.create('timedMute', when, {
 				data: {
 					guildID: msg.guild.id,
 					userID: member.id

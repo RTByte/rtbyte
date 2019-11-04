@@ -10,7 +10,7 @@ module.exports = class extends Command {
 			requiredPermissions: ['BAN_MEMBERS', 'ADD_REACTIONS', 'USE_EXTERNAL_EMOJIS'],
 			runIn: ['text'],
 			description: language => language.get('COMMAND_BAN_DESCRIPTION'),
-			usage: '<member:user> [when:time] [reason:...string] [-s]',
+			usage: '<member:username> [when:time] [reason:...string] [-s]',
 			usageDelim: ' '
 		});
 		this.customizeResponse('member', message =>
@@ -19,19 +19,19 @@ module.exports = class extends Command {
 				message.language.get('COMMAND_MODERATION_NOREASON'));
 	}
 
-	async run(msg, [user, when = null, ...reason]) {
+	async run(msg, [username, when = null, ...reason]) {
 		if (!Array.isArray(reason) || !reason.length) reason.unshift('Unspecified');
 		const silent = reason[0].endsWith('-s');
 		if (silent) reason[0].replace('-s', '');
 
-		if (user.id === msg.author.id) return msg.reject(msg.language.get('COMMAND_BAN_NO_BAN_SELF'));
-		if (user.id === this.client.user.id) return msg.reject(msg.language.get('COMMAND_BAN_NO_BAN_CLIENT'));
-		if (!msg.member.canMod(user)) return msg.reject(msg.language.get('COMMAND_BAN_NO_PERMS', user));
+		if (username.id === msg.author.id) return msg.reject(msg.language.get('COMMAND_BAN_NO_BAN_SELF'));
+		if (username.id === this.client.user.id) return msg.reject(msg.language.get('COMMAND_BAN_NO_BAN_CLIENT'));
+		if (!msg.member.canMod(username)) return msg.reject(msg.language.get('COMMAND_BAN_NO_PERMS', username));
 
 		reason += ' (fc)';
 
 		const modCase = new ModCase(msg.guild)
-			.setUser(user)
+			.setUser(username)
 			.setType('ban')
 			.setReason(`${reason}`)
 			.setModerator(msg.author)
@@ -42,14 +42,14 @@ module.exports = class extends Command {
 		const embed = await modCase.embed();
 		await embed.send();
 
-		await msg.guild.members.ban(user, { days: 1, reason: when ? `${msg.language.get('GUILD_LOG_GUILDBANADD_TIMED', when)} | ${reason}` : reason });
+		await msg.guild.members.ban(username, { days: 1, reason: when ? `${msg.language.get('GUILD_LOG_GUILDBANADD_TIMED', when)} | ${reason}` : reason });
 
 		if (when) {
 			await this.client.schedule.create('timedBan', when, {
 				data: {
 					guildID: msg.guild.id,
-					userID: user.id,
-					userTag: user.tag
+					userID: username.id,
+					userTag: username.tag
 				}
 			});
 		}

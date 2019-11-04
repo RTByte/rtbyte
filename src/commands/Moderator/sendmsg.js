@@ -10,7 +10,7 @@ module.exports = class extends Command {
 			permissionLevel: 6,
 			description: language => language.get('COMMAND_SENDMSG_DESCRIPTION'),
 			extendedHelp: '',
-			usage: '<targetUser:user|targetChannel:channel> <message:...string>',
+			usage: '<targetUser:username|targetChannel:channel> <message:...string>',
 			usageDelim: ' '
 		});
 		this.customizeResponse('message', message =>

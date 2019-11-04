@@ -11,27 +11,27 @@ module.exports = class extends Command {
 			requiredSettings: ['roles.voiceBanned'],
 			runIn: ['text'],
 			description: language => language.get('COMMAND_VCUNBAN_DESCRIPTION'),
-			usage: '<member:user>',
+			usage: '<member:username>',
 			usageDelim: ' '
 		});
 		this.customizeResponse('member', message =>
 			message.language.get('COMMAND_VCUNBAN_NOPARAM'));
 	}
 
-	async run(msg, [user]) {
+	async run(msg, [username]) {
 		if (!msg.guild.settings.roles.voiceBanned || !msg.guild.roles.has(msg.guild.settings.roles.voiceBanned)) await this.createRole(msg.guild);
 
-		if (user.id === msg.author.id) return msg.reject(msg.language.get('COMMAND_VCUNBAN_NO_VCUNBAN_SELF'));
-		if (user.id === this.client.user.id) return msg.reject(msg.language.get('COMMAND_VCUNBAN_NO_VCUNBAN_CLIENT'));
-		if (!await msg.member.canMod(user)) return msg.reject(msg.language.get('COMMAND_VCUNBAN_NO_PERMS', user));
+		if (username.id === msg.author.id) return msg.reject(msg.language.get('COMMAND_VCUNBAN_NO_VCUNBAN_SELF'));
+		if (username.id === this.client.user.id) return msg.reject(msg.language.get('COMMAND_VCUNBAN_NO_VCUNBAN_CLIENT'));
+		if (!await msg.member.canMod(username)) return msg.reject(msg.language.get('COMMAND_VCUNBAN_NO_PERMS', username));
 
 		const modCase = new ModCase(msg.guild)
-			.setUser(user)
+			.setUser(username)
 			.setType('vcunban')
 			.setModerator(msg.author);
 		await modCase.submit();
 
-		const member = await msg.guild.members.fetch(user);
+		const member = await msg.guild.members.fetch(username);
 
 		if (!member.roles.has(msg.guild.settings.roles.voiceBanned)) return msg.affirm();
 		const voiceBannedRole = await msg.guild.roles.get(msg.guild.settings.roles.voiceBanned);
