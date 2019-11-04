@@ -10,11 +10,11 @@ module.exports = class extends Command {
 			permissionLevel: 6,
 			description: language => language.get('COMMAND_SENDMSG_DESCRIPTION'),
 			extendedHelp: '',
-			usage: '<targetUser:username|targetChannel:channel> <message:...string>',
+			usage: '<targetUser:username|targetChannel:channelname> <message:...string>',
 			usageDelim: ' '
 		});
-		this.customizeResponse('message', message =>
-			message.language.get('COMMAND_SENDMSG_NOPARAM'));
+		this.customizeResponse('targetUser', message => message.language.get('COMMAND_SENDMSG_NOPARAM_TARGET'))
+			.customizeResponse('message', message => message.language.get('COMMAND_SENDMSG_NOPARAM_MSG'));
 	}
 
 	async run(msg, [target, ...message]) {

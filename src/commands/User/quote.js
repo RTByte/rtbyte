@@ -8,7 +8,7 @@ module.exports = class extends Command {
 			aliases: ['q'],
 			runIn: ['text'],
 			description: language => language.get('COMMAND_QUOTE_DESCRIPTION'),
-			usage: '<messageID:string> [origin:channel]',
+			usage: '<messageID:string> [origin:channelname]',
 			usageDelim: ' '
 		});
 		this.timestamp = new Timestamp('YYYY-MM-DD');

@@ -139,6 +139,8 @@ module.exports = class extends Language {
 			ARG_MEMBERNAME_NOT_GUILD: 'This command can only be used in a guild.',
 			ARG_MEMBERNAME_INVALID: (name) => `${name} must be a valid name, ID, or user mention.`,
 			ARG_MEMBERNAME_MULTIPLE: (querySearch) => `Found multiple matches: \`${querySearch.map(member => member.user.tag).join('`, `')}\``,
+			ARG_CHANNELNAME_INVALID: (name) => `${name} must be a valid name, ID, or channel mention.`,
+			ARG_CHANNELNAME_MULTIPLE: (querySearch) => `Found multiple matches: \`${querySearch.map(channel => channel.name).join('`, `')}\``,
 
 			// Monitor langs
 			// eslint-disable-next-line max-len
@@ -299,7 +301,8 @@ module.exports = class extends Language {
 			COMMAND_PURGE_NOPARAM: 'Please provide the amount of messages to delete.',
 			COMMAND_PURGE_NO_PERMS: (member) => `You don't have permission to purge messages from ${member}.`,
 			COMMAND_SENDMSG_DESCRIPTION: 'Sends a message to the specified channel or user as the bot.',
-			COMMAND_SENDMSG_NOPARAM: 'Please provide a message to send to your mentioned channel or user.',
+			COMMAND_SENDMSG_NOPARAM_TARGET: "Please provide a channel name, ID or #mention for the channel you'd like to send a message to.",
+			COMMAND_SENDMSG_NOPARAM_MSG: 'Please provide a message to send to your mentioned channel or user.',
 			COMMAND_SERVERINFO_DESCRIPTION: 'Displays server information.',
 			COMMAND_SERVERINFO_REGION: 'Region',
 			COMMAND_SERVERINFO_MEMBERCOUNT: (guild) => `${guild.memberCount} (${guild.members.filter(member => member.user.bot).size} bots)`,
