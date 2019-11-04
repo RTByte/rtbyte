@@ -8,7 +8,7 @@ module.exports = class extends Event {
 	}
 
 	async run(guild, user) {
-		if (guild.settings.logs.events.guildBanRemove) await this.unbanLog(guild, user);
+		if (guild.settings.logs.moderation.unban) await this.unbanLog(guild, user);
 
 		return;
 	}
