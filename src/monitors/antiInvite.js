@@ -24,6 +24,7 @@ module.exports = class extends Monitor {
 			.setUser(msg.author)
 			.setType('antiInvite')
 			.setModerator(this.client.user)
+			.setReason(msg.guild.language.get('GUILD_LOG_ANTIINVITE', msg.channel))
 			.setMessageContent(msg.content);
 		await modCase.submit();
 

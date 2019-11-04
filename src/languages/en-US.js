@@ -474,6 +474,7 @@ module.exports = class extends Language {
 			GUILD_LOG_MEMBERUPDATE_DISPLAYNAME: 'Display name changed',
 			GUILD_LOG_MEMBERUPDATE_NITROBOOST: 'User boosted server!',
 			GUILD_LOG_BLACKLISTEDWORD: (channel) => `Blacklisted word detected in ${channel}.`,
+			GUILD_LOG_ANTIINVITE: (channel) => `Non-whitelisted server invite detected in ${channel}`,
 			GUILD_LOG_MENTIONSPAM: 'Mention spam filter triggered',
 			GUILD_LOG_CUSTOMCMDCREATE: 'Custom command created',
 			GUILD_LOG_CUSTOMCMDCREATE_RESPONSE: 'Command response',

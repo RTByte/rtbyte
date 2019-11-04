@@ -66,7 +66,7 @@ class ModEmbed extends MessageEmbed {
 		if (!this.client.users.has(this.modCase.user.id)) return null;
 		if (this.modCase.user.id === this.client.user.id) return null;
 		// eslint-disable-next-line max-len
-		return await this.modCase.user.send(this.modCase.moderator.id === this.client.user.id ? this.modCase.guild.language.get('MODERATION_LOG_BOILERPLATE', this.modCase.guild) : this.modCase.guild.language.get('MODERATION_LOG_BOILERPLATE_AUTO', this.modCase.guild), { disableEveryone: true, embed: this });
+		return await this.modCase.user.send(this.modCase.moderator.id === this.client.user.id ? this.modCase.guild.language.get('MODERATION_LOG_BOILERPLATE_AUTO', this.modCase.guild) : this.modCase.guild.language.get('MODERATION_LOG_BOILERPLATE', this.modCase.guild), { disableEveryone: true, embed: this });
 	}
 
 }
