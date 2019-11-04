@@ -263,7 +263,7 @@ module.exports = class extends Language {
 			COMMAND_STATS_UPTIME: 'Uptime',
 			COMMAND_STATS_CONNECTIONS: 'Connections',
 			// eslint-disable-next-line max-len
-			COMMAND_STATS_CONNECTIONINFO: `Operating on **${this.client.guilds.size}** servers,\nWatching **${this.client.channels.size}** channels,\nServing **${this.client.users.size}** users`,
+			COMMAND_STATS_CONNECTIONINFO: (guilds, channels, users) => `Operating on **${guilds}** servers,\nWatching **${channels}** channels,\nServing **${users}** users`,
 			COMMAND_STATS_LIBRARIES: 'Libraries',
 			COMMAND_STATS_HOSTINFO: 'Host information',
 			COMMAND_STATS_HOSTUPTIME: 'Host uptime',
