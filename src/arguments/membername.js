@@ -1,4 +1,5 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
+// Modified by the RTByte team for use in RTByte.
 const { Argument, util: { regExpEsc } } = require('klasa');
 const { GuildMember, User } = require('discord.js');
 
