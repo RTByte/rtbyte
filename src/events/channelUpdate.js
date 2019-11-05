@@ -65,7 +65,7 @@ module.exports = class extends Event {
 
 		// Topic changed
 		// eslint-disable-next-line max-len
-		if (oldChannel.topic !== channel.topic) await embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_TOPIC'), `${oldChannel.topic || channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_TOPIC_NONE')} ${arrowRightEmoji} ${channel.topic || channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_TOPIC_NONE')}`);
+		if (oldChannel.topic !== channel.topic) await embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_TOPIC'), `\`${oldChannel.topic || channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_TOPIC_NONE')}\` ${arrowRightEmoji} \`${channel.topic || channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_TOPIC_NONE')}\``);
 
 		// Slowmode interval changed
 		// eslint-disable-next-line max-len

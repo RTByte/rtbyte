@@ -38,7 +38,7 @@ module.exports = class extends Command {
 			.setFooter(msg.language.get('COMMAND_REQUESTED_BY', msg), msg.author.displayAvatarURL());
 
 		if (channelname.type !== 'category' && channelname.type !== 'voice' && channelname.type !== 'store') {
-			if (channelname.topic) embed.addField(msg.language.get('COMMAND_CHANNELINFO_TOPIC'), channelname.topic, true);
+			if (channelname.topic) embed.addField(msg.language.get('COMMAND_CHANNELINFO_TOPIC'), `\`${channelname.topic}\``, true);
 			embed.addField(msg.language.get('NSFW'), status[channelname.nsfw], true);
 			// eslint-disable-next-line max-len
 			embed.addField(msg.language.get('COMMAND_CHANNELINFO_RATELIMIT'), channelname.rateLimitPerUser > 0 ? moment.duration(channelname.rateLimitPerUser, 's').humanize() : channelname.guild.language.get('OFF'), true);
