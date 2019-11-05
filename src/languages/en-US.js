@@ -45,6 +45,15 @@ module.exports = class extends Language {
 			'• +50 server emoji slots (for a total of 150)\n• 256 Kbps audio quality\n• Server banner\n• 50 MB upload limit for all members\n• 1080p 60fps Go Live streams',
 			'• +100 server emoji slots (for a total of 250)\n• 384 Kbps audio quality\n• Vanity URL for the server\n• 100 MB upload limit for all members'
 		];
+		this.channelTypes = {
+			dm: 'DM',
+			text: 'Text channel',
+			voice: 'Voice channel',
+			category: 'Category',
+			news: 'News channel',
+			store: 'Store channel',
+			unknown: 'Unknown'
+		};
 
 		this.language = {
 			// Default langs
@@ -67,6 +76,9 @@ module.exports = class extends Language {
 			JOIN_POS: 'Join position',
 			REGISTERED: 'Registered',
 			JOINED: 'Joined',
+			CREATED: 'Created',
+			NSFW: 'NSFW',
+			CATEGORY: 'Category',
 			REASON: 'Reason',
 			PREVNAME: 'Previous name',
 			NAME_CHANGED: 'Name changed',
@@ -81,6 +93,39 @@ module.exports = class extends Language {
 			USERS: 'Users',
 			USERS_SMALL: 'users',
 			MESSAGE: 'Message',
+			MESSAGES: 'Messages',
+
+
+			PERMISSIONS_ADMINISTRATOR: 'Administrator',
+			PERMISSIONS_VIEW_AUDIT_LOG: 'View Audit Log',
+			PERMISSIONS_MANAGE_GUILD: 'Manage Server',
+			PERMISSIONS_MANAGE_ROLES: 'Manage Roles',
+			PERMISSIONS_MANAGE_CHANNELS: 'Manage Channels',
+			PERMISSIONS_KICK_MEMBERS: 'Kick Members',
+			PERMISSIONS_BAN_MEMBERS: 'Ban Members',
+			PERMISSIONS_CREATE_INSTANT_INVITE: 'Create Instant Invite',
+			PERMISSIONS_CHANGE_NICKNAME: 'Change Nickname',
+			PERMISSIONS_MANAGE_NICKNAMES: 'Manage Nicknames',
+			PERMISSIONS_MANAGE_EMOJIS: 'Manage Emojis',
+			PERMISSIONS_MANAGE_WEBHOOKS: 'Manage Webhooks',
+			PERMISSIONS_VIEW_CHANNEL: 'Read Text Channels and See Voice Channels',
+			PERMISSIONS_SEND_MESSAGES: 'Send Messages',
+			PERMISSIONS_SEND_TTS_MESSAGES: 'Send TTS Messages',
+			PERMISSIONS_MANAGE_MESSAGES: 'Manage Messages',
+			PERMISSIONS_EMBED_LINKS: 'Embed Links',
+			PERMISSIONS_ATTACH_FILES: 'Attach Files',
+			PERMISSIONS_READ_MESSAGE_HISTORY: 'Read Message History',
+			PERMISSIONS_MENTION_EVERYONE: 'Mention Everyone',
+			PERMISSIONS_USE_EXTERNAL_EMOJIS: 'Use External Emojis',
+			PERMISSIONS_ADD_REACTIONS: 'Add Reactions',
+			PERMISSIONS_CONNECT: 'Connect',
+			PERMISSIONS_SPEAK: 'Speak',
+			PERMISSIONS_MUTE_MEMBERS: 'Mute Members',
+			PERMISSIONS_DEAFEN_MEMBERS: 'Deafen Members',
+			PERMISSIONS_MOVE_MEMBERS: 'Move Members',
+			PERMISSIONS_USE_VAD: 'Use Voice Activity',
+			PERMISSIONS_PRIORITY_SPEAKER: 'Priority Speaker',
+			PERMISSIONS_STREAM: 'Go Live',
 
 
 			// Setting gateway langs
@@ -141,6 +186,10 @@ module.exports = class extends Language {
 			ARG_MEMBERNAME_MULTIPLE: (querySearch) => `Found multiple matches: \`${querySearch.map(member => member.user.tag).join('`, `')}\``,
 			ARG_CHANNELNAME_INVALID: (name) => `${name} must be a valid name, ID, or channel mention.`,
 			ARG_CHANNELNAME_MULTIPLE: (querySearch) => `Found multiple matches: \`${querySearch.map(channel => channel.name).join('`, `')}\``,
+			ARG_ROLENAME_INVALID: (name) => `${name} must be a valid name, ID, or role mention.`,
+			ARG_ROLENAME_MULTIPLE: (querySearch) => `Found multiple matches: \`${querySearch.map(role => role.name).join('`, `')}\``,
+
+
 
 			// Monitor langs
 			// eslint-disable-next-line max-len
@@ -283,6 +332,13 @@ module.exports = class extends Language {
 			COMMAND_BAN_NO_BAN_SELF: 'You cannot ban yourself.',
 			COMMAND_BAN_NO_BAN_CLIENT: 'I cannot ban myself.',
 			COMMAND_BAN_NO_PERMS: (user) => `You don't have permission to ban ${user}.`,
+			COMMAND_CHANNELINFO_DESCRIPTION: 'Get information on a specified channel.',
+			COMMAND_CHANNELINFO_TYPE: 'Channel type',
+			COMMAND_CHANNELINFO_TYPES: (channel) => this.channelTypes[channel.type],
+			COMMAND_CHANNELINFO_TOPIC: 'Topic',
+			COMMAND_CHANNELINFO_RATELIMIT: 'Slowmode',
+			COMMAND_CHANNELINFO_BITRATE: 'Bitrate',
+			COMMAND_CHANNELINFO_USERLIMIT: 'User limit',
 			COMMAND_KICK_DESCRIPTION: 'Kicks a mentioned user and logs the reason.',
 			COMMAND_KICK_NOPARAM_MEMBER: "Please provide a username, ID or @mention for the user you'd like to kick.",
 			COMMAND_KICK_NO_KICK_SELF: 'You cannot kick yourself.',
@@ -300,6 +356,12 @@ module.exports = class extends Language {
 			COMMAND_PURGE_DESCRIPTION: 'Removes X amount of messages, optionally sent by Y user. Append \'-all\' to ignore the role hierarchy.',
 			COMMAND_PURGE_NOPARAM: 'Please provide the amount of messages to delete.',
 			COMMAND_PURGE_NO_PERMS: (member) => `You don't have permission to purge messages from ${member}.`,
+			COMMAND_ROLEINFO_DESCRIPTION: 'Get information on a specified role.',
+			COMMAND_ROLEINFO_COLOR: 'Color',
+			COMMAND_ROLEINFO_HOIST: 'Hoist (displayed separately)',
+			COMMAND_ROLEINFO_MENTIONABLE: 'Mentionable',
+			COMMAND_ROLEINFO_MANAGED: 'Managed by external service',
+			COMMAND_ROLEINFO_PERMISSIONS: 'Permissions',
 			COMMAND_SENDMSG_DESCRIPTION: 'Sends a message to the specified channel or user as the bot.',
 			COMMAND_SENDMSG_NOPARAM_TARGET: "Please provide a channel name, ID or #mention for the channel you'd like to send a message to.",
 			COMMAND_SENDMSG_NOPARAM_MSG: 'Please provide a message to send to your mentioned channel or user.',
@@ -310,7 +372,6 @@ module.exports = class extends Language {
 			COMMAND_SERVERINFO_VLEVEL_LEVELS: (guild) => `${this.verificationLevels[guild.verificationLevel]}`,
 			COMMAND_SERVERINFO_ECFILTER: 'Explicit content filter',
 			COMMAND_SERVERINFO_ECFILTER_LEVELS: (guild) => `${this.filterLevels[guild.explicitContentFilter]}`,
-			COMMAND_SERVERINFO_CREATED: 'Created',
 			COMMAND_SERVERINFO_NITROTIER: 'Nitro boost level',
 			COMMAND_SERVERINFO_NITROTIER_LEVELS: (guild) => `${this.nitroTierTitles[guild.premiumTier]}`,
 			COMMAND_SERVERINFO_NITROAMOUNT: 'Nitro boosters',
@@ -325,7 +386,7 @@ module.exports = class extends Language {
 			COMMAND_UNMUTE_NO_UNMUTE_SELF: 'You cannot unmute yourself.',
 			COMMAND_UNMUTE_NO_UNMUTE_CLIENT: 'I cannot unmute myself.',
 			COMMAND_UNMUTE_NO_PERMS: (user) => `You don't have permission to unmute ${user}.`,
-			COMMAND_USERINFO_DESCRIPTION: 'Get information on a mentioned user.',
+			COMMAND_USERINFO_DESCRIPTION: 'Get information on a specified user.',
 			COMMAND_USERINFO_STATUS: 'Status',
 			COMMAND_USERINFO_ACTIVITY: (user) => `${this.presenceTypes[user.presence.activity.type]}`,
 			COMMAND_USERINFO_NITROBOOST: 'Nitro boosting since',
@@ -417,7 +478,6 @@ module.exports = class extends Language {
 			GUILD_LOG_CHANNELCREATE_CATEGORY: 'Category created',
 			GUILD_LOG_CHANNELCREATE_NEWS: 'News channel created',
 			GUILD_LOG_CHANNELCREATE_STORE: 'Store channel created',
-			GUILD_LOG_CHANNELCREATE_V_PARENT: 'Category',
 			GUILD_LOG_CHANNELDELETE: 'Channel deleted',
 			GUILD_LOG_CHANNELDELETE_VOICE: 'Voice channel deleted',
 			GUILD_LOG_CHANNELDELETE_CATEGORY: 'Category deleted',
