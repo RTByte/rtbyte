@@ -48,7 +48,8 @@ module.exports = class extends Command {
 				data: {
 					guildID: msg.guild.id,
 					userID: member.id
-				}
+				},
+				catchUp: true
 			});
 		}
 
