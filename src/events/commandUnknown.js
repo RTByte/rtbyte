@@ -1,4 +1,5 @@
-const { Event, Stopwatch } = require('klasa');
+const { Event, Stopwatch, util: { regExpEsc } } = require('klasa');
+const { MessageAttachment } = require('discord.js');
 
 module.exports = class extends Event {
 
@@ -22,7 +23,10 @@ module.exports = class extends Event {
 		if (!customCommand) return;
 
 		// Send custom command response
-		await msg.channel.send(customCommand.content);
+		let commandResponse = customCommand.content;
+		const reg = new RegExp('\.(jpg|png|gif)$');
+		if (customCommand.content.match(reg)) commandResponse = new MessageAttachment(customCommand.content);
+		await msg.channel.send(commandResponse);
 
 		// Set variables for devCommandLog
 		const response = customCommand.content;

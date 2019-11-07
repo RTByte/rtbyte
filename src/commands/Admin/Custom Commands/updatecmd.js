@@ -5,7 +5,7 @@ module.exports = class extends Command {
 	constructor(...args) {
 		super(...args, {
 			runIn: ['text'],
-			aliases: ['updcmd', 'changecmd', 'updatecommand', 'changecommand'],
+			aliases: ['updcmd', 'changecmd', 'updatecommand', 'changecommand', 'editcmd'],
 			permissionLevel: 6,
 			description: language => language.get('COMMAND_UPDATECMD_DESCRIPTION'),
 			usage: '<name:string> <content:...string>',
