@@ -10,6 +10,8 @@ module.exports = class extends Command {
 			description: language => language.get('COMMAND_ENLARGE_DESCRIPTION'),
 			usage: '<emoji:emoji>'
 		});
+		this.customizeResponse('emoji', msg =>
+			msg.language.get('COMMAND_ENLARGE_NOTFOUND'));
 	}
 
 	async run(msg, [emoji]) {
