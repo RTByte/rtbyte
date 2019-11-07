@@ -29,7 +29,8 @@ module.exports = class extends Command {
 				dmBool: sendInDM,
 				reminderMsg: message,
 				timestamp: moment().format()
-			}
+			},
+			catchUp: true
 		});
 
 		return msg.affirm();

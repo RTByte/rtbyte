@@ -453,6 +453,7 @@ module.exports = class extends Language {
 			COMMAND_WIKI_EMBED_DESC: 'Description',
 			COMMAND_WIKI_EMBED_INFO: 'Information',
 			COMMAND_WIKI_NOTFOUND: 'The specified article could not be found, please try again.',
+			COMMAND_ENLARGE_DESCRIPTION: 'Enlarges a specified emoji.',
 
 
 			// Message prompt langs
