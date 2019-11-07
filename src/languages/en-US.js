@@ -454,8 +454,7 @@ module.exports = class extends Language {
 			COMMAND_WIKI_EMBED_INFO: 'Information',
 			COMMAND_WIKI_NOTFOUND: 'The specified article could not be found, please try again.',
 			COMMAND_ENLARGE_DESCRIPTION: 'Enlarges a specified emoji.',
-			COMMAND_ENLARGE_NOTFOUND: "The specified emoji can't be enlarged, as it's either not a custom emoji or I'm not in a server that has it.",
-
+			COMMAND_ENLARGE_NONE: "Please specify an emoji you'd like to enlarge.",
 
 			// Message prompt langs
 			MESSAGE_PROMPT_TIMEOUT: 'The prompt has timed out.',
