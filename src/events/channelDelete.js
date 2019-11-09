@@ -45,7 +45,7 @@ module.exports = class extends Event {
 
 		if (channel.guild.settings.logs.verboseLogging) {
 			embed.addField(channel.guild.language.get('ID'), channel.id);
-			embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELCREATE_V_PARENT'), channel.parent);
+			embed.addField(channel.guild.language.get('CATEGORY'), channel.parent);
 		}
 		const logChannel = await this.client.channels.get(channel.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });
