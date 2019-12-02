@@ -31,7 +31,7 @@ module.exports = class extends Command {
 			.setDescription(`[${msg.guild.language.get('CLICK_TO_VIEW')}](${qmsg.url})`)
 			.setFooter(`${this.timestamp.displayUTC(qmsg.createdAt)} ${msg.guild.language.get('COMMAND_QUOTE_CHANNEL', qmsg)}`);
 
-		if (qmsg.content) await embed.addField(msg.guild.language.get('MESSAGE'), `${qmsg.content}`, true)
+		if (qmsg.content) await embed.addField(msg.guild.language.get('MESSAGE'), `${qmsg.content}`, true);
 		if (!qmsg.content) await embed.setTitle(msg.guild.language.get('MESSAGE'));
 		if (qmsg.attachments.size > 0) {
 			attachment = qmsg.attachments.map(atch => atch.url).join(' ');

@@ -190,7 +190,6 @@ module.exports = class extends Language {
 			ARG_ROLENAME_MULTIPLE: (querySearch) => `Found multiple matches: \`${querySearch.map(role => role.name).join('`, `')}\``,
 
 
-
 			// Monitor langs
 			// eslint-disable-next-line max-len
 			MONITOR_COMMAND_HANDLER_REPROMPT: (tag, error, time, abortOptions) => `${tag} | **${error}** | You have **${time}** seconds to respond to this prompt with a valid argument. Type **${abortOptions.join('**, **')}** to abort this prompt.`,
@@ -425,7 +424,7 @@ module.exports = class extends Language {
 			COMMAND_LYRICS_NOTFOUND: 'The specified song could not be found, please try again.',
 			COMMAND_LYRICS_LINK: 'View full lyrics on Genius',
 			COMMAND_LYRICS_LYRICS: 'Lyrics',
-			COMMAND_REMINDER_DESCRIPTION: 'Sets a reminder for you, append \`-dm\` to have the reminder sent to you via DM.',
+			COMMAND_REMINDER_DESCRIPTION: 'Sets a reminder for you, append `-dm` to have the reminder sent to you via DM.',
 			COMMAND_REMINDER_NOPARAM_WHEN: 'When do you want to be reminded? Tell me how long to wait before reminding you.',
 			COMMAND_REMINDER_NOPARAM_MESSAGE: 'What do you want to be reminded about?',
 			COMMAND_QUOTE_DESCRIPTION: 'Quotes a message by ID.',

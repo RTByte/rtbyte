@@ -18,4 +18,5 @@ module.exports = class extends Task {
 		if (dmBool) return member.user.send('', { disableEveryone: true, embed: embed });
 		return channel.send(`${member}`, { disableEveryone: true, embed: embed });
 	}
-}
+
+};
