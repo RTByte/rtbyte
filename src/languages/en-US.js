@@ -592,7 +592,13 @@ module.exports = class extends Language {
 			MODERATION_LOG_BADNICKNAME: 'Blacklisted nickname',
 			MODERATION_LOG_LINK: (link) => `[Click here to view](${link})`,
 			MODERATION_LOG_SILENT: 'Command executed silently',
-			MODERATION_LOG_CHANNEL: 'Channel'
+			MODERATION_LOG_CHANNEL: 'Channel',
+
+
+			// Board langs
+			STARBOARD_STARRED: 'Message starred',
+			STARBOARD_AUTHOR: 'Author',
+			STARBOARD_CHANNEL: 'Channel'
 		};
 	}
 

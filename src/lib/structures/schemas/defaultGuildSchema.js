@@ -68,7 +68,13 @@ module.exports = KlasaClient.defaultGuildSchema
 		.add('inviteWhitelist', 'string', { array: true })
 		.add('mentionSpamThreshold', 'integer', { min: 2, max: 90 }))
 	.add('moderation', folder => folder
-		.add('notifyUser', 'boolean', { defualt: false }))
+		.add('notifyUser', 'boolean', { default: false }))
 	.add('commands', folder => folder
-		.add('customCommandsEnabled', 'boolean', { default: true })
-		.add('customCommands', 'any', { array: true, configurable: false }));
+		.add('customCommandsEnabled', 'boolean', { default: false })
+		.add('customCommands', 'any', { array: true, configurable: false }))
+	.add('boards', folder => folder
+		.add('starboard', folder => folder // eslint-disable-line
+			.add('starred', 'any', { array: true, configurable: false })
+			.add('starboardEnabled', 'boolean', { default: false })
+			.add('starboardThreshold', 'integer', { min: 1, default: 2 })
+			.add('starboardChannel', 'textchannel')));
