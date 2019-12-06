@@ -14,8 +14,10 @@ module.exports = class extends Language {
 		super(...args);
 		this.presenceTypes = {
 			PLAYING: 'Playing',
+			STREAMING: 'Streaming',
 			LISTENING: 'Listening to',
-			WATCHING: 'Watching'
+			WATCHING: 'Watching',
+			CUSTOM_STATUS: 'Custom status'
 		};
 		this.defaultMsgNotifs = {
 			ALL: 'All messages',
@@ -60,8 +62,8 @@ module.exports = class extends Language {
 			DEFAULT: (key) => `${key} has not been localized for \`en-US\` yet.`,
 			DEFAULT_LANGUAGE: 'Default language',
 			PREFIX_REMINDER: (prefix = `@${this.client.user.tag}`) => `The prefix${Array.isArray(prefix) ?
-				`es for this guild are: ${prefix.map(pre => `\`${pre}\``).join(', ')}` :
-				` in this guild is set to: \`${prefix}\``
+				`es for this server are: ${prefix.map(pre => `\`${pre}\``).join(', ')}` :
+				` in this serv is set to: \`${prefix}\``
 			}`,
 
 
@@ -91,11 +93,11 @@ module.exports = class extends Language {
 			OFFLINE: 'Offline',
 			UNLIMITED: 'Unlimited',
 			USERS: 'Users',
-			USERS_SMALL: 'users',
 			MESSAGE: 'Message',
 			MESSAGES: 'Messages',
 
 
+			// Permission langs
 			PERMISSIONS_ADMINISTRATOR: 'Administrator',
 			PERMISSIONS_VIEW_AUDIT_LOG: 'View Audit Log',
 			PERMISSIONS_MANAGE_GUILD: 'Manage Server',
@@ -148,7 +150,7 @@ module.exports = class extends Language {
 			RESOLVER_INVALID_DURATION: (name) => `${name} must be a valid duration string.`,
 			RESOLVER_INVALID_EMOJI: (name) => `${name} must be a custom emoji tag or valid emoji ID.`,
 			RESOLVER_INVALID_FLOAT: (name) => `${name} must be a valid number.`,
-			RESOLVER_INVALID_GUILD: (name) => `${name} must be a valid guild ID.`,
+			RESOLVER_INVALID_GUILD: (name) => `${name} must be a valid server ID.`,
 			RESOLVER_INVALID_INT: (name) => `${name} must be an integer.`,
 			RESOLVER_INVALID_LITERAL: (name) => `Your option did not match the only possibility: ${name}`,
 			RESOLVER_INVALID_MEMBER: (name) => `${name} must be a mention or valid user ID.`,
@@ -181,7 +183,7 @@ module.exports = class extends Language {
 			// Argument langs
 			ARG_NAME_INVALID: (name) => `${name} must be a valid name, ID, or user mention.`,
 			ARG_USERNAME_MULTIPLE: (querySearch) => `Found multiple matches: \`${querySearch.map(user => user.tag).join('`, `')}\``,
-			ARG_MEMBERNAME_NOT_GUILD: 'This command can only be used in a guild.',
+			ARG_MEMBERNAME_NOT_GUILD: 'This command can only be used in a server.',
 			ARG_MEMBERNAME_INVALID: (name) => `${name} must be a valid name, ID, or user mention.`,
 			ARG_MEMBERNAME_MULTIPLE: (querySearch) => `Found multiple matches: \`${querySearch.map(member => member.user.tag).join('`, `')}\``,
 			ARG_CHANNELNAME_INVALID: (name) => `${name} must be a valid name, ID, or channel mention.`,
@@ -204,24 +206,24 @@ module.exports = class extends Language {
 
 			// Inhibitor langs
 			INHIBITOR_COOLDOWN: (remaining) => `You have just used this command. You can use this command again in ${remaining} second${remaining === 1 ? '' : 's'}.`,
-			INHIBITOR_DISABLED_GUILD: 'This command has been disabled by an administrator in this guild.',
+			INHIBITOR_DISABLED_GUILD: 'This command has been disabled by an administrator in this server.',
 			INHIBITOR_DISABLED_GLOBAL: 'This command has been globally disabled by a bot owner.',
 			INHIBITOR_MISSING_BOT_PERMS: (missing) => `Insufficient permissions, missing: **${missing}**`,
 			INHIBITOR_NSFW: 'You can only use NSFW commands in NSFW channels.',
 			INHIBITOR_PERMISSIONS: 'You do not have permission to use this command.',
-			INHIBITOR_REQUIRED_SETTINGS: (settings) => `The guild is missing the **${settings.join(', ')}** guild setting${settings.length !== 1 ? 's' : ''} and thus the command cannot run.`,
+			INHIBITOR_REQUIRED_SETTINGS: (settings) => `The server is missing the **${settings.join(', ')}** server setting${settings.length !== 1 ? 's' : ''} and thus the command cannot run.`,
 			INHIBITOR_RUNIN: (types) => `This command is only available in ${types} channels.`,
 			INHIBITOR_RUNIN_NONE: (name) => `The ${name} command is not configured to run in any channel.`,
 
 
 			// Command langs
 			COMMAND_REQUESTED_BY: (msg) => `Requested by ${msg.author.tag}`,
-			COMMAND_BLACKLIST_DESCRIPTION: 'Blacklists or un-blacklists users and guilds from the bot.',
+			COMMAND_BLACKLIST_DESCRIPTION: 'Blacklists or un-blacklists users and servers from the bot.',
 			COMMAND_BLACKLIST_SUCCESS: (usersAdded, usersRemoved, guildsAdded, guildsRemoved) => [
 				usersAdded.length ? `**Users added**\n${util.codeBlock('', usersAdded.join(', '))}` : '',
 				usersRemoved.length ? `**Users removed**\n${util.codeBlock('', usersRemoved.join(', '))}` : '',
-				guildsAdded.length ? `**Guilds added**\n${util.codeBlock('', guildsAdded.join(', '))}` : '',
-				guildsRemoved.length ? `**Guilds removed**\n${util.codeBlock('', guildsRemoved.join(', '))}` : ''
+				guildsAdded.length ? `**Servers added**\n${util.codeBlock('', guildsAdded.join(', '))}` : '',
+				guildsRemoved.length ? `**Servers removed**\n${util.codeBlock('', guildsRemoved.join(', '))}` : ''
 			].filter(val => val !== '').join('\n'),
 			COMMAND_EVAL_DESCRIPTION: 'Evaluates arbitrary JS. Reserved for bot owners.',
 			COMMAND_EVAL_EXTENDEDHELP: [
@@ -259,17 +261,17 @@ module.exports = class extends Language {
 			COMMAND_PING_DESCRIPTION: 'Runs a connection test to Discord.',
 			COMMAND_PINGPONG: (diff, ping) => `Pong! \`${ping}ms\``,
 			COMMAND_INVITE: () => [
-				`To add ${this.client.user.username} to your Discord guild:`,
+				`To add ${this.client.user.username} to your Discord server:`,
 				`<${this.client.invite}>`,
 				util.codeBlock('', [
 					'The above link is generated requesting the minimum permissions required to use every command currently.',
-					'We know not all permissions are right for every guild, so don\'t be afraid to uncheck any of the boxes.',
+					'We know not all permissions are right for every server, so don\'t be afraid to uncheck any of the boxes.',
 					'If you try to use a command that requires more permissions than the bot is granted, it will let you know.'
 				].join(' ')),
 				`The ${this.client.user.username} support server can be found using the link below.`,
 				'https://discord.gg/eRauWP4/'
 			],
-			COMMAND_INVITE_DESCRIPTION: () => `Displays the link to invite ${this.client.user.username} to your guild.`,
+			COMMAND_INVITE_DESCRIPTION: () => `Displays the link to invite ${this.client.user.username} to your server.`,
 			COMMAND_INFO_EMBEDTITLE: () => `${this.client.user.username} Information`,
 			// eslint-disable-next-line max-len
 			COMMAND_INFO_EMBEDDESC: () => `${this.client.user.username} is an open-source modular multipurpose Discord bot built on the incredible [Klasa](https://klasa.js.org/) framework for [discord.js](https://discord.js.org/).\n\nWe aim to provide the most consistent and easy-to-use Discord mod bot solution available, with our key focus areas being modularity, performance, consistency, and choice.`,
@@ -303,8 +305,8 @@ module.exports = class extends Language {
 			COMMAND_CONF_GET: (key, value) => `The value for the key **${key}** is: \`${value}\``,
 			COMMAND_CONF_RESET: (key, response) => `The key **${key}** has been reset to: \`${response}\``,
 			COMMAND_CONF_NOCHANGE: (key) => `The value for **${key}** was already that value.`,
-			COMMAND_CONF_SERVER_DESCRIPTION: 'Define per-guild settings.',
-			COMMAND_CONF_SERVER: (key, list) => `**Guild Settings${key}**\n${list}`,
+			COMMAND_CONF_SERVER_DESCRIPTION: 'Define per-server settings.',
+			COMMAND_CONF_SERVER: (key, list) => `**Server Settings${key}**\n${list}`,
 			COMMAND_CONF_USER_DESCRIPTION: 'Define per-user settings.',
 			COMMAND_CONF_USER: (key, list) => `**User Settings${key}**\n${list}`,
 			COMMAND_CREATECMD_DESCRIPTION: 'Creates a custom command for the server.',
@@ -553,11 +555,11 @@ module.exports = class extends Language {
 			GUILD_LOG_CUSTOMCMDUPDATE_NEW: 'New command response',
 
 			// Global log langs
-			GLOBAL_LOG_GUILDCREATE: 'Bot added to guild',
-			GLOBAL_LOG_GUILDDELETE: 'Bot removed from guild',
-			GLOBAL_LOG_GUILDUPDATE_NAME: 'Guild name changed',
-			GLOBAL_LOG_GUILDUPDATE_ICON: 'Guild icon changed',
-			GLOBAL_LOG_GUILDUNAVAILABLE: 'Guild unavailable, likely due to a server outage',
+			GLOBAL_LOG_GUILDCREATE: 'Bot added to server',
+			GLOBAL_LOG_GUILDDELETE: 'Bot removed from server',
+			GLOBAL_LOG_GUILDUPDATE_NAME: 'Server name changed',
+			GLOBAL_LOG_GUILDUPDATE_ICON: 'Server icon changed',
+			GLOBAL_LOG_GUILDUNAVAILABLE: 'Server unavailable, likely due to a server outage',
 			GLOBAL_LOG_COMMANDRUN: 'Command ran',
 			GLOBAL_LOG_COMMANDRUN_DM: 'Command ran in DM',
 
