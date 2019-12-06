@@ -16,8 +16,7 @@ module.exports = class extends Language {
 			PLAYING: 'Playing',
 			STREAMING: 'Streaming',
 			LISTENING: 'Listening to',
-			WATCHING: 'Watching',
-			CUSTOM_STATUS: 'Custom status'
+			WATCHING: 'Watching'
 		};
 		this.defaultMsgNotifs = {
 			ALL: 'All messages',
@@ -250,7 +249,7 @@ module.exports = class extends Language {
 			COMMAND_RELOAD_FAILED: (type, name) => `Failed to reload the ${name} ${type}. Please check your console.`,
 			COMMAND_RELOAD_ALL: (type, time) => `Reloaded all ${type}. \`${time}\``,
 			COMMAND_RELOAD_EVERYTHING: (time) => `Reloaded everything. \`${time}\``,
-			COMMAND_RELOAD_DESCRIPTION: 'Reloads a klasa piece, or all pieces of a Klasa store.',
+			COMMAND_RELOAD_DESCRIPTION: 'Reloads a Klasa piece, or all pieces of a Klasa store.',
 			COMMAND_REBOOT: 'Rebooting...',
 			COMMAND_REBOOT_DESCRIPTION: 'Reboots the bot.',
 			COMMAND_LOAD: (time, type, name) => `Successfully loaded the ${name} ${type}. \`${time}\``,
