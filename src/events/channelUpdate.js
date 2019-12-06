@@ -77,7 +77,7 @@ module.exports = class extends Event {
 
 		// User limit changed
 		// eslint-disable-next-line max-len
-		if (oldChannel.userLimit !== channel.userLimit) await embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_USERLIMIT'), `${oldChannel.userLimit > 0 ? oldChannel.userLimit : channel.guild.language.get('UNLIMITED')} ${channel.guild.language.get('USERS_SMALL')} ${arrowRightEmoji} ${channel.userLimit > 0 ? channel.userLimit : channel.guild.language.get('UNLIMITED')} ${channel.guild.language.get('USERS_SMALL')}`);
+		if (oldChannel.userLimit !== channel.userLimit) await embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_USERLIMIT'), `${oldChannel.userLimit > 0 ? oldChannel.userLimit : channel.guild.language.get('UNLIMITED')} ${channel.guild.language.get('USERS').toLowerCase()} ${arrowRightEmoji} ${channel.userLimit > 0 ? channel.userLimit : channel.guild.language.get('UNLIMITED')} ${channel.guild.language.get('USERS').toLowerCase()}`);
 
 		// Channel moved to different category
 		// eslint-disable-next-line max-len
