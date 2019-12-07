@@ -130,7 +130,7 @@ module.exports = class extends Language {
 
 
 			// Setting gateway langs
-			SETTING_GATEWAY_EXPECTS_GUILD: 'The parameter <Guild> expects either a Guild or a Guild Object.',
+			SETTING_GATEWAY_EXPECTS_GUILD: 'The parameter <guild> expects either a guild or a guild object.',
 			SETTING_GATEWAY_VALUE_FOR_KEY_NOEXT: (data, key) => `The value ${data} for the key ${key} does not exist.`,
 			SETTING_GATEWAY_VALUE_FOR_KEY_ALREXT: (data, key) => `The value ${data} for the key ${key} already exists.`,
 			SETTING_GATEWAY_SPECIFY_VALUE: 'You must specify the value to add or filter.',
