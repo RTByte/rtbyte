@@ -8,6 +8,7 @@ module.exports = class extends Event {
 	}
 
 	async run(reaction) {
+		let attachment;
 		const msg = reaction.message;
 		const starboardChannel = await this.client.channels.get(msg.guild.settings.boards.starboard.starboardChannel);
 
@@ -18,12 +19,21 @@ module.exports = class extends Event {
 		const embed = new MessageEmbed()
 			.setAuthor(msg.language.get('STARBOARD_STARRED'), msg.guild.iconURL())
 			.setColor(this.client.settings.colors.gold)
+			.setDescription(`[${msg.guild.language.get('CLICK_TO_VIEW')}](${msg.url})`)
 			.addField(msg.language.get('STARBOARD_AUTHOR'), msg.author, true)
 			.addField(msg.language.get('STARBOARD_CHANNEL'), msg.channel, true)
-			.addField(msg.language.get('MESSAGE'), msg.content)
 			.setThumbnail(msg.author.displayAvatarURL())
 			.setTimestamp(msg.createdTimestamp)
 			.setFooter(`🌟 ${reaction.count}`);
+
+		if (msg.content) await embed.addField(msg.guild.language.get('MESSAGE'), msg.content);
+		if (msg.attachments.size > 0) {
+			attachment = msg.attachments.map(atch => atch.url).join(' ');
+			attachment = attachment
+				.replace('//cdn.', '//media.')
+				.replace('.com/', '.net/');
+			await embed.setImage(attachment);
+		}
 
 		let starboardMsgID;
 		const starred = msg.guild.settings.boards.starboard.starred.find(star => star.msgID === msg.id);
@@ -44,7 +54,7 @@ module.exports = class extends Event {
 						starboardMsgID = message.id;
 						msg.guild.settings.update('boards.starboard.starred', starred, { action: 'remove' });
 						if (!(reaction.count < msg.guild.settings.boards.starboard.starboardThreshold)) {
-							msg.guild.settings.update('boards.starboard.starred', { msgID: msg.id, content: msg.content, stars: reaction.count, starID: starboardMsgID }, { action: 'add' });
+							msg.guild.settings.update('boards.starboard.starred', { msgID: msg.id, stars: reaction.count, starID: starboardMsgID }, { action: 'add' });
 							message.edit({ embed });
 						}
 					});
