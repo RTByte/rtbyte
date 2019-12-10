@@ -365,6 +365,7 @@ module.exports = class extends Language {
 			COMMAND_SENDMSG_DESCRIPTION: 'Sends a message to the specified channel or user as the bot.',
 			COMMAND_SENDMSG_NOPARAM_TARGET: "Please provide a channel name, ID or #mention for the channel you'd like to send a message to.",
 			COMMAND_SENDMSG_NOPARAM_MSG: 'Please provide a message to send to your specified channel or user.',
+			COMMAND_SENDMSG_DISCLAIMER: (guild) => `This message was sent from the **${guild.name}** Discord and can not be replied to. If you have any questions regarding the contents of it, please contact a moderator.`,
 			COMMAND_SERVERINFO_DESCRIPTION: 'Displays server information.',
 			COMMAND_SERVERINFO_REGION: 'Region',
 			COMMAND_SERVERINFO_MEMBERCOUNT: (guild) => `${guild.memberCount} (${guild.members.filter(member => member.user.bot).size} bots)`,
