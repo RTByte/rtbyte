@@ -48,7 +48,7 @@ module.exports = class extends Command {
 
 		if (membername.user.presence.activity) {
 			// eslint-disable-next-line max-len
-			await embed.addField(!membername.user.presence.activity.type ? membername.user.presence.activity.name : msg.guild.language.get('COMMAND_USERINFO_ACTIVITY', membername), !membername.user.presence.activity.type ? membername.user.presence.activity.state || 'N/A' : membername.user.presence.activity ? membername.user.presence.activity.name : 'N/A', true);
+			await embed.addField(!membername.user.presence.activity.type ? membername.user.presence.activity.name : msg.guild.language.get('COMMAND_USERINFO_ACTIVITY', membername), !membername.user.presence.activity.type ? membername.user.presence.activity.state || 'N/A' : membername.user.presence.activity ? (!membername.user.presence.activity.details ? membername.user.presence.activity.name : `${membername.user.presence.activity.name}\n\`${membername.user.presence.activity.details}\``) : 'N/A', true);
 		}
 
 		if (membername.premiumSince) {
