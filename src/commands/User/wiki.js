@@ -26,7 +26,7 @@ module.exports = class extends Command {
 					.setThumbnail((json.thumbnail && json.thumbnail.source) || 'https://i.imgur.com/fnhlGh5.png')
 					.setTimestamp()
 					.setFooter(msg.language.get('COMMAND_REQUESTED_BY', msg), msg.author.displayAvatarURL());
-				return msg.sendEmbed(embed);
+				return msg.send(embed);
 			})
 			.catch(() => { throw msg.guild.language.get('COMMAND_WIKI_NOTFOUND'); });
 	}

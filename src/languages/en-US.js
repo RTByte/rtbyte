@@ -455,6 +455,15 @@ module.exports = class extends Language {
 			COMMAND_WIKI_NOTFOUND: 'The specified article could not be found, please try again.',
 			COMMAND_ENLARGE_DESCRIPTION: 'Enlarges a specified emoji.',
 			COMMAND_ENLARGE_NONE: "Please specify an emoji you'd like to enlarge.",
+			COMMAND_DISCORDSTATUS_DESCRIPTION: "Checks Discord's status and lets you know if there are any ongoing incidents.",
+			COMMAND_DISCORDSTATUS_STATUS: 'Discord Status',
+			COMMAND_DISCORDSTATUS_LINK: 'View on status.discordapp.com',
+			COMMAND_DISCORDSTATUS_ALLOK: 'All systems operational',
+			COMMAND_DISCORDSTATUS_INCIDENT: 'Ongoing incident',
+			COMMAND_DISCORDSTATUS_INCIDENT_TSTAMP: 'Incident timestamp',
+			COMMAND_DISCORDSTATUS_INCIDENT_UPDATES: 'Incident updates',
+			COMMAND_DISCORDSTATUS_INCIDENT_LINK: 'View incident on status.discordapp.com',
+			COMMAND_DISCORDSTATUS_LASTUPDATE: 'Last updated on',
 
 			// Message prompt langs
 			MESSAGE_PROMPT_TIMEOUT: 'The prompt has timed out.',
