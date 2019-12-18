@@ -1,6 +1,6 @@
 {
     "name": "rtbyte",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "description": "A Discord Bot for the Rooster Teeth Community family of Discord Servers",
     "main": "src/index.js",
     "scripts": {
