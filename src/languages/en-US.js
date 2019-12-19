@@ -365,6 +365,7 @@ module.exports = class extends Language {
 			COMMAND_SENDMSG_DESCRIPTION: 'Sends a message to the specified channel or user as the bot.',
 			COMMAND_SENDMSG_NOPARAM_TARGET: "Please provide a channel name, ID or #mention for the channel you'd like to send a message to.",
 			COMMAND_SENDMSG_NOPARAM_MSG: 'Please provide a message to send to your specified channel or user.',
+			// eslint-disable-next-line max-len
 			COMMAND_SENDMSG_DISCLAIMER: (guild) => `This message was sent from the **${guild.name}** Discord and can not be replied to. If you have any questions regarding the contents of it, please contact a moderator.`,
 			COMMAND_SERVERINFO_DESCRIPTION: 'Displays server information.',
 			COMMAND_SERVERINFO_REGION: 'Region',
@@ -465,6 +466,16 @@ module.exports = class extends Language {
 			COMMAND_DISCORDSTATUS_INCIDENT_UPDATES: 'Incident updates',
 			COMMAND_DISCORDSTATUS_INCIDENT_LINK: 'View incident on status.discordapp.com',
 			COMMAND_DISCORDSTATUS_LASTUPDATE: 'Last updated on',
+			COMMAND_WEATHER_DESCRIPTION: 'Fetch the current weather for a specified location',
+			COMMAND_WEATHER_NOPARAM: 'Please provide a location',
+			COMMAND_WEATHER_NOTFOUND: "Sorry, I can't find this location anywhere.",
+			COMMAND_WEATHER_LINK: (mapsLink, darkskyLink) => `View location on [Google Maps](${mapsLink}) or [DarkSky](${darkskyLink})`,
+			COMMAND_WEATHER_DAILY: 'Weather',
+			COMMAND_WEATHER_CONDITION: 'Current conditions',
+			COMMAND_WEATHER_TEMPERATURE: 'Temperature',
+			COMMAND_WEATHER_WINDSPEED: 'Wind speed',
+			COMMAND_WEATHER_CHANCEOFRAIN: 'Chance of rain',
+			COMMAND_WEATHER_HUMIDITY: 'Humidity',
 
 			// Message prompt langs
 			MESSAGE_PROMPT_TIMEOUT: 'The prompt has timed out.',
