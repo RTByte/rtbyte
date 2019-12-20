@@ -12,8 +12,7 @@ module.exports = class extends Event {
 		const msg = reaction.message;
 		const starboardChannel = await this.client.channels.get(msg.guild.settings.boards.starboard.starboardChannel);
 
-		if (reaction.emoji.name !== '🌟') return;
-		if (msg.author.bot) return;
+		if (reaction.emoji.name !== '🌟' || msg.author.bot || msg.channel === starboardChannel) return;
 		if (!msg.guild.settings.boards.starboard.starboardEnabled) return;
 		if (reaction.count < msg.guild.settings.boards.starboard.starboardThreshold) return;
 
