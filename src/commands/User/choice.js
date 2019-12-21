@@ -6,6 +6,7 @@ module.exports = class extends Command {
 		super(...args, {
 			aliases: ['choose', 'decide'],
 			description: language => language.get('COMMAND_CHOICE_DESCRIPTION'),
+			runIn: ['text', 'dm'],
 			usage: '<choices:str> [...]',
 			usageDelim: ', '
 		});

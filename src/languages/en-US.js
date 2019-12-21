@@ -435,6 +435,7 @@ module.exports = class extends Language {
 			COMMAND_QUOTE_NOPARAM: 'Please specify a message ID for the message you would like to quote.\nMessage IDs can be found by right clicking a message after having turned *Developer Mode* on under **Appearance** in your settings.',
 			COMMAND_QUOTE_NO_MESSAGE_FOUND: (messageID, origin) => `Could not find a message with ID of \`${messageID}\` in ${origin}`,
 			COMMAND_QUOTE_CHANNEL: (qmsg) => `in #${qmsg.channel.name}`,
+			COMMAND_QUOTE_DMS: 'in DMs',
 			COMMAND_ROLES_DESCRIPTION: 'Series of commands to allow you to join roles by yourself.',
 			COMMAND_ROLES_EXTENDED: '**list** - Lists joinable roles and their member counts.\n**add** - Adds a role by its name.\n**remove** - Removes a role by its name.',
 			COMMAND_ROLES_NONE_JOINABLE: 'There are no joinable roles on this server.',
@@ -466,7 +467,7 @@ module.exports = class extends Language {
 			COMMAND_DISCORDSTATUS_INCIDENT_UPDATES: 'Incident updates',
 			COMMAND_DISCORDSTATUS_INCIDENT_LINK: 'View incident on status.discordapp.com',
 			COMMAND_DISCORDSTATUS_LASTUPDATE: 'Last updated on',
-			COMMAND_WEATHER_DESCRIPTION: 'Fetch the current weather for a specified location',
+			COMMAND_WEATHER_DESCRIPTION: 'Fetch the current weather for a specified location.',
 			COMMAND_WEATHER_NOPARAM: 'Please provide a location',
 			COMMAND_WEATHER_NOTFOUND: "Sorry, I can't find this location anywhere.",
 			COMMAND_WEATHER_LINK: (mapsLink, darkskyLink) => `View location on [Google Maps](${mapsLink}) or [DarkSky](${darkskyLink})`,
@@ -476,6 +477,7 @@ module.exports = class extends Language {
 			COMMAND_WEATHER_WINDSPEED: 'Wind speed',
 			COMMAND_WEATHER_CHANCEOFRAIN: 'Chance of rain',
 			COMMAND_WEATHER_HUMIDITY: 'Humidity',
+
 
 			// Message prompt langs
 			MESSAGE_PROMPT_TIMEOUT: 'The prompt has timed out.',

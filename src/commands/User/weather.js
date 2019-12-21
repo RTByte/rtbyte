@@ -9,6 +9,7 @@ module.exports = class extends Command {
 		super(...args, {
 			aliases: ['climate'],
 			description: language => language.get('COMMAND_WEATHER_DESCRIPTION'),
+			runIn: ['text', 'dm'],
 			usage: '<location:str>'
 		});
 		this.customizeResponse('location', message =>
@@ -51,11 +52,11 @@ module.exports = class extends Command {
 						const embed = new MessageEmbed()
 							.setAuthor(geocodeLocation, countryCode ? `https://www.countryflags.io/${countryCode}/flat/64.png` : null)
 							.setColor(this.client.settings.colors.white)
-							.setDescription(msg.guild.language.get('COMMAND_WEATHER_LINK', mapsLink, darkskyLink))
-							.addField(msg.language.get('COMMAND_WEATHER_DAILY'), minutely || daily)
+							.setDescription(msg.language.get('COMMAND_WEATHER_LINK', mapsLink, darkskyLink))
 							.addField(msg.language.get('COMMAND_WEATHER_CONDITION'), condition, true)
 							// eslint-disable-next-line no-mixed-operators
 							.addField(msg.language.get('COMMAND_WEATHER_TEMPERATURE'), `${temperature}° C (${temperature * 9 / 5 + 32}° F)`, true)
+							.addField(msg.language.get('COMMAND_WEATHER_DAILY'), minutely || daily)
 							.addField(msg.language.get('COMMAND_WEATHER_WINDSPEED'), `${windSpeed} m/s (${Math.round(windSpeed * 3600 / 1610.3 * 1000) / 1000} mph)`, true)
 							.addField(msg.language.get('COMMAND_WEATHER_CHANCEOFRAIN'), `${chanceOfRain}%`, true)
 							.addField(msg.language.get('COMMAND_WEATHER_HUMIDITY'), `${humidity}%`, true)

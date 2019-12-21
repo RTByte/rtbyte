@@ -8,6 +8,7 @@ module.exports = class extends Command {
 		super(...args, {
 			aliases: ['mirror', 'magicconch'],
 			description: language => language.get('COMMAND_8BALL_DESCRIPTION'),
+			runIn: ['text', 'dm'],
 			usage: '<question:str>'
 		});
 		this.customizeResponse('question', message =>
@@ -26,7 +27,7 @@ module.exports = class extends Command {
 				});
 			return true;
 		}
-		return msg.reply(`\n🎱 ${msg.guild.language.get('COMMAND_8BALL_ANSWERS')[Math.floor(Math.random() * msg.guild.language.get('COMMAND_8BALL_ANSWERS').length)]}`);
+		return msg.reply(`\n🎱 ${msg.language.get('COMMAND_8BALL_ANSWERS')[Math.floor(Math.random() * msg.language.get('COMMAND_8BALL_ANSWERS').length)]}`);
 	}
 
 };

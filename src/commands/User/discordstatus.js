@@ -8,7 +8,8 @@ module.exports = class extends Command {
 	constructor(...args) {
 		super(...args, {
 			aliases: ['dstatus'],
-			description: language => language.get('COMMAND_DISCORDSTATUS_DESCRIPTION')
+			description: language => language.get('COMMAND_DISCORDSTATUS_DESCRIPTION'),
+			runIn: ['text', 'dm']
 		});
 	}
 
@@ -17,7 +18,7 @@ module.exports = class extends Command {
 			.then(res => res.json())
 			.then(json => {
 				const embed = new MessageEmbed()
-					.setDescription(`[${msg.guild.language.get('COMMAND_DISCORDSTATUS_LINK')}](${json.page.url})`)
+					.setDescription(`[${msg.language.get('COMMAND_DISCORDSTATUS_LINK')}](${json.page.url})`)
 					.setThumbnail('https://i.imgur.com/3Xw9JWs.png')
 					.setTimestamp()
 					.setFooter(msg.language.get('COMMAND_REQUESTED_BY', msg), msg.author.displayAvatarURL());
@@ -31,7 +32,7 @@ module.exports = class extends Command {
 				const incident = json.incidents[0];
 				if (incident) {
 					embed.setTitle(msg.language.get('COMMAND_DISCORDSTATUS_INCIDENT'))
-						.setDescription(`[${msg.guild.language.get('COMMAND_DISCORDSTATUS_INCIDENT_LINK')}](https://status.discordapp.com/incidents/${incident.incident_id}/)`)
+						.setDescription(`[${msg.language.get('COMMAND_DISCORDSTATUS_INCIDENT_LINK')}](https://status.discordapp.com/incidents/${incident.incident_id}/)`)
 						.setColor(this.client.settings.colors.yellow)
 						.addField(msg.language.get('COMMAND_DISCORDSTATUS_INCIDENT_TSTAMP'), moment(incident.created_at).format('dddd, MMMM Do YYYY, h:mmA'))
 						.addField(msg.language.get('COMMAND_DISCORDSTATUS_INCIDENT_UPDATES'), incident.incident_updates[0].body);

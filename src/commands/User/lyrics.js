@@ -12,6 +12,7 @@ module.exports = class extends Command {
 			cooldown: 10,
 			aliases: ['songlyrics', 'lyric'],
 			description: language => language.get('COMMAND_LYRICS_DESCRIPTION'),
+			runIn: ['text', 'dm'],
 			usage: '<song:string>'
 		});
 	}
@@ -55,8 +56,8 @@ module.exports = class extends Command {
 			.setAuthor(artist, artistPic)
 			.setColor(this.client.settings.colors.white)
 			.setTitle(songTitle)
-			.setDescription(`[${msg.guild.language.get('COMMAND_LYRICS_LINK')}](${geniusLink})`)
-			.addField(msg.guild.language.get('COMMAND_LYRICS_LYRICS'), lyricsBody)
+			.setDescription(`[${msg.language.get('COMMAND_LYRICS_LINK')}](${geniusLink})`)
+			.addField(msg.language.get('COMMAND_LYRICS_LYRICS'), lyricsBody)
 			.setThumbnail(songPic)
 			.setTimestamp()
 			.setFooter(msg.language.get('COMMAND_REQUESTED_BY', msg), msg.author.displayAvatarURL());

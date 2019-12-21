@@ -6,12 +6,13 @@ module.exports = class extends Command {
 		super(...args, {
 			aliases: ['coin'],
 			description: language => language.get('COMMAND_COINFLIP_DESCRIPTION'),
+			runIn: ['text', 'dm'],
 			usage: ''
 		});
 	}
 
 	async run(msg) {
-		return msg.reply(`\n${Math.random() > 0.5 ? `${msg.guild.language.get('COMMAND_COINFLIP_HEADS')}` : `${msg.guild.language.get('COMMAND_COINFLIP_TAILS')}`}.`);
+		return msg.reply(`\n${Math.random() > 0.5 ? `${msg.language.get('COMMAND_COINFLIP_HEADS')}` : `${msg.language.get('COMMAND_COINFLIP_TAILS')}`}.`);
 	}
 
 };

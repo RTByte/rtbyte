@@ -6,7 +6,7 @@ module.exports = class extends Command {
 	constructor(...args) {
 		super(...args, {
 			aliases: ['remindme', 'remind', 'setreminder'],
-			runIn: ['text'],
+			runIn: ['text', 'dm'],
 			description: language => language.get('COMMAND_REMINDER_DESCRIPTION'),
 			usage: '<when:time> <message:...string> [-dm]',
 			usageDelim: ' '
@@ -23,8 +23,8 @@ module.exports = class extends Command {
 
 		await this.client.schedule.create('reminder', when, {
 			data: {
-				guildID: msg.guild.id,
-				channelID: msg.channel.id,
+				guildID: msg.guild ? msg.guild.id : null,
+				channelID: msg.guild ? msg.channel.id : msg.author.id,
 				userID: msg.author.id,
 				dmBool: sendInDM,
 				reminderMsg: message,

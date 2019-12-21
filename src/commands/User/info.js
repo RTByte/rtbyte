@@ -7,17 +7,18 @@ module.exports = class extends Command {
 		super(...args, {
 			aliases: ['details', 'what'],
 			guarded: true,
-			description: language => language.get('COMMAND_INFO_DESCRIPTION')
+			description: language => language.get('COMMAND_INFO_DESCRIPTION'),
+			runIn: ['text', 'dm']
 		});
 	}
 
 	async run(msg) {
 		const embed = new MessageEmbed()
-			.setAuthor(msg.guild.language.get('COMMAND_INFO_EMBEDTITLE'), this.client.user.displayAvatarURL())
+			.setAuthor(msg.language.get('COMMAND_INFO_EMBEDTITLE'), this.client.user.displayAvatarURL())
 			.setColor(this.client.settings.colors.white)
-			.setDescription(msg.guild.language.get('COMMAND_INFO_EMBEDDESC'))
-			.addField(msg.guild.language.get('COMMAND_INFO_OURTEAM'), msg.guild.language.get('COMMAND_INFO_TEAMLIST'), true)
-			.addField(msg.guild.language.get('COMMAND_INFO_LINKS'), msg.guild.language.get('COMMAND_INFO_LINKLIST'), true)
+			.setDescription(msg.language.get('COMMAND_INFO_EMBEDDESC'))
+			.addField(msg.language.get('COMMAND_INFO_OURTEAM'), msg.language.get('COMMAND_INFO_TEAMLIST'), true)
+			.addField(msg.language.get('COMMAND_INFO_LINKS'), msg.language.get('COMMAND_INFO_LINKLIST'), true)
 			.setThumbnail(this.client.user.displayAvatarURL(), 50, 50)
 			.setTimestamp()
 			.setFooter(msg.language.get('COMMAND_REQUESTED_BY', msg), msg.author.displayAvatarURL());

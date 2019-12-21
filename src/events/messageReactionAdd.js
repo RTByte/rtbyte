@@ -10,6 +10,7 @@ module.exports = class extends Event {
 	async run(reaction) {
 		let attachment;
 		const msg = reaction.message;
+		if (!msg.guild) return;
 		const starboardChannel = await this.client.channels.get(msg.guild.settings.boards.starboard.starboardChannel);
 
 		if (reaction.emoji.name !== '🌟' || msg.author.bot || msg.channel === starboardChannel) return;
