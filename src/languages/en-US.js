@@ -14,8 +14,10 @@ module.exports = class extends Language {
 		super(...args);
 		this.presenceTypes = {
 			PLAYING: 'Playing',
+			STREAMING: 'Streaming',
 			LISTENING: 'Listening to',
-			WATCHING: 'Watching'
+			WATCHING: 'Watching',
+			CUSTOM_STATUS: 'Custom status'
 		};
 		this.defaultMsgNotifs = {
 			ALL: 'All messages',
@@ -60,8 +62,8 @@ module.exports = class extends Language {
 			DEFAULT: (key) => `${key} has not been localized for \`en-US\` yet.`,
 			DEFAULT_LANGUAGE: 'Default language',
 			PREFIX_REMINDER: (prefix = `@${this.client.user.tag}`) => `The prefix${Array.isArray(prefix) ?
-				`es for this guild are: ${prefix.map(pre => `\`${pre}\``).join(', ')}` :
-				` in this guild is set to: \`${prefix}\``
+				`es for this server are: ${prefix.map(pre => `\`${pre}\``).join(', ')}` :
+				` in this serv is set to: \`${prefix}\``
 			}`,
 
 
@@ -91,11 +93,11 @@ module.exports = class extends Language {
 			OFFLINE: 'Offline',
 			UNLIMITED: 'Unlimited',
 			USERS: 'Users',
-			USERS_SMALL: 'users',
 			MESSAGE: 'Message',
 			MESSAGES: 'Messages',
 
 
+			// Permission langs
 			PERMISSIONS_ADMINISTRATOR: 'Administrator',
 			PERMISSIONS_VIEW_AUDIT_LOG: 'View Audit Log',
 			PERMISSIONS_MANAGE_GUILD: 'Manage Server',
@@ -129,7 +131,7 @@ module.exports = class extends Language {
 
 
 			// Setting gateway langs
-			SETTING_GATEWAY_EXPECTS_GUILD: 'The parameter <Guild> expects either a Guild or a Guild Object.',
+			SETTING_GATEWAY_EXPECTS_GUILD: 'The parameter <guild> expects either a guild or a guild object.',
 			SETTING_GATEWAY_VALUE_FOR_KEY_NOEXT: (data, key) => `The value ${data} for the key ${key} does not exist.`,
 			SETTING_GATEWAY_VALUE_FOR_KEY_ALREXT: (data, key) => `The value ${data} for the key ${key} already exists.`,
 			SETTING_GATEWAY_SPECIFY_VALUE: 'You must specify the value to add or filter.',
@@ -148,7 +150,7 @@ module.exports = class extends Language {
 			RESOLVER_INVALID_DURATION: (name) => `${name} must be a valid duration string.`,
 			RESOLVER_INVALID_EMOJI: (name) => `${name} must be a custom emoji tag or valid emoji ID.`,
 			RESOLVER_INVALID_FLOAT: (name) => `${name} must be a valid number.`,
-			RESOLVER_INVALID_GUILD: (name) => `${name} must be a valid guild ID.`,
+			RESOLVER_INVALID_GUILD: (name) => `${name} must be a valid server ID.`,
 			RESOLVER_INVALID_INT: (name) => `${name} must be an integer.`,
 			RESOLVER_INVALID_LITERAL: (name) => `Your option did not match the only possibility: ${name}`,
 			RESOLVER_INVALID_MEMBER: (name) => `${name} must be a mention or valid user ID.`,
@@ -181,14 +183,13 @@ module.exports = class extends Language {
 			// Argument langs
 			ARG_NAME_INVALID: (name) => `${name} must be a valid name, ID, or user mention.`,
 			ARG_USERNAME_MULTIPLE: (querySearch) => `Found multiple matches: \`${querySearch.map(user => user.tag).join('`, `')}\``,
-			ARG_MEMBERNAME_NOT_GUILD: 'This command can only be used in a guild.',
+			ARG_MEMBERNAME_NOT_GUILD: 'This command can only be used in a server.',
 			ARG_MEMBERNAME_INVALID: (name) => `${name} must be a valid name, ID, or user mention.`,
 			ARG_MEMBERNAME_MULTIPLE: (querySearch) => `Found multiple matches: \`${querySearch.map(member => member.user.tag).join('`, `')}\``,
 			ARG_CHANNELNAME_INVALID: (name) => `${name} must be a valid name, ID, or channel mention.`,
 			ARG_CHANNELNAME_MULTIPLE: (querySearch) => `Found multiple matches: \`${querySearch.map(channel => channel.name).join('`, `')}\``,
 			ARG_ROLENAME_INVALID: (name) => `${name} must be a valid name, ID, or role mention.`,
 			ARG_ROLENAME_MULTIPLE: (querySearch) => `Found multiple matches: \`${querySearch.map(role => role.name).join('`, `')}\``,
-
 
 
 			// Monitor langs
@@ -205,24 +206,24 @@ module.exports = class extends Language {
 
 			// Inhibitor langs
 			INHIBITOR_COOLDOWN: (remaining) => `You have just used this command. You can use this command again in ${remaining} second${remaining === 1 ? '' : 's'}.`,
-			INHIBITOR_DISABLED_GUILD: 'This command has been disabled by an administrator in this guild.',
+			INHIBITOR_DISABLED_GUILD: 'This command has been disabled by an administrator in this server.',
 			INHIBITOR_DISABLED_GLOBAL: 'This command has been globally disabled by a bot owner.',
 			INHIBITOR_MISSING_BOT_PERMS: (missing) => `Insufficient permissions, missing: **${missing}**`,
 			INHIBITOR_NSFW: 'You can only use NSFW commands in NSFW channels.',
 			INHIBITOR_PERMISSIONS: 'You do not have permission to use this command.',
-			INHIBITOR_REQUIRED_SETTINGS: (settings) => `The guild is missing the **${settings.join(', ')}** guild setting${settings.length !== 1 ? 's' : ''} and thus the command cannot run.`,
+			INHIBITOR_REQUIRED_SETTINGS: (settings) => `The server is missing the **${settings.join(', ')}** server setting${settings.length !== 1 ? 's' : ''} and thus the command cannot run.`,
 			INHIBITOR_RUNIN: (types) => `This command is only available in ${types} channels.`,
 			INHIBITOR_RUNIN_NONE: (name) => `The ${name} command is not configured to run in any channel.`,
 
 
 			// Command langs
 			COMMAND_REQUESTED_BY: (msg) => `Requested by ${msg.author.tag}`,
-			COMMAND_BLACKLIST_DESCRIPTION: 'Blacklists or un-blacklists users and guilds from the bot.',
+			COMMAND_BLACKLIST_DESCRIPTION: 'Blacklists or un-blacklists users and servers from the bot.',
 			COMMAND_BLACKLIST_SUCCESS: (usersAdded, usersRemoved, guildsAdded, guildsRemoved) => [
 				usersAdded.length ? `**Users added**\n${util.codeBlock('', usersAdded.join(', '))}` : '',
 				usersRemoved.length ? `**Users removed**\n${util.codeBlock('', usersRemoved.join(', '))}` : '',
-				guildsAdded.length ? `**Guilds added**\n${util.codeBlock('', guildsAdded.join(', '))}` : '',
-				guildsRemoved.length ? `**Guilds removed**\n${util.codeBlock('', guildsRemoved.join(', '))}` : ''
+				guildsAdded.length ? `**Servers added**\n${util.codeBlock('', guildsAdded.join(', '))}` : '',
+				guildsRemoved.length ? `**Servers removed**\n${util.codeBlock('', guildsRemoved.join(', '))}` : ''
 			].filter(val => val !== '').join('\n'),
 			COMMAND_EVAL_DESCRIPTION: 'Evaluates arbitrary JS. Reserved for bot owners.',
 			COMMAND_EVAL_EXTENDEDHELP: [
@@ -249,7 +250,7 @@ module.exports = class extends Language {
 			COMMAND_RELOAD_FAILED: (type, name) => `Failed to reload the ${name} ${type}. Please check your console.`,
 			COMMAND_RELOAD_ALL: (type, time) => `Reloaded all ${type}. \`${time}\``,
 			COMMAND_RELOAD_EVERYTHING: (time) => `Reloaded everything. \`${time}\``,
-			COMMAND_RELOAD_DESCRIPTION: 'Reloads a klasa piece, or all pieces of a Klasa store.',
+			COMMAND_RELOAD_DESCRIPTION: 'Reloads a Klasa piece, or all pieces of a Klasa store.',
 			COMMAND_REBOOT: 'Rebooting...',
 			COMMAND_REBOOT_DESCRIPTION: 'Reboots the bot.',
 			COMMAND_LOAD: (time, type, name) => `Successfully loaded the ${name} ${type}. \`${time}\``,
@@ -260,17 +261,17 @@ module.exports = class extends Language {
 			COMMAND_PING_DESCRIPTION: 'Runs a connection test to Discord.',
 			COMMAND_PINGPONG: (diff, ping) => `Pong! \`${ping}ms\``,
 			COMMAND_INVITE: () => [
-				`To add ${this.client.user.username} to your Discord guild:`,
+				`To add ${this.client.user.username} to your Discord server:`,
 				`<${this.client.invite}>`,
 				util.codeBlock('', [
 					'The above link is generated requesting the minimum permissions required to use every command currently.',
-					'We know not all permissions are right for every guild, so don\'t be afraid to uncheck any of the boxes.',
+					'We know not all permissions are right for every server, so don\'t be afraid to uncheck any of the boxes.',
 					'If you try to use a command that requires more permissions than the bot is granted, it will let you know.'
 				].join(' ')),
 				`The ${this.client.user.username} support server can be found using the link below.`,
 				'https://discord.gg/eRauWP4/'
 			],
-			COMMAND_INVITE_DESCRIPTION: () => `Displays the link to invite ${this.client.user.username} to your guild.`,
+			COMMAND_INVITE_DESCRIPTION: () => `Displays the link to invite ${this.client.user.username} to your server.`,
 			COMMAND_INFO_EMBEDTITLE: () => `${this.client.user.username} Information`,
 			// eslint-disable-next-line max-len
 			COMMAND_INFO_EMBEDDESC: () => `${this.client.user.username} is an open-source modular multipurpose Discord bot built on the incredible [Klasa](https://klasa.js.org/) framework for [discord.js](https://discord.js.org/).\n\nWe aim to provide the most consistent and easy-to-use Discord mod bot solution available, with our key focus areas being modularity, performance, consistency, and choice.`,
@@ -304,8 +305,8 @@ module.exports = class extends Language {
 			COMMAND_CONF_GET: (key, value) => `The value for the key **${key}** is: \`${value}\``,
 			COMMAND_CONF_RESET: (key, response) => `The key **${key}** has been reset to: \`${response}\``,
 			COMMAND_CONF_NOCHANGE: (key) => `The value for **${key}** was already that value.`,
-			COMMAND_CONF_SERVER_DESCRIPTION: 'Define per-guild settings.',
-			COMMAND_CONF_SERVER: (key, list) => `**Guild Settings${key}**\n${list}`,
+			COMMAND_CONF_SERVER_DESCRIPTION: 'Define per-server settings.',
+			COMMAND_CONF_SERVER: (key, list) => `**Server Settings${key}**\n${list}`,
 			COMMAND_CONF_USER_DESCRIPTION: 'Define per-user settings.',
 			COMMAND_CONF_USER: (key, list) => `**User Settings${key}**\n${list}`,
 			COMMAND_CREATECMD_DESCRIPTION: 'Creates a custom command for the server.',
@@ -365,6 +366,8 @@ module.exports = class extends Language {
 			COMMAND_SENDMSG_DESCRIPTION: 'Sends a message to the specified channel or user as the bot.',
 			COMMAND_SENDMSG_NOPARAM_TARGET: "Please provide a channel name, ID or #mention for the channel you'd like to send a message to.",
 			COMMAND_SENDMSG_NOPARAM_MSG: 'Please provide a message to send to your specified channel or user.',
+			// eslint-disable-next-line max-len
+			COMMAND_SENDMSG_DISCLAIMER: (guild) => `This message was sent from the **${guild.name}** Discord and can not be replied to. If you have any questions regarding the contents of it, please contact a moderator.`,
 			COMMAND_SERVERINFO_DESCRIPTION: 'Displays server information.',
 			COMMAND_SERVERINFO_REGION: 'Region',
 			COMMAND_SERVERINFO_MEMBERCOUNT: (guild) => `${guild.memberCount} (${guild.members.filter(member => member.user.bot).size} bots)`,
@@ -425,7 +428,7 @@ module.exports = class extends Language {
 			COMMAND_LYRICS_NOTFOUND: 'The specified song could not be found, please try again.',
 			COMMAND_LYRICS_LINK: 'View full lyrics on Genius',
 			COMMAND_LYRICS_LYRICS: 'Lyrics',
-			COMMAND_REMINDER_DESCRIPTION: 'Sets a reminder for you, append \`-dm\` to have the reminder sent to you via DM.',
+			COMMAND_REMINDER_DESCRIPTION: 'Sets a reminder for you, append `-dm` to have the reminder sent to you via DM.',
 			COMMAND_REMINDER_NOPARAM_WHEN: 'When do you want to be reminded? Tell me how long to wait before reminding you.',
 			COMMAND_REMINDER_NOPARAM_MESSAGE: 'What do you want to be reminded about?',
 			COMMAND_QUOTE_DESCRIPTION: 'Quotes a message by ID.',
@@ -433,6 +436,7 @@ module.exports = class extends Language {
 			COMMAND_QUOTE_NOPARAM: 'Please specify a message ID for the message you would like to quote.\nMessage IDs can be found by right clicking a message after having turned *Developer Mode* on under **Appearance** in your settings.',
 			COMMAND_QUOTE_NO_MESSAGE_FOUND: (messageID, origin) => `Could not find a message with ID of \`${messageID}\` in ${origin}`,
 			COMMAND_QUOTE_CHANNEL: (qmsg) => `in #${qmsg.channel.name}`,
+			COMMAND_QUOTE_DMS: 'in DMs',
 			COMMAND_ROLES_DESCRIPTION: 'Series of commands to allow you to join roles by yourself.',
 			COMMAND_ROLES_EXTENDED: '**list** - Lists joinable roles and their member counts.\n**add** - Adds a role by its name.\n**remove** - Removes a role by its name.',
 			COMMAND_ROLES_NONE_JOINABLE: 'There are no joinable roles on this server.',
@@ -455,6 +459,26 @@ module.exports = class extends Language {
 			COMMAND_WIKI_NOTFOUND: 'The specified article could not be found, please try again.',
 			COMMAND_ENLARGE_DESCRIPTION: 'Enlarges a specified emoji.',
 			COMMAND_ENLARGE_NONE: "Please specify an emoji you'd like to enlarge.",
+			COMMAND_DISCORDSTATUS_DESCRIPTION: "Checks Discord's status and lets you know if there are any ongoing incidents.",
+			COMMAND_DISCORDSTATUS_STATUS: 'Discord Status',
+			COMMAND_DISCORDSTATUS_LINK: 'View on status.discordapp.com',
+			COMMAND_DISCORDSTATUS_ALLOK: 'All systems operational',
+			COMMAND_DISCORDSTATUS_INCIDENT: 'Ongoing incident',
+			COMMAND_DISCORDSTATUS_INCIDENT_TSTAMP: 'Incident timestamp',
+			COMMAND_DISCORDSTATUS_INCIDENT_UPDATES: 'Incident updates',
+			COMMAND_DISCORDSTATUS_INCIDENT_LINK: 'View incident on status.discordapp.com',
+			COMMAND_DISCORDSTATUS_LASTUPDATE: 'Last updated on',
+			COMMAND_WEATHER_DESCRIPTION: 'Fetch the current weather for a specified location.',
+			COMMAND_WEATHER_NOPARAM: 'Please provide a location',
+			COMMAND_WEATHER_NOTFOUND: "Sorry, I can't find this location anywhere.",
+			COMMAND_WEATHER_LINK: (mapsLink, darkskyLink) => `View location on [Google Maps](${mapsLink}) or [DarkSky](${darkskyLink})`,
+			COMMAND_WEATHER_DAILY: 'Weather',
+			COMMAND_WEATHER_CONDITION: 'Current conditions',
+			COMMAND_WEATHER_TEMPERATURE: 'Temperature',
+			COMMAND_WEATHER_WINDSPEED: 'Wind speed',
+			COMMAND_WEATHER_CHANCEOFRAIN: 'Chance of rain',
+			COMMAND_WEATHER_HUMIDITY: 'Humidity',
+
 
 			// Message prompt langs
 			MESSAGE_PROMPT_TIMEOUT: 'The prompt has timed out.',
@@ -554,11 +578,11 @@ module.exports = class extends Language {
 			GUILD_LOG_CUSTOMCMDUPDATE_NEW: 'New command response',
 
 			// Global log langs
-			GLOBAL_LOG_GUILDCREATE: 'Bot added to guild',
-			GLOBAL_LOG_GUILDDELETE: 'Bot removed from guild',
-			GLOBAL_LOG_GUILDUPDATE_NAME: 'Guild name changed',
-			GLOBAL_LOG_GUILDUPDATE_ICON: 'Guild icon changed',
-			GLOBAL_LOG_GUILDUNAVAILABLE: 'Guild unavailable, likely due to a server outage',
+			GLOBAL_LOG_GUILDCREATE: 'Bot added to server',
+			GLOBAL_LOG_GUILDDELETE: 'Bot removed from server',
+			GLOBAL_LOG_GUILDUPDATE_NAME: 'Server name changed',
+			GLOBAL_LOG_GUILDUPDATE_ICON: 'Server icon changed',
+			GLOBAL_LOG_GUILDUNAVAILABLE: 'Server unavailable, likely due to a server outage',
 			GLOBAL_LOG_COMMANDRUN: 'Command ran',
 			GLOBAL_LOG_COMMANDRUN_DM: 'Command ran in DM',
 
@@ -593,7 +617,13 @@ module.exports = class extends Language {
 			MODERATION_LOG_BADNICKNAME: 'Blacklisted nickname',
 			MODERATION_LOG_LINK: (link) => `[Click here to view](${link})`,
 			MODERATION_LOG_SILENT: 'Command executed silently',
-			MODERATION_LOG_CHANNEL: 'Channel'
+			MODERATION_LOG_CHANNEL: 'Channel',
+
+
+			// Board langs
+			STARBOARD_STARRED: 'Message starred',
+			STARBOARD_AUTHOR: 'Author',
+			STARBOARD_CHANNEL: 'Channel'
 		};
 	}
 

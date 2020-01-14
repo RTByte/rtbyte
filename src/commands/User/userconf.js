@@ -4,11 +4,12 @@ module.exports = class extends Command {
 
 	constructor(...args) {
 		super(...args, {
-			enabled: false,
+			enabled: true,
 			guarded: true,
 			subcommands: true,
 			description: language => language.get('COMMAND_CONF_USER_DESCRIPTION'),
-			usage: '<set|show|remove|reset> (key:key) (value:value) [...]',
+			runIn: ['text', 'dm'],
+			usage: '<set|show:default|remove|reset> (key:key) (value:value) [...]',
 			usageDelim: ' '
 		});
 

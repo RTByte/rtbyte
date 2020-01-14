@@ -47,7 +47,8 @@ module.exports = class extends Command {
 			.setFooter(msg.language.get('COMMAND_REQUESTED_BY', msg), msg.author.displayAvatarURL());
 
 		if (membername.user.presence.activity) {
-			await embed.addField(msg.guild.language.get('COMMAND_USERINFO_ACTIVITY', membername), membername.user.presence.activity ? membername.user.presence.activity.name : 'N/A', true);
+			// eslint-disable-next-line max-len
+			await embed.addField(msg.guild.language.get('COMMAND_USERINFO_ACTIVITY', membername), membername.user.presence.activity.type === 'CUSTOM_STATUS' ? `${`${membername.user.presence.activity.emoji} ` || ''}${membername.user.presence.activity.state}` || 'N/A' : membername.user.presence.activity ? !membername.user.presence.activity.details ? membername.user.presence.activity.name : membername.user.presence.activity.type === 'LISTENING' ? `${membername.user.presence.activity.name}\n\`${membername.user.presence.activity.details} by ${membername.user.presence.activity.state}\`` : `${membername.user.presence.activity.name}\n\`${membername.user.presence.activity.details}\`` : 'N/A', true);
 		}
 
 		if (membername.premiumSince) {

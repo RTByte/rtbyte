@@ -21,11 +21,11 @@ module.exports = class extends Command {
 		if (await this.canSend(msg, target)) {
 			try {
 				await msg.delete();
-				if (!target.constructor.name === 'KlasaUser') {
+				if (target.constructor.name !== 'KlasaUser') {
 					return target.send(message);
 				} else if (target.constructor.name === 'KlasaUser') {
 					// eslint-disable-next-line max-len
-					return target.send(message).then(target.send(`This message was sent from the **${msg.guild.name}** Discord and can not be replied to. If you have any questions regarding the contents of it, please contact a moderator.`));
+					return target.send(`${message}\n\n${msg.language.get('COMMAND_SENDMSG_DISCLAIMER', msg.guild)}`);
 				}
 				return target.send(message);
 			} catch (err) {

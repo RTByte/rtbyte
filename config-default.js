@@ -20,5 +20,12 @@ exports.config = {
 	}
 };
 
+// API tokens you'll need to run the bot
+exports.apis = {
+	genius: '',
+	google: '',
+	darksky: ''
+};
+
 // The token for this bot to login with
 exports.token = '';

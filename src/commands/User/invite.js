@@ -4,9 +4,9 @@ module.exports = class extends Command {
 
 	constructor(...args) {
 		super(...args, {
-			runIn: ['text'],
+			runIn: ['text', 'dm'],
 			guarded: true,
-			description: language => language.get('COMMAND_INVITE_DESCRIPTION')
+			description: language => language.get('COMMAND_INVITE_DESCRIPTION'),
 		});
 	}
 

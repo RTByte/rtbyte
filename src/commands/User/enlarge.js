@@ -6,8 +6,8 @@ module.exports = class extends Command {
 	constructor(...args) {
 		super(...args, {
 			aliases: ['bigemoji'],
-			guarded: true,
 			description: language => language.get('COMMAND_ENLARGE_DESCRIPTION'),
+			runIn: ['text', 'dm'],
 			usage: '[emoji:emoji] [emoji:str]'
 		});
 	}

@@ -48,8 +48,7 @@ module.exports = class extends Command {
 			await this.client.schedule.create('timedBan', when, {
 				data: {
 					guildID: msg.guild.id,
-					userID: username.id,
-					userTag: username.tag
+					userID: username.id
 				},
 				catchUp: true
 			});

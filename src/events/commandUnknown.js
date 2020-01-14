@@ -1,4 +1,4 @@
-const { Event, Stopwatch, util: { regExpEsc } } = require('klasa');
+const { Event, Stopwatch } = require('klasa');
 const { MessageAttachment } = require('discord.js');
 
 module.exports = class extends Event {
@@ -18,13 +18,13 @@ module.exports = class extends Event {
 
 		// Checks unknown command against guild's custom commands
 		command = command.toLowerCase();
-		const customCommand = msg.guildSettings.commands.customCommands.find(c => c.name.toLowerCase() === command);
+		const customCommand = msg.guildSettings.commands.customCommands.find(custCmd => custCmd.name.toLowerCase() === command);
 		// Return if custom command doesn't exist
 		if (!customCommand) return;
 
 		// Send custom command response
 		let commandResponse = customCommand.content;
-		const reg = new RegExp('\.(jpg|png|gif)$');
+		const reg = new RegExp('.(jpg|png|gif)$');
 		if (customCommand.content.match(reg)) commandResponse = new MessageAttachment(customCommand.content);
 		await msg.channel.send(commandResponse);
 

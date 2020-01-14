@@ -1,9 +1,8 @@
 const { Task } = require('klasa');
-const { MessageEmbed } = require('discord.js');
 
 module.exports = class extends Task {
 
-	async run({ guildID, userID, userTag }) {
+	async run({ guildID, userID }) {
 		const guild = this.client.guilds.get(guildID);
 		if (!guild) return;
 

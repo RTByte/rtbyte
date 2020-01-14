@@ -47,12 +47,12 @@ module.exports = class extends Event {
 			await embed.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_CATEGORY'));
 		}
 
-		// Change author and footer fields if channel is news channel
+		// Change footer field if channel is news channel
 		if (channel.type === 'news') {
 			await embed.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_NEWS'));
 		}
 
-		// Change author and footer fields if channel is store channel
+		// Change footer field if channel is store channel
 		if (channel.type === 'store') {
 			await embed.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_STORE'));
 		}
@@ -77,7 +77,7 @@ module.exports = class extends Event {
 
 		// User limit changed
 		// eslint-disable-next-line max-len
-		if (oldChannel.userLimit !== channel.userLimit) await embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_USERLIMIT'), `${oldChannel.userLimit > 0 ? oldChannel.userLimit : channel.guild.language.get('UNLIMITED')} ${channel.guild.language.get('USERS_SMALL')} ${arrowRightEmoji} ${channel.userLimit > 0 ? channel.userLimit : channel.guild.language.get('UNLIMITED')} ${channel.guild.language.get('USERS_SMALL')}`);
+		if (oldChannel.userLimit !== channel.userLimit) await embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_USERLIMIT'), `${oldChannel.userLimit > 0 ? oldChannel.userLimit : channel.guild.language.get('UNLIMITED')} ${channel.guild.language.get('USERS').toLowerCase()} ${arrowRightEmoji} ${channel.userLimit > 0 ? channel.userLimit : channel.guild.language.get('UNLIMITED')} ${channel.guild.language.get('USERS').toLowerCase()}`);
 
 		// Channel moved to different category
 		// eslint-disable-next-line max-len
