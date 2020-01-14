@@ -16,7 +16,8 @@ module.exports = class extends Language {
 			PLAYING: 'Playing',
 			STREAMING: 'Streaming',
 			LISTENING: 'Listening to',
-			WATCHING: 'Watching'
+			WATCHING: 'Watching',
+			CUSTOM_STATUS: 'Custom status'
 		};
 		this.defaultMsgNotifs = {
 			ALL: 'All messages',

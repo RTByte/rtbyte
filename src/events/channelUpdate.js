@@ -47,12 +47,12 @@ module.exports = class extends Event {
 			await embed.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_CATEGORY'));
 		}
 
-		// Change author and footer fields if channel is news channel
+		// Change footer field if channel is news channel
 		if (channel.type === 'news') {
 			await embed.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_NEWS'));
 		}
 
-		// Change author and footer fields if channel is store channel
+		// Change footer field if channel is store channel
 		if (channel.type === 'store') {
 			await embed.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_STORE'));
 		}
