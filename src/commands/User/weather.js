@@ -37,15 +37,18 @@ module.exports = class extends Command {
 				const mapsLink = `https://www.google.com/maps/place/${city.long_name.replace(' ', '+')}/@${longLat}/`;
 				const darkskyLink = `https://darksky.net/forecast/${longLat}/`;
 
-				fetch(`https://api.darksky.net/forecast/${apis.darksky}/${longLat}?exclude=minutely,hourly,flags&units=auto`)
+				fetch(`https://api.darksky.net/forecast/${apis.darksky}/${longLat}?units=si`)
 					.then(res => res.json())
 					.then(wjson => {
 						const condition = wjson.currently.summary;
 						const minutely = wjson.minutely ? wjson.minutely.summary : null;
+						const hourly = wjson.hourly ? wjson.hourly.summary : null;
 						const daily = wjson.daily ? wjson.daily.summary : null;
 						const chanceOfRain = Math.round((wjson.currently.precipProbability * 100) / 5) * 5;
-						const temperature = Math.round(wjson.currently.temperature);
-						const windSpeed = Math.round(wjson.currently.windSpeed);
+						const tempCelsius = Math.round(wjson.currently.temperature);
+						const tempFahrenheit = Math.round((tempCelsius * 9 / 5) + 32);
+						const windSpeedMs = Math.round(wjson.currently.windSpeed);
+						const windSpeedMph = Math.round(windSpeedMs * 2.237);
 						const humidity = Math.round(wjson.currently.humidity * 100);
 
 
@@ -55,9 +58,9 @@ module.exports = class extends Command {
 							.setDescription(msg.language.get('COMMAND_WEATHER_LINK', mapsLink, darkskyLink))
 							.addField(msg.language.get('COMMAND_WEATHER_CONDITION'), condition, true)
 							// eslint-disable-next-line no-mixed-operators
-							.addField(msg.language.get('COMMAND_WEATHER_TEMPERATURE'), `${temperature}° C (${temperature * 9 / 5 + 32}° F)`, true)
-							.addField(msg.language.get('COMMAND_WEATHER_DAILY'), minutely || daily)
-							.addField(msg.language.get('COMMAND_WEATHER_WINDSPEED'), `${windSpeed} m/s (${Math.round(windSpeed * 3600 / 1610.3 * 1000) / 1000} mph)`, true)
+							.addField(msg.language.get('COMMAND_WEATHER_TEMPERATURE'), `${tempCelsius}° C (${tempFahrenheit}° F)`, true)
+							.addField(msg.language.get('COMMAND_WEATHER_DAILY'), minutely || hourly || daily)
+							.addField(msg.language.get('COMMAND_WEATHER_WINDSPEED'), `${windSpeedMs} m/s (${windSpeedMph} mph)`, true)
 							.addField(msg.language.get('COMMAND_WEATHER_CHANCEOFRAIN'), `${chanceOfRain}%`, true)
 							.addField(msg.language.get('COMMAND_WEATHER_HUMIDITY'), `${humidity}%`, true)
 							.setTimestamp()
