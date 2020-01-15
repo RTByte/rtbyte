@@ -1,10 +1,6 @@
-const { Command, Timestamp } = require('klasa');
+const { Command } = require('klasa');
 const { MessageEmbed } = require('discord.js');
-const moment = require('moment');
-
-moment.relativeTimeThreshold('s', 60);
-moment.relativeTimeThreshold('ss', 0);
-moment.relativeTimeThreshold('m', 60);
+const moment = require('moment-timezone');
 
 module.exports = class extends Command {
 
@@ -17,7 +13,6 @@ module.exports = class extends Command {
 			description: language => language.get('COMMAND_ROLEINFO_DESCRIPTION'),
 			usage: '[role:rolename]'
 		});
-		this.timestamp = new Timestamp('d MMMM YYYY, h:mm A');
 	}
 
 	async run(msg, [rolename = msg.member.roles.first()]) {
@@ -69,7 +64,7 @@ module.exports = class extends Command {
 			.addField(msg.language.get('COMMAND_ROLEINFO_HOIST'), status[rolename.hoist], true)
 			.addField(msg.language.get('COMMAND_ROLEINFO_MENTIONABLE'), status[rolename.mentionable], true)
 			.addField(msg.language.get('COMMAND_ROLEINFO_MANAGED'), status[rolename.managed], true)
-			.addField(msg.guild.language.get('CREATED'), `${this.timestamp.displayUTC(rolename.createdTimestamp)} (UTC)`)
+			.addField(msg.guild.language.get('CREATED'), moment.tz(rolename.createdTimestamp, msg.guild.settings.timezone).format('Do MMMM YYYY, h:mmA zz'))
 			.addField(msg.language.get('COMMAND_ROLEINFO_PERMISSIONS'), `\`${permissions || 'None'}\``)
 			.setThumbnail(msg.guild.iconURL(), 50, 50)
 			.setTimestamp()

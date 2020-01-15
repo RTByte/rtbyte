@@ -77,4 +77,5 @@ module.exports = KlasaClient.defaultGuildSchema
 		.add('starboardEnabled', 'boolean', { default: false })
 		.add('starboardThreshold', 'integer', { min: 1, default: 2 })
 		.add('starboardChannel', 'textchannel')))
-	.add('measurementUnits', 'string', { default: 'metric' });
+	.add('measurementUnits', 'string', { default: 'metric' })
+	.add('timezone', 'string', { default: 'Europe/London' });
