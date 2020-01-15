@@ -72,9 +72,9 @@ module.exports = KlasaClient.defaultGuildSchema
 	.add('commands', folder => folder
 		.add('customCommandsEnabled', 'boolean', { default: false })
 		.add('customCommands', 'any', { array: true, configurable: false }))
-	.add('boards', folder => folder
-		.add('starboard', folder => folder // eslint-disable-line
-			.add('starred', 'any', { array: true, configurable: false })
-			.add('starboardEnabled', 'boolean', { default: false })
-			.add('starboardThreshold', 'integer', { min: 1, default: 2 })
-			.add('starboardChannel', 'textchannel')));
+	.add('boards', folder => folder.add('starboard', folder => folder // eslint-disable-line
+		.add('starred', 'any', { array: true, configurable: false })
+		.add('starboardEnabled', 'boolean', { default: false })
+		.add('starboardThreshold', 'integer', { min: 1, default: 2 })
+		.add('starboardChannel', 'textchannel')))
+	.add('measurementUnits', 'string', { default: 'metric' });

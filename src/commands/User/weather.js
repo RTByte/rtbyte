@@ -51,6 +51,20 @@ module.exports = class extends Command {
 						const windSpeedMph = Math.round(windSpeedMs * 2.237);
 						const humidity = Math.round(wjson.currently.humidity * 100);
 
+						let temp, wind;
+						if (msg.guild) {
+							if (msg.guild.settings.measurementUnits === 'metric') {
+								temp = `${tempCelsius}° C (${tempFahrenheit}° F)`;
+								wind = `${windSpeedMs} m/s (${windSpeedMph} mph)`;
+							}
+							if (msg.guild.settings.measurementUnits === 'imperial') {
+								temp = `${tempFahrenheit}° F (${tempCelsius}° C)`;
+								wind = `${windSpeedMph} mph (${windSpeedMs} m/s)`;
+							}
+						} else {
+							temp = `${tempCelsius}° C (${tempFahrenheit}° F)`;
+							wind = `${windSpeedMs} m/s (${windSpeedMph} mph)`;
+						}
 
 						const embed = new MessageEmbed()
 							.setAuthor(geocodeLocation, countryCode ? `https://www.countryflags.io/${countryCode}/flat/64.png` : null)
@@ -58,9 +72,9 @@ module.exports = class extends Command {
 							.setDescription(msg.language.get('COMMAND_WEATHER_LINK', mapsLink, darkskyLink))
 							.addField(msg.language.get('COMMAND_WEATHER_CONDITION'), condition, true)
 							// eslint-disable-next-line no-mixed-operators
-							.addField(msg.language.get('COMMAND_WEATHER_TEMPERATURE'), `${tempCelsius}° C (${tempFahrenheit}° F)`, true)
+							.addField(msg.language.get('COMMAND_WEATHER_TEMPERATURE'), temp, true)
 							.addField(msg.language.get('COMMAND_WEATHER_DAILY'), minutely || hourly || daily)
-							.addField(msg.language.get('COMMAND_WEATHER_WINDSPEED'), `${windSpeedMs} m/s (${windSpeedMph} mph)`, true)
+							.addField(msg.language.get('COMMAND_WEATHER_WINDSPEED'), wind, true)
 							.addField(msg.language.get('COMMAND_WEATHER_CHANCEOFRAIN'), `${chanceOfRain}%`, true)
 							.addField(msg.language.get('COMMAND_WEATHER_HUMIDITY'), `${humidity}%`, true)
 							.setTimestamp()
