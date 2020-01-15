@@ -1,5 +1,6 @@
-const { Command, Timestamp } = require('klasa');
+const { Command } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const moment = require('moment-timezone');
 
 module.exports = class extends Command {
 
@@ -11,7 +12,6 @@ module.exports = class extends Command {
 			usage: '<messageID:string> [origin:channelname]',
 			usageDelim: ' '
 		});
-		this.timestamp = new Timestamp('YYYY-MM-DD');
 		this.customizeResponse('messageID', message =>
 			message.language.get('COMMAND_QUOTE_NOPARAM'));
 	}
@@ -29,7 +29,8 @@ module.exports = class extends Command {
 			.setAuthor(qmsg.author.tag, qmsg.author.displayAvatarURL())
 			.setColor(this.client.settings.colors.white)
 			.setDescription(`[${msg.language.get('CLICK_TO_VIEW')}](${qmsg.url})`)
-			.setFooter(`${this.timestamp.displayUTC(qmsg.createdAt)} ${msg.guild ? msg.language.get('COMMAND_QUOTE_CHANNEL', qmsg) : msg.language.get('COMMAND_QUOTE_DMS')}`);
+			// eslint-disable-next-line max-len
+			.setFooter(`${moment.tz(qmsg.createdTimestamp, msg.guild ? msg.guild.settings.timezone : 'Etc/Greenwich').format('Do MMMM YYYY, h:mmA zz')} ${msg.guild ? msg.language.get('COMMAND_QUOTE_CHANNEL', qmsg) : msg.language.get('COMMAND_QUOTE_DMS')}`);
 
 		if (qmsg.content) await embed.addField(msg.language.get('MESSAGE'), `${qmsg.content}`, true);
 		if (!qmsg.content) await embed.setTitle(msg.language.get('MESSAGE'));

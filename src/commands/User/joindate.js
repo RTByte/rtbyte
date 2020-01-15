@@ -1,5 +1,6 @@
-const { Command, Timestamp } = require('klasa');
+const { Command } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const moment = require('moment-timezone');
 
 module.exports = class extends Command {
 
@@ -11,7 +12,6 @@ module.exports = class extends Command {
 			usage: '[member:membername]',
 			usageDelim: ' '
 		});
-		this.timestamp = new Timestamp('d MMMM YYYY, h:mm A');
 	}
 
 	async run(msg, [membername = msg.member]) {
@@ -23,8 +23,8 @@ module.exports = class extends Command {
 			.setAuthor(membername.user.tag, membername.user.displayAvatarURL())
 			.setColor(this.client.settings.colors.white)
 			.addField(msg.language.get('JOIN_POS'), position)
-			.addField(msg.language.get('JOINED'), `${this.timestamp.displayUTC(membername.joinedTimestamp)} (UTC)`, true)
-			.addField(msg.language.get('REGISTERED'), `${this.timestamp.displayUTC(membername.user.createdAt)} (UTC)`, true)
+			.addField(msg.language.get('JOINED'), moment.tz(membername.joinedTimestamp, msg.guild.settings.timezone).format('Do MMMM YYYY, h:mmA zz'))
+			.addField(msg.language.get('REGISTERED'), moment.tz(membername.user.createdTimestamp, msg.guild.settings.timezone).format('Do MMMM YYYY, h:mmA zz'))
 			.setThumbnail(membername.user.displayAvatarURL())
 			.setTimestamp()
 			.setFooter(msg.language.get('COMMAND_REQUESTED_BY', msg), msg.author.displayAvatarURL());

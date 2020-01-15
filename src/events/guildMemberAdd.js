@@ -1,11 +1,11 @@
-const { Event, Timestamp } = require('klasa');
+const { Event } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const moment = require('moment-timezone');
 
 module.exports = class extends Event {
 
 	constructor(...args) {
 		super(...args, { event: 'guildMemberAdd' });
-		this.timestamp = new Timestamp('d MMMM YYYY, h:mm A');
 	}
 
 	async run(member) {
@@ -39,7 +39,7 @@ module.exports = class extends Event {
 			.setTimestamp()
 			.setFooter(member.guild.language.get('GUILD_LOG_GUILDMEMBERADD'));
 
-		if (member.guild.settings.logs.verboseLogging) await embed.addField(member.guild.language.get('REGISTERED'), `${this.timestamp.displayUTC(member.user.createdAt)} (UTC)`);
+		if (member.guild.settings.logs.verboseLogging) await embed.addField(member.guild.language.get('REGISTERED'), moment.tz(membername.user.createdTimestamp, msg.guild.settings.timezone).format('Do MMMM YYYY, h:mmA zz'));
 
 		const logChannel = await this.client.channels.get(member.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });

@@ -1,6 +1,7 @@
-const { Command, Timestamp } = require('klasa');
+const { Command } = require('klasa');
 const { MessageEmbed } = require('discord.js');
 const { embedSplitter } = require('../../lib/util/Util');
+const moment = require('moment-timezone');
 
 module.exports = class extends Command {
 
@@ -13,7 +14,6 @@ module.exports = class extends Command {
 			description: language => language.get('COMMAND_USERINFO_DESCRIPTION'),
 			usage: '[member:membername]'
 		});
-		this.timestamp = new Timestamp('d MMMM YYYY, h:mm A');
 	}
 
 	async run(msg, [membername = msg.member]) {
@@ -39,8 +39,8 @@ module.exports = class extends Command {
 			.addField(msg.guild.language.get('NAME'), `${membername} (${membername.user.tag})`, true)
 			.addField(msg.guild.language.get('ID'), membername.id, true)
 			.addField(msg.language.get('JOIN_POS'), position)
-			.addField(msg.guild.language.get('JOINED'), `${this.timestamp.displayUTC(membername.joinedTimestamp)} (UTC)`)
-			.addField(msg.guild.language.get('REGISTERED'), `${this.timestamp.displayUTC(membername.user.createdAt)} (UTC)`)
+			.addField(msg.guild.language.get('JOINED'), moment.tz(membername.joinedTimestamp, msg.guild.settings.timezone).format('Do MMMM YYYY, h:mmA zz'))
+			.addField(msg.guild.language.get('REGISTERED'), moment.tz(membername.user.createdTimestamp, msg.guild.settings.timezone).format('Do MMMM YYYY, h:mmA zz'))
 			.addField(msg.guild.language.get('COMMAND_USERINFO_STATUS'), statuses[membername.user.presence.status], true)
 			.setThumbnail(membername.user.displayAvatarURL())
 			.setTimestamp()
@@ -51,8 +51,8 @@ module.exports = class extends Command {
 			await embed.addField(msg.guild.language.get('COMMAND_USERINFO_ACTIVITY', membername), membername.user.presence.activity.type === 'CUSTOM_STATUS' ? `${`${membername.user.presence.activity.emoji} ` || ''}${membername.user.presence.activity.state}` || 'N/A' : membername.user.presence.activity ? !membername.user.presence.activity.details ? membername.user.presence.activity.name : membername.user.presence.activity.type === 'LISTENING' ? `${membername.user.presence.activity.name}\n\`${membername.user.presence.activity.details} by ${membername.user.presence.activity.state}\`` : `${membername.user.presence.activity.name}\n\`${membername.user.presence.activity.details}\`` : 'N/A', true);
 		}
 
-		if (membername.premiumSince) {
-			await embed.addField(msg.guild.language.get('COMMAND_USERINFO_NITROBOOST'), this.timestamp.displayUTC(membername.premiumSince), true);
+		if (membername.premiumSinceTimestamp) {
+			await embed.addField(msg.guild.language.get('COMMAND_USERINFO_NITROBOOST'), moment.tz(membername.premiumSinceTimestamp, msg.guild.settings.timezone).format('Do MMMM YYYY, h:mmA zz'));
 		}
 
 		if (roles.length) await embedSplitter(msg.guild.language.get('ROLES'), roles, embed);

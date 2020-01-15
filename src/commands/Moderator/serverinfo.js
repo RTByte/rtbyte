@@ -1,6 +1,7 @@
-const { Command, Timestamp } = require('klasa');
+const { Command } = require('klasa');
 const { MessageEmbed } = require('discord.js');
 const { embedSplitter } = require('../../lib/util/Util');
+const moment = require('moment-timezone');
 
 module.exports = class extends Command {
 
@@ -13,7 +14,6 @@ module.exports = class extends Command {
 			description: language => language.get('COMMAND_SERVERINFO_DESCRIPTION'),
 			extendedHelp: ''
 		});
-		this.timestamp = new Timestamp('d MMMM YYYY');
 		this.regions = {
 			brazil: '🇧🇷 Brazil',
 			'vip-us-west': '🇺🇸 VIP US West',
@@ -56,7 +56,7 @@ module.exports = class extends Command {
 			.addField(msg.guild.language.get('EMOJIS'), msg.guild.emojis.size, true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_VLEVEL'), msg.guild.language.get('COMMAND_SERVERINFO_VLEVEL_LEVELS', msg.guild), true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_ECFILTER'), msg.guild.language.get('COMMAND_SERVERINFO_ECFILTER_LEVELS', msg.guild), true)
-			.addField(msg.guild.language.get('CREATED'), `${this.timestamp.displayUTC(msg.guild.createdAt)} (UTC)`, true)
+			.addField(msg.guild.language.get('CREATED'), moment.tz(msg.guild.createdTimestamp, msg.guild.settings.timezone).format('Do MMMM YYYY, h:mmA zz'), true)
 			.setThumbnail(msg.guild.iconURL(), 50, 50)
 			.setImage(msg.guild.splashURL())
 			.setTimestamp()
