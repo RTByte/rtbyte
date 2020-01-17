@@ -478,6 +478,9 @@ module.exports = class extends Language {
 			COMMAND_WEATHER_WINDSPEED: 'Wind speed',
 			COMMAND_WEATHER_CHANCEOFRAIN: 'Chance of rain',
 			COMMAND_WEATHER_HUMIDITY: 'Humidity',
+			COMMAND_STAR_STARRED: 'Starred message',
+			COMMAND_STAR_NOSTARRED: 'There are no starred messages on this server!',
+			COMMAND_STAR_STARBOARD_NOT_ENABLED: 'The starboard feature is not enabled in this server!',
 
 
 			// Message prompt langs
