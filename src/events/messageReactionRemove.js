@@ -54,7 +54,7 @@ module.exports = class extends Event {
 						starboardMsgID = message.id;
 						msg.guild.settings.update('boards.starboard.starred', starred, { action: 'remove' });
 						if (!(reaction.count < msg.guild.settings.boards.starboard.starboardThreshold)) {
-							msg.guild.settings.update('boards.starboard.starred', { msgID: msg.id, stars: reaction.count, starID: starboardMsgID }, { action: 'add' });
+							msg.guild.settings.update('boards.starboard.starred', { msgID: msg.id, channelID: msg.channel.id, stars: reaction.count, starID: starboardMsgID }, { action: 'add' });
 							message.edit({ embed });
 						}
 					});

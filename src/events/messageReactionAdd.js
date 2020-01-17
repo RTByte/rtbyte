@@ -43,7 +43,7 @@ module.exports = class extends Event {
 			await starboardChannel.send('', { disableEveryone: true, embed: embed })
 				.then(message => {
 					starboardMsgID = message.id;
-					msg.guild.settings.update('boards.starboard.starred', { msgID: msg.id, stars: reaction.count, starID: starboardMsgID });
+					msg.guild.settings.update('boards.starboard.starred', { msgID: msg.id, channelID: msg.channel.id, stars: reaction.count, starID: starboardMsgID });
 				});
 		}
 
@@ -54,7 +54,7 @@ module.exports = class extends Event {
 					.then(message => {
 						starboardMsgID = message.id;
 						msg.guild.settings.update('boards.starboard.starred', starred, { action: 'remove' });
-						msg.guild.settings.update('boards.starboard.starred', { msgID: msg.id, stars: reaction.count, starID: starboardMsgID }, { action: 'add' });
+						msg.guild.settings.update('boards.starboard.starred', { msgID: msg.id, channelID: msg.channel.id, stars: reaction.count, starID: starboardMsgID }, { action: 'add' });
 
 						message.edit({ embed });
 					});
