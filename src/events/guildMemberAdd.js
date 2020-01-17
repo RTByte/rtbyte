@@ -10,7 +10,7 @@ module.exports = class extends Event {
 
 	async run(member) {
 		const modHistory = await this.client.settings.moderation.cases.filter(modCase => modCase.user === member.id && modCase.guild === member.guild.id);
-		for await (const modCase of modHistory) {
+		for (const modCase of modHistory) {
 			if (!member.settings.moderation.cases.includes(modCase.id)) member.settings.update('moderation.cases', modCase.id, member.guild);
 		}
 
@@ -39,7 +39,8 @@ module.exports = class extends Event {
 			.setTimestamp()
 			.setFooter(member.guild.language.get('GUILD_LOG_GUILDMEMBERADD'));
 
-		if (member.guild.settings.logs.verboseLogging) await embed.addField(member.guild.language.get('REGISTERED'), moment.tz(member.user.createdTimestamp, member.guild.settings.timezone).format('Do MMMM YYYY, h:mmA zz'));
+		const { verboseLogging } = member.guild.settings.logs;
+		if (verboseLogging) await embed.addField(member.guild.language.get('REGISTERED'), moment.tz(member.user.createdTimestamp, member.guild.settings.timezone).format('Do MMMM YYYY, h:mmA zz'));
 
 		const logChannel = await this.client.channels.get(member.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });

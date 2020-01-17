@@ -56,7 +56,7 @@ module.exports = class extends Command {
 
 	async buildEmbedArray(msg, target) {
 		const caseEmbedArray = [];
-		for await (const caseID of target.settings.moderation.cases) {
+		for (const caseID of target.settings.moderation.cases) {
 			const modCase = new ModCase(msg.guild);
 			await modCase.unpack(this.client.settings.moderation.cases.find(thisCase => thisCase.id === caseID));
 
@@ -82,7 +82,7 @@ module.exports = class extends Command {
 				stop: rejectEmoji.id,
 				jump: listEmoji.id
 			});
-		for await (const caseEmbed of caseEmbedArray) {
+		for (const caseEmbed of caseEmbedArray) {
 			display.addPage(caseEmbed);
 		}
 
