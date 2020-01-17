@@ -1,11 +1,17 @@
 {
     "name": "rtbyte",
     "version": "1.1.1a",
-    "description": "A Discord Bot for the Rooster Teeth Community family of Discord Servers",
+    "description": "An open-source modular multipurpose Discord bot built on the incredible Klasa framework for discord.js",
     "main": "src/index.js",
     "scripts": {
-        "start": "node src/app.js",
-        "test": "echo 'No Test Yet!'"
+        "pm2:start": "pm2 start src/app.js --name rtbyte",
+        "pm2:restart": "pm2 restart rtbyte",
+        "pm2:logs": "pm2 logs rtbyte --lines=200",
+        "pm2:stop": "pm2 stop rtbyte",
+        "pm2:delete": "pm2 delete rtbyte",
+		"start": "node src/app.js",
+		"test:lint": "eslint --ext js src --fix",
+        "test": "eslint --ext js src"
     },
     "repository": {
         "type": "git",
@@ -17,6 +23,7 @@
         "cheerio": "^1.0.0-rc.3",
         "discord.js": "github:discordjs/discord.js#master",
         "erlpack": "github:discordapp/erlpack",
+        "fs-nextra": "^0.4.7",
         "klasa": "github:dirigeants/klasa#master",
         "klasa-member-gateway": "github:dirigeants/klasa-member-gateway#master",
         "moment": "^2.24.0",
