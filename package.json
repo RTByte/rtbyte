@@ -1,6 +1,6 @@
 {
     "name": "rtbyte",
-    "version": "1.1.1a",
+    "version": "1.1.2",
     "description": "An open-source modular multipurpose Discord bot built on the incredible Klasa framework for discord.js",
     "main": "src/index.js",
     "scripts": {
