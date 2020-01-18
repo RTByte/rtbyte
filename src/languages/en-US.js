@@ -480,7 +480,7 @@ module.exports = class extends Language {
 			COMMAND_DISCORDSTATUS_INCIDENT_LINK: 'View incident on status.discordapp.com',
 			COMMAND_DISCORDSTATUS_LASTUPDATE: 'Last updated on',
 			COMMAND_WEATHER_DESCRIPTION: 'Fetch the current weather for a specified location.',
-			COMMAND_WEATHER_NOPARAM: 'Please provide a location',
+			COMMAND_WEATHER_NOPARAM: 'Please provide a location.',
 			COMMAND_WEATHER_NOTFOUND: "Sorry, I can't find this location anywhere.",
 			COMMAND_WEATHER_LINK: (mapsLink, darkskyLink) => `View location on [Google Maps](${mapsLink}) or [DarkSky](${darkskyLink})`,
 			COMMAND_WEATHER_DAILY: 'Weather',
