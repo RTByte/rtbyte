@@ -7,13 +7,18 @@ module.exports = class extends Command {
 			runIn: ['text'],
 			aliases: ['removecmd', 'delcmd', 'deletecommand', 'removecommand'],
 			permissionLevel: 6,
+			requiredSettings: ['commands.customCommandsEnabled'],
 			description: language => language.get('COMMAND_DELETECMD_DESCRIPTION'),
 			usage: '<name:string>',
 			usageDelim: ' '
 		});
+		this.customizeResponse('name', msg =>
+			msg.language.get('COMMAND_DELETECMD_NOPARAM'));
 	}
 
 	async run(msg, [name]) {
+		if (!msg.guild.settings.get('commands.customCommandsEnabled')) return msg.reject(msg.language.get('COMMAND_DELETECMD_NOTENABLED'));
+
 		name = name.toLowerCase();
 		// eslint-disable-next-line id-length
 		const cmd = msg.guild.settings.get('commands.customCommands').find(c => c.name.toLowerCase() === name);
