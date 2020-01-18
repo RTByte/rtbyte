@@ -17,22 +17,22 @@ class ModEmbed extends MessageEmbed {
 		this.setThumbnail(this.modCase.user.displayAvatarURL());
 		/* eslint-disable indent */
 			this.setColor(
-				this.modCase.type === 'ban' ? this.modCase.client.settings.colors.red :
-				this.modCase.type === 'unban' ? this.modCase.client.settings.colors.yellow :
-				this.modCase.type === 'kick' ? this.modCase.client.settings.colors.red :
-				this.modCase.type === 'mute' ? this.modCase.client.settings.colors.red :
-				this.modCase.type === 'unmute' ? this.modCase.client.settings.colors.yellow :
-				this.modCase.type === 'purge' ? this.modCase.client.settings.colors.red :
-				this.modCase.type === 'softban' ? this.modCase.client.settings.colors.red :
-				this.modCase.type === 'vcban' ? this.modCase.client.settings.colors.red :
-				this.modCase.type === 'vcunban' ? this.modCase.client.settings.colors.yellow :
-				this.modCase.type === 'vckick' ? this.modCase.client.settings.colors.red :
-				this.modCase.type === 'antiInvite' ? this.modCase.client.settings.colors.red :
-				this.modCase.type === 'mentionSpam' ? this.modCase.client.settings.colors.red :
-				this.modCase.type === 'blacklistedWord' ? this.modCase.client.settings.colors.red :
-				this.modCase.type === 'blacklistedNickname' ? this.modCase.client.settings.colors.red :
-				this.modCase.type === 'warn' ? this.modCase.client.settings.colors.yellow :
-				this.modCase.client.settings.colors.blue);
+				this.modCase.type === 'ban' ? this.modCase.client.settings.get('colors.red') :
+				this.modCase.type === 'unban' ? this.modCase.client.settings.get('colors.yellow') :
+				this.modCase.type === 'kick' ? this.modCase.client.settings.get('colors.red') :
+				this.modCase.type === 'mute' ? this.modCase.client.settings.get('colors.red') :
+				this.modCase.type === 'unmute' ? this.modCase.client.settings.get('colors.yellow') :
+				this.modCase.type === 'purge' ? this.modCase.client.settings.get('colors.red') :
+				this.modCase.type === 'softban' ? this.modCase.client.settings.get('colors.red') :
+				this.modCase.type === 'vcban' ? this.modCase.client.settings.get('colors.red') :
+				this.modCase.type === 'vcunban' ? this.modCase.client.settings.get('colors.yellow') :
+				this.modCase.type === 'vckick' ? this.modCase.client.settings.get('colors.red') :
+				this.modCase.type === 'antiInvite' ? this.modCase.client.settings.get('colors.red') :
+				this.modCase.type === 'mentionSpam' ? this.modCase.client.settings.get('colors.red') :
+				this.modCase.type === 'blacklistedWord' ? this.modCase.client.settings.get('colors.red') :
+				this.modCase.type === 'blacklistedNickname' ? this.modCase.client.settings.get('colors.red') :
+				this.modCase.type === 'warn' ? this.modCase.client.settings.get('colors.yellow') :
+				this.modCase.client.settings.get('colors.blue'));
 			/* eslint-enable indent */
 		this.setTimestamp(this.modCase.timestamp);
 		this.setFooter(this.modCase.guild.language.get('MODERATION_LOG_EVENTLOGGED'), this.modCase.client.user.displayAvatarURL());
@@ -56,12 +56,12 @@ class ModEmbed extends MessageEmbed {
 	}
 
 	async send() {
-		if (this.modCase.guild.settings.logs.moderation[this.modCase.type]) {
-			const logChannel = this.modCase.guild.channels.get(this.modCase.guild.settings.channels.log);
+		if (this.modCase.guild.settings.get(`logs.moderation.${[this.modCase.type]}`)) {
+			const logChannel = this.modCase.guild.channels.get(this.modCase.guild.settings.get('channels.log'));
 			await logChannel.send('', { disableEveryone: true, embed: this });
 		}
 
-		if (!this.modCase.guild.settings.moderation.notifyUser) return null;
+		if (!this.modCase.guild.settings.get('moderation.notifyUser')) return null;
 		if (this.modCase.silent) return null;
 		if (!this.client.users.has(this.modCase.user.id)) return null;
 		if (this.modCase.user.id === this.client.user.id) return null;

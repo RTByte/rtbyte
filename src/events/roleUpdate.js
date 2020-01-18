@@ -40,15 +40,15 @@ module.exports = class extends Event {
 			PRIORITY_SPEAKER: role.guild.language.get('PERMISSIONS_PRIORITY_SPEAKER'),
 			STREAM: role.guild.language.get('PERMISSIONS_STREAM')
 		};
-		if (role.guild.available && role.guild.settings.logs.events.roleUpdate) await this.roleUpdateLog(oldRole, role, perms);
+		if (role.guild.available && role.guild.settings.get('logs.events.roleUpdate')) await this.roleUpdateLog(oldRole, role, perms);
 
 		return;
 	}
 
 	async roleUpdateLog(oldRole, role, perms) {
-		const affirmEmoji = this.client.emojis.get(this.client.settings.emoji.affirm);
-		const rejectEmoji = this.client.emojis.get(this.client.settings.emoji.reject);
-		const arrowRightEmoji = this.client.emojis.get(this.client.settings.emoji.arrowRight);
+		const affirmEmoji = this.client.emojis.get(this.client.settings.get('emoji.affirm'));
+		const rejectEmoji = this.client.emojis.get(this.client.settings.get('emoji.reject'));
+		const arrowRightEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowRight'));
 		const oldPermissions = Object.entries(oldRole.permissions.serialize()).filter(perm => perm[1]).map(([perm]) => perms[perm]).join(', ');
 		const newPermissions = Object.entries(role.permissions.serialize()).filter(perm => perm[1]).map(([perm]) => perms[perm]).join(', ');
 		const status = {
@@ -58,7 +58,7 @@ module.exports = class extends Event {
 
 		const embed = new MessageEmbed()
 			.setAuthor(`${role.name}`, role.guild.iconURL())
-			.setColor(this.client.settings.colors.blue)
+			.setColor(this.client.settings.get('colors.blue'))
 			.setTimestamp()
 			.setFooter(role.guild.language.get('GUILD_LOG_ROLEUPDATE'));
 
@@ -80,7 +80,7 @@ module.exports = class extends Event {
 
 		if (!embed.fields.length) return;
 
-		const logChannel = await this.client.channels.get(role.guild.settings.channels.log);
+		const logChannel = await this.client.channels.get(role.guild.settings.get('channels.log'));
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		return;
 	}

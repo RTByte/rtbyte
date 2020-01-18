@@ -24,15 +24,15 @@ module.exports = class extends Command {
 
 	async run(msg, [target = msg.member, caseID = null]) {
 		if (caseID) {
-			if (!this.client.settings.moderation.cases.find(thisCase => thisCase.id === caseID)) return msg.reject(msg.language.get('COMMAND_MODHISTORY_INVALID_CASEID', caseID));
+			if (!this.client.settings.get('moderation.cases').find(thisCase => thisCase.id === caseID)) return msg.reject(msg.language.get('COMMAND_MODHISTORY_INVALID_CASEID', caseID));
 
 			const modCase = new ModCase(msg.guild);
-			await modCase.unpack(this.client.settings.moderation.cases.find(thisCase => thisCase.id === caseID));
+			await modCase.unpack(this.client.settings.get('moderation.cases').find(thisCase => thisCase.id === caseID));
 
 			return msg.send('', { embed: await modCase.embed() });
 		}
 
-		if (!target.settings.moderation.cases.length) return msg.affirm(msg.language.get('COMMAND_MODHISTORY_NOMODHISTORY', target));
+		if (!target.settings.get('moderation.cases').length) return msg.affirm(msg.language.get('COMMAND_MODHISTORY_NOMODHISTORY', target));
 
 		const previousHandler = this.handlers.get(msg.author.id);
 		if (previousHandler) previousHandler.stop();
@@ -40,7 +40,7 @@ module.exports = class extends Command {
 
 		const loadingEmbed = new MessageEmbed()
 			.setTitle(msg.language.get('COMMAND_MODHISTORY_LOADING'))
-			.setColor(this.client.settings.colors.white)
+			.setColor(this.client.settings.get('colors.white'))
 			.setThumbnail(target.user.displayAvatarURL(), 50, 50)
 			.setTimestamp();
 
@@ -56,9 +56,9 @@ module.exports = class extends Command {
 
 	async buildEmbedArray(msg, target) {
 		const caseEmbedArray = [];
-		for (const caseID of target.settings.moderation.cases) {
+		for (const caseID of target.settings.get('moderation.cases')) {
 			const modCase = new ModCase(msg.guild);
-			await modCase.unpack(this.client.settings.moderation.cases.find(thisCase => thisCase.id === caseID));
+			await modCase.unpack(this.client.settings.get('moderation.cases').find(thisCase => thisCase.id === caseID));
 
 			caseEmbedArray.push(await modCase.embed());
 		}
@@ -67,12 +67,12 @@ module.exports = class extends Command {
 	}
 
 	async buildDisplay(caseEmbedArray) {
-		const arrowToLeftEmoji = this.client.emojis.get(this.client.settings.emoji.arrowToLeft);
-		const arrowLeftEmoji = this.client.emojis.get(this.client.settings.emoji.arrowLeft);
-		const arrowRightEmoji = this.client.emojis.get(this.client.settings.emoji.arrowRight);
-		const arrowToRightEmoji = this.client.emojis.get(this.client.settings.emoji.arrowToRight);
-		const rejectEmoji = this.client.emojis.get(this.client.settings.emoji.reject);
-		const listEmoji = this.client.emojis.get(this.client.settings.emoji.list);
+		const arrowToLeftEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowToLeft'));
+		const arrowLeftEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowLeft'));
+		const arrowRightEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowRight'));
+		const arrowToRightEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowToRight'));
+		const rejectEmoji = this.client.emojis.get(this.client.settings.get('emoji.reject'));
+		const listEmoji = this.client.emojis.get(this.client.settings.get('emoji.list'));
 		const display = new RichDisplay()
 			.setEmojis({
 				first: arrowToLeftEmoji.id,

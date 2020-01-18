@@ -8,10 +8,10 @@ module.exports = class extends Event {
 	}
 
 	async run(msg) {
-		const starboardChannel = await this.client.channels.get(msg.guild.settings.boards.starboard.starboardChannel);
-		if (!msg.guild.settings.boards.starboard.starboardEnabled) return;
+		const starboardChannel = await this.client.channels.get(msg.guild.settings.get('boards.starboard.starboardChannel'));
+		if (!msg.guild.settings.get('boards.starboard.starboardEnabled')) return;
 
-		const starred = msg.guild.settings.boards.starboard.starred.find(star => star.msgID === msg.id);
+		const starred = msg.guild.settings.get('boards.starboard.starred').find(star => star.msgID === msg.id);
 
 		if (starred) {
 			await starboardChannel.messages.fetch(starred.starID)

@@ -41,8 +41,8 @@
         "discord.js": "github:discordjs/discord.js#master",
         "erlpack": "github:discordapp/erlpack",
         "fs-nextra": "^0.4.7",
-        "klasa": "github:dirigeants/klasa#master",
-        "klasa-member-gateway": "github:dirigeants/klasa-member-gateway#master",
+        "klasa": "github:dirigeants/klasa#settings",
+        "klasa-member-gateway": "github:dirigeants/klasa-member-gateway#settings",
         "moment": "^2.24.0",
         "moment-timezone": "^0.5.27",
         "node-fetch": "^2.3.0"

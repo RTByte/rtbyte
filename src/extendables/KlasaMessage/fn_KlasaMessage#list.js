@@ -7,7 +7,7 @@ module.exports = class extends Extendable {
 	}
 
 	async list(message = null, messageOptions = {}) {
-		const listEmoji = await this.client.emojis.get(this.client.settings.emoji.list);
+		const listEmoji = await this.client.emojis.get(this.client.settings.get('emoji.list'));
 		await this.react(listEmoji);
 		return message ? this.sendMessage(`${this.author}\n${listEmoji} ${message}`, messageOptions) : this;
 	}

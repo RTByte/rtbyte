@@ -27,10 +27,10 @@ module.exports = class extends Command {
 		let attachment;
 		const embed = new MessageEmbed()
 			.setAuthor(qmsg.author.tag, qmsg.author.displayAvatarURL())
-			.setColor(this.client.settings.colors.white)
+			.setColor(this.client.settings.get('colors.white'))
 			.setDescription(`[${msg.language.get('CLICK_TO_VIEW')}](${qmsg.url})`)
 			// eslint-disable-next-line max-len
-			.setFooter(`${moment.tz(qmsg.createdTimestamp, msg.guild ? msg.guild.settings.timezone : 'Etc/Greenwich').format('Do MMMM YYYY, h:mmA zz')} ${msg.guild ? msg.language.get('COMMAND_QUOTE_CHANNEL', qmsg) : msg.language.get('COMMAND_QUOTE_DMS')}`);
+			.setFooter(`${moment.tz(qmsg.createdTimestamp, msg.guild ? msg.guild.settings.get('timezone') : 'Etc/Greenwich').format('Do MMMM YYYY, h:mmA zz')} ${msg.guild ? msg.language.get('COMMAND_QUOTE_CHANNEL', qmsg) : msg.language.get('COMMAND_QUOTE_DMS')}`);
 
 		if (qmsg.content) await embed.addField(msg.language.get('MESSAGE'), `${qmsg.content}`, true);
 		if (!qmsg.content) await embed.setTitle(msg.language.get('MESSAGE'));

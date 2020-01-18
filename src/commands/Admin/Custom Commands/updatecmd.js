@@ -17,7 +17,7 @@ module.exports = class extends Command {
 		name = name.toLowerCase();
 		if (this.client.commands.has(name)) return msg.reject(msg.language.get('COMMAND_CUSTOM_CMD_NATIVE', name));
 		// eslint-disable-next-line id-length
-		const cmd = msg.guild.settings.commands.customCommands.find(c => c.name.toLowerCase() === name);
+		const cmd = msg.guild.settings.get('commands.customCommands').find(c => c.name.toLowerCase() === name);
 		if (cmd) {
 			const oldCmd = cmd;
 			const remove = await msg.guild.settings.update('commands.customCommands', cmd, { action: 'remove' });

@@ -53,11 +53,11 @@ module.exports = class extends Command {
 
 						let temp, wind;
 						if (msg.guild) {
-							if (msg.guild.settings.measurementUnits === 'metric') {
+							if (msg.guild.settings.get('measurementUnits') === 'metric') {
 								temp = `${tempCelsius}° C (${tempFahrenheit}° F)`;
 								wind = `${windSpeedMs} m/s (${windSpeedMph} mph)`;
 							}
-							if (msg.guild.settings.measurementUnits === 'imperial') {
+							if (msg.guild.settings.get('measurementUnits') === 'imperial') {
 								temp = `${tempFahrenheit}° F (${tempCelsius}° C)`;
 								wind = `${windSpeedMph} mph (${windSpeedMs} m/s)`;
 							}
@@ -68,10 +68,9 @@ module.exports = class extends Command {
 
 						const embed = new MessageEmbed()
 							.setAuthor(geocodeLocation, countryCode ? `https://www.countryflags.io/${countryCode}/flat/64.png` : null)
-							.setColor(this.client.settings.colors.white)
+							.setColor(this.client.settings.get('colors.white'))
 							.setDescription(msg.language.get('COMMAND_WEATHER_LINK', mapsLink, darkskyLink))
 							.addField(msg.language.get('COMMAND_WEATHER_CONDITION'), condition, true)
-							// eslint-disable-next-line no-mixed-operators
 							.addField(msg.language.get('COMMAND_WEATHER_TEMPERATURE'), temp, true)
 							.addField(msg.language.get('COMMAND_WEATHER_DAILY'), minutely || hourly || daily)
 							.addField(msg.language.get('COMMAND_WEATHER_WINDSPEED'), wind, true)

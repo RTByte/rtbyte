@@ -19,7 +19,7 @@ module.exports = class extends Command {
 			.then(json => {
 				const embed = new MessageEmbed()
 					.setAuthor(msg.language.get('COMMAND_WIKI_WIKIPEDIA'), 'https://i.imgur.com/fnhlGh5.png')
-					.setColor(this.client.settings.colors.white)
+					.setColor(this.client.settings.get('colors.white'))
 					.setTitle(json.title)
 					.setDescription(`[${msg.language.get('COMMAND_WIKI_LINK')}](${json.content_urls.desktop.page})`)
 					.addField(msg.language.get('COMMAND_WIKI_EMBED_DESC'), `${json.description}.`)

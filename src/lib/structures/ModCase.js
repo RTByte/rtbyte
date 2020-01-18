@@ -191,7 +191,7 @@ module.exports = class Case {
 	async _getID() {
 		if (this.submitted) throw 'Cases cannot be changed once submitted!';
 		for (let i = 0; ; i++) {
-			if (await this.client.settings.moderation.cases.find(obj => obj.id === `${this.type}_${this.timestamp}${i}`)) continue;
+			if (await this.client.settings.get('moderation.cases').find(obj => obj.id === `${this.type}_${this.timestamp}${i}`)) continue;
 			return `${this.type}_${this.timestamp}${i}`;
 		}
 	}

@@ -45,7 +45,7 @@ module.exports = class extends Command {
 
 		const embed = new MessageEmbed()
 			.setAuthor(msg.guild.name, msg.guild.iconURL())
-			.setColor(this.client.settings.colors.white)
+			.setColor(this.client.settings.get('colors.white'))
 			.addField(msg.guild.language.get('NAME'), msg.guild.name, true)
 			.addField(msg.guild.language.get('ID'), msg.guild.id, true)
 			.addField(msg.guild.language.get('OWNER'), msg.guild.owner, true)
@@ -70,7 +70,7 @@ module.exports = class extends Command {
 			embed.addField(msg.guild.language.get('COMMAND_SERVERINFO_NITROAMOUNT'), msg.guild.premiumSubscriptionCount, true);
 		}
 
-		if (!msg.guild.settings.logs.verboseLogging) return msg.channel.send('', { disableEveryone: true, embed: embed });
+		if (!msg.guild.settings.get('logs.verboseLogging')) return msg.channel.send('', { disableEveryone: true, embed: embed });
 
 		if (roles.length) await embedSplitter(msg.guild.language.get('ROLES'), roles, embed);
 		if (channels.length) await embedSplitter(msg.guild.language.get('CHANNELS'), channels, embed);

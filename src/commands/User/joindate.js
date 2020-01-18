@@ -21,10 +21,10 @@ module.exports = class extends Command {
 
 		const embed = new MessageEmbed()
 			.setAuthor(membername.user.tag, membername.user.displayAvatarURL())
-			.setColor(this.client.settings.colors.white)
+			.setColor(this.client.settings.get('colors.white'))
 			.addField(msg.language.get('JOIN_POS'), position)
-			.addField(msg.language.get('JOINED'), moment.tz(membername.joinedTimestamp, msg.guild.settings.timezone).format('Do MMMM YYYY, h:mmA zz'))
-			.addField(msg.language.get('REGISTERED'), moment.tz(membername.user.createdTimestamp, msg.guild.settings.timezone).format('Do MMMM YYYY, h:mmA zz'))
+			.addField(msg.language.get('JOINED'), moment.tz(membername.joinedTimestamp, msg.guild.settings.get('timezone')).format('Do MMMM YYYY, h:mmA zz'))
+			.addField(msg.language.get('REGISTERED'), moment.tz(membername.user.createdTimestamp, msg.guild.settings.get('timezone')).format('Do MMMM YYYY, h:mmA zz'))
 			.setThumbnail(membername.user.displayAvatarURL())
 			.setTimestamp()
 			.setFooter(msg.language.get('COMMAND_REQUESTED_BY', msg), msg.author.displayAvatarURL());

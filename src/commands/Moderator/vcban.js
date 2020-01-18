@@ -22,7 +22,7 @@ module.exports = class extends Command {
 		if (!Array.isArray(reason) || !reason.length) reason.unshift('Unspecified');
 		const silent = reason[0].endsWith('-s');
 		if (silent) reason[0].replace('-s', '');
-		if (!msg.guild.settings.roles.voiceBanned || !msg.guild.roles.has(msg.guild.settings.roles.voiceBanned)) await this.createRole(msg.guild);
+		if (!msg.guild.settings.get('roles.voiceBanned') || !msg.guild.roles.has(msg.guild.settings.get('roles.voiceBanned'))) await this.createRole(msg.guild);
 
 		if (username.id === msg.author.id) return msg.reject(msg.language.get('COMMAND_VCBAN_NO_VCBAN_SELF'));
 		if (username.id === this.client.user.id) return msg.reject(msg.language.get('COMMAND_VCBAN_NO_VCBAN_CLIENT'));
@@ -44,8 +44,8 @@ module.exports = class extends Command {
 			await vckick.run(msg, [username, ...reason]);
 		}
 
-		if (member.roles.has(msg.guild.settings.roles.voiceBanned)) return msg.affirm();
-		const voiceBannedRole = await msg.guild.roles.get(msg.guild.settings.roles.voiceBanned);
+		if (member.roles.has(msg.guild.settings.get('roles.voiceBanned'))) return msg.affirm();
+		const voiceBannedRole = await msg.guild.roles.get(msg.guild.settings.get('roles.voiceBanned'));
 		await member.roles.add(voiceBannedRole);
 
 		if (when) {

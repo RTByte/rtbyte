@@ -9,7 +9,7 @@ module.exports = class extends Event {
 
 	async run(emoji) {
 		if (!emoji.guild) return;
-		if (emoji.guild.available && emoji.guild.settings.logs.events.emojiDelete) await this.emojiCreateLog(emoji);
+		if (emoji.guild.available && emoji.guild.settings.get('logs.events.emojiDelete')) await this.emojiCreateLog(emoji);
 
 		return;
 	}
@@ -17,12 +17,12 @@ module.exports = class extends Event {
 	async emojiCreateLog(emoji) {
 		const embed = new MessageEmbed()
 			.setAuthor(`:${emoji.name}:`, emoji.guild.iconURL())
-			.setColor(this.client.settings.colors.red)
+			.setColor(this.client.settings.get('colors.red'))
 			.setTimestamp()
 			.setFooter(emoji.guild.language.get('GUILD_LOG_EMOJIDELETE'));
 
-		if (emoji.guild.settings.logs.verboseLogging) embed.addField(emoji.guild.language.get('ID'), emoji.id, true);
-		const logChannel = await this.client.channels.get(emoji.guild.settings.channels.log);
+		if (emoji.guild.settings.get('logs.verboseLogging')) embed.addField(emoji.guild.language.get('ID'), emoji.id, true);
+		const logChannel = await this.client.channels.get(emoji.guild.settings.get('channels.log'));
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		return;
 	}

@@ -9,38 +9,38 @@ module.exports = class extends Event {
 
 	async run(oldEmoji, emoji) {
 		if (!emoji.guild) return;
-		if (emoji.guild.available && emoji.guild.settings.logs.events.emojiCreate && !emoji.animated) await this.emojiCreateLog(oldEmoji, emoji);
-		if (emoji.guild.available && emoji.guild.settings.logs.events.emojiCreate && emoji.animated) await this.animatedEmojiCreateLog(oldEmoji, emoji);
+		if (emoji.guild.available && emoji.guild.settings.get('logs.events.emojiCreate') && !emoji.animated) await this.emojiCreateLog(oldEmoji, emoji);
+		if (emoji.guild.available && emoji.guild.settings.get('logs.events.emojiCreate') && emoji.animated) await this.animatedEmojiCreateLog(oldEmoji, emoji);
 
 		return;
 	}
 
 	async emojiCreateLog(oldEmoji, emoji) {
-		const arrowRightEmoji = this.client.emojis.get(this.client.settings.emoji.arrowRight);
+		const arrowRightEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowRight'));
 
 		const embed = new MessageEmbed()
 			.setAuthor(`:${emoji.name}:`, emoji.guild.iconURL())
-			.setColor(this.client.settings.colors.blue)
+			.setColor(this.client.settings.get('colors.blue'))
 			.addField(emoji.guild.language.get('NAME_CHANGED'), `${oldEmoji.name} ${arrowRightEmoji} ${emoji.name}`)
 			.setTimestamp()
 			.setFooter(emoji.guild.language.get('GUILD_LOG_EMOJIUPDATE'));
 
-		const logChannel = await this.client.channels.get(emoji.guild.settings.channels.log);
+		const logChannel = await this.client.channels.get(emoji.guild.settings.get('channels.log'));
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		return;
 	}
 
 	async animatedEmojiCreateLog(oldEmoji, emoji) {
-		const arrowRightEmoji = this.client.emojis.get(this.client.settings.emoji.arrowRight);
+		const arrowRightEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowRight'));
 
 		const embed = new MessageEmbed()
 			.setAuthor(`:${emoji.name}:`, emoji.guild.iconURL())
-			.setColor(this.client.settings.colors.blue)
+			.setColor(this.client.settings.get('colors.blue'))
 			.addField(emoji.guild.language.get('NAME_CHANGED'), `${oldEmoji.name} ${arrowRightEmoji} ${emoji.name}`)
 			.setTimestamp()
 			.setFooter(emoji.guild.language.get('GUILD_LOG_EMOJIUPDATE'));
 
-		const logChannel = await this.client.channels.get(emoji.guild.settings.channels.log);
+		const logChannel = await this.client.channels.get(emoji.guild.settings.get('channels.log'));
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		return;
 	}

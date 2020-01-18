@@ -8,7 +8,7 @@ module.exports = class extends Event {
 	}
 
 	async run(role) {
-		if (role.guild.available && role.guild.settings.logs.events.roleDelete) await this.roleDeleteLog(role);
+		if (role.guild.available && role.guild.settings.get('logs.events.roleDelete')) await this.roleDeleteLog(role);
 
 		return;
 	}
@@ -16,15 +16,15 @@ module.exports = class extends Event {
 	async roleDeleteLog(role) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${role.name}`, role.guild.iconURL())
-			.setColor(this.client.settings.colors.red)
+			.setColor(this.client.settings.get('colors.red'))
 			.setTimestamp()
 			.setFooter(role.guild.language.get('GUILD_LOG_ROLEDELETE'));
 
-		if (role.guild.settings.logs.verboseLogging) {
+		if (role.guild.settings.get('logs.verboseLogging')) {
 			embed.addField(role.guild.language.get('ID'), role.id, true);
 		}
 
-		const logChannel = await this.client.channels.get(role.guild.settings.channels.log);
+		const logChannel = await this.client.channels.get(role.guild.settings.get('channels.log'));
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		return;
 	}
