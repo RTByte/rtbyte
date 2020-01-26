@@ -43,7 +43,7 @@ module.exports = class extends Command {
 		const channels = await msg.guild.channels.filter(channel => channel.type !== 'category' && channel.type !== 'voice').array();
 		const emojis = await msg.guild.emojis.array();
 		let prunable;
-		await msg.guild.members.prune({ days: 30, dry: true }).then( pruned => {
+		await msg.guild.members.prune({ days: 30, dry: true }).then(pruned => {
 			prunable = pruned;
 		});
 
