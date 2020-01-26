@@ -14,20 +14,23 @@ module.exports = class extends Command {
 		});
 	}
 
-	async run(message, [...reason]) {
-		const globalLogChannel = await this.client.channels.get(this.client.settings.channels.globalLog);
-		const embed = new MessageEmbed()
-			.setAuthor(`${message.guild.name} (#${message.channel.name})`, message.guild.iconURL())
-			.setColor(this.client.settings.colors.red)
-			.setTitle(message.guild.language.get('COMMAND_SUPPORT_REQUESTED'))
-			.setDescription(`[${message.guild.language.get('CLICK_TO_VIEW')}](${message.url})`)
-			.setTimestamp()
-			.setFooter(message.author.tag, message.author.displayAvatarURL());
+	async run(msg, [...reason]) {
+		const globalLogChannel = await this.client.channels.get(this.client.settings.get('channels.globalLog'));
+		await msg.channel.createInvite({ temporary: true, maxUses: 10, unique: true, reason: msg.language.get('COMMAND_SUPPORT_INVITE_GENERATED') })
+			.then(invite => {
+				const embed = new MessageEmbed()
+					.setAuthor(`${msg.guild.name} (#${msg.channel.name})`, msg.guild.iconURL())
+					.setColor(this.client.settings.get('colors.red'))
+					.setTitle(msg.guild.language.get('COMMAND_SUPPORT_REQUESTED'))
+					.setDescription(`[${msg.guild.language.get('COMMAND_SUPPORT_JUMPTO')}](${msg.url}) / [${msg.guild.language.get('COMMAND_SUPPORT_JOINSERVER')}](${invite.url})`)
+					.setTimestamp()
+					.setFooter(msg.author.tag, msg.author.displayAvatarURL());
 
-		if (reason.length) embed.addField('Reason', reason.join(' '));
-		await globalLogChannel.send('@everyone', { disableEveryone: false, embed: embed });
+				if (reason.length) embed.addField('Reason', reason.join(' '));
+				globalLogChannel.send(`<@&${this.client.options.controlGuildDeveloperRole}>`, { disableEveryone: false, embed: embed });
 
-		return message.affirm(message.guild.language.get('COMMAND_SUPPORT_CONTACTED'));
+				return msg.affirm(msg.guild.language.get('COMMAND_SUPPORT_CONTACTED'));
+			});
 	}
 
 };

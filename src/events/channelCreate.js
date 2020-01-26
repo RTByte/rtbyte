@@ -9,7 +9,7 @@ module.exports = class extends Event {
 
 	async run(channel) {
 		if (!channel.guild) return;
-		if (channel.guild.available && channel.guild.settings.logs.events.channelCreate) await this.channelCreateLog(channel);
+		if (channel.guild.available && channel.guild.settings.get('logs.events.channelCreate')) await this.channelCreateLog(channel);
 
 		return;
 	}
@@ -17,7 +17,7 @@ module.exports = class extends Event {
 	async channelCreateLog(channel) {
 		const embed = new MessageEmbed()
 			.setAuthor(`#${channel.name}`, channel.guild.iconURL())
-			.setColor(this.client.settings.colors.green)
+			.setColor(this.client.settings.get('colors.green'))
 			.setTimestamp()
 			.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELCREATE'));
 
@@ -43,11 +43,11 @@ module.exports = class extends Event {
 			embed.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELCREATE_STORE'));
 		}
 
-		if (channel.guild.settings.logs.verboseLogging) {
+		if (channel.guild.settings.get('logs.verboseLogging')) {
 			embed.addField(channel.guild.language.get('ID'), channel.id);
 			embed.addField(channel.guild.language.get('CATEGORY'), channel.parent);
 		}
-		const logChannel = await this.client.channels.get(channel.guild.settings.channels.log);
+		const logChannel = await this.client.channels.get(channel.guild.settings.get('channels.log'));
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		return;
 	}

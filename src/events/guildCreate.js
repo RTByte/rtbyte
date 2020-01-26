@@ -9,14 +9,14 @@ module.exports = class extends Event {
 
 	async run(guild) {
 		if (!guild.available) return;
-		if (this.client.settings.guildBlacklist.includes(guild.id)) {
+		if (this.client.settings.get('guildBlacklist').includes(guild.id)) {
 			guild.leave();
 			this.client.emit('warn', `Blacklisted guild detected: ${guild.name} (${guild.id})`);
 		}
 
 		await guild.rtbyteInit();
 
-		if (this.client.settings.logs.guildCreate) await this.guildCreateLog(guild);
+		if (this.client.settings.get('logs.guildCreate')) await this.guildCreateLog(guild);
 
 		return;
 	}
@@ -24,11 +24,11 @@ module.exports = class extends Event {
 	async guildCreateLog(guild) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${guild.name} (${guild.id})`, guild.iconURL())
-			.setColor(this.client.settings.colors.green)
+			.setColor(this.client.settings.get('colors.green'))
 			.setTimestamp()
 			.setFooter(guild.language.get('GLOBAL_LOG_GUILDCREATE'));
 
-		const globalLogChannel = await this.client.channels.get(this.client.settings.channels.globalLog);
+		const globalLogChannel = await this.client.channels.get(this.client.settings.get('channels.globalLog'));
 		await globalLogChannel.send('', { disableEveryone: true, embed: embed });
 		return;
 	}

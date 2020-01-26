@@ -14,14 +14,14 @@ module.exports = class extends Event {
 			});
 		}
 
-		if (msg.guild.available && msg.guild.settings.logs.events.messageDelete) await this.deleteLog(msg);
+		if (msg.guild.available && msg.guild.settings.get('logs.events.messageDelete')) await this.deleteLog(msg);
 	}
 
 	async deleteLog(msg) {
 		let attachment;
 		const embed = new MessageEmbed()
 			.setAuthor(`#${msg.channel.name}`, msg.guild.iconURL())
-			.setColor(this.client.settings.colors.blue)
+			.setColor(this.client.settings.get('colors.blue'))
 			.setTimestamp()
 			.setFooter(msg.author.tag, msg.author.displayAvatarURL());
 
@@ -34,7 +34,7 @@ module.exports = class extends Event {
 				.replace('.com/', '.net/');
 			await embed.setImage(attachment);
 		}
-		const logChannel = await this.client.channels.get(msg.guild.settings.channels.log);
+		const logChannel = await this.client.channels.get(msg.guild.settings.get('channels.log'));
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		return;
 	}

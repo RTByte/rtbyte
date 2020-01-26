@@ -32,17 +32,17 @@ module.exports = class extends Event {
 	}
 
 	async run(oldGuild, guild) {
-		if (this.client.settings.logs.guildCreate) await this.globalGuildUpdateLog(oldGuild, guild);
-		if (guild.available && guild.settings.logs.events.guildUpdate) await this.guildUpdateLog(oldGuild, guild);
+		if (this.client.settings.get('logs.guildCreate')) await this.globalGuildUpdateLog(oldGuild, guild);
+		if (guild.available && guild.settings.get('logs.events.guildUpdate')) await this.guildUpdateLog(oldGuild, guild);
 		if (oldGuild.premiumTier !== guild.premiumTier) await this.nitroLevel(guild);
 
 		return;
 	}
 
 	async guildUpdateLog(oldGuild, guild) {
-		const affirmEmoji = this.client.emojis.get(this.client.settings.emoji.affirm);
-		const rejectEmoji = this.client.emojis.get(this.client.settings.emoji.reject);
-		const arrowRightEmoji = this.client.emojis.get(this.client.settings.emoji.arrowRight);
+		const affirmEmoji = this.client.emojis.get(this.client.settings.get('emoji.affirm'));
+		const rejectEmoji = this.client.emojis.get(this.client.settings.get('emoji.reject'));
+		const arrowRightEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowRight'));
 		const arrayStatus = [
 			rejectEmoji,
 			affirmEmoji
@@ -57,7 +57,7 @@ module.exports = class extends Event {
 		// Base embed
 		const embed = new MessageEmbed()
 			.setAuthor(guild.name, guild.iconURL())
-			.setColor(this.client.settings.colors.blue)
+			.setColor(this.client.settings.get('colors.blue'))
 			.setTimestamp()
 			.setFooter(guild.language.get('GUILD_LOG_GUILDUPDATE'));
 
@@ -131,7 +131,7 @@ module.exports = class extends Event {
 		// Return null when premiumSubscriptionCount changes
 		if (oldGuild.premiumSubscriptionCount !== guild.premiumSubscriptionCount) return;
 
-		const logChannel = await this.client.channels.get(guild.settings.channels.log);
+		const logChannel = await this.client.channels.get(guild.settings.get('channels.log'));
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		return;
 	}
@@ -140,12 +140,12 @@ module.exports = class extends Event {
 		// Nitro boost embed
 		const nitroEmbed = new MessageEmbed()
 			.setAuthor(guild.name, guild.iconURL())
-			.setColor(this.client.settings.colors.pink)
+			.setColor(this.client.settings.get('colors.pink'))
 			.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_NITROLEVEL_TITLES', guild), guild.language.get('GUILD_LOG_GUILDUPDATE_NITROLEVEL_DETAILS', guild))
 			.setTimestamp()
 			.setFooter(guild.language.get('GUILD_LOG_GUILDUPDATE_NITROLEVEL'));
 
-		const logChannel = await this.client.channels.get(guild.settings.channels.log);
+		const logChannel = await this.client.channels.get(guild.settings.get('channels.log'));
 		await logChannel.send('', { disableEveryone: true, embed: nitroEmbed });
 		return;
 	}
@@ -153,7 +153,7 @@ module.exports = class extends Event {
 	async globalGuildUpdateLog(oldGuild, guild) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${guild.name} (${guild.id})`, guild.iconURL())
-			.setColor(this.client.settings.colors.blue)
+			.setColor(this.client.settings.get('colors.blue'))
 			.setTimestamp();
 
 		// Name changed
@@ -168,7 +168,7 @@ module.exports = class extends Event {
 		}
 
 		if (oldGuild.name !== guild.name || oldGuild.iconURL() !== guild.iconURL()) {
-			const globalLogChannel = await this.client.channels.get(this.client.settings.channels.globalLog);
+			const globalLogChannel = await this.client.channels.get(this.client.settings.get('channels.globalLog'));
 			await globalLogChannel.send('', { disableEveryone: true, embed: embed });
 			return;
 		}

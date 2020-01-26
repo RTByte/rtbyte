@@ -42,15 +42,20 @@ module.exports = class extends Command {
 		const roles = await msg.guild.roles.filter(role => role.name !== '@everyone').sort().array();
 		const channels = await msg.guild.channels.filter(channel => channel.type !== 'category' && channel.type !== 'voice').array();
 		const emojis = await msg.guild.emojis.array();
+		let prunable;
+		await msg.guild.members.prune({ days: 30, dry: true }).then(pruned => {
+			prunable = pruned;
+		});
 
 		const embed = new MessageEmbed()
 			.setAuthor(msg.guild.name, msg.guild.iconURL())
-			.setColor(this.client.settings.colors.white)
+			.setColor(this.client.settings.get('colors.white'))
 			.addField(msg.guild.language.get('NAME'), msg.guild.name, true)
 			.addField(msg.guild.language.get('ID'), msg.guild.id, true)
 			.addField(msg.guild.language.get('OWNER'), msg.guild.owner, true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_REGION'), this.regions[msg.guild.region], true)
 			.addField(msg.guild.language.get('MEMBERS'), msg.guild.language.get('COMMAND_SERVERINFO_MEMBERCOUNT', msg.guild), true)
+			.addField(msg.guild.language.get('COMMAND_SERVERINFO_PRUNABLE'), prunable, true)
 			.addField(msg.guild.language.get('ROLES'), msg.guild.roles.size, true)
 			.addField(msg.guild.language.get('CHANNELS'), msg.guild.channels.size, true)
 			.addField(msg.guild.language.get('EMOJIS'), msg.guild.emojis.size, true)
@@ -70,7 +75,7 @@ module.exports = class extends Command {
 			embed.addField(msg.guild.language.get('COMMAND_SERVERINFO_NITROAMOUNT'), msg.guild.premiumSubscriptionCount, true);
 		}
 
-		if (!msg.guild.settings.logs.verboseLogging) return msg.channel.send('', { disableEveryone: true, embed: embed });
+		if (!msg.guild.settings.get('logs.verboseLogging')) return msg.channel.send('', { disableEveryone: true, embed: embed });
 
 		if (roles.length) await embedSplitter(msg.guild.language.get('ROLES'), roles, embed);
 		if (channels.length) await embedSplitter(msg.guild.language.get('CHANNELS'), channels, embed);

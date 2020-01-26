@@ -8,7 +8,7 @@ module.exports = class extends Event {
 	}
 
 	async run(role) {
-		if (role.guild.available && role.guild.settings.logs.events.roleCreate) await this.newRoleLog(role);
+		if (role.guild.available && role.guild.settings.get('logs.events.roleCreate')) await this.newRoleLog(role);
 
 		return;
 	}
@@ -16,16 +16,16 @@ module.exports = class extends Event {
 	async newRoleLog(role) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${role.name}`, role.guild.iconURL())
-			.setColor(this.client.settings.colors.green)
+			.setColor(this.client.settings.get('colors.green'))
 			.setTimestamp()
 			.setFooter(role.guild.language.get('GUILD_LOG_ROLECREATE'));
 
-		if (role.guild.settings.logs.verboseLogging) {
+		if (role.guild.settings.get('logs.verboseLogging')) {
 			embed.addField(role.guild.language.get('ID'), role.id);
 			embed.addField(role.guild.language.get('GUILD_LOG_ROLECREATE_V_TAG'), role);
 		}
 
-		const logChannel = await this.client.channels.get(role.guild.settings.channels.log);
+		const logChannel = await this.client.channels.get(role.guild.settings.get('channels.log'));
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		return;
 	}

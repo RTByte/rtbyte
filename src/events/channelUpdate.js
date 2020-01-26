@@ -15,15 +15,15 @@ module.exports = class extends Event {
 
 	async run(oldChannel, channel) {
 		if (!channel.guild) return;
-		if (channel.guild.available && channel.guild.settings.logs.events.channelUpdate) await this.channelUpdateLog(oldChannel, channel);
+		if (channel.guild.available && channel.guild.settings.get('logs.events.channelUpdate')) await this.channelUpdateLog(oldChannel, channel);
 
 		return;
 	}
 
 	async channelUpdateLog(oldChannel, channel) {
-		const affirmEmoji = this.client.emojis.get(this.client.settings.emoji.affirm);
-		const rejectEmoji = this.client.emojis.get(this.client.settings.emoji.reject);
-		const arrowRightEmoji = this.client.emojis.get(this.client.settings.emoji.arrowRight);
+		const affirmEmoji = this.client.emojis.get(this.client.settings.get('emoji.affirm'));
+		const rejectEmoji = this.client.emojis.get(this.client.settings.get('emoji.reject'));
+		const arrowRightEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowRight'));
 		const status = {
 			true: affirmEmoji,
 			false: rejectEmoji
@@ -31,7 +31,7 @@ module.exports = class extends Event {
 
 		const embed = new MessageEmbed()
 			.setAuthor(`#${channel.name}`, channel.guild.iconURL())
-			.setColor(this.client.settings.colors.blue)
+			.setColor(this.client.settings.get('colors.blue'))
 			.setTimestamp()
 			.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE'));
 
@@ -88,7 +88,7 @@ module.exports = class extends Event {
 
 		if (!embed.fields.length) return;
 
-		const logChannel = await this.client.channels.get(channel.guild.settings.channels.log);
+		const logChannel = await this.client.channels.get(channel.guild.settings.get('channels.log'));
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		return;
 	}

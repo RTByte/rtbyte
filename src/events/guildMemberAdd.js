@@ -9,24 +9,27 @@ module.exports = class extends Event {
 	}
 
 	async run(member) {
-		const modHistory = await this.client.settings.moderation.cases.filter(modCase => modCase.user === member.id && modCase.guild === member.guild.id);
-		for await (const modCase of modHistory) {
-			if (!member.settings.moderation.cases.includes(modCase.id)) member.settings.update('moderation.cases', modCase.id, member.guild);
+		const modHistory = await this.client.settings.get('moderation.cases').filter(modCase => modCase.user === member.id && modCase.guild === member.guild.id);
+		for (const modCase of modHistory) {
+			if (!member.settings.get('moderation.cases').includes(modCase.id)) {
+				await member.settings.sync();
+				await member.settings.update('moderation.cases', modCase.id, member.guild);
+			}
 		}
 
-		if (member.guild.available && member.guild.settings.greetings.welcomeNewUsers) await this.welcome(member);
-		if (member.guild.available && member.guild.settings.logs.events.guildMemberAdd) await this.newMemberLog(member);
+		if (member.guild.available && member.guild.settings.get('greetings.welcomeNewUsers')) await this.welcome(member);
+		if (member.guild.available && member.guild.settings.get('logs.events.guildMemberAdd')) await this.newMemberLog(member);
 
 		return;
 	}
 
 	async welcome(member) {
-		if (!member.guild.settings.greetings.welcomeMessage) return;
+		if (!member.guild.settings.get('greetings.welcomeMessage')) return;
 
-		const welcomeChannel = await this.client.channels.get(member.guild.settings.greetings.welcomeChannel);
-		let welcomeMsg = member.guild.settings.greetings.welcomeMessage;
+		const welcomeChannel = await this.client.channels.get(member.guild.settings.get('greetings.welcomeChannel'));
+		let welcomeMsg = member.guild.settings.get('greetings.welcomeMessage');
 
-		if (member.guild.settings.greetings.welcomeMessage) {
+		if (member.guild.settings.get('greetings.welcomeMessage')) {
 			welcomeMsg = welcomeMsg.replace('%user%', `${member.user}`);
 			await welcomeChannel.send(welcomeMsg);
 		}
@@ -35,13 +38,14 @@ module.exports = class extends Event {
 	async newMemberLog(member) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${member.user.tag} (${member.id})`, member.user.displayAvatarURL())
-			.setColor(this.client.settings.colors.green)
+			.setColor(this.client.settings.get('colors.green'))
 			.setTimestamp()
 			.setFooter(member.guild.language.get('GUILD_LOG_GUILDMEMBERADD'));
 
-		if (member.guild.settings.logs.verboseLogging) await embed.addField(member.guild.language.get('REGISTERED'), moment.tz(member.user.createdTimestamp, member.guild.settings.timezone).format('Do MMMM YYYY, h:mmA zz'));
+		const { verboseLogging } = member.guild.settings.get('logs');
+		if (verboseLogging) await embed.addField(member.guild.language.get('REGISTERED'), moment.tz(member.user.createdTimestamp, member.guild.settings.get('timezone')).format('Do MMMM YYYY, h:mmA zz'));
 
-		const logChannel = await this.client.channels.get(member.guild.settings.channels.log);
+		const logChannel = await this.client.channels.get(member.guild.settings.get('channels.log'));
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		return;
 	}

@@ -25,16 +25,18 @@ module.exports = class extends Command {
 
 				if (json.incidents.length === 0) {
 					embed.setTitle(msg.language.get('COMMAND_DISCORDSTATUS_ALLOK'))
-						.setColor(this.client.settings.colors.green)
-						.addField(msg.language.get('COMMAND_DISCORDSTATUS_LASTUPDATE'), moment.tz(json.page.updated_at, msg.guild ? msg.guild.settings.timezone : 'Etc/Greenwich').format('Do MMMM YYYY, h:mmA zz')); 
+						.setColor(this.client.settings.get('colors.green'))
+						// eslint-disable-next-line max-len
+						.addField(msg.language.get('COMMAND_DISCORDSTATUS_LASTUPDATE'), moment.tz(json.page.updated_at, msg.guild ? msg.guild.settings.get('timezone') : 'Etc/Greenwich').format('Do MMMM YYYY, h:mmA zz'));
 				}
 
 				const incident = json.incidents[0];
 				if (incident) {
 					embed.setTitle(msg.language.get('COMMAND_DISCORDSTATUS_INCIDENT'))
 						.setDescription(`[${msg.language.get('COMMAND_DISCORDSTATUS_INCIDENT_LINK')}](https://status.discordapp.com/incidents/${incident.incident_id}/)`)
-						.setColor(this.client.settings.colors.yellow)
-						.addField(msg.language.get('COMMAND_DISCORDSTATUS_INCIDENT_TSTAMP'), moment.tz(incident.created_at, msg.guild ? msg.guild.settings.timezone : 'Etc/Greenwich').format('Do MMMM YYYY, h:mmA zz'))
+						.setColor(this.client.settings.get('colors.yellow'))
+						// eslint-disable-next-line max-len
+						.addField(msg.language.get('COMMAND_DISCORDSTATUS_INCIDENT_TSTAMP'), moment.tz(incident.created_at, msg.guild ? msg.guild.settings.get('timezone') : 'Etc/Greenwich').format('Do MMMM YYYY, h:mmA zz'))
 						.addField(msg.language.get('COMMAND_DISCORDSTATUS_INCIDENT_UPDATES'), incident.incident_updates[0].body);
 				}
 

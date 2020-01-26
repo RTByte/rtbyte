@@ -1,24 +1,48 @@
 {
     "name": "rtbyte",
-    "version": "1.1.1a",
-    "description": "A Discord Bot for the Rooster Teeth Community family of Discord Servers",
+    "version": "1.1.2",
+    "description": "An open-source modular multipurpose Discord bot built on the incredible Klasa framework for discord.js",
+    "homepage": "https://github.com/RTByte/rtbyte/",
     "main": "src/index.js",
     "scripts": {
+        "pm2:start": "pm2 start src/app.js --name rtbyte",
+        "pm2:restart": "pm2 restart rtbyte",
+        "pm2:logs": "pm2 logs rtbyte --lines=200",
+        "pm2:stop": "pm2 stop rtbyte",
+        "pm2:delete": "pm2 delete rtbyte",
         "start": "node src/app.js",
-        "test": "echo 'No Test Yet!'"
+        "lint": "eslint --ext js src --fix",
+        "test": "eslint --ext js src"
     },
     "repository": {
         "type": "git",
-        "url": "git@github.com:RTByte/RTByte.git"
+        "url": "https://github.com/RTByte/rtbyte.git"
     },
-    "author": "The RTByte Team",
+    "keywords": [
+        "discord.js",
+        "klasa",
+        "bot"
+    ],
+    "contributors": [
+        "Rasmus Gerdin <rasmus@rtbyte.xyz> (https://rasmusgerdin.com)",
+        "Michael Cumbers <michael@rtbyte.xyz> (https://michaelcumbers.ca)",
+        "Killian Higgins <killian@rtbyte.xyz> (https://github.com/Uzui2012)",
+        "Justin Shull <justin@rtbyte.xyz> (https://github.com/JShull97)"
+    ],
+    "private": true,
+    "author": "The RTByte Team <developers@rtbyte.xyz> (https://rtbyte.xyz)",
     "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/RTByte/rtbyte/issues",
+        "email": "developers@rtbyte.xyz"
+    },
     "dependencies": {
         "cheerio": "^1.0.0-rc.3",
         "discord.js": "github:discordjs/discord.js#master",
         "erlpack": "github:discordapp/erlpack",
-        "klasa": "github:dirigeants/klasa#master",
-        "klasa-member-gateway": "github:dirigeants/klasa-member-gateway#master",
+        "fs-nextra": "^0.4.7",
+        "klasa": "github:dirigeants/klasa#settings",
+        "klasa-member-gateway": "github:dirigeants/klasa-member-gateway#settings",
         "moment": "^2.24.0",
         "moment-timezone": "^0.5.27",
         "node-fetch": "^2.3.0"

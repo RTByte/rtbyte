@@ -18,7 +18,7 @@ module.exports = class extends Command {
 	}
 
 	async run(msg, [membername = null, amount, all = null, silent = null]) {
-		if (membername && !msg.member.canMod(membername)) return msg.reject(msg.language.get('COMMAND_PURGE_NO_PERMS', this.client.emojis.get(this.client.settings.emoji.reject), membername));
+		if (membername && !msg.member.canMod(membername)) return msg.reject(msg.language.get('COMMAND_PURGE_NO_PERMS', this.client.emojis.get(this.client.settings.get('emoji.reject')), membername));
 
 		let messages = await msg.channel.messages.fetch({ limit: amount });
 

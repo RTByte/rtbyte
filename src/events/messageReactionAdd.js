@@ -11,15 +11,15 @@ module.exports = class extends Event {
 		let attachment;
 		const msg = reaction.message;
 		if (!msg.guild) return;
-		const starboardChannel = await this.client.channels.get(msg.guild.settings.boards.starboard.starboardChannel);
+		const starboardChannel = await this.client.channels.get(msg.guild.settings.get('boards.starboard.starboardChannel'));
 
 		if (reaction.emoji.name !== '🌟' || msg.author.bot || msg.channel === starboardChannel) return;
-		if (!msg.guild.settings.boards.starboard.starboardEnabled) return;
-		if (reaction.count < msg.guild.settings.boards.starboard.starboardThreshold) return;
+		if (!msg.guild.settings.get('boards.starboard.starboardEnabled')) return;
+		if (reaction.count < msg.guild.settings.get('boards.starboard.starboardThreshold')) return;
 
 		const embed = new MessageEmbed()
 			.setAuthor(msg.language.get('STARBOARD_STARRED'), msg.guild.iconURL())
-			.setColor(this.client.settings.colors.gold)
+			.setColor(this.client.settings.get('colors.gold'))
 			.setDescription(`[${msg.guild.language.get('CLICK_TO_VIEW')}](${msg.url})`)
 			.addField(msg.language.get('STARBOARD_AUTHOR'), msg.author, true)
 			.addField(msg.language.get('STARBOARD_CHANNEL'), msg.channel, true)
@@ -37,13 +37,13 @@ module.exports = class extends Event {
 		}
 
 		let starboardMsgID;
-		const starred = msg.guild.settings.boards.starboard.starred.find(star => star.msgID === msg.id);
+		const starred = msg.guild.settings.get('boards.starboard.starred').find(star => star.msgID === msg.id);
 
 		if (!starred) {
 			await starboardChannel.send('', { disableEveryone: true, embed: embed })
 				.then(message => {
 					starboardMsgID = message.id;
-					msg.guild.settings.update('boards.starboard.starred', { msgID: msg.id, stars: reaction.count, starID: starboardMsgID });
+					msg.guild.settings.update('boards.starboard.starred', { msgID: msg.id, channelID: msg.channel.id, stars: reaction.count, starID: starboardMsgID });
 				});
 		}
 
@@ -54,7 +54,7 @@ module.exports = class extends Event {
 					.then(message => {
 						starboardMsgID = message.id;
 						msg.guild.settings.update('boards.starboard.starred', starred, { action: 'remove' });
-						msg.guild.settings.update('boards.starboard.starred', { msgID: msg.id, stars: reaction.count, starID: starboardMsgID }, { action: 'add' });
+						msg.guild.settings.update('boards.starboard.starred', { msgID: msg.id, channelID: msg.channel.id, stars: reaction.count, starID: starboardMsgID }, { action: 'add' });
 
 						message.edit({ embed });
 					});

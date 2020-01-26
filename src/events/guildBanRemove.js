@@ -8,7 +8,7 @@ module.exports = class extends Event {
 	}
 
 	async run(guild, user) {
-		if (guild.settings.logs.moderation.unban) await this.unbanLog(guild, user);
+		if (guild.settings.get('logs.moderation.unban')) await this.unbanLog(guild, user);
 
 		return;
 	}
@@ -16,11 +16,11 @@ module.exports = class extends Event {
 	async unbanLog(guild, user) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${user.tag} (${user.id})`, user.displayAvatarURL())
-			.setColor(this.client.settings.colors.yellow)
+			.setColor(this.client.settings.get('colors.yellow'))
 			.setTimestamp()
 			.setFooter(guild.language.get('GUILD_LOG_GUILDBANREMOVE'));
 
-		const logChannel = await this.client.channels.get(guild.settings.channels.log);
+		const logChannel = await this.client.channels.get(guild.settings.get('channels.log'));
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		return;
 	}

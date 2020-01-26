@@ -10,7 +10,7 @@ module.exports = class extends Task {
 
 		const embed = new MessageEmbed()
 			.setAuthor(guild ? member.user.tag : member.tag, guild ? member.user.displayAvatarURL() : member.displayAvatarURL())
-			.setColor(this.client.settings.colors.white)
+			.setColor(this.client.settings.get('colors.white'))
 			.setDescription(reminderMsg)
 			.setTimestamp(timestamp)
 			.setFooter(`Reminder set in ${guild ? channel.name : 'DMs'}${guild ? ` on the ${guild.name} Discord` : ''}`);

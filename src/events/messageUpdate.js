@@ -16,11 +16,11 @@ module.exports = class extends Event {
 	}
 
 	async editLog(old, msg) {
-		if (!msg.guild.settings.logs.events.messageUpdate) return;
+		if (!msg.guild.settings.get('logs.events.messageUpdate')) return;
 
 		const embed = new MessageEmbed()
 			.setAuthor(`#${msg.channel.name}`, msg.guild.iconURL())
-			.setColor(this.client.settings.colors.blue)
+			.setColor(this.client.settings.get('colors.blue'))
 			.setTitle(msg.guild.language.get('GUILD_LOG_MESSAGEUPDATE'))
 			.setDescription(`[${msg.guild.language.get('CLICK_TO_VIEW')}](${msg.url})`)
 			.addField(msg.guild.language.get('GUILD_LOG_BEFORE'), `${old.content}`)
@@ -28,7 +28,7 @@ module.exports = class extends Event {
 			.setTimestamp()
 			.setFooter(msg.author.tag, msg.author.displayAvatarURL());
 
-		const logChannel = await this.client.channels.get(msg.guild.settings.channels.log);
+		const logChannel = await this.client.channels.get(msg.guild.settings.get('channels.log'));
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		return;
 	}
