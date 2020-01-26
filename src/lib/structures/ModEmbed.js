@@ -62,6 +62,7 @@ class ModEmbed extends MessageEmbed {
 		}
 
 		if (!this.modCase.guild.settings.get('moderation.notifyUser')) return null;
+		if (this.modCase.type === 'unban') return null;
 		if (this.modCase.silent) return null;
 		if (!this.client.users.has(this.modCase.user.id)) return null;
 		if (this.modCase.user.id === this.client.user.id) return null;
