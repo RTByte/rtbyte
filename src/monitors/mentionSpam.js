@@ -14,7 +14,7 @@ module.exports = class extends Monitor {
 	async run(msg) {
 		if (!msg.guild) return;
 		if (!msg.guild.settings.get('filters.mentionSpamEnabled')) return;
-		if (msg.guild.settings.get('filters.modBypass') && msg.member.roles.has(msg.guild.settings.get('roles.moderator')) || msg.member.roles.has(msg.guild.settings.get('roles.administrator'))) return;
+		if (msg.guild.settings.get('filters.modBypass') && (msg.member.roles.has(msg.guild.settings.get('roles.moderator')) || msg.member.roles.has(msg.guild.settings.get('roles.administrator')))) return;
 
 		const member = await msg.guild.members.fetch(msg.author);
 		const mentions = msg.mentions.users.size + msg.mentions.roles.size;

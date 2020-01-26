@@ -31,7 +31,6 @@ module.exports = class extends Command {
 
 				return msg.affirm(msg.guild.language.get('COMMAND_SUPPORT_CONTACTED'));
 			});
-
 	}
 
 };
