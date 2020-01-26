@@ -42,6 +42,10 @@ module.exports = class extends Command {
 		const roles = await msg.guild.roles.filter(role => role.name !== '@everyone').sort().array();
 		const channels = await msg.guild.channels.filter(channel => channel.type !== 'category' && channel.type !== 'voice').array();
 		const emojis = await msg.guild.emojis.array();
+		let prunable;
+		await msg.guild.members.prune({ days: 30, dry: true }).then( pruned => {
+			prunable = pruned;
+		});
 
 		const embed = new MessageEmbed()
 			.setAuthor(msg.guild.name, msg.guild.iconURL())
@@ -51,6 +55,7 @@ module.exports = class extends Command {
 			.addField(msg.guild.language.get('OWNER'), msg.guild.owner, true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_REGION'), this.regions[msg.guild.region], true)
 			.addField(msg.guild.language.get('MEMBERS'), msg.guild.language.get('COMMAND_SERVERINFO_MEMBERCOUNT', msg.guild), true)
+			.addField(msg.guild.language.get('COMMAND_SERVERINFO_PRUNABLE'), prunable, true)
 			.addField(msg.guild.language.get('ROLES'), msg.guild.roles.size, true)
 			.addField(msg.guild.language.get('CHANNELS'), msg.guild.channels.size, true)
 			.addField(msg.guild.language.get('EMOJIS'), msg.guild.emojis.size, true)

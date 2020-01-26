@@ -382,6 +382,7 @@ module.exports = class extends Language {
 			COMMAND_SERVERINFO_DESCRIPTION: 'Displays server information.',
 			COMMAND_SERVERINFO_REGION: 'Region',
 			COMMAND_SERVERINFO_MEMBERCOUNT: (guild) => `${guild.memberCount} (${guild.members.filter(member => member.user.bot).size} bots)`,
+			COMMAND_SERVERINFO_PRUNABLE: 'Prunable members',
 			COMMAND_SERVERINFO_VLEVEL: 'Verification level',
 			COMMAND_SERVERINFO_VLEVEL_LEVELS: (guild) => `${this.verificationLevels[guild.verificationLevel]}`,
 			COMMAND_SERVERINFO_ECFILTER: 'Explicit content filter',
