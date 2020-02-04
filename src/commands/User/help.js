@@ -26,7 +26,7 @@ module.exports = class extends Command {
 
 	async run(msg, [command]) {
 		if (command) {
-			const { prefix } = msg.guildSettings;
+			const prefix = msg.guild ? msg.guild.settings.get('prefix') : this.client.options.prefix;
 			const embed = new MessageEmbed()
 				.setAuthor(`${prefix}${command.name}`, this.client.user.displayAvatarURL())
 				.setDescription(isFunction(command.description) ? command.description(msg.language) : command.description)
@@ -86,7 +86,7 @@ module.exports = class extends Command {
 		const rejectEmoji = this.client.emojis.get(this.client.settings.get('emoji.reject'));
 		const listEmoji = this.client.emojis.get(this.client.settings.get('emoji.list'));
 		const commands = await this._fetchCommands(msg);
-		const { prefix } = msg.guildSettings;
+		const prefix = msg.guild ? msg.guild.settings.get('prefix') : this.client.options.prefix;
 		const display = new RichDisplay()
 			.setEmojis({
 				first: arrowToLeftEmoji.id,
