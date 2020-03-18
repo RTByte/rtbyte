@@ -6,7 +6,7 @@ module.exports = class extends Command {
 	constructor(...args) {
 		super(...args, {
 			aliases: ['starred', 'stars'],
-			description: language => language.get('COMMAND_ENLARGE_DESCRIPTION'),
+			description: language => language.get('COMMAND_STAR_DESCRIPTION'),
 			runIn: ['text'],
 			subcommands: true,
 			usage: '<top|random:default>'
