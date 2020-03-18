@@ -70,6 +70,7 @@ module.exports = KlasaClient.defaultGuildSchema
 	.add('moderation', folder => folder
 		.add('notifyUser', 'boolean', { default: false }))
 	.add('commands', folder => folder
+		.add('serverinfoExtendedOutput', 'boolean', { default: false })
 		.add('customCommandsEnabled', 'boolean', { default: false })
 		.add('customCommands', 'any', { array: true, configurable: false }))
 	.add('boards', folder => folder.add('starboard', folder => folder // eslint-disable-line
