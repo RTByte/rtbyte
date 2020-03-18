@@ -15,7 +15,7 @@ module.exports = class extends Command {
 			usageDelim: ' '
 		});
 		this.customizeResponse('member', message =>
-			message.language.get('COMMAND_VCUNBAN_NOPARAM'));
+			message.language.get('COMMAND_UNMUTE_NOPARAM'));
 	}
 
 	async run(msg, [username]) {
