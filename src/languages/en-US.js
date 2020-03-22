@@ -61,9 +61,9 @@ module.exports = class extends Language {
 			// Default langs
 			DEFAULT: (key) => `${key} has not been localized for \`en-US\` yet.`,
 			DEFAULT_LANGUAGE: 'Default language',
-			PREFIX_REMINDER: (prefix = `@${this.client.user.tag}`) => `The prefix${Array.isArray(prefix) ?
+			PREFIX_REMINDER: (prefix = `-`) => `The prefix${Array.isArray(prefix) ?
 				`es for this server are: ${prefix.map(pre => `\`${pre}\``).join(', ')}` :
-				` in this serv is set to: \`${prefix}\``
+				` in this server is set to: \`${prefix}\`.`
 			}`,
 
 
@@ -256,10 +256,11 @@ module.exports = class extends Language {
 			COMMAND_LOAD: (time, type, name) => `Successfully loaded the ${name} ${type}. \`${time}\``,
 			COMMAND_LOAD_FAIL: 'The file does not exist, or an error occurred while loading your file. Please check your console.',
 			COMMAND_LOAD_ERROR: (type, name, error) => `Failed to load the ${name} ${type}. Reason:${util.codeBlock('js', error)}`,
-			COMMAND_LOAD_DESCRIPTION: 'Load a piece from your bot.',
+			COMMAND_LOAD_DESCRIPTION: 'Load a piece from the bot.',
 			COMMAND_PING: 'Ping?',
 			COMMAND_PING_DESCRIPTION: 'Runs a connection test to Discord.',
 			COMMAND_PINGPONG: (diff, ping) => `Pong! \`${ping}ms\``,
+			COMMAND_PREFIX_DESCRIPTION: 'Returns the prefix(es) for the current server.',
 			COMMAND_INVITE: () => [
 				`To add ${this.client.user.username} to your Discord server:`,
 				`<${this.client.invite}>`,
