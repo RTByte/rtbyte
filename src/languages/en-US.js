@@ -261,26 +261,27 @@ module.exports = class extends Language {
 			COMMAND_PING_DESCRIPTION: 'Runs a connection test to Discord.',
 			COMMAND_PINGPONG: (diff, ping) => `Pong! \`${ping}ms\``,
 			COMMAND_PREFIX_DESCRIPTION: 'Returns the prefix(es) for the current server.',
-			COMMAND_INVITE: () => [
-				`To add ${this.client.user.username} to your Discord server:`,
-				`<${this.client.invite}>`,
+			COMMAND_INVITE_EMBEDTITLE: 'Invite RTByte',
+			COMMAND_INVITE_EMBEDDESC: () => [
+				'To add RByte to your server, simply click the link below.',
+				'https://rtbyte.xyz/invite/',
 				util.codeBlock('', [
 					'The above link is generated requesting the minimum permissions required to use every command currently.',
 					'We know not all permissions are right for every server, so don\'t be afraid to uncheck any of the boxes.',
 					'If you try to use a command that requires more permissions than the bot is granted, it will let you know.'
 				].join(' ')),
-				`The ${this.client.user.username} support server can be found using the link below.`,
-				'https://discord.gg/eRauWP4/'
+				`The RTByte support server can be found using the link below.`,
+				'https://rtbyte.xyz/discord/'
 			],
 			COMMAND_INVITE_DESCRIPTION: () => `Displays the link to invite ${this.client.user.username} to your server.`,
 			COMMAND_INFO_EMBEDTITLE: () => `${this.client.user.username} Information`,
 			// eslint-disable-next-line max-len
-			COMMAND_INFO_EMBEDDESC: () => `${this.client.user.username} is an open-source modular multipurpose Discord bot built on the incredible [Klasa](https://klasa.js.org/) framework for [discord.js](https://discord.js.org/).\n\nWe aim to provide the most consistent and easy-to-use Discord mod bot solution available, with our key focus areas being modularity, performance, consistency, and choice.`,
+			COMMAND_INFO_EMBEDDESC: () => `[Visit our website at rtbyte.xyz](https://rtbyte.xyz/)\n\n${this.client.user.username} is an open-source modular multipurpose Discord bot built on the incredible [Klasa](https://klasa.js.org/) framework for [discord.js](https://discord.js.org/).\n\nWe aim to provide the most consistent and easy-to-use Discord mod bot solution available, with our key focus areas being modularity, performance, consistency, and choice.`,
 			COMMAND_INFO_OURTEAM: 'Our team',
 			// eslint-disable-next-line max-len
-			COMMAND_INFO_TEAMLIST: '• [Rasmus Gerdin](https://github.com/rasmusgerdin/)\n• [Michael Cumbers](https://github.com/mcumbers/)\n• [Justin Shull](https://github.com/JShull97/)\n• [Killian Higgins](https://github.com/Uzui2012/)',
+			COMMAND_INFO_TEAMLIST: '• [Rasmus Gerdin](https://rasmusgerdin.com/)\n• [Michael Cumbers](https://github.com/mcumbers/)\n• [Justin Shull](https://github.com/JShull97/)\n• [Killian Higgins](https://github.com/Uzui2012/)',
 			COMMAND_INFO_LINKS: 'Links',
-			COMMAND_INFO_LINKLIST: '• [GitHub](https://github.com/RTByte/RTByte)\n• [Discord](https://discord.gg/eRauWP4/)\n• [Ko-fi](https://ko-fi.com/rtbyte)',
+			COMMAND_INFO_LINKLIST: '• [GitHub](https://rtbyte.xyz/github/)\n• [Discord](https://rtbyte.xyz/discord/)\n• [Donate](https://rtbyte.xyz/donate/)',
 			COMMAND_INFO_DESCRIPTION: 'Provides some information about this bot.',
 			COMMAND_HELP_DESCRIPTION: 'Display help for a command.',
 			COMMAND_HELP_EMBEDTITLE: () => `${this.client.user.username} Help`,
@@ -331,7 +332,7 @@ module.exports = class extends Language {
 			COMMAND_STATS_UPTIME: 'Uptime',
 			COMMAND_STATS_CONNECTIONS: 'Connections',
 			// eslint-disable-next-line max-len
-			COMMAND_STATS_CONNECTIONINFO: (guilds, channels, users) => `Operating on **${guilds}** servers,\nWatching **${channels}** channels,\nServing **${users}** users`,
+			COMMAND_STATS_CONNECTIONINFO: (guilds, channels, users) => `Operating on **${guilds}** servers,watching **${channels}** channels, serving **${users}** users`,
 			COMMAND_STATS_LIBRARIES: 'Libraries',
 			COMMAND_STATS_HOSTINFO: 'Host information',
 			COMMAND_STATS_HOSTUPTIME: 'Host uptime',
