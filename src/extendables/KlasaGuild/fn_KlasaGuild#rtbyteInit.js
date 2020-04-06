@@ -29,16 +29,13 @@ module.exports = class extends Extendable {
 		// Adding log channel into guild settings
 		await this.settings.update('channels.log', logChannel, this);
 
-		// Giving the guild owner the rank of Administrator
-		await this.owner.roles.add(adminRole, `${this.client.user.username} initialization: Granting guild owner admin status`);
-
 		// Removing respective permissions for server log channels
 		await logChannel.updateOverwrite(this.client.user, {
 			VIEW_CHANNEL: true,
 			READ_MESSAGE_HISTORY: true
 		},
 		`${this.client.user.username} initialization: Adjusting log channel permissions for bot`);
-		await logChannel.updateOverwrite(this.defaultRole, {
+		await logChannel.updateOverwrite(this.id, {
 			VIEW_CHANNEL: false,
 			READ_MESSAGE_HISTORY: false
 		},
@@ -65,7 +62,7 @@ module.exports = class extends Extendable {
 				READ_MESSAGE_HISTORY: true
 			},
 			`${this.client.user.username} initialization: Adjusting log channel permissions for bot`);
-			await globalLogChannel.updateOverwrite(this.defaultRole, {
+			await globalLogChannel.updateOverwrite(this.id, {
 				VIEW_CHANNEL: false,
 				READ_MESSAGE_HISTORY: false
 			},
@@ -118,8 +115,9 @@ module.exports = class extends Extendable {
 		await this.client.emit('verbose', `Initialized guild: ${this.name} (${this.id})`);
 
 		// Informing guild owner of bot initialization
+		const owner = await this.client.users.get(this.ownerID);
 		// eslint-disable-next-line max-len
-		await this.owner.send(`**${this.client.user.username}** has been initialized on the **${this.name}** Discord!\nUse \`${this.settings.prefix}help\` to see a list of commands.\n\nJoin the RTByte support server:\nhttps://discord.gg/eRauWP4`);
+		await owner.send(`**${this.client.user.username}** has been initialized on the **${this.name}** Discord!\nVisit https://rtbyte.xyz/commands/ to see a list of commands.\n\nJoin the RTByte support server:\n<https://rtbyte.xyz/discord/>`);
 
 		return;
 	}
