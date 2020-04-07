@@ -8,7 +8,7 @@ module.exports = class extends Event {
 	}
 
 	async run(msg, cmdName) {
-		if (msg.guild.available && msg.guild.settings.get('logs.events.customCmdDelete')) await this.customCmdDeleteLog(msg, cmdName);
+		if (msg.guild.available && msg.guild.settings.get('channels.log') && msg.guild.settings.get('logs.events.customCmdDelete')) await this.customCmdDeleteLog(msg, cmdName);
 
 		return;
 	}

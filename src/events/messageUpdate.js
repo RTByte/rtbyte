@@ -10,14 +10,12 @@ module.exports = class extends Event {
 	async run(old, msg) {
 		if (this.client.ready && !old.partial && old.content !== msg.content) this.client.monitors.run(msg);
 
-		if (msg.guild && old.content !== msg.content) await this.editLog(old, msg);
+		if (msg.guild && msg.guild.settings.get('channels.log') && msg.guild.settings.get('logs.events.messageUpdate') && old.content !== msg.content) await this.editLog(old, msg);
 
 		return;
 	}
 
 	async editLog(old, msg) {
-		if (!msg.guild.settings.get('logs.events.messageUpdate')) return;
-
 		const embed = new MessageEmbed()
 			.setAuthor(`#${msg.channel.name}`, msg.guild.iconURL())
 			.setColor(this.client.settings.get('colors.blue'))

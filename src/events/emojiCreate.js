@@ -9,8 +9,8 @@ module.exports = class extends Event {
 
 	async run(emoji) {
 		if (!emoji.guild) return;
-		if (emoji.guild.available && emoji.guild.settings.get('logs.events.emojiCreate') && !emoji.animated) await this.emojiCreateLog(emoji);
-		if (emoji.guild.available && emoji.guild.settings.get('logs.events.emojiCreate') && emoji.animated) await this.animatedEmojiCreateLog(emoji);
+		if (emoji.guild.available && emoji.guild.settings.get('channels.log') && emoji.guild.settings.get('logs.events.emojiCreate') && !emoji.animated) await this.emojiCreateLog(emoji);
+		if (emoji.guild.available && emoji.guild.settings.get('channels.log') && emoji.guild.settings.get('logs.events.emojiCreate') && emoji.animated) await this.animatedEmojiCreateLog(emoji);
 
 		return;
 	}

@@ -26,7 +26,7 @@ module.exports = class extends Event {
 	}
 
 	async run(oldMember, member) {
-		if (member.guild.available && member.guild.settings.get('logs.events.guildMemberUpdate')) await this.memberUpdateLog(oldMember, member);
+		if (member.guild.available && member.guild.settings.get('channels.log') && member.guild.settings.get('logs.events.guildMemberUpdate')) await this.memberUpdateLog(oldMember, member);
 		if (!oldMember.premiumSince && member.premiumSince) await this.nitroBoost(member);
 		if (member.guild.settings.get('filters.checkDisplayNames')) await this.autoSelener(member);
 		return;

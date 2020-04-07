@@ -8,7 +8,7 @@ module.exports = class extends Event {
 	}
 
 	async run(role) {
-		if (role.guild.available && role.guild.settings.get('logs.events.roleCreate')) await this.newRoleLog(role);
+		if (role.guild.available && role.guild.settings.get('channels.log') && role.guild.settings.get('logs.events.roleCreate')) await this.newRoleLog(role);
 
 		return;
 	}

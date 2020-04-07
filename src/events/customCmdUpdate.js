@@ -8,7 +8,7 @@ module.exports = class extends Event {
 	}
 
 	async run(msg, cmdName, cmdContent, oldCmd) {
-		if (msg.guild.available && msg.guild.settings.get('logs.events.customCmdUpdate')) await this.customCmdCreateLog(msg, cmdName, cmdContent, oldCmd);
+		if (msg.guild.available && msg.guild.settings.get('channels.log') && msg.guild.settings.get('logs.events.customCmdUpdate')) await this.customCmdCreateLog(msg, cmdName, cmdContent, oldCmd);
 
 		return;
 	}

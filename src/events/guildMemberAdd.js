@@ -18,7 +18,7 @@ module.exports = class extends Event {
 		}
 
 		if (member.guild.available && member.guild.settings.get('greetings.welcomeNewUsers')) await this.welcome(member);
-		if (member.guild.available && member.guild.settings.get('logs.events.guildMemberAdd')) await this.newMemberLog(member);
+		if (member.guild.available && member.guild.settings.get('channels.log') && member.guild.settings.get('logs.events.guildMemberAdd')) await this.newMemberLog(member);
 
 		return;
 	}

@@ -40,7 +40,7 @@ module.exports = class extends Event {
 			PRIORITY_SPEAKER: role.guild.language.get('PERMISSIONS_PRIORITY_SPEAKER'),
 			STREAM: role.guild.language.get('PERMISSIONS_STREAM')
 		};
-		if (role.guild.available && role.guild.settings.get('logs.events.roleUpdate')) await this.roleUpdateLog(oldRole, role, perms);
+		if (role.guild.available && role.guild.settings.get('channels.log') && role.guild.settings.get('logs.events.roleUpdate')) await this.roleUpdateLog(oldRole, role, perms);
 
 		return;
 	}
