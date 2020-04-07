@@ -649,7 +649,85 @@ module.exports = class extends Language {
 			// Board langs
 			STARBOARD_STARRED: 'Message starred',
 			STARBOARD_AUTHOR: 'Author',
-			STARBOARD_CHANNEL: 'Channel'
+			STARBOARD_CHANNEL: 'Channel',
+
+
+			// Initialization langs
+			INIT_TITLE: () => `${this.client.user.username} Initialization`,
+			// eslint-disable-next-line max-len
+			INIT_SUCCESS: (guild) => [
+				`${this.client.user.username} has been successfully initialized for **${guild.name}**!`,
+				'',
+				'Visit [rtbyte.xyz](https://rtbyte.xyz) for a full list of commands, our F.A.Q., and more.',
+				'',
+				`Join the ${this.client.user.username} support server:`,
+				'[rtbyte.xyz/discord](https://rtbyte.xyz/discord/)'
+			],
+			INIT_PARTIAL_R: (guild) => [
+				// eslint-disable-next-line max-len
+				`${this.client.user.username} has been partially initialized for **${guild.name}**!`,
+				'',
+				"The bot hadn't been granted the `MANAGE_ROLES` permission, and thus couldn't automatically create administrator and moderator roles for you.",
+				'',
+				// eslint-disable-next-line max-len
+				"To finish the setup manually, please create or find the role(s) you'd like to use for your administrator and moderator permission levels (you can use the same role for both if you'd like), then run the commands below.",
+				util.codeBlock('', [
+					'-conf set roles.administrator @your-admin-role',
+					'-conf set roles.moderator @your-mod-role'
+				].join('\n')),
+				'You will also need to manually set the appropriate permissions for your server log channel.',
+				'',
+				// eslint-disable-next-line max-len
+				`Please keep in mind that unless you grant ${this.client.user.username} this permission, some features may not function. To get rid of these notifications, please configure the bot by running the commands above.`,
+				'',
+				'',
+				'Visit [rtbyte.xyz](https://rtbyte.xyz) for a full list of commands, our F.A.Q., and more.',
+				'',
+				`Join the ${this.client.user.username} support server:`,
+				'[rtbyte.xyz/discord](https://rtbyte.xyz/discord/)'
+			],
+			INIT_PARTIAL_C: (guild) => [
+				// eslint-disable-next-line max-len
+				`${this.client.user.username} has been partially initialized for **${guild.name}**!`,
+				'',
+				"The bot hadn't been granted the `MANAGE_CHANNELS` permission, and thus couldn't automatically create the server log channel for you.",
+				'',
+				// eslint-disable-next-line max-len
+				"To finish the setup manually, please create or find the channel you'd like to use for your server log, then run the command below.",
+				util.codeBlock('', [
+					'-conf set channels.log #your-server-log-channel'
+				].join('\n')),
+				// eslint-disable-next-line max-len
+				`Please keep in mind that unless you grant ${this.client.user.username} this permission, some features may not function. To get rid of these notifications, please configure the bot by running the command above.`,
+				'',
+				'',
+				'Visit [rtbyte.xyz](https://rtbyte.xyz) for a full list of commands, our F.A.Q., and more.',
+				'',
+				`Join the ${this.client.user.username} support server:`,
+				'[rtbyte.xyz/discord](https://rtbyte.xyz/discord/)'
+			],
+			INIT_FAIL: (guild) => [
+				`${this.client.user.username} has unfortunately failed to initialize for **${guild.name}**.`,
+				'',
+				// eslint-disable-next-line max-len
+				"The bot hadn't been granted the `MANAGE_ROLES` and `MANAGE_CHANNELS` permissions, and thus couldn't automatically create neither the administrator and moderator roles, nor the server log channel for you.",
+				'',
+				// eslint-disable-next-line max-len
+				"To finish the setup manually, please create or find the roles(s) and channel you'd like to use for your administrator and moderator permission levels (you can use the same role for both if you'd like) and your server log, then run the commands below.",
+				util.codeBlock('', [
+					'-conf set roles.administrator @your-admin-role',
+					'-conf set roles.moderator @your-mod-role',
+					'-conf set channels.log #your-server-log-channel'
+				].join('\n')),
+				// eslint-disable-next-line max-len
+				`Please keep in mind that unless you grant ${this.client.user.username} these permissions, some features may not function. To get rid of these notifications, please configure the bot by running the commands above.`,
+				'',
+				'',
+				'Visit [rtbyte.xyz](https://rtbyte.xyz) for a full list of commands, our F.A.Q., and more.',
+				'',
+				`Join the ${this.client.user.username} support server:`,
+				'[rtbyte.xyz/discord](https://rtbyte.xyz/discord/)'
+			]
 		};
 	}
 

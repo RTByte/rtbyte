@@ -30,8 +30,8 @@ module.exports = class extends Event {
 
 		await this.client.guilds.forEach(async (guild) => {
 			if (!guild.available) return;
-			if (!guild.settings.get('roles.administrator') && guild.id === this.client.settings.get('guilds.controlGuild')) await guild.rtbyteInit('control');
-			if (!guild.settings.get('roles.administrator') && guild.id !== this.client.settings.get('guilds.controlGuild')) await guild.rtbyteInit();
+			if ((!guild.settings.get('roles.administrator') || !guild.settings.get('channels.log')) && guild.id === this.client.settings.get('guilds.controlGuild')) await guild.rtbyteInit('control');
+			if ((!guild.settings.get('roles.administrator') || !guild.settings.get('channels.log')) && guild.id !== this.client.settings.get('guilds.controlGuild')) await guild.rtbyteInit();
 			await this.client.emit('verbose', `Verified initialization of guild: ${guild.name} (${guild.id})`);
 		});
 
