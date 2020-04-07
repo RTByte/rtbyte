@@ -30,9 +30,14 @@ module.exports = class extends Event {
 
 		await this.client.guilds.forEach(async (guild) => {
 			if (!guild.available) return;
-			if ((!guild.settings.get('roles.administrator') || !guild.settings.get('channels.log')) && guild.id === this.client.settings.get('guilds.controlGuild')) await guild.rtbyteInit('control');
-			if ((!guild.settings.get('roles.administrator') || !guild.settings.get('channels.log')) && guild.id !== this.client.settings.get('guilds.controlGuild')) await guild.rtbyteInit();
-			await this.client.emit('verbose', `Verified initialization of guild: ${guild.name} (${guild.id})`);
+			if (this.client.settings.get('guildBlacklist').includes(guild.id)) {
+				guild.leave();
+				this.client.emit('warn', `Blacklisted guild detected: ${guild.name} (${guild.id})`);
+			} else {
+				if ((!guild.settings.get('roles.administrator') || !guild.settings.get('channels.log')) && guild.id === this.client.settings.get('guilds.controlGuild')) await guild.rtbyteInit('control');
+				if ((!guild.settings.get('roles.administrator') || !guild.settings.get('channels.log')) && guild.id !== this.client.settings.get('guilds.controlGuild')) await guild.rtbyteInit();
+				await this.client.emit('verbose', `Verified initialization of guild: ${guild.name} (${guild.id})`);
+			}
 		});
 
 		await this.client.emit('verbose', 'All guilds verified!');
