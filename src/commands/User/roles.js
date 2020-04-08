@@ -1,4 +1,5 @@
 const { Command } = require('klasa');
+const { MessageEmbed } = require('discord.js');
 
 module.exports = class extends Command {
 
@@ -10,7 +11,7 @@ module.exports = class extends Command {
 			aliases: ['roleme', 'team', 'squad', 'role'],
 			description: language => language.get('COMMAND_ROLES_DESCRIPTION'),
 			extendedHelp: language => language.get('COMMAND_ROLES_EXTENDED'),
-			usage: '<list|add|remove|join|leave> [target:member] [roleName:...string]',
+			usage: '<add|remove|join|leave|list:default> [target:member] [roleName:...string]',
 			usageDelim: ' ',
 			subcommands: true
 		});
@@ -19,16 +20,22 @@ module.exports = class extends Command {
 	async list(msg) {
 		if (!msg.guild.settings.get('roles.joinable').length) return msg.reject(msg.language.get('COMMAND_ROLES_NONE_JOINABLE'));
 
-		const rolesList = ['**Roles:**', '```asciidoc'];
+		const embed = new MessageEmbed()
+			.setAuthor(msg.language.get('COMMAND_ROLES_SERVER'), msg.guild.iconURL())
+			.setColor(this.client.settings.get('colors.white'))
+			.setThumbnail(msg.guild.iconURL(), 50, 50)
+			.setTimestamp()
+			.setFooter(msg.language.get('COMMAND_REQUESTED_BY', msg), msg.author.displayAvatarURL());
 
+		const rolesList = [];
 		for (let i = 0; i < msg.guild.settings.get('roles.joinable').length; i++) {
 			const role = msg.guild.roles.get(msg.guild.settings.get('roles.joinable')[i]);
-			rolesList.push(`${role.name} :: ${role.members.size} Members`);
+			rolesList.push(msg.language.get('COMMAND_ROLES_ROLE', role));
 		}
+		embed.setDescription(rolesList);
 
-		rolesList.push('```');
 		await msg.affirm();
-		return msg.sendMessage(rolesList, { split: { char: '\u200b' } });
+		return msg.send('', { disableEveryone: true, embed: embed });
 	}
 
 	async add(msg, [target = msg.member, ...roleName]) {
