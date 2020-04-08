@@ -590,6 +590,8 @@ module.exports = class extends Language {
 			GUILD_LOG_GUILDUPDATE_NITROLEVEL: 'Nitro boost level updated',
 			GUILD_LOG_GUILDUPDATE_NITROLEVEL_TITLES: (guild) => `${this.nitroTierTitles[guild.premiumTier]}`,
 			GUILD_LOG_GUILDUPDATE_NITROLEVEL_DETAILS: (guild) => `${this.nitroTierDetails[guild.premiumTier]}`,
+			GUILD_LOG_GUILDUPDATE_WELCOMEMESSAGES: 'Random welcome messages toggled',
+			GUILD_LOG_GUILDUPDATE_BOOSTMESSAGES: 'Nitro boost messages toggled',
 			GUILD_LOG_GUILDBANADD_TIMED: (when) => `User banned for ${moment.duration(moment().diff(when)).humanize()}`,
 			GUILD_LOG_GUILDBANREMOVE: 'User unbanned',
 			GUILD_LOG_GUILDMEMBERADD: 'User joined',

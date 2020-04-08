@@ -116,6 +116,49 @@ module.exports = class extends Event {
 		// Server widget toggled
 		if (oldGuild.widgetEnabled !== guild.widgetEnabled) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_WIDGET'), booleanStatus[guild.widgetEnabled]);
 
+		if (oldGuild.systemChannelFlags.bitfield !== guild.systemChannelFlags.bitfield) {
+			if (oldGuild.systemChannelFlags.bitfield === 0 && guild.systemChannelFlags.bitfield === 1) {
+				await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_WELCOMEMESSAGES'), rejectEmoji);
+			}
+			if (oldGuild.systemChannelFlags.bitfield === 0 && guild.systemChannelFlags.bitfield === 2) {
+				await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_BOOSTMESSAGES'), rejectEmoji);
+			}
+			if (oldGuild.systemChannelFlags.bitfield === 0 && guild.systemChannelFlags.bitfield === 3) {
+				await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_WELCOMEMESSAGES'), rejectEmoji);
+				await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_BOOSTMESSAGES'), rejectEmoji);
+			}
+			if (oldGuild.systemChannelFlags.bitfield === 1 && guild.systemChannelFlags.bitfield === 0) {
+				await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_WELCOMEMESSAGES'), affirmEmoji);
+			}
+			if (oldGuild.systemChannelFlags.bitfield === 1 && guild.systemChannelFlags.bitfield === 2) {
+				await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_WELCOMEMESSAGES'), affirmEmoji);
+				await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_BOOSTMESSAGES'), rejectEmoji);
+			}
+			if (oldGuild.systemChannelFlags.bitfield === 1 && guild.systemChannelFlags.bitfield === 3) {
+				await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_BOOSTMESSAGES'), rejectEmoji);
+			}
+			if (oldGuild.systemChannelFlags.bitfield === 2 && guild.systemChannelFlags.bitfield === 0) {
+				await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_BOOSTMESSAGES'), affirmEmoji);
+			}
+			if (oldGuild.systemChannelFlags.bitfield === 2 && guild.systemChannelFlags.bitfield === 1) {
+				await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_WELCOMEMESSAGES'), rejectEmoji);
+				await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_BOOSTMESSAGES'), affirmEmoji);
+			}
+			if (oldGuild.systemChannelFlags.bitfield === 2 && guild.systemChannelFlags.bitfield === 3) {
+				await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_WELCOMEMESSAGES'), rejectEmoji);
+			}
+			if (oldGuild.systemChannelFlags.bitfield === 3 && guild.systemChannelFlags.bitfield === 0) {
+				await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_WELCOMEMESSAGES'), affirmEmoji);
+				await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_BOOSTMESSAGES'), affirmEmoji);
+			}
+			if (oldGuild.systemChannelFlags.bitfield === 3 && guild.systemChannelFlags.bitfield === 1) {
+				await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_BOOSTMESSAGES'), affirmEmoji);
+			}
+			if (oldGuild.systemChannelFlags.bitfield === 3 && guild.systemChannelFlags.bitfield === 2) {
+				await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_WELCOMEMESSAGES'), affirmEmoji);
+			}
+		}
+
 		// Splash image changed
 		if (oldGuild.splashURL !== guild.splashURL) {
 			await embed.setTitle(guild.language.get('GUILD_LOG_GUILDUPDATE_SPLASH'));
