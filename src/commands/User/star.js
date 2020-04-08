@@ -30,7 +30,7 @@ module.exports = class extends Command {
 			.setColor(this.client.settings.get('colors.gold'))
 			.setDescription(`[${msg.guild.language.get('CLICK_TO_VIEW')}](${fetchedStar.url})`)
 			.addField(msg.language.get('STARBOARD_AUTHOR'), fetchedStar.author, true)
-			.addField(msg.language.get('STARBOARD_CHANNEL'), fetchedStar.channel, true)
+			.addField(msg.language.get('CHANNEL'), fetchedStar.channel, true)
 			.setThumbnail(fetchedStar.author.displayAvatarURL())
 			.setTimestamp(fetchedStar.createdTimestamp)
 			.setFooter(`🌟 ${stars}`);
@@ -64,7 +64,7 @@ module.exports = class extends Command {
 			.setColor(this.client.settings.get('colors.gold'))
 			.setDescription(`[${msg.guild.language.get('CLICK_TO_VIEW')}](${fetchedStar.url})`)
 			.addField(msg.language.get('STARBOARD_AUTHOR'), fetchedStar.author, true)
-			.addField(msg.language.get('STARBOARD_CHANNEL'), fetchedStar.channel, true)
+			.addField(msg.language.get('CHANNEL'), fetchedStar.channel, true)
 			.setThumbnail(fetchedStar.author.displayAvatarURL())
 			.setTimestamp(fetchedStar.createdTimestamp)
 			.setFooter(`🌟 ${stars}`);

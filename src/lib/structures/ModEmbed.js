@@ -42,7 +42,7 @@ class ModEmbed extends MessageEmbed {
 		this.addField(this.modCase.guild.language.get('REASON'), this.modCase.reason ? this.modCase.reason : this.modCase.guild.language.get('MODERATION_LOG_UNSPECIFIED'), true);
 
 		// Type-specific fields
-		if (this.modCase.channel) this.addField(this.modCase.guild.language.get('MODERATION_LOG_CHANNEL'), this.modCase.channel);
+		if (this.modCase.channel) this.addField(this.modCase.guild.language.get('CHANNEL'), this.modCase.channel);
 		if (this.modCase.duration) this.addField(this.modCase.guild.language.get('MODERATION_LOG_DURATION'), this.modCase.guild.language.get('MODERATION_LOG_DURATIONEND', this.modCase.duration), true);
 		if (this.modCase.deletedMessageCount) this.addField(this.modCase.guild.language.get('MODERATION_LOG_DELETEDMESSAGECOUNT'), this.modCase.deletedMessageCount, true);
 		if (this.modCase.messageContent) await embedSplitter(this.modCase.guild.language.get('MODERATION_LOG_DELETEDMESSAGECONTENT'), this.modCase.messageContent.split(' '), this);

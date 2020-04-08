@@ -95,6 +95,8 @@ module.exports = class extends Language {
 			USERS: 'Users',
 			MESSAGE: 'Message',
 			MESSAGES: 'Messages',
+			CHANNEL: 'Channel',
+			VOICE_CHANNEL: 'Voice channel',
 
 
 			// Permission langs
@@ -532,8 +534,8 @@ module.exports = class extends Language {
 			GUILD_LOG_CHANNELDELETE: 'Channel deleted',
 			GUILD_LOG_CHANNELDELETE_VOICE: 'Voice channel deleted',
 			GUILD_LOG_CHANNELDELETE_CATEGORY: 'Category deleted',
-			GUILD_LOG_CHANNELDELETE_NEWS: 'News channel created',
-			GUILD_LOG_CHANNELDELETE_STORE: 'Store channel created',
+			GUILD_LOG_CHANNELDELETE_NEWS: 'News channel deleted',
+			GUILD_LOG_CHANNELDELETE_STORE: 'Store channel deleted',
 			GUILD_LOG_CHANNELUPDATE: 'Channel updated',
 			GUILD_LOG_CHANNELUPDATE_VOICE: 'Voice channel updated',
 			GUILD_LOG_CHANNELUPDATE_CATEGORY: 'Category updated',
@@ -602,6 +604,12 @@ module.exports = class extends Language {
 			GUILD_LOG_CUSTOMCMDUPDATE: 'Custom command updated',
 			GUILD_LOG_CUSTOMCMDUPDATE_OLD: 'Old command response',
 			GUILD_LOG_CUSTOMCMDUPDATE_NEW: 'New command response',
+			GUILD_LOG_INVITECREATE: (inviter) => `Invite created by ${inviter.tag}`,
+			GUILD_LOG_INVITECREATE_EXPIRYTIME: 'Expires in',
+			GUILD_LOG_INVITECREATE_EXPIRYTIMESTAMP: 'Expiry timestamp',
+			GUILD_LOG_INVITECREATE_MAXUSES: 'Max number of uses',
+			GUILD_LOG_INVITECREATE_TEMPORARY: 'Grants temporary membership',
+			GUILD_LOG_INVITEDELETE: 'Invite deleted',
 
 			// Global log langs
 			GLOBAL_LOG_GUILDCREATE: 'Bot added to server',
@@ -643,13 +651,11 @@ module.exports = class extends Language {
 			MODERATION_LOG_BADNICKNAME: 'Blacklisted nickname',
 			MODERATION_LOG_LINK: (link) => `[Click here to view](${link})`,
 			MODERATION_LOG_SILENT: 'Command executed silently',
-			MODERATION_LOG_CHANNEL: 'Channel',
 
 
 			// Board langs
 			STARBOARD_STARRED: 'Message starred',
 			STARBOARD_AUTHOR: 'Author',
-			STARBOARD_CHANNEL: 'Channel',
 
 
 			// Initialization langs

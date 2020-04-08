@@ -21,7 +21,7 @@ module.exports = class extends Event {
 			.setColor(this.client.settings.get('colors.gold'))
 			.setDescription(`[${msg.guild.language.get('CLICK_TO_VIEW')}](${msg.url})`)
 			.addField(msg.language.get('STARBOARD_AUTHOR'), msg.author, true)
-			.addField(msg.language.get('STARBOARD_CHANNEL'), msg.channel, true)
+			.addField(msg.language.get('CHANNEL'), msg.channel, true)
 			.setThumbnail(msg.author.displayAvatarURL())
 			.setTimestamp(msg.createdTimestamp)
 			.setFooter(`🌟 ${reaction.count}`);
