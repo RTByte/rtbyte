@@ -28,14 +28,14 @@ module.exports = class extends Event {
 	async run(oldMember, member) {
 		if (!member.guild) return;
 
-		if (member.guild.settings.get('channels.log') && member.guild.settings.get('logs.events.guildMemberUpdate')) await this.memberUpdateLog(oldMember, member);
+		if (member.guild.settings.get('channels.log') && member.guild.settings.get('logs.events.guildMemberUpdate')) await this.serverLog(oldMember, member);
 		if (!oldMember.premiumSince && member.premiumSince) await this.nitroBoost(member);
 		if (member.guild.settings.get('filters.checkDisplayNames')) await this.autoSelener(member);
 
 		return;
 	}
 
-	async memberUpdateLog(oldMember, member) {
+	async serverLog(oldMember, member) {
 		const arrowRightEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowRight'));
 
 		// Filter the user's roles and remove the @everyone role

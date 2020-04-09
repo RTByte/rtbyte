@@ -11,12 +11,12 @@ module.exports = class extends Event {
 	async run(invite) {
 		if (!invite.guild) return;
 
-		if (invite.guild.settings.get('channels.log') && invite.guild.settings.get('logs.events.inviteCreate')) await this.inviteCreateLog(invite);
+		if (invite.guild.settings.get('channels.log') && invite.guild.settings.get('logs.events.inviteCreate')) await this.serverLog(invite);
 
 		return;
 	}
 
-	async inviteCreateLog(invite) {
+	async serverLog(invite) {
 		const affirmEmoji = this.client.emojis.get(this.client.settings.get('emoji.affirm'));
 
 		const embed = new MessageEmbed()

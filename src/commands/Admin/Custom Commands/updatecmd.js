@@ -30,7 +30,7 @@ module.exports = class extends Command {
 			const remove = await msg.guild.settings.update('commands.customCommands', cmd, { action: 'remove' });
 			const add = await msg.guild.settings.update('commands.customCommands', { name: cmd.name, content: content.join(' ') }, { action: 'add' });
 			if (add.errors.length || remove.errors.length) return msg.reject(msg.language.get('COMMAND_UPDATECMD_ERROR', name));
-			this.client.emit('customCmdUpdate', msg, name, content, oldCmd);
+			this.client.emit('customCmdUpdate', msg, name, content, oldCmd, msg.author);
 			return msg.affirm();
 		} else {
 			return msg.reject(msg.language.get('COMMAND_CUSTOM_CMD_NOT_EXIST', name));

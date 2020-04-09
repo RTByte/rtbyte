@@ -10,6 +10,12 @@ module.exports = class extends Event {
 	async run(oldRole, role) {
 		if (!role.guild) return;
 
+		let auditLog, logEntry;
+		if (role.guild.me.hasPermission('VIEW_AUDIT_LOG')) {
+			auditLog = await role.guild.fetchAuditLogs();
+			logEntry = await auditLog.entries.first();
+		}
+
 		const perms = {
 			ADMINISTRATOR: role.guild.language.get('PERMISSIONS_ADMINISTRATOR'),
 			VIEW_AUDIT_LOG: role.guild.language.get('PERMISSIONS_VIEW_AUDIT_LOG'),
@@ -43,12 +49,14 @@ module.exports = class extends Event {
 			STREAM: role.guild.language.get('PERMISSIONS_STREAM')
 		};
 
-		if (role.guild.settings.get('channels.log') && role.guild.settings.get('logs.events.roleUpdate')) await this.roleUpdateLog(oldRole, role, perms);
+		if (role.guild.settings.get('channels.log') && role.guild.settings.get('logs.events.roleUpdate')) await this.serverLog(oldRole, role, logEntry, perms);
 
 		return;
 	}
 
-	async roleUpdateLog(oldRole, role, perms) {
+	async serverLog(oldRole, role, logEntry, perms) {
+		const executor = logEntry ? logEntry.executor : undefined;
+
 		const affirmEmoji = this.client.emojis.get(this.client.settings.get('emoji.affirm'));
 		const rejectEmoji = this.client.emojis.get(this.client.settings.get('emoji.reject'));
 		const arrowRightEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowRight'));
@@ -63,7 +71,7 @@ module.exports = class extends Event {
 			.setAuthor(`${role.name}`, role.guild.iconURL())
 			.setColor(this.client.settings.get('colors.blue'))
 			.setTimestamp()
-			.setFooter(role.guild.language.get('GUILD_LOG_ROLEUPDATE'));
+			.setFooter(role.guild.language.get('GUILD_LOG_ROLEUPDATE', executor), executor ? executor.displayAvatarURL() : undefined);
 
 		// Name changed
 		if (oldRole.name !== role.name) embed.addField(role.guild.language.get('NAME_CHANGED'), `${oldRole.name} ${arrowRightEmoji} ${role.name}`);

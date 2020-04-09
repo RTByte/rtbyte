@@ -34,14 +34,21 @@ module.exports = class extends Event {
 	async run(oldGuild, guild) {
 		if (!guild) return;
 
-		if (this.client.settings.get('logs.guildUpdate')) await this.globalGuildUpdateLog(oldGuild, guild);
-		if (guild.settings.get('channels.log') && guild.settings.get('logs.events.guildUpdate')) await this.guildUpdateLog(oldGuild, guild);
+		let auditLog, logEntry;
+		if (guild.me.hasPermission('VIEW_AUDIT_LOG')) {
+			auditLog = await guild.fetchAuditLogs();
+			logEntry = await auditLog.entries.first();
+		}
+
+		if (this.client.settings.get('logs.guildUpdate')) await this.globalLog(oldGuild, guild);
+		if (guild.settings.get('channels.log') && guild.settings.get('logs.events.guildUpdate')) await this.serverLog(oldGuild, guild, logEntry);
 		if (oldGuild.premiumTier !== guild.premiumTier) await this.nitroLevel(guild);
 
 		return;
 	}
 
-	async guildUpdateLog(oldGuild, guild) {
+	async serverLog(oldGuild, guild, logEntry) {
+		const executor = logEntry ? logEntry.executor : undefined;
 		const affirmEmoji = this.client.emojis.get(this.client.settings.get('emoji.affirm'));
 		const rejectEmoji = this.client.emojis.get(this.client.settings.get('emoji.reject'));
 		const arrowRightEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowRight'));
@@ -61,7 +68,7 @@ module.exports = class extends Event {
 			.setAuthor(guild.name, guild.iconURL())
 			.setColor(this.client.settings.get('colors.blue'))
 			.setTimestamp()
-			.setFooter(guild.language.get('GUILD_LOG_GUILDUPDATE'));
+			.setFooter(guild.language.get('GUILD_LOG_GUILDUPDATE', executor), executor ? executor.displayAvatarURL() : undefined);
 
 		// AFK channel changed
 		// eslint-disable-next-line max-len
@@ -195,7 +202,7 @@ module.exports = class extends Event {
 		return;
 	}
 
-	async globalGuildUpdateLog(oldGuild, guild) {
+	async globalLog(oldGuild, guild) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${guild.name} (${guild.id})`, guild.iconURL())
 			.setColor(this.client.settings.get('colors.blue'))

@@ -8,7 +8,7 @@ module.exports = class extends Event {
 	}
 
 	async run(reaction) {
-		if (!msg.guild) return;
+		if (!reaction.guild) return;
 
 		let attachment;
 		const msg = reaction.message;

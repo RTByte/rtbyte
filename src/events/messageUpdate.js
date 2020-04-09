@@ -12,12 +12,12 @@ module.exports = class extends Event {
 
 		if (!msg.guild) return;
 
-		if (msg.guild.settings.get('channels.log') && msg.guild.settings.get('logs.events.messageUpdate') && old.content !== msg.content) await this.editLog(old, msg);
+		if (msg.guild.settings.get('channels.log') && msg.guild.settings.get('logs.events.messageUpdate') && old.content !== msg.content) await this.serverLog(old, msg);
 
 		return;
 	}
 
-	async editLog(old, msg) {
+	async serverLog(old, msg) {
 		const embed = new MessageEmbed()
 			.setAuthor(msg.author.tag, msg.author.displayAvatarURL())
 			.setColor(this.client.settings.get('colors.blue'))

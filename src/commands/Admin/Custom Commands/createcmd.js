@@ -27,7 +27,7 @@ module.exports = class extends Command {
 		const cmd = msg.guild.settings.get('commands.customCommands').find(c => c.name.toLowerCase() === name);
 		if (cmd) return msg.reject(msg.language.get('COMMAND_CREATECMD_ALREADY_EXIST', name));
 		await msg.guild.settings.update('commands.customCommands', { name: name, content: content.join(' ') });
-		this.client.emit('customCmdCreate', msg, name, content);
+		this.client.emit('customCmdCreate', msg, name, content, msg.author);
 		return msg.affirm();
 	}
 

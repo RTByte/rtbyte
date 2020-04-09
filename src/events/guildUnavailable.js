@@ -8,12 +8,12 @@ module.exports = class extends Event {
 	}
 
 	async run(guild) {
-		if (this.client.settings.get('logs.guildUnavailable')) await this.guildUnavailableLog(guild);
+		if (this.client.settings.get('logs.guildUnavailable')) await this.globalLog(guild);
 
 		return;
 	}
 
-	async guildUnavailableLog(guild) {
+	async globalLog(guild) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${guild.name} (${guild.id})`, guild.iconURL())
 			.setColor(this.client.settings.get('colors.yellow'))
