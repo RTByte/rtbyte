@@ -42,7 +42,8 @@ module.exports = class extends Event {
 
 		if (this.client.settings.get('logs.guildUpdate')) await this.globalLog(oldGuild, guild);
 		if (guild.settings.get('channels.log') && guild.settings.get('logs.events.guildUpdate')) await this.serverLog(oldGuild, guild, logEntry);
-		if (oldGuild.premiumTier !== guild.premiumTier) await this.nitroLevel(guild);
+
+		if (oldGuild.premiumTier !== guild.premiumTier) this.client.emit('guildBoostTierUpdate', guild);
 
 		return;
 	}
@@ -185,20 +186,6 @@ module.exports = class extends Event {
 
 		const logChannel = await this.client.channels.get(guild.settings.get('channels.log'));
 		await logChannel.send('', { disableEveryone: true, embed: embed });
-		return;
-	}
-
-	async nitroLevel(guild) {
-		// Nitro boost embed
-		const nitroEmbed = new MessageEmbed()
-			.setAuthor(guild.name, guild.iconURL())
-			.setColor(this.client.settings.get('colors.pink'))
-			.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_NITROLEVEL_TITLES', guild), guild.language.get('GUILD_LOG_GUILDUPDATE_NITROLEVEL_DETAILS', guild))
-			.setTimestamp()
-			.setFooter(guild.language.get('GUILD_LOG_GUILDUPDATE_NITROLEVEL'));
-
-		const logChannel = await this.client.channels.get(guild.settings.get('channels.log'));
-		await logChannel.send('', { disableEveryone: true, embed: nitroEmbed });
 		return;
 	}
 

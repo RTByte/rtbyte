@@ -19,22 +19,11 @@ module.exports = class extends Event {
 			}
 		}
 
-		if (member.guild.settings.get('greetings.welcomeNewUsers')) await this.welcome(member);
 		if (member.guild.settings.get('channels.log') && member.guild.settings.get('logs.events.guildMemberAdd')) await this.serverLog(member);
 
+		if (member.guild.settings.get('greetings.welcomeNewUsers')) this.client.emit('guildMemberWelcome', member);
+
 		return;
-	}
-
-	async welcome(member) {
-		if (!member.guild.settings.get('greetings.welcomeMessage')) return;
-
-		const welcomeChannel = await this.client.channels.get(member.guild.settings.get('greetings.welcomeChannel'));
-		let welcomeMsg = member.guild.settings.get('greetings.welcomeMessage');
-
-		if (member.guild.settings.get('greetings.welcomeMessage')) {
-			welcomeMsg = welcomeMsg.replace('%user%', `${member.user}`);
-			await welcomeChannel.send(welcomeMsg);
-		}
 	}
 
 	async serverLog(member) {

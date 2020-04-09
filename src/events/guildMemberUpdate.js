@@ -29,8 +29,10 @@ module.exports = class extends Event {
 		if (!member.guild) return;
 
 		if (member.guild.settings.get('channels.log') && member.guild.settings.get('logs.events.guildMemberUpdate')) await this.serverLog(oldMember, member);
-		if (!oldMember.premiumSince && member.premiumSince) await this.nitroBoost(member);
 		if (member.guild.settings.get('filters.checkDisplayNames')) await this.autoSelener(member);
+
+		if (!oldMember.premiumSince && member.premiumSince) this.client.emit('guildBoostAdd', member);
+		if (oldMember.premiumSince && !member.premiumSince) this.client.emit('guildBoostRemove', member);
 
 		return;
 	}
@@ -78,19 +80,6 @@ module.exports = class extends Event {
 
 		const logChannel = await this.client.channels.get(member.guild.settings.get('channels.log'));
 		await logChannel.send('', { disableEveryone: true, embed: embed });
-		return;
-	}
-
-	async nitroBoost(member) {
-		// Nitro boost embed
-		const nitroBoost = new MessageEmbed()
-			.setAuthor(`${member.displayName} (${member.user.tag}) `, member.user.displayAvatarURL())
-			.setColor(this.client.settings.get('colors.pink'))
-			.setTimestamp()
-			.setFooter(member.guild.language.get('GUILD_LOG_MEMBERUPDATE_NITROBOOST'));
-
-		const logChannel = await this.client.channels.get(member.guild.settings.get('channels.log'));
-		await logChannel.send('', { disableEveryone: true, embed: nitroBoost });
 		return;
 	}
 
