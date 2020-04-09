@@ -8,17 +8,22 @@ module.exports = class extends Event {
 	}
 
 	async run(invite) {
-		const auditLog = await invite.guild.fetchAuditLogs();
-		const entry = await auditLog.entries.first();
+		let auditLog, logEntry;
+		if (invite.guild.me.hasPermission('VIEW_AUDIT_LOG')) {
+			auditLog = await invite.guild.fetchAuditLogs();
+			logEntry = await auditLog.entries.first();
+		}
 
-		if (invite.guild.available && invite.guild.settings.get('channels.log') && invite.guild.settings.get('logs.events.inviteDelete')) await this.inviteDeleteLog(invite, entry);
+		if (invite.guild.available && invite.guild.settings.get('channels.log') && invite.guild.settings.get('logs.events.inviteDelete')) await this.inviteDeleteLog(invite, logEntry);
 
 		return;
 	}
 
-	async inviteDeleteLog(invite, entry) {
-		const { executor } = entry;
-		const uses = entry.changes[3].old;
+	async inviteDeleteLog(invite, logEntry) {
+		const executor = logEntry ? logEntry.executor : undefined;
+		const uses = logEntry ? logEntry.changes[3].old : 0;
+
+
 		const embed = new MessageEmbed()
 			.setAuthor(`discord.gg/${invite.code}`, invite.guild.iconURL())
 			.setDescription(invite.url)
@@ -26,7 +31,7 @@ module.exports = class extends Event {
 			.addField(invite.channel.type === 'text' ? invite.guild.language.get('CHANNEL') : invite.guild.language.get('VOICE_CHANNEL'),
 				invite.channel.type === 'text' ? invite.channel : `${invite.channel.name}`, true)
 			.setTimestamp()
-			.setFooter(invite.guild.language.get('GUILD_LOG_INVITEDELETE', executor), executor.displayAvatarURL());
+			.setFooter(invite.guild.language.get('GUILD_LOG_INVITEDELETE', executor), invite.guild.me.hasPermission('VIEW_AUDIT_LOG') ? executor.displayAvatarURL() : null);
 
 		if (uses > 0) await embed.addField(invite.guild.language.get('GUILD_LOG_INVITEDELETE_USES'), uses, true);
 

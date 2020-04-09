@@ -614,7 +614,7 @@ module.exports = class extends Language {
 			GUILD_LOG_INVITECREATE_MAXUSES: 'Max number of uses',
 			GUILD_LOG_INVITECREATE_TEMPORARY: 'Grants temporary membership',
 			GUILD_LOG_INVITEDELETE_USES: 'Uses',
-			GUILD_LOG_INVITEDELETE: (inviter) => `Invite deleted by ${inviter.tag}`,
+			GUILD_LOG_INVITEDELETE: (inviter) => inviter ? `Invite deleted by ${inviter.tag}` : 'Invite deleted',
 
 			// Global log langs
 			GLOBAL_LOG_GUILDCREATE: 'Bot added to server',
