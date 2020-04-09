@@ -8,12 +8,6 @@ module.exports = class extends Event {
 	}
 
 	async run(msg) {
-		if (msg.command && msg.command.deletable && msg.responses.length) {
-			await msg.responses.forEach(async (response) => {
-				await response.delete();
-			});
-		}
-
 		if (!msg.guild) return;
 
 		if (msg.guild.settings.get('channels.log') && msg.guild.settings.get('logs.events.messageDelete')) await this.serverLog(msg);

@@ -8,8 +8,6 @@ module.exports = class extends Event {
 	}
 
 	async run(old, msg) {
-		if (this.client.ready && !old.partial && old.content !== msg.content) this.client.monitors.run(msg);
-
 		if (!msg.guild) return;
 
 		if (msg.guild.settings.get('channels.log') && msg.guild.settings.get('logs.events.messageUpdate') && old.content !== msg.content) await this.serverLog(old, msg);
