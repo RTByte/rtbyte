@@ -47,7 +47,8 @@ module.exports = class extends Command {
 			await this.client.schedule.create('timedMute', when, {
 				data: {
 					guildID: msg.guild.id,
-					userID: member.id
+					userID: member.id,
+					modID: msg.author.id
 				},
 				catchUp: true
 			});
