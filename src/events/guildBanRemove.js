@@ -1,5 +1,5 @@
 const { Event } = require('klasa');
-const { MessageEmbed } = require('discord.js');
+const { ModCase } = require('../index');
 
 module.exports = class extends Event {
 
@@ -8,20 +8,25 @@ module.exports = class extends Event {
 	}
 
 	async run(guild, user) {
-		if (guild.settings.get('logs.moderation.unban')) await this.unbanLog(guild, user);
+		if (!guild) return;
+		let auditLog, logEntry;
 
-		return;
-	}
+		if (guild.me.hasPermission('VIEW_AUDIT_LOG')) {
+			auditLog = await guild.fetchAuditLogs();
+			logEntry = await auditLog.entries.first();
+		}
 
-	async unbanLog(guild, user) {
-		const embed = new MessageEmbed()
-			.setAuthor(`${user.tag} (${user.id})`, user.displayAvatarURL())
-			.setColor(this.client.settings.get('colors.yellow'))
-			.setTimestamp()
-			.setFooter(guild.language.get('GUILD_LOG_GUILDBANREMOVE'));
+		const executor = logEntry ? logEntry.executor : undefined;
 
-		const logChannel = await this.client.channels.get(guild.settings.get('channels.log'));
-		await logChannel.send('', { disableEveryone: true, embed: embed });
+		const modCase = new ModCase(guild)
+			.setType('unban')
+			.setUser(user);
+		if (executor) modCase.setModerator(executor);
+		await modCase.submit();
+
+		const embed = await modCase.embed();
+		await embed.send();
+
 		return;
 	}
 
