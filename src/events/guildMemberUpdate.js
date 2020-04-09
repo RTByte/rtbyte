@@ -28,7 +28,13 @@ module.exports = class extends Event {
 	async run(oldMember, member) {
 		if (!member.guild) return;
 
-		if (member.guild.settings.get('channels.log') && member.guild.settings.get('logs.events.guildMemberUpdate')) await this.serverLog(oldMember, member);
+		let auditLog, logEntry;
+		if (member.guild.me.hasPermission('VIEW_AUDIT_LOG')) {
+			auditLog = await member.guild.fetchAuditLogs();
+			logEntry = await auditLog.entries.first();
+		}
+
+		if (member.guild.settings.get('channels.log') && member.guild.settings.get('logs.events.guildMemberUpdate')) await this.serverLog(oldMember, member, logEntry);
 		if (member.guild.settings.get('filters.checkDisplayNames')) await this.autoSelener(member);
 
 		if (!oldMember.premiumSince && member.premiumSince) this.client.emit('guildBoostAdd', member);
@@ -37,7 +43,8 @@ module.exports = class extends Event {
 		return;
 	}
 
-	async serverLog(oldMember, member) {
+	async serverLog(oldMember, member, logEntry) {
+		const executor = logEntry ? logEntry.executor === member.user ? undefined : logEntry.executor : undefined;
 		const arrowRightEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowRight'));
 
 		// Filter the user's roles and remove the @everyone role
@@ -63,7 +70,7 @@ module.exports = class extends Event {
 			.setAuthor(`${member.displayName} (${member.user.tag}) `, member.user.displayAvatarURL())
 			.setColor(this.client.settings.get('colors.blue'))
 			.setTimestamp()
-			.setFooter(member.guild.language.get('GUILD_LOG_MEMBERUPDATE'));
+			.setFooter(member.guild.language.get('GUILD_LOG_MEMBERUPDATE', executor), executor ? executor.displayAvatarURL() : undefined);
 
 		// User display name changed
 		// eslint-disable-next-line max-len
