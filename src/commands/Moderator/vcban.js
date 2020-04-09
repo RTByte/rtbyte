@@ -40,8 +40,7 @@ module.exports = class extends Command {
 		const member = await msg.guild.members.fetch(username);
 
 		if (member.voice) {
-			const vckick = await this.client.commands.get('vckick');
-			await vckick.run(msg, [username, ...reason]);
+			await member.voice.setChannel(null, reason);
 		}
 
 		if (member.roles.has(msg.guild.settings.get('roles.voiceBanned'))) return msg.affirm();
