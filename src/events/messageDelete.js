@@ -23,14 +23,16 @@ module.exports = class extends Event {
 
 	async deleteLog(msg) {
 		let attachment;
+
 		const embed = new MessageEmbed()
-			.setAuthor(`#${msg.channel.name}`, msg.guild.iconURL())
+			.setAuthor(msg.author.tag, msg.author.displayAvatarURL())
+			.setDescription(msg.channel)
 			.setColor(this.client.settings.get('colors.blue'))
 			.setTimestamp()
-			.setFooter(msg.author.tag, msg.author.displayAvatarURL());
+			.setFooter(msg.language.get('GUILD_LOG_MESSAGEDELETE'));
 
-		if (msg.content) await embed.addField(msg.guild.language.get('GUILD_LOG_MESSAGEDELETE'), `${msg.content}`);
-		if (!msg.content) await embed.setTitle(msg.guild.language.get('GUILD_LOG_MESSAGEDELETE'));
+		if (msg.content) await embed.addField(msg.guild.language.get('MESSAGE'), `${msg.content}`);
+		if (!msg.content) await embed.setTitle(msg.guild.language.get('MESSAGE'));
 		if (msg.attachments.size > 0) {
 			attachment = msg.attachments.map(atch => atch.url).join(' ');
 			attachment = attachment
