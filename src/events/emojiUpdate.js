@@ -10,20 +10,20 @@ module.exports = class extends Event {
 	async run(oldEmoji, emoji) {
 		if (!emoji.guild) return;
 
-		let auditLog, logEntry;
+		let executor;
 		if (emoji.guild.me.hasPermission('VIEW_AUDIT_LOG')) {
-			auditLog = await emoji.guild.fetchAuditLogs();
-			logEntry = await auditLog.entries.first();
+			const auditLog = await emoji.guild.fetchAuditLogs();
+			const logEntry = await auditLog.entries.first();
+
+			if (logEntry.action === 'EMOJI_UPDATE') executor = logEntry ? logEntry.executor : undefined;
 		}
 
-		if (emoji.guild.settings.get('channels.log') && emoji.guild.settings.get('logs.events.emojiCreate')) await this.serverLog(oldEmoji, emoji, logEntry);
-
+		if (emoji.guild.settings.get('channels.log') && emoji.guild.settings.get('logs.events.emojiCreate')) await this.serverLog(oldEmoji, emoji, executor);
 
 		return;
 	}
 
-	async serverLog(oldEmoji, emoji, logEntry) {
-		const executor = logEntry ? logEntry.executor : undefined;
+	async serverLog(oldEmoji, emoji, executor) {
 		const arrowRightEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowRight'));
 
 		const embed = new MessageEmbed()

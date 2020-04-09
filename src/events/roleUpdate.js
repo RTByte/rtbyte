@@ -10,10 +10,12 @@ module.exports = class extends Event {
 	async run(oldRole, role) {
 		if (!role.guild) return;
 
-		let auditLog, logEntry;
+		let executor;
 		if (role.guild.me.hasPermission('VIEW_AUDIT_LOG')) {
-			auditLog = await role.guild.fetchAuditLogs();
-			logEntry = await auditLog.entries.first();
+			const auditLog = await role.guild.fetchAuditLogs();
+			const logEntry = await auditLog.entries.first();
+
+			if (logEntry.action === 'ROLE_UPDATE') executor = logEntry ? logEntry.executor : undefined;
 		}
 
 		const perms = {
@@ -49,14 +51,12 @@ module.exports = class extends Event {
 			STREAM: role.guild.language.get('PERMISSIONS_STREAM')
 		};
 
-		if (role.guild.settings.get('channels.log') && role.guild.settings.get('logs.events.roleUpdate')) await this.serverLog(oldRole, role, logEntry, perms);
+		if (role.guild.settings.get('channels.log') && role.guild.settings.get('logs.events.roleUpdate')) await this.serverLog(oldRole, role, executor, perms);
 
 		return;
 	}
 
-	async serverLog(oldRole, role, logEntry, perms) {
-		const executor = logEntry ? logEntry.executor : undefined;
-
+	async serverLog(oldRole, role, executor, perms) {
 		const affirmEmoji = this.client.emojis.get(this.client.settings.get('emoji.affirm'));
 		const rejectEmoji = this.client.emojis.get(this.client.settings.get('emoji.reject'));
 		const arrowRightEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowRight'));

@@ -16,19 +16,20 @@ module.exports = class extends Event {
 	async run(oldChannel, channel) {
 		if (!channel.guild) return;
 
-		let auditLog, logEntry;
+		let executor;
 		if (channel.guild.me.hasPermission('VIEW_AUDIT_LOG')) {
-			auditLog = await channel.guild.fetchAuditLogs();
-			logEntry = await auditLog.entries.first();
+			const auditLog = await channel.guild.fetchAuditLogs();
+			const logEntry = await auditLog.entries.first();
+
+			if (logEntry.action === 'CHANNEL_UPDATE') executor = logEntry ? logEntry.executor : undefined;
 		}
 
-		if (channel.guild.settings.get('channels.log') && channel.guild.settings.get('logs.events.channelUpdate')) await this.serverLog(oldChannel, channel, logEntry);
+		if (channel.guild.settings.get('channels.log') && channel.guild.settings.get('logs.events.channelUpdate')) await this.serverLog(oldChannel, channel, executor);
 
 		return;
 	}
 
-	async serverLog(oldChannel, channel, logEntry) {
-		const executor = logEntry ? logEntry.executor : undefined;
+	async serverLog(oldChannel, channel, executor) {
 		const affirmEmoji = this.client.emojis.get(this.client.settings.get('emoji.affirm'));
 		const rejectEmoji = this.client.emojis.get(this.client.settings.get('emoji.reject'));
 		const arrowRightEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowRight'));

@@ -10,20 +10,20 @@ module.exports = class extends Event {
 	async run(emoji) {
 		if (!emoji.guild) return;
 
-		let auditLog, logEntry;
+		let executor;
 		if (emoji.guild.me.hasPermission('VIEW_AUDIT_LOG')) {
-			auditLog = await emoji.guild.fetchAuditLogs();
-			logEntry = await auditLog.entries.first();
+			const auditLog = await emoji.guild.fetchAuditLogs();
+			const logEntry = await auditLog.entries.first();
+
+			if (logEntry.action === 'EMOJI_CREATE') executor = logEntry ? logEntry.executor : undefined;
 		}
 
-		if (emoji.guild.settings.get('channels.log') && emoji.guild.settings.get('logs.events.emojiCreate')) await this.serverLog(emoji, logEntry);
+		if (emoji.guild.settings.get('channels.log') && emoji.guild.settings.get('logs.events.emojiCreate')) await this.serverLog(emoji, executor);
 
 		return;
 	}
 
-	async serverLog(emoji, logEntry) {
-		const executor = logEntry ? logEntry.executor : undefined;
-
+	async serverLog(emoji, executor) {
 		const embed = new MessageEmbed()
 			.setAuthor(`:${emoji.name}:`, `https://cdn.discordapp.com/emojis/${emoji.id}.${emoji.animated ? 'gif' : 'png'}`)
 			.setColor(this.client.settings.get('colors.green'))

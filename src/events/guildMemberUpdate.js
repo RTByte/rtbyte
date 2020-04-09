@@ -28,13 +28,15 @@ module.exports = class extends Event {
 	async run(oldMember, member) {
 		if (!member.guild) return;
 
-		let auditLog, logEntry;
+		let executor;
 		if (member.guild.me.hasPermission('VIEW_AUDIT_LOG')) {
-			auditLog = await member.guild.fetchAuditLogs();
-			logEntry = await auditLog.entries.first();
+			const auditLog = await member.guild.fetchAuditLogs();
+			const logEntry = await auditLog.entries.first();
+
+			if (logEntry.action === 'MEMBER_UPDATE') executor = logEntry ? logEntry.executor === member.user ? undefined : logEntry.executor : undefined;
 		}
 
-		if (member.guild.settings.get('channels.log') && member.guild.settings.get('logs.events.guildMemberUpdate')) await this.serverLog(oldMember, member, logEntry);
+		if (member.guild.settings.get('channels.log') && member.guild.settings.get('logs.events.guildMemberUpdate')) await this.serverLog(oldMember, member, executor);
 		if (member.guild.settings.get('filters.checkDisplayNames')) await this.autoSelener(member);
 
 		if (!oldMember.premiumSince && member.premiumSince) this.client.emit('guildBoostAdd', member);
@@ -43,8 +45,7 @@ module.exports = class extends Event {
 		return;
 	}
 
-	async serverLog(oldMember, member, logEntry) {
-		const executor = logEntry ? logEntry.executor === member.user ? undefined : logEntry.executor : undefined;
+	async serverLog(oldMember, member, executor) {
 		const arrowRightEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowRight'));
 
 		// Filter the user's roles and remove the @everyone role

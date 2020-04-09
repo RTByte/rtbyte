@@ -10,21 +10,23 @@ module.exports = class extends Event {
 	async run(invite) {
 		if (!invite.guild) return;
 
-		let auditLog, logEntry;
+		let executor, uses;
 		if (invite.guild.me.hasPermission('VIEW_AUDIT_LOG')) {
-			auditLog = await invite.guild.fetchAuditLogs();
-			logEntry = await auditLog.entries.first();
+			const auditLog = await invite.guild.fetchAuditLogs();
+			const logEntry = await auditLog.entries.first();
+
+			if (logEntry.action === 'INVITE_DELETE') {
+				uses = logEntry ? logEntry.changes[3].old : 0;
+				executor = logEntry ? logEntry.executor : undefined;
+			}
 		}
 
-		if (invite.guild.settings.get('channels.log') && invite.guild.settings.get('logs.events.inviteDelete')) await this.serverLog(invite, logEntry);
+		if (invite.guild.settings.get('channels.log') && invite.guild.settings.get('logs.events.inviteDelete')) await this.serverLog(invite, uses, executor);
 
 		return;
 	}
 
-	async serverLog(invite, logEntry) {
-		const executor = logEntry ? logEntry.executor : undefined;
-		const uses = logEntry ? logEntry.changes[3].old : 0;
-
+	async serverLog(invite, uses, executor) {
 		const embed = new MessageEmbed()
 			.setAuthor(`discord.gg/${invite.code}`, invite.guild.iconURL())
 			.setDescription(invite.url)

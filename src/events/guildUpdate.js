@@ -34,22 +34,23 @@ module.exports = class extends Event {
 	async run(oldGuild, guild) {
 		if (!guild) return;
 
-		let auditLog, logEntry;
+		let executor;
 		if (guild.me.hasPermission('VIEW_AUDIT_LOG')) {
-			auditLog = await guild.fetchAuditLogs();
-			logEntry = await auditLog.entries.first();
+			const auditLog = await guild.fetchAuditLogs();
+			const logEntry = await auditLog.entries.first();
+
+			if (logEntry.action === 'GUILD_UPDATE') executor = logEntry ? logEntry.executor : undefined;
 		}
 
 		if (this.client.settings.get('logs.guildUpdate')) await this.globalLog(oldGuild, guild);
-		if (guild.settings.get('channels.log') && guild.settings.get('logs.events.guildUpdate')) await this.serverLog(oldGuild, guild, logEntry);
+		if (guild.settings.get('channels.log') && guild.settings.get('logs.events.guildUpdate')) await this.serverLog(oldGuild, guild, executor);
 
 		if (oldGuild.premiumTier !== guild.premiumTier) this.client.emit('guildBoostTierUpdate', guild);
 
 		return;
 	}
 
-	async serverLog(oldGuild, guild, logEntry) {
-		const executor = logEntry ? logEntry.executor : undefined;
+	async serverLog(oldGuild, guild, executor) {
 		const affirmEmoji = this.client.emojis.get(this.client.settings.get('emoji.affirm'));
 		const rejectEmoji = this.client.emojis.get(this.client.settings.get('emoji.reject'));
 		const arrowRightEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowRight'));

@@ -10,20 +10,20 @@ module.exports = class extends Event {
 	async run(channel) {
 		if (!channel.guild) return;
 
-		let auditLog, logEntry;
+		let executor;
 		if (channel.guild.me.hasPermission('VIEW_AUDIT_LOG')) {
-			auditLog = await channel.guild.fetchAuditLogs();
-			logEntry = await auditLog.entries.first();
+			const auditLog = await channel.guild.fetchAuditLogs();
+			const logEntry = await auditLog.entries.first();
+
+			if (logEntry.action === 'CHANNEL_CREATE') executor = logEntry ? logEntry.executor : undefined;
 		}
 
-		if (channel.guild.settings.get('channels.log') && channel.guild.settings.get('logs.events.channelCreate')) await this.serverLog(channel, logEntry);
+		if (channel.guild.settings.get('channels.log') && channel.guild.settings.get('logs.events.channelCreate')) await this.serverLog(channel, executor);
 
 		return;
 	}
 
-	async serverLog(channel, logEntry) {
-		const executor = logEntry ? logEntry.executor : undefined;
-
+	async serverLog(channel, executor) {
 		const embed = new MessageEmbed()
 			.setAuthor(`#${channel.name}`, channel.guild.iconURL())
 			.setColor(this.client.settings.get('colors.green'))

@@ -10,20 +10,20 @@ module.exports = class extends Event {
 	async run(role) {
 		if (!role.guild) return;
 
-		let auditLog, logEntry;
+		let executor;
 		if (role.guild.me.hasPermission('VIEW_AUDIT_LOG')) {
-			auditLog = await role.guild.fetchAuditLogs();
-			logEntry = await auditLog.entries.first();
+			const auditLog = await role.guild.fetchAuditLogs();
+			const logEntry = await auditLog.entries.first();
+
+			if (logEntry.action === 'ROLE_DELETE') executor = logEntry ? logEntry.executor : undefined;
 		}
 
-		if (role.guild.settings.get('channels.log') && role.guild.settings.get('logs.events.roleDelete')) await this.serverLog(role, logEntry);
+		if (role.guild.settings.get('channels.log') && role.guild.settings.get('logs.events.roleDelete')) await this.serverLog(role, executor);
 
 		return;
 	}
 
-	async serverLog(role, logEntry) {
-		const executor = logEntry ? logEntry.executor : undefined;
-
+	async serverLog(role, executor) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${role.name}`, role.guild.iconURL())
 			.setColor(this.client.settings.get('colors.red'))
