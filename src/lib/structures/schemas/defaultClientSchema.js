@@ -25,7 +25,7 @@ module.exports = KlasaClient.defaultClientSchema
 		.add('guildUnavailable', 'boolean', { default: true }))
 	.add('colors', folder => folder
 	// Informative, neutral
-		.add('white', 'string', { default: '#FFFFFF' })
+		.add('white', 'string', { default: '#FEFEFE' })
 	// Users leaving, actions against users, severe warnings, errors
 		.add('red', 'string', { default: '#FF4B4B' })
 	// Users joining, stuff being added
