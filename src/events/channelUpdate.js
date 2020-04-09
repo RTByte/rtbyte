@@ -15,7 +15,8 @@ module.exports = class extends Event {
 
 	async run(oldChannel, channel) {
 		if (!channel.guild) return;
-		if (channel.guild.available && channel.guild.settings.get('channels.log') && channel.guild.settings.get('logs.events.channelUpdate')) await this.channelUpdateLog(oldChannel, channel);
+
+		if (channel.guild.settings.get('channels.log') && channel.guild.settings.get('logs.events.channelUpdate')) await this.channelUpdateLog(oldChannel, channel);
 
 		return;
 	}

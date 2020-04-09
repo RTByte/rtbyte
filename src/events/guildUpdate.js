@@ -32,8 +32,10 @@ module.exports = class extends Event {
 	}
 
 	async run(oldGuild, guild) {
-		if (this.client.settings.get('logs.guildCreate')) await this.globalGuildUpdateLog(oldGuild, guild);
-		if (guild.available && guild.settings.get('channels.log') && guild.settings.get('logs.events.guildUpdate')) await this.guildUpdateLog(oldGuild, guild);
+		if (!guild) return;
+
+		if (this.client.settings.get('logs.guildUpdate')) await this.globalGuildUpdateLog(oldGuild, guild);
+		if (guild.settings.get('channels.log') && guild.settings.get('logs.events.guildUpdate')) await this.guildUpdateLog(oldGuild, guild);
 		if (oldGuild.premiumTier !== guild.premiumTier) await this.nitroLevel(guild);
 
 		return;

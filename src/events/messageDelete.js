@@ -14,7 +14,11 @@ module.exports = class extends Event {
 			});
 		}
 
-		if (msg.guild.available && msg.guild.settings.get('channels.log') && msg.guild.settings.get('logs.events.messageDelete')) await this.deleteLog(msg);
+		if (!msg.guild) return;
+
+		if (msg.guild.settings.get('channels.log') && msg.guild.settings.get('logs.events.messageDelete')) await this.deleteLog(msg);
+
+		return;
 	}
 
 	async deleteLog(msg) {

@@ -9,6 +9,7 @@ module.exports = class extends Event {
 
 	async run(guild, user) {
 		if (!guild) return;
+
 		let auditLog, logEntry, bans, banInfo;
 
 		if (guild.me.hasPermission('VIEW_AUDIT_LOG')) {

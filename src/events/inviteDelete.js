@@ -8,13 +8,15 @@ module.exports = class extends Event {
 	}
 
 	async run(invite) {
+		if (!invite.guild) return;
+
 		let auditLog, logEntry;
 		if (invite.guild.me.hasPermission('VIEW_AUDIT_LOG')) {
 			auditLog = await invite.guild.fetchAuditLogs();
 			logEntry = await auditLog.entries.first();
 		}
 
-		if (invite.guild.available && invite.guild.settings.get('channels.log') && invite.guild.settings.get('logs.events.inviteDelete')) await this.inviteDeleteLog(invite, logEntry);
+		if (invite.guild.settings.get('channels.log') && invite.guild.settings.get('logs.events.inviteDelete')) await this.inviteDeleteLog(invite, logEntry);
 
 		return;
 	}

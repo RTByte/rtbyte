@@ -8,11 +8,13 @@ module.exports = class extends Event {
 	}
 
 	async run(msg, command) {
+		if (!msg.guild) return;
+
 		// Initialize runtime
 		const runTime = new Stopwatch();
 
 		// Return if custom commands aren't enabled or there are no custom commands on the server
-		if (!msg.guild || !msg.guild.settings.get('commands.customCommandsEnabled')) return;
+		if (!msg.guild.settings.get('commands.customCommandsEnabled')) return;
 		if (!msg.guild.settings.get('commands.customCommands').length) return;
 		await msg.guild.settings.sync(true);
 
@@ -38,6 +40,7 @@ module.exports = class extends Event {
 
 		// Call devCommandLog
 		devCommandLog.run(msg, command, response, runTime, custom);
+
 		return;
 	}
 

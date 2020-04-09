@@ -9,7 +9,9 @@ module.exports = class extends Event {
 	}
 
 	async run(invite) {
-		if (invite.guild.available && invite.guild.settings.get('channels.log') && invite.guild.settings.get('logs.events.inviteCreate')) await this.inviteCreateLog(invite);
+		if (!invite.guild) return;
+
+		if (invite.guild.settings.get('channels.log') && invite.guild.settings.get('logs.events.inviteCreate')) await this.inviteCreateLog(invite);
 
 		return;
 	}

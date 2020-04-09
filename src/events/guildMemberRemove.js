@@ -8,6 +8,8 @@ module.exports = class extends Event {
 	}
 
 	async run(member) {
+		if (!member.guild) return;
+
 		if (member.guild.available && member.guild.settings.get('greetings.dismissUsers')) await this.dismiss(member);
 		if (member.guild.available && member.guild.settings.get('channels.log') && member.guild.settings.get('logs.events.guildMemberRemove')) await this.leaveLog(member);
 
