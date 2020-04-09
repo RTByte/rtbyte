@@ -8,7 +8,6 @@ module.exports = class extends Event {
 	}
 
 	async run(guild) {
-		if (this.client.ready && guild.available && !this.client.options.preserveSettings) guild.settings.destroy().catch(() => null);
 		if (this.client.settings.get('logs.guildDelete')) await this.serverLog(guild);
 
 		return;
