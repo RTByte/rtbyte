@@ -616,6 +616,11 @@ module.exports = class extends Language {
 			GUILD_LOG_BOOSTTIER_TITLES: (guild) => `${this.nitroTierTitles[guild.premiumTier]}`,
 			GUILD_LOG_BOOSTTIER_DETAILS: (guild) => `${this.nitroTierDetails[guild.premiumTier]}`,
 			GUILD_LOG_GUILDBOTADD: (executor) => `Bot added${executor ? ` by ${executor.tag}` : ''}`,
+			GUILD_LOG_WEBHOOKCREATE: (executor) => `Webhook created${executor ? ` by ${executor.tag}` : ''}`,
+			GUILD_LOG_WEBHOOKDELETE: (executor) => `Webhook deleted${executor ? ` by ${executor.tag}` : ''}`,
+			GUILD_LOG_WEBHOOKUPDATE: (executor) => `Webhook updated${executor ? ` by ${executor.tag}` : ''}`,
+			GUILD_LOG_WEBHOOKUPDATE_CHANNEL: 'Channel changed',
+			GUILD_LOG_WEBHOOKUPDATE_AVATAR: 'Icon changed',
 
 			// Global log langs
 			GLOBAL_LOG_GUILDCREATE: 'Bot added to server',

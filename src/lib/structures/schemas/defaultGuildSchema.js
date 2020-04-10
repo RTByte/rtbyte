@@ -37,7 +37,10 @@ module.exports = KlasaClient.defaultGuildSchema
 			.add('messageUpdate', 'boolean', { default: true })
 			.add('roleCreate', 'boolean', { default: false })
 			.add('roleDelete', 'boolean', { default: false })
-			.add('roleUpdate', 'boolean', { default: false }))
+			.add('roleUpdate', 'boolean', { default: false })
+			.add('webhookCreate', 'boolean', { default: false })
+			.add('webhookDelete', 'boolean', { default: false })
+			.add('webhookUpdate', 'boolean', { default: false }))
 		.add('moderation', folder => folder // eslint-disable-line
 			.add('ban', 'boolean', { default: true })
 			.add('unban', 'boolean', { default: true })
