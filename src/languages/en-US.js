@@ -591,7 +591,7 @@ module.exports = class extends Language {
 			GUILD_LOG_GUILDUPDATE_BOOSTMESSAGES: 'Nitro boost messages toggled',
 			GUILD_LOG_GUILDBANADD_TIMED: (when) => `User banned for ${moment.duration(moment().diff(when)).humanize()}`,
 			GUILD_LOG_GUILDMEMBERADD: 'User joined',
-			GUILD_LOG_GUILDMEMBERREMOVE: 'User left',
+			GUILD_LOG_GUILDMEMBERREMOVE: (member) => `${member.user.bot ? 'Bot' : 'User'} left`,
 			GUILD_LOG_MEMBERUPDATE: (executor) => `User updated${executor ? ` by ${executor.tag}` : ''}`,
 			GUILD_LOG_MEMBERUPDATE_DISPLAYNAME: 'Display name changed',
 			GUILD_LOG_BLACKLISTEDWORD: (channel) => `Blacklisted word detected in ${channel}.`,
@@ -615,6 +615,7 @@ module.exports = class extends Language {
 			GUILD_LOG_BOOSTTIER: 'Nitro boost level updated',
 			GUILD_LOG_BOOSTTIER_TITLES: (guild) => `${this.nitroTierTitles[guild.premiumTier]}`,
 			GUILD_LOG_BOOSTTIER_DETAILS: (guild) => `${this.nitroTierDetails[guild.premiumTier]}`,
+			GUILD_LOG_GUILDBOTADD: (executor) => `Bot added${executor ? ` by ${executor.tag}` : ''}`,
 
 			// Global log langs
 			GLOBAL_LOG_GUILDCREATE: 'Bot added to server',

@@ -27,11 +27,15 @@ module.exports = class extends Event {
 	}
 
 	async serverLog(member) {
+		const botBadgeEmoji = this.client.emojis.get(this.client.settings.get('emoji.botBadge'));
+
 		const embed = new MessageEmbed()
 			.setAuthor(`${member.user.tag} (${member.id})`, member.user.displayAvatarURL())
 			.setColor(this.client.settings.get('colors.red'))
 			.setTimestamp()
-			.setFooter(member.guild.language.get('GUILD_LOG_GUILDMEMBERREMOVE'));
+			.setFooter(member.guild.language.get('GUILD_LOG_GUILDMEMBERREMOVE', member));
+
+		if (member.user.bot) embed.setDescription(botBadgeEmoji);
 
 		const logChannel = await this.client.channels.get(member.guild.settings.get('channels.log'));
 		await logChannel.send('', { disableEveryone: true, embed: embed });

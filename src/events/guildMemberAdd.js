@@ -19,9 +19,18 @@ module.exports = class extends Event {
 			}
 		}
 
-		if (member.guild.settings.get('channels.log') && member.guild.settings.get('logs.events.guildMemberAdd')) await this.serverLog(member);
+		if (member.guild.settings.get('channels.log') && member.guild.settings.get('logs.events.guildMemberAdd') && !member.user.bot) await this.serverLog(member);
 
 		if (member.guild.settings.get('greetings.welcomeNewUsers')) this.client.emit('guildMemberWelcome', member);
+
+		if (member.guild.me.hasPermission('VIEW_AUDIT_LOG')) {
+			const auditLog = await member.guild.fetchAuditLogs();
+			const logEntry = await auditLog.entries.first();
+
+			const { executor } = logEntry;
+
+			if (logEntry.action === 'BOT_ADD') this.client.emit('guildBotAdd', member, executor);
+		}
 
 		return;
 	}

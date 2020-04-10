@@ -26,6 +26,7 @@ module.exports = KlasaClient.defaultGuildSchema
 			.add('emojiUpdate', 'boolean', { default: false })
 			.add('guildUpdate', 'boolean', { default: true })
 			.add('guildMemberAdd', 'boolean', { default: true })
+			.add('guildBotAdd', 'boolean', { default: true })
 			.add('guildMemberRemove', 'boolean', { default: true })
 			.add('guildMemberUpdate', 'boolean', { default: true })
 			.add('guildBoostAdd', 'boolean', { default: true })

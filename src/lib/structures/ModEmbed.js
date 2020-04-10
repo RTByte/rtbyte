@@ -66,6 +66,7 @@ class ModEmbed extends MessageEmbed {
 		if (this.modCase.silent) return null;
 		if (!this.client.users.has(this.modCase.user.id)) return null;
 		if (this.modCase.user.id === this.client.user.id) return null;
+		if (this.modCase.user.bot) return null;
 		// eslint-disable-next-line max-len
 		return await this.modCase.user.send(this.modCase.moderator.id === this.client.user.id ?
 			this.modCase.guild.language.get('MODERATION_LOG_BOILERPLATE_AUTO', this.modCase.guild) :
