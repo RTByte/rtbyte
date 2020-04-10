@@ -26,13 +26,26 @@ module.exports = class extends Event {
 	}
 
 	async run(oldMember, member) {
-		if (member.guild.available && member.guild.settings.get('channels.log') && member.guild.settings.get('logs.events.guildMemberUpdate')) await this.memberUpdateLog(oldMember, member);
-		if (!oldMember.premiumSince && member.premiumSince) await this.nitroBoost(member);
+		if (!member.guild) return;
+
+		let executor;
+		if (member.guild.me.hasPermission('VIEW_AUDIT_LOG')) {
+			const auditLog = await member.guild.fetchAuditLogs();
+			const logEntry = await auditLog.entries.first();
+
+			if (logEntry.action === 'MEMBER_UPDATE') executor = logEntry ? logEntry.executor === member.user ? undefined : logEntry.executor : undefined;
+		}
+
+		if (member.guild.settings.get('channels.log') && member.guild.settings.get('logs.events.guildMemberUpdate')) await this.serverLog(oldMember, member, executor);
 		if (member.guild.settings.get('filters.checkDisplayNames')) await this.autoSelener(member);
+
+		if (!oldMember.premiumSince && member.premiumSince) this.client.emit('guildBoostAdd', member);
+		if (oldMember.premiumSince && !member.premiumSince) this.client.emit('guildBoostRemove', member);
+
 		return;
 	}
 
-	async memberUpdateLog(oldMember, member) {
+	async serverLog(oldMember, member, executor) {
 		const arrowRightEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowRight'));
 
 		// Filter the user's roles and remove the @everyone role
@@ -58,7 +71,7 @@ module.exports = class extends Event {
 			.setAuthor(`${member.displayName} (${member.user.tag}) `, member.user.displayAvatarURL())
 			.setColor(this.client.settings.get('colors.blue'))
 			.setTimestamp()
-			.setFooter(member.guild.language.get('GUILD_LOG_MEMBERUPDATE'));
+			.setFooter(member.guild.language.get('GUILD_LOG_MEMBERUPDATE', executor), executor ? executor.displayAvatarURL() : undefined);
 
 		// User display name changed
 		// eslint-disable-next-line max-len
@@ -75,19 +88,6 @@ module.exports = class extends Event {
 
 		const logChannel = await this.client.channels.get(member.guild.settings.get('channels.log'));
 		await logChannel.send('', { disableEveryone: true, embed: embed });
-		return;
-	}
-
-	async nitroBoost(member) {
-		// Nitro boost embed
-		const nitroBoost = new MessageEmbed()
-			.setAuthor(`${member.displayName} (${member.user.tag}) `, member.user.displayAvatarURL())
-			.setColor(this.client.settings.get('colors.pink'))
-			.setTimestamp()
-			.setFooter(member.guild.language.get('GUILD_LOG_MEMBERUPDATE_NITROBOOST'));
-
-		const logChannel = await this.client.channels.get(member.guild.settings.get('channels.log'));
-		await logChannel.send('', { disableEveryone: true, embed: nitroBoost });
 		return;
 	}
 

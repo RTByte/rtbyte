@@ -8,25 +8,25 @@ module.exports = class extends Event {
 	}
 
 	async run(msg) {
-		if (msg.command && msg.command.deletable && msg.responses.length) {
-			await msg.responses.forEach(async (response) => {
-				await response.delete();
-			});
-		}
+		if (!msg.guild) return;
 
-		if (msg.guild.available && msg.guild.settings.get('channels.log') && msg.guild.settings.get('logs.events.messageDelete')) await this.deleteLog(msg);
+		if (msg.guild.settings.get('channels.log') && msg.guild.settings.get('logs.events.messageDelete')) await this.serverLog(msg);
+
+		return;
 	}
 
-	async deleteLog(msg) {
+	async serverLog(msg) {
 		let attachment;
+
 		const embed = new MessageEmbed()
-			.setAuthor(`#${msg.channel.name}`, msg.guild.iconURL())
+			.setAuthor(msg.author.tag, msg.author.displayAvatarURL())
+			.setDescription(msg.channel)
 			.setColor(this.client.settings.get('colors.blue'))
 			.setTimestamp()
-			.setFooter(msg.author.tag, msg.author.displayAvatarURL());
+			.setFooter(msg.language.get('GUILD_LOG_MESSAGEDELETE'));
 
-		if (msg.content) await embed.addField(msg.guild.language.get('GUILD_LOG_MESSAGEDELETE'), `${msg.content}`);
-		if (!msg.content) await embed.setTitle(msg.guild.language.get('GUILD_LOG_MESSAGEDELETE'));
+		if (msg.content) await embed.addField(msg.guild.language.get('MESSAGE'), `${msg.content}`);
+		if (!msg.content) await embed.setTitle(msg.guild.language.get('MESSAGE'));
 		if (msg.attachments.size > 0) {
 			attachment = msg.attachments.map(atch => atch.url).join(' ');
 			attachment = attachment

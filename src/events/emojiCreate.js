@@ -9,37 +9,29 @@ module.exports = class extends Event {
 
 	async run(emoji) {
 		if (!emoji.guild) return;
-		if (emoji.guild.available && emoji.guild.settings.get('channels.log') && emoji.guild.settings.get('logs.events.emojiCreate') && !emoji.animated) await this.emojiCreateLog(emoji);
-		if (emoji.guild.available && emoji.guild.settings.get('channels.log') && emoji.guild.settings.get('logs.events.emojiCreate') && emoji.animated) await this.animatedEmojiCreateLog(emoji);
 
-		return;
-	}
+		let executor;
+		if (emoji.guild.me.hasPermission('VIEW_AUDIT_LOG')) {
+			const auditLog = await emoji.guild.fetchAuditLogs();
+			const logEntry = await auditLog.entries.first();
 
-	async emojiCreateLog(emoji) {
-		const embed = new MessageEmbed()
-			.setAuthor(`:${emoji.name}:`, emoji.guild.iconURL())
-			.setColor(this.client.settings.get('colors.green'))
-			.addField(emoji.guild.language.get('GUILD_LOG_EMOJI'), `<:${emoji.name}:${emoji.id}>`, true)
-			.setTimestamp()
-			.setFooter(emoji.guild.language.get('GUILD_LOG_EMOJICREATE'));
-
-		if (emoji.guild.settings.get('logs.verboseLogging')) {
-			embed.addField(emoji.guild.language.get('ID'), emoji.id, true);
+			if (logEntry.action === 'EMOJI_CREATE') executor = logEntry ? logEntry.executor : undefined;
 		}
-		const logChannel = await this.client.channels.get(emoji.guild.settings.get('channels.log'));
-		await logChannel.send('', { disableEveryone: true, embed: embed });
+
+		if (emoji.guild.settings.get('channels.log') && emoji.guild.settings.get('logs.events.emojiCreate')) await this.serverLog(emoji, executor);
+
 		return;
 	}
 
-	async animatedEmojiCreateLog(emoji) {
+	async serverLog(emoji, executor) {
 		const embed = new MessageEmbed()
-			.setAuthor(`:${emoji.name}:`, emoji.guild.iconURL())
+			.setAuthor(`:${emoji.name}:`, `https://cdn.discordapp.com/emojis/${emoji.id}.${emoji.animated ? 'gif' : 'png'}`)
 			.setColor(this.client.settings.get('colors.green'))
-			.addField(emoji.guild.language.get('GUILD_LOG_EMOJI'), `<a:${emoji.name}:${emoji.id}>`)
 			.setTimestamp()
-			.setFooter(emoji.guild.language.get('GUILD_LOG_EMOJICREATE'));
+			.setFooter(emoji.guild.language.get('GUILD_LOG_EMOJICREATE', executor), executor ? executor.displayAvatarURL() : undefined);
 
 		if (emoji.guild.settings.get('logs.verboseLogging')) embed.addField(emoji.guild.language.get('ID'), emoji.id, true);
+
 		const logChannel = await this.client.channels.get(emoji.guild.settings.get('channels.log'));
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		return;

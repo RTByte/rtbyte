@@ -9,19 +9,15 @@ module.exports = class extends Event {
 
 	async run(guild) {
 		if (!guild.available) return;
-		if (this.client.settings.get('guildBlacklist').includes(guild.id)) {
-			guild.leave();
-			this.client.emit('warn', `Blacklisted guild detected: ${guild.name} (${guild.id})`);
-		}
 
 		await guild.rtbyteInit();
 
-		if (this.client.settings.get('logs.guildCreate')) await this.guildCreateLog(guild);
+		if (this.client.settings.get('logs.guildCreate')) await this.globalLog(guild);
 
 		return;
 	}
 
-	async guildCreateLog(guild) {
+	async globalLog(guild) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${guild.name} (${guild.id})`, guild.iconURL())
 			.setColor(this.client.settings.get('colors.green'))

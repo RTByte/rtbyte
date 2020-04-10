@@ -9,38 +9,47 @@ module.exports = class extends Event {
 
 	async run(channel) {
 		if (!channel.guild) return;
-		if (channel.guild.available && channel.guild.settings.get('channels.log') && channel.guild.settings.get('logs.events.channelCreate')) await this.channelCreateLog(channel);
+
+		let executor;
+		if (channel.guild.me.hasPermission('VIEW_AUDIT_LOG')) {
+			const auditLog = await channel.guild.fetchAuditLogs();
+			const logEntry = await auditLog.entries.first();
+
+			if (logEntry.action === 'CHANNEL_CREATE') executor = logEntry ? logEntry.executor : undefined;
+		}
+
+		if (channel.guild.settings.get('channels.log') && channel.guild.settings.get('logs.events.channelCreate')) await this.serverLog(channel, executor);
 
 		return;
 	}
 
-	async channelCreateLog(channel) {
+	async serverLog(channel, executor) {
 		const embed = new MessageEmbed()
 			.setAuthor(`#${channel.name}`, channel.guild.iconURL())
 			.setColor(this.client.settings.get('colors.green'))
 			.setTimestamp()
-			.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELCREATE'));
+			.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELCREATE', executor), executor ? executor.displayAvatarURL() : undefined);
 
 		// Change author and footer fields if channel is voice channel
 		if (channel.type === 'voice') {
 			embed.setAuthor(channel.name, channel.guild.iconURL());
-			embed.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELCREATE_VOICE'));
+			embed.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELCREATE_VOICE', executor), executor ? executor.displayAvatarURL() : undefined);
 		}
 
 		// Change author and footer fields if channel is category
 		if (channel.type === 'category') {
 			embed.setAuthor(channel.name, channel.guild.iconURL());
-			embed.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELCREATE_CATEGORY'));
+			embed.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELCREATE_CATEGORY', executor), executor ? executor.displayAvatarURL() : undefined);
 		}
 
 		// Change author and footer fields if channel is news channel
 		if (channel.type === 'news') {
-			embed.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELCREATE_NEWS'));
+			embed.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELCREATE_NEWS', executor), executor ? executor.displayAvatarURL() : undefined);
 		}
 
 		// Change author and footer fields if channel is store channel
 		if (channel.type === 'store') {
-			embed.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELCREATE_STORE'));
+			embed.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELCREATE_STORE', executor), executor ? executor.displayAvatarURL() : undefined);
 		}
 
 		if (channel.guild.settings.get('logs.verboseLogging')) {

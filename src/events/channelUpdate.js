@@ -15,12 +15,21 @@ module.exports = class extends Event {
 
 	async run(oldChannel, channel) {
 		if (!channel.guild) return;
-		if (channel.guild.available && channel.guild.settings.get('channels.log') && channel.guild.settings.get('logs.events.channelUpdate')) await this.channelUpdateLog(oldChannel, channel);
+
+		let executor;
+		if (channel.guild.me.hasPermission('VIEW_AUDIT_LOG')) {
+			const auditLog = await channel.guild.fetchAuditLogs();
+			const logEntry = await auditLog.entries.first();
+
+			if (logEntry.action === 'CHANNEL_UPDATE') executor = logEntry ? logEntry.executor : undefined;
+		}
+
+		if (channel.guild.settings.get('channels.log') && channel.guild.settings.get('logs.events.channelUpdate')) await this.serverLog(oldChannel, channel, executor);
 
 		return;
 	}
 
-	async channelUpdateLog(oldChannel, channel) {
+	async serverLog(oldChannel, channel, executor) {
 		const affirmEmoji = this.client.emojis.get(this.client.settings.get('emoji.affirm'));
 		const rejectEmoji = this.client.emojis.get(this.client.settings.get('emoji.reject'));
 		const arrowRightEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowRight'));
@@ -33,28 +42,28 @@ module.exports = class extends Event {
 			.setAuthor(`#${channel.name}`, channel.guild.iconURL())
 			.setColor(this.client.settings.get('colors.blue'))
 			.setTimestamp()
-			.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE'));
+			.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE', executor), executor ? executor.displayAvatarURL() : undefined);
 
 		// Change author and footer fields if channel is voice channel
 		if (channel.type === 'voice') {
 			await embed.setAuthor(channel.name, channel.guild.iconURL());
-			await embed.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_VOICE'));
+			await embed.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_VOICE', executor), executor ? executor.displayAvatarURL() : undefined);
 		}
 
 		// Change author and footer fields if channel is category
 		if (channel.type === 'category') {
 			await embed.setAuthor(channel.name, channel.guild.iconURL());
-			await embed.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_CATEGORY'));
+			await embed.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_CATEGORY', executor), executor ? executor.displayAvatarURL() : undefined);
 		}
 
 		// Change footer field if channel is news channel
 		if (channel.type === 'news') {
-			await embed.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_NEWS'));
+			await embed.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_NEWS', executor), executor ? executor.displayAvatarURL() : undefined);
 		}
 
 		// Change footer field if channel is store channel
 		if (channel.type === 'store') {
-			await embed.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_STORE'));
+			await embed.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_STORE', executor), executor ? executor.displayAvatarURL() : undefined);
 		}
 
 		// Name changed

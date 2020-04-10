@@ -8,6 +8,8 @@ module.exports = class extends Event {
 	}
 
 	async run(reaction) {
+		if (!reaction.guild) return;
+
 		let attachment;
 		const msg = reaction.message;
 		const starboardChannel = await this.client.channels.get(msg.guild.settings.get('boards.starboard.starboardChannel'));

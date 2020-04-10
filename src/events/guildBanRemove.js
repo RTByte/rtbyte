@@ -9,14 +9,14 @@ module.exports = class extends Event {
 
 	async run(guild, user) {
 		if (!guild) return;
-		let auditLog, logEntry;
 
+		let executor;
 		if (guild.me.hasPermission('VIEW_AUDIT_LOG')) {
-			auditLog = await guild.fetchAuditLogs();
-			logEntry = await auditLog.entries.first();
-		}
+			const auditLog = await guild.fetchAuditLogs();
+			const logEntry = await auditLog.entries.first();
 
-		const executor = logEntry ? logEntry.executor : undefined;
+			if (logEntry.action === 'MEMBER_BAN_REMOVE') executor = logEntry ? logEntry.executor : undefined;
+		}
 
 		const modCase = new ModCase(guild)
 			.setType('unban')

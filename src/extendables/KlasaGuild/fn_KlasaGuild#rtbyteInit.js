@@ -113,6 +113,7 @@ module.exports = class extends Extendable {
 				const idleEmoji = await this.emojis.create('./assets/img/emoji/idle.png', 'idle', { reason: `${this.client.user.username} initialization: Creating idle emoji` });
 				const dndEmoji = await this.emojis.create('./assets/img/emoji/dnd.png', 'dnd', { reason: `${this.client.user.username} initialization: Creating dnd emoji` });
 				const offlineEmoji = await this.emojis.create('./assets/img/emoji/offline.png', 'offline', { reason: `${this.client.user.username} initialization: Creating offline emoji` });
+				const botBadgeEmoji = await this.emojis.create('./assets/img/emoji/botBadge.png', 'bot_badge', { reason: `${this.client.user.username} initialization: Creating bot badge emoji` });
 				await this.client.settings.update('emoji.affirm', affirmEmoji.id, this);
 				await this.client.settings.update('emoji.reject', rejectEmoji.id, this);
 				await this.client.settings.update('emoji.arrowLeft', arrowLeftEmoji.id, this);
@@ -125,6 +126,7 @@ module.exports = class extends Extendable {
 				await this.client.settings.update('emoji.idle', idleEmoji.id, this);
 				await this.client.settings.update('emoji.dnd', dndEmoji.id, this);
 				await this.client.settings.update('emoji.offline', offlineEmoji.id, this);
+				await this.client.settings.update('emoji.botBadge', botBadgeEmoji.id, this);
 				await this.client.settings.sync(true);
 			}
 		} else {

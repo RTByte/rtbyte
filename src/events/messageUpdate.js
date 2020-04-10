@@ -8,23 +8,22 @@ module.exports = class extends Event {
 	}
 
 	async run(old, msg) {
-		if (this.client.ready && !old.partial && old.content !== msg.content) this.client.monitors.run(msg);
+		if (!msg.guild) return;
 
-		if (msg.guild && msg.guild.settings.get('channels.log') && msg.guild.settings.get('logs.events.messageUpdate') && old.content !== msg.content) await this.editLog(old, msg);
+		if (msg.guild.settings.get('channels.log') && msg.guild.settings.get('logs.events.messageUpdate') && old.content !== msg.content) await this.serverLog(old, msg);
 
 		return;
 	}
 
-	async editLog(old, msg) {
+	async serverLog(old, msg) {
 		const embed = new MessageEmbed()
-			.setAuthor(`#${msg.channel.name}`, msg.guild.iconURL())
+			.setAuthor(msg.author.tag, msg.author.displayAvatarURL())
 			.setColor(this.client.settings.get('colors.blue'))
-			.setTitle(msg.guild.language.get('GUILD_LOG_MESSAGEUPDATE'))
-			.setDescription(`[${msg.guild.language.get('CLICK_TO_VIEW')}](${msg.url})`)
-			.addField(msg.guild.language.get('GUILD_LOG_BEFORE'), `${old.content}`)
-			.addField(msg.guild.language.get('GUILD_LOG_AFTER'), `${msg.content}`)
+			.setDescription(`${msg.channel}\n[${msg.language.get('CLICK_TO_VIEW')}](${msg.url})`)
+			.addField(msg.language.get('GUILD_LOG_BEFORE'), `${old.content}`)
+			.addField(msg.language.get('GUILD_LOG_AFTER'), `${msg.content}`)
 			.setTimestamp()
-			.setFooter(msg.author.tag, msg.author.displayAvatarURL());
+			.setFooter(msg.language.get('GUILD_LOG_MESSAGEUPDATE'));
 
 		const logChannel = await this.client.channels.get(msg.guild.settings.get('channels.log'));
 		await logChannel.send('', { disableEveryone: true, embed: embed });

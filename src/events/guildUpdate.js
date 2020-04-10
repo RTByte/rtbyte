@@ -32,14 +32,25 @@ module.exports = class extends Event {
 	}
 
 	async run(oldGuild, guild) {
-		if (this.client.settings.get('logs.guildCreate')) await this.globalGuildUpdateLog(oldGuild, guild);
-		if (guild.available && guild.settings.get('channels.log') && guild.settings.get('logs.events.guildUpdate')) await this.guildUpdateLog(oldGuild, guild);
-		if (oldGuild.premiumTier !== guild.premiumTier) await this.nitroLevel(guild);
+		if (!guild) return;
+
+		let executor;
+		if (guild.me.hasPermission('VIEW_AUDIT_LOG')) {
+			const auditLog = await guild.fetchAuditLogs();
+			const logEntry = await auditLog.entries.first();
+
+			if (logEntry.action === 'GUILD_UPDATE') executor = logEntry ? logEntry.executor : undefined;
+		}
+
+		if (this.client.settings.get('logs.guildUpdate')) await this.globalLog(oldGuild, guild);
+		if (guild.settings.get('channels.log') && guild.settings.get('logs.events.guildUpdate')) await this.serverLog(oldGuild, guild, executor);
+
+		if (oldGuild.premiumTier !== guild.premiumTier) this.client.emit('guildBoostTierUpdate', guild);
 
 		return;
 	}
 
-	async guildUpdateLog(oldGuild, guild) {
+	async serverLog(oldGuild, guild, executor) {
 		const affirmEmoji = this.client.emojis.get(this.client.settings.get('emoji.affirm'));
 		const rejectEmoji = this.client.emojis.get(this.client.settings.get('emoji.reject'));
 		const arrowRightEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowRight'));
@@ -59,7 +70,7 @@ module.exports = class extends Event {
 			.setAuthor(guild.name, guild.iconURL())
 			.setColor(this.client.settings.get('colors.blue'))
 			.setTimestamp()
-			.setFooter(guild.language.get('GUILD_LOG_GUILDUPDATE'));
+			.setFooter(guild.language.get('GUILD_LOG_GUILDUPDATE', executor), executor ? executor.displayAvatarURL() : undefined);
 
 		// AFK channel changed
 		// eslint-disable-next-line max-len
@@ -179,21 +190,7 @@ module.exports = class extends Event {
 		return;
 	}
 
-	async nitroLevel(guild) {
-		// Nitro boost embed
-		const nitroEmbed = new MessageEmbed()
-			.setAuthor(guild.name, guild.iconURL())
-			.setColor(this.client.settings.get('colors.pink'))
-			.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_NITROLEVEL_TITLES', guild), guild.language.get('GUILD_LOG_GUILDUPDATE_NITROLEVEL_DETAILS', guild))
-			.setTimestamp()
-			.setFooter(guild.language.get('GUILD_LOG_GUILDUPDATE_NITROLEVEL'));
-
-		const logChannel = await this.client.channels.get(guild.settings.get('channels.log'));
-		await logChannel.send('', { disableEveryone: true, embed: nitroEmbed });
-		return;
-	}
-
-	async globalGuildUpdateLog(oldGuild, guild) {
+	async globalLog(oldGuild, guild) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${guild.name} (${guild.id})`, guild.iconURL())
 			.setColor(this.client.settings.get('colors.blue'))

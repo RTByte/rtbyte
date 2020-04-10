@@ -24,7 +24,7 @@ module.exports = class extends Command {
 		const cmd = msg.guild.settings.get('commands.customCommands').find(c => c.name.toLowerCase() === name);
 		if (!cmd) return msg.reject(msg.language.get('COMMAND_CUSTOMCMD_NOT_EXIST'));
 		await msg.guild.settings.update('commands.customCommands', cmd, { action: 'remove' });
-		this.client.emit('customCmdDelete', msg, name);
+		this.client.emit('customCmdDelete', msg, name, msg.author);
 		return msg.affirm();
 	}
 

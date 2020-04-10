@@ -7,6 +7,8 @@ module.exports = class extends Event {
 	}
 
 	async run(msg) {
+		if (!msg.guild) return;
+
 		const starboardChannel = await this.client.channels.get(msg.guild.settings.get('boards.starboard.starboardChannel'));
 		if (!msg.guild.settings.get('boards.starboard.starboardEnabled')) return;
 
