@@ -17,10 +17,10 @@ module.exports = class extends Command {
 	}
 
 	async run(msg, [membername = msg.member]) {
-		const onlineEmoji = this.client.emojis.get(this.client.settings.emoji.online);
-		const idleEmoji = this.client.emojis.get(this.client.settings.emoji.idle);
-		const dndEmoji = this.client.emojis.get(this.client.settings.emoji.dnd);
-		const offlineEmoji = this.client.emojis.get(this.client.settings.emoji.offline);
+		const onlineEmoji = this.client.emojis.cache.get(this.client.settings.emoji.online);
+		const idleEmoji = this.client.emojis.cache.get(this.client.settings.emoji.idle);
+		const dndEmoji = this.client.emojis.cache.get(this.client.settings.emoji.dnd);
+		const offlineEmoji = this.client.emojis.cache.get(this.client.settings.emoji.offline);
 		const statuses = {
 			online: `${onlineEmoji} ${msg.guild.language.get('ONLINE')}`,
 			idle: `${idleEmoji} ${msg.guild.language.get('IDLE')}`,
@@ -28,9 +28,9 @@ module.exports = class extends Command {
 			offline: `${offlineEmoji} ${msg.guild.language.get('OFFLINE')}`
 		};
 
-		const roles = await membername.roles.filter(role => role.name !== '@everyone').sort().array();
+		const roles = await membername.roles.cache.filter(role => role.name !== '@everyone').sort().array();
 
-		const joinPosition = await msg.guild.members.array().sort((first, last) => first.joinedAt - last.joinedAt);
+		const joinPosition = await msg.guild.members.cache.array().sort((first, last) => first.joinedAt - last.joinedAt);
 
 		const position = joinPosition.indexOf(membername) + 1;
 

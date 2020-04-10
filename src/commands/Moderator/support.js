@@ -15,7 +15,7 @@ module.exports = class extends Command {
 	}
 
 	async run(msg, [...reason]) {
-		const globalLogChannel = await this.client.channels.get(this.client.settings.channels.globalLog);
+		const globalLogChannel = await this.client.channels.cache.get(this.client.settings.channels.globalLog);
 		await msg.channel.createInvite({ temporary: true, maxUses: 10, unique: true, reason: msg.language.get('COMMAND_SUPPORT_INVITE_GENERATED') })
 			.then(invite => {
 				const embed = new MessageEmbed()

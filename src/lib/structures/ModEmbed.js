@@ -56,15 +56,15 @@ class ModEmbed extends MessageEmbed {
 	}
 
 	async send() {
-		if (this.modCase.guild.settings.get(`logs.moderation.${[this.modCase.type]}`)) {
-			const logChannel = this.modCase.guild.channels.get(this.modCase.guild.settings.channels.log);
+		if (this.modCase.guild.settings.logs.moderation[this.modCase.type]) {
+			const logChannel = this.modCase.guild.channels.cache.get(this.modCase.guild.settings.channels.log);
 			await logChannel.send('', { disableEveryone: true, embed: this });
 		}
 
 		if (!this.modCase.guild.settings.moderation.notifyUser) return null;
 		if (this.modCase.type === 'unban') return null;
 		if (this.modCase.silent) return null;
-		if (!this.client.users.has(this.modCase.user.id)) return null;
+		if (!this.client.users.cache.has(this.modCase.user.id)) return null;
 		if (this.modCase.user.id === this.client.user.id) return null;
 		if (this.modCase.user.bot) return null;
 		// eslint-disable-next-line max-len

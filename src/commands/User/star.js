@@ -22,7 +22,7 @@ module.exports = class extends Command {
 		const selected = starredMessages[Math.floor(Math.random() * starredMessages.length)];
 		const { msgID, channelID, stars } = selected;
 
-		const channel = await msg.guild.channels.get(channelID);
+		const channel = await msg.guild.channels.cache.get(channelID);
 		const fetchedStar = await channel.messages.fetch(msgID);
 
 		const embed = new MessageEmbed()
@@ -36,7 +36,7 @@ module.exports = class extends Command {
 			.setFooter(`🌟 ${stars}`);
 		if (fetchedStar.content) await embed.addField(msg.guild.language.get('MESSAGE'), fetchedStar.content);
 		if (fetchedStar.attachments.size > 0) {
-			attachment = fetchedStar.attachments.map(atch => atch.url).join(' ');
+			attachment = fetchedStar.attachments.cache.map(atch => atch.url).join(' ');
 			attachment = attachment
 				.replace('//cdn.', '//media.')
 				.replace('.com/', '.net/');
@@ -56,7 +56,7 @@ module.exports = class extends Command {
 		const selected = starredMessages.find(st => st.stars === top);
 		const { msgID, channelID, stars } = selected;
 
-		const channel = await msg.guild.channels.get(channelID);
+		const channel = await msg.guild.channels.cache.get(channelID);
 		const fetchedStar = await channel.messages.fetch(msgID);
 
 		const embed = new MessageEmbed()
@@ -70,7 +70,7 @@ module.exports = class extends Command {
 			.setFooter(`🌟 ${stars}`);
 		if (fetchedStar.content) await embed.addField(msg.guild.language.get('MESSAGE'), fetchedStar.content);
 		if (fetchedStar.attachments.size > 0) {
-			attachment = fetchedStar.attachments.map(atch => atch.url).join(' ');
+			attachment = fetchedStar.attachments.cache.map(atch => atch.url).join(' ');
 			attachment = attachment
 				.replace('//cdn.', '//media.')
 				.replace('.com/', '.net/');

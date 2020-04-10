@@ -35,7 +35,7 @@ module.exports = class extends Command {
 		if (qmsg.content) await embed.addField(msg.language.get('MESSAGE'), `${qmsg.content}`, true);
 		if (!qmsg.content) await embed.setTitle(msg.language.get('MESSAGE'));
 		if (qmsg.attachments.size > 0) {
-			attachment = qmsg.attachments.map(atch => atch.url).join(' ');
+			attachment = qmsg.attachments.cache.map(atch => atch.url).join(' ');
 			attachment = attachment
 				.replace('//cdn.', '//media.')
 				.replace('.com/', '.net/');

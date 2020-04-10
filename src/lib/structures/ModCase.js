@@ -39,7 +39,7 @@ module.exports = class Case {
 
 	setModerator(user) {
 		if (!(user instanceof KlasaUser)) throw 'Case#setModerator requires a valid KlasaUser!';
-		if (!this.guild.members.has(user.id)) throw `${user.id} is not a member of ${this.guild.name}!`;
+		if (!this.guild.members.cache.has(user.id)) throw `${user.id} is not a member of ${this.guild.name}!`;
 		this.moderator = user;
 		return this;
 	}
@@ -123,7 +123,7 @@ module.exports = class Case {
 		this.id = await this._getID();
 		this.submitted = true;
 
-		const member = this.guild.members.get(this.user.id);
+		const member = this.guild.members.cache.get(this.user.id);
 
 		await this.client.settings.update('moderation.cases', await this.pack(), this.guild);
 		if (member && member.id !== this.client.user.id) await member.settings.update('moderation.cases', this.id, this.guild);
@@ -134,7 +134,7 @@ module.exports = class Case {
 	async delete() {
 		if (!this.submitted) throw 'Cases cannot be deleted unless submitted first!';
 
-		const member = this.guild.members.get(this.user);
+		const member = this.guild.members.cache.get(this.user);
 
 		await this.client.settings.destroy('moderation.cases', this, this.guild);
 		await member.settings.destroy('moderation.cases', this.id, this.guild);
@@ -164,12 +164,12 @@ module.exports = class Case {
 
 	async unpack(pack) {
 		this.id = pack.id ? pack.id : null;
-		this.guild = pack.guild && this.client.guilds.has(pack.guild) ? this.client.guilds.get(pack.guild) : this.guild;
+		this.guild = pack.guild && this.client.guilds.cache.has(pack.guild) ? this.client.guilds.cache.get(pack.guild) : this.guild;
 		this.timestamp = pack.timestamp ? pack.timestamp : null;
 		this.submitted = pack.submitted ? pack.submitted : null;
-		this.user = pack.user && this.client.users.has(pack.user) ? this.client.users.get(pack.user) : null;
+		this.user = pack.user && this.client.users.cache.has(pack.user) ? this.client.users.cache.get(pack.user) : null;
 		this.type = pack.type ? pack.type : null;
-		this.moderator = pack.moderator && this.client.users.has(pack.moderator) ? this.client.users.get(pack.moderator) : null;
+		this.moderator = pack.moderator && this.client.users.cache.has(pack.moderator) ? this.client.users.cache.get(pack.moderator) : null;
 		this.reason = pack.reason ? pack.reason : null;
 		this.silent = pack.silent ? pack.silent : null;
 		this.duration = pack.duration ? pack.duration : null;
@@ -177,7 +177,7 @@ module.exports = class Case {
 		this.messageContent = pack.messageContent ? pack.messageContent : null;
 		this.badNickname = pack.badNickname ? pack.badNickname : null;
 		this.link = pack.link ? pack.link : null;
-		this.channel = pack.channel && this.client.channels.has(pack.channel) ? this.client.channels.get(pack.channel) : null;
+		this.channel = pack.channel && this.client.channels.cache.has(pack.channel) ? this.client.channels.cache.get(pack.channel) : null;
 		return this;
 	}
 

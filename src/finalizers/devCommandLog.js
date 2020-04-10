@@ -30,7 +30,7 @@ module.exports = class extends Finalizer {
 			.setTimestamp()
 			.setFooter(message.author.tag, message.author.displayAvatarURL());
 
-		logChannel = await this.client.channels.get(logChannel);
+		logChannel = await this.client.channels.cache.get(logChannel);
 		return logChannel.send('', { disableEveryone: true, embed: embed });
 	}
 
@@ -44,7 +44,7 @@ module.exports = class extends Finalizer {
 			.setTimestamp()
 			.setFooter(message.author.tag, message.author.displayAvatarURL());
 
-		logChannel = await this.client.channels.get(logChannel);
+		logChannel = await this.client.channels.cache.get(logChannel);
 		return logChannel.send('', { disableEveryone: true, embed: embed });
 	}
 

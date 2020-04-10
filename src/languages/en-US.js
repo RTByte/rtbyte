@@ -23,18 +23,18 @@ module.exports = class extends Language {
 			ALL: 'All messages',
 			MENTIONS: 'Only @mentions'
 		};
-		this.verificationLevels = [
-			'None',
-			'Low',
-			'Medium',
-			'(╯°□°）╯︵ ┻━┻',
-			'┻━┻ ﾐヽ(ಠ益ಠ)ノ彡┻━┻'
-		];
-		this.filterLevels = [
-			'Off',
-			'On for unroled users',
-			'On for everyone'
-		];
+		this.verificationLevels = {
+			NONE: 'None',
+			LOW: 'Low',
+			MEDIUM: 'Medium',
+			HIGH: '(╯°□°）╯︵ ┻━┻',
+			VERY_HIGH: '┻━┻ ﾐヽ(ಠ益ಠ)ノ彡┻━┻'
+		};
+		this.filterLevels = {
+			DISABLED: 'Off',
+			MEMBERS_WITHOUT_ROLES: 'On for unroled users',
+			ALL_MEMBERS: 'On for everyone'
+		};
 		this.nitroTierTitles = [
 			'No levels achieved yet',
 			'Level 1 (2 boosts)',
@@ -385,7 +385,7 @@ module.exports = class extends Language {
 			COMMAND_SENDMSG_DISCLAIMER: (guild) => `This message was sent from the **${guild.name}** Discord and can not be replied to. If you have any questions regarding the contents of it, please contact a moderator.`,
 			COMMAND_SERVERINFO_DESCRIPTION: 'Displays server information.',
 			COMMAND_SERVERINFO_REGION: 'Region',
-			COMMAND_SERVERINFO_MEMBERCOUNT: (guild) => `${guild.memberCount} (${guild.members.filter(member => member.user.bot).size} bots)`,
+			COMMAND_SERVERINFO_MEMBERCOUNT: (guild) => `${guild.memberCount} (${guild.members.cache.filter(member => member.user.bot).size} bots)`,
 			COMMAND_SERVERINFO_PRUNABLE: 'Prunable members',
 			COMMAND_SERVERINFO_CHANNELDETAILS: (textVoiceChannels, textChannels, voiceChannels) => `${textVoiceChannels} (${textChannels} text, ${voiceChannels} voice)`,
 			COMMAND_SERVERINFO_VLEVEL: 'Verification level',

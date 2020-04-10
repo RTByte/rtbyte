@@ -14,7 +14,7 @@ module.exports = class extends Monitor {
 	async run(msg) {
 		if (!msg.guild) return;
 		if (!msg.guild.settings.filters.wordBlacklistEnabled || !msg.guild.settings.filters.words.length) return;
-		if (msg.guild.settings.filters.modBypass && (msg.member.roles.has(msg.guild.settings.roles.moderator) || msg.member.roles.has(msg.guild.settings.roles.administrator))) return;
+		if (msg.guild.settings.filters.modBypass && (msg.member.roles.cache.has(msg.guild.settings.roles.moderator) || msg.member.roles.cache.has(msg.guild.settings.roles.administrator))) return;
 		const sentence = msg.content;
 		const blacklist = msg.guild.settings.filters.words;
 

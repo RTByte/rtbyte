@@ -28,8 +28,8 @@ module.exports = class extends Extendable {
 		}
 
 		if (clientMember.hasPermission('MANAGE_CHANNELS')) {
-			const adminRole = await this.roles.get(this.settings.roles.administrator);
-			const modRole = await this.roles.get(this.settings.roles.moderator);
+			const adminRole = await this.roles.cache.get(this.settings.roles.administrator);
+			const modRole = await this.roles.cache.get(this.settings.roles.moderator);
 
 			// Creating log channel
 			const logChannel = await this.channels.create('server-log', {
@@ -134,7 +134,7 @@ module.exports = class extends Extendable {
 		}
 
 		// Informing guild owner of bot initialization
-		const owner = await this.client.users.get(this.ownerID);
+		const owner = await this.client.users.cache.get(this.ownerID);
 		// Building server owner message embed
 		const embed = new MessageEmbed()
 			.setAuthor(this.language.get('INIT_TITLE'), this.client.user.displayAvatarURL())

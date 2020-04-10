@@ -28,7 +28,7 @@ module.exports = class extends Command {
 			.addField(msg.guild.language.get('COMMAND_STATS_MEMUSAGE'), `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`, true)
 			.addField(msg.guild.language.get('COMMAND_STATS_UPTIME'), moment.duration(this.client.uptime, 'ms').humanize(), true)
 			// eslint-disable-next-line max-len
-			.addField(msg.guild.language.get('COMMAND_STATS_CONNECTIONS'), msg.guild.language.get('COMMAND_STATS_CONNECTIONINFO', this.client.guilds.size, this.client.channels.size, this.client.users.size))
+			.addField(msg.guild.language.get('COMMAND_STATS_CONNECTIONS'), msg.guild.language.get('COMMAND_STATS_CONNECTIONINFO', this.client.guilds.cache.size, this.client.channels.cache.size, this.client.users.cache.size))
 			// eslint-disable-next-line max-len
 			.addField(msg.guild.language.get('COMMAND_STATS_LIBRARIES'), `• [Klasa v${klasaVersion}](https://klasa.js.org/)\n• [Discord.js v${discordVersion}](https://discord.js.org/)\n• [Node.js ${process.version}](https://nodejs.org/)`, true)
 			.addField(msg.guild.language.get('COMMAND_STATS_HOSTINFO'), `${os.type()} (${os.arch()}), ${os.hostname()}`, true)

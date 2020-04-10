@@ -79,12 +79,12 @@ module.exports = class extends Command {
 	}
 
 	async buildDisplay(msg) {
-		const arrowToLeftEmoji = this.client.emojis.get(this.client.settings.emoji.arrowToLeft);
-		const arrowLeftEmoji = this.client.emojis.get(this.client.settings.emoji.arrowLeft);
-		const arrowRightEmoji = this.client.emojis.get(this.client.settings.emoji.arrowRight);
-		const arrowToRightEmoji = this.client.emojis.get(this.client.settings.emoji.arrowToRight);
-		const rejectEmoji = this.client.emojis.get(this.client.settings.emoji.reject);
-		const listEmoji = this.client.emojis.get(this.client.settings.emoji.list);
+		const arrowToLeftEmoji = this.client.emojis.cache.get(this.client.settings.emoji.arrowToLeft);
+		const arrowLeftEmoji = this.client.emojis.cache.get(this.client.settings.emoji.arrowLeft);
+		const arrowRightEmoji = this.client.emojis.cache.get(this.client.settings.emoji.arrowRight);
+		const arrowToRightEmoji = this.client.emojis.cache.get(this.client.settings.emoji.arrowToRight);
+		const rejectEmoji = this.client.emojis.cache.get(this.client.settings.emoji.reject);
+		const listEmoji = this.client.emojis.cache.get(this.client.settings.emoji.list);
 		const commands = await this._fetchCommands(msg);
 		const prefix = msg.guild ? msg.guild.settings.prefix : this.client.options.prefix;
 		const display = new RichDisplay()

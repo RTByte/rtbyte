@@ -39,11 +39,11 @@ module.exports = class extends Command {
 	}
 
 	async run(msg) {
-		const roles = await msg.guild.roles.filter(role => role.name !== '@everyone').sort().array();
-		const textVoiceChannels = await msg.guild.channels.filter(channel => channel.type === 'text' || channel.type === 'news' || channel.type === 'voice').array();
-		const textChannels = await msg.guild.channels.filter(channel => channel.type === 'text' || channel.type === 'news').array();
-		const voiceChannels = await msg.guild.channels.filter(channel => channel.type === 'voice').array();
-		const emojis = await msg.guild.emojis.array();
+		const roles = await msg.guild.roles.cache.filter(role => role.name !== '@everyone').sort().array();
+		const textVoiceChannels = await msg.guild.channels.cache.filter(channel => channel.type === 'text' || channel.type === 'news' || channel.type === 'voice').array();
+		const textChannels = await msg.guild.channels.cache.filter(channel => channel.type === 'text' || channel.type === 'news').array();
+		const voiceChannels = await msg.guild.channels.cache.filter(channel => channel.type === 'voice').array();
+		const emojis = await msg.guild.emojis.cache.array();
 		let prunable;
 		await msg.guild.members.prune({ days: 30, dry: true }).then(pruned => {
 			prunable = pruned;
@@ -60,7 +60,7 @@ module.exports = class extends Command {
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_PRUNABLE'), prunable, true)
 			.addField(msg.guild.language.get('ROLES'), roles.length, true)
 			.addField(msg.guild.language.get('CHANNELS'), msg.guild.language.get('COMMAND_SERVERINFO_CHANNELDETAILS', textVoiceChannels.length, textChannels.length, voiceChannels.length), true)
-			.addField(msg.guild.language.get('EMOJIS'), msg.guild.emojis.size, true)
+			.addField(msg.guild.language.get('EMOJIS'), emojis.length, true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_VLEVEL'), msg.guild.language.get('COMMAND_SERVERINFO_VLEVEL_LEVELS', msg.guild), true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_ECFILTER'), msg.guild.language.get('COMMAND_SERVERINFO_ECFILTER_LEVELS', msg.guild), true)
 			.addField(msg.guild.language.get('CREATED'), moment.tz(msg.guild.createdTimestamp, msg.guild.settings.timezone).format('Do MMMM YYYY, h:mmA zz'), true)

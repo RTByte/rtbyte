@@ -15,7 +15,7 @@ module.exports = class extends Command {
 		});
 	}
 
-	async run(msg, [rolename = msg.member.roles.first()]) {
+	async run(msg, [rolename = msg.member.roles.cache.first()]) {
 		const perms = {
 			ADMINISTRATOR: msg.language.get('PERMISSIONS_ADMINISTRATOR'),
 			VIEW_AUDIT_LOG: msg.language.get('PERMISSIONS_VIEW_AUDIT_LOG'),
@@ -49,8 +49,8 @@ module.exports = class extends Command {
 			STREAM: msg.language.get('PERMISSIONS_STREAM')
 		};
 		const permissions = Object.entries(rolename.permissions.serialize()).filter(perm => perm[1]).map(([perm]) => perms[perm]).join(', ');
-		const affirmEmoji = this.client.emojis.get(this.client.settings.emoji.affirm);
-		const rejectEmoji = this.client.emojis.get(this.client.settings.emoji.reject);
+		const affirmEmoji = this.client.emojis.cache.get(this.client.settings.emoji.affirm);
+		const rejectEmoji = this.client.emojis.cache.get(this.client.settings.emoji.reject);
 		const status = {
 			true: affirmEmoji,
 			false: rejectEmoji

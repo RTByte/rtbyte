@@ -14,7 +14,7 @@ module.exports = class extends Monitor {
 	async run(msg) {
 		if (!msg.guild) return;
 		if (!msg.guild.settings.filters.antiInviteEnabled) return;
-		if (msg.guild.settings.filters.modBypass && (msg.member.roles.has(msg.guild.settings.roles.moderator) || msg.member.roles.has(msg.guild.settings.roles.administrator))) return;
+		if (msg.guild.settings.filters.modBypass && (msg.member.roles.cache.has(msg.guild.settings.roles.moderator) || msg.member.roles.cache.has(msg.guild.settings.roles.administrator))) return;
 		const words = msg.content.split(' ');
 		const inviteWhitelist = Object(msg.guild.settings.filters.inviteWhitelist);
 
