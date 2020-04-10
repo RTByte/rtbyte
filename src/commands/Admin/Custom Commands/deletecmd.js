@@ -17,11 +17,11 @@ module.exports = class extends Command {
 	}
 
 	async run(msg, [name]) {
-		if (!msg.guild.settings.get('commands.customCommandsEnabled')) return msg.reject(msg.language.get('COMMAND_DELETECMD_NOTENABLED'));
+		if (!msg.guild.settings.commands.customCommandsEnabled) return msg.reject(msg.language.get('COMMAND_DELETECMD_NOTENABLED'));
 
 		name = name.toLowerCase();
 		// eslint-disable-next-line id-length
-		const cmd = msg.guild.settings.get('commands.customCommands').find(c => c.name.toLowerCase() === name);
+		const cmd = msg.guild.settings.commands.customCommands.find(c => c.name.toLowerCase() === name);
 		if (!cmd) return msg.reject(msg.language.get('COMMAND_CUSTOMCMD_NOT_EXIST'));
 		await msg.guild.settings.update('commands.customCommands', cmd, { action: 'remove' });
 		this.client.emit('customCmdDelete', msg, name, msg.author);

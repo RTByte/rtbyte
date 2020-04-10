@@ -19,12 +19,12 @@ module.exports = class extends Command {
 	}
 
 	async run(msg, [name, ...content]) {
-		if (!msg.guild.settings.get('commands.customCommandsEnabled')) return msg.reject(msg.language.get('COMMAND_CREATECMD_NOTENABLED'));
+		if (!msg.guild.settings.commands.customCommandsEnabled) return msg.reject(msg.language.get('COMMAND_CREATECMD_NOTENABLED'));
 
 		name = name.toLowerCase();
 		if (this.client.commands.has(name)) return msg.reject(msg.language.get('COMMAND_CUSTOM_CMD_NATIVE', name));
 		// eslint-disable-next-line id-length
-		const cmd = msg.guild.settings.get('commands.customCommands').find(c => c.name.toLowerCase() === name);
+		const cmd = msg.guild.settings.commands.customCommands.find(c => c.name.toLowerCase() === name);
 		if (cmd) return msg.reject(msg.language.get('COMMAND_CREATECMD_ALREADY_EXIST', name));
 		await msg.guild.settings.update('commands.customCommands', { name: name, content: content.join(' ') });
 		this.client.emit('customCmdCreate', msg, name, content, msg.author);

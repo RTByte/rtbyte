@@ -8,15 +8,15 @@ module.exports = class extends Event {
 	}
 
 	async run(member) {
-		if (!member.guild.settings.get('channels.log') && !member.guild.settings.get('logs.events.guildBoostAdd')) return;
+		if (!member.guild.settings.channels.log && !member.guild.settings.logs.events.guildBoostAdd) return;
 
 		const embed = new MessageEmbed()
 			.setAuthor(`${member.displayName} (${member.user.tag}) `, member.user.displayAvatarURL())
-			.setColor(this.client.settings.get('colors.pink'))
+			.setColor(this.client.settings.colors.pink)
 			.setTimestamp()
 			.setFooter(member.guild.language.get('GUILD_LOG_BOOSTADD'));
 
-		const logChannel = await this.client.channels.get(member.guild.settings.get('channels.log'));
+		const logChannel = await this.client.channels.get(member.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		return;
 	}

@@ -10,7 +10,7 @@ module.exports = class extends Event {
 	async run(msg, cmdName, cmdContent, executor) {
 		if (!msg.guild) return;
 
-		if (msg.guild.settings.get('channels.log') && msg.guild.settings.get('logs.events.customCmdCreate')) await this.serverLog(msg, cmdName, cmdContent, executor);
+		if (msg.guild.settings.channels.log && msg.guild.settings.logs.events.customCmdCreate) await this.serverLog(msg, cmdName, cmdContent, executor);
 
 		return;
 	}
@@ -18,11 +18,11 @@ module.exports = class extends Event {
 	async serverLog(msg, cmdName, cmdContent, executor) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${cmdName}`, msg.guild.iconURL())
-			.setColor(this.client.settings.get('colors.green'))
+			.setColor(this.client.settings.colors.green)
 			.addField(msg.language.get('GUILD_LOG_CUSTOMCMDCREATE_RESPONSE'), cmdContent)
 			.setTimestamp()
 			.setFooter(msg.guild.language.get('GUILD_LOG_CUSTOMCMDCREATE', executor), executor.displayAvatarURL());
-		const logChannel = await this.client.channels.get(msg.guild.settings.get('channels.log'));
+		const logChannel = await this.client.channels.get(msg.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		return;
 	}

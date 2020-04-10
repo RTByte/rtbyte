@@ -18,7 +18,7 @@ module.exports = class extends Event {
 			if (logEntry.action === 'EMOJI_DELETE') executor = logEntry ? logEntry.executor : undefined;
 		}
 
-		if (emoji.guild.settings.get('channels.log') && emoji.guild.settings.get('logs.events.emojiDelete')) await this.serverLog(emoji, executor);
+		if (emoji.guild.settings.channels.log && emoji.guild.settings.logs.events.emojiDelete) await this.serverLog(emoji, executor);
 
 		return;
 	}
@@ -26,12 +26,12 @@ module.exports = class extends Event {
 	async serverLog(emoji, executor) {
 		const embed = new MessageEmbed()
 			.setAuthor(`:${emoji.name}:`, `https://cdn.discordapp.com/emojis/${emoji.id}.${emoji.animated ? 'gif' : 'png'}`)
-			.setColor(this.client.settings.get('colors.red'))
+			.setColor(this.client.settings.colors.red)
 			.setTimestamp()
 			.setFooter(emoji.guild.language.get('GUILD_LOG_EMOJIDELETE', executor), executor ? executor.displayAvatarURL() : undefined);
 
-		if (emoji.guild.settings.get('logs.verboseLogging')) embed.addField(emoji.guild.language.get('ID'), emoji.id, true);
-		const logChannel = await this.client.channels.get(emoji.guild.settings.get('channels.log'));
+		if (emoji.guild.settings.logs.verboseLogging) embed.addField(emoji.guild.language.get('ID'), emoji.id, true);
+		const logChannel = await this.client.channels.get(emoji.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		return;
 	}

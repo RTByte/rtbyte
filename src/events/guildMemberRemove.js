@@ -10,9 +10,9 @@ module.exports = class extends Event {
 	async run(member) {
 		if (!member.guild) return;
 
-		if (member.guild.available && member.guild.settings.get('channels.log') && member.guild.settings.get('logs.events.guildMemberRemove')) await this.serverLog(member);
+		if (member.guild.available && member.guild.settings.channels.log && member.guild.settings.logs.events.guildMemberRemove) await this.serverLog(member);
 
-		if (member.guild.available && member.guild.settings.get('greetings.dismissUsers')) this.client.emit('guildMemberDismiss', member);
+		if (member.guild.available && member.guild.settings.greetings.dismissUsers) this.client.emit('guildMemberDismiss', member);
 
 		if (member.guild.me.hasPermission('VIEW_AUDIT_LOG')) {
 			const auditLog = await member.guild.fetchAuditLogs();
@@ -27,17 +27,17 @@ module.exports = class extends Event {
 	}
 
 	async serverLog(member) {
-		const botBadgeEmoji = this.client.emojis.get(this.client.settings.get('emoji.botBadge'));
+		const botBadgeEmoji = this.client.emojis.get(this.client.settings.emoji.botBadge);
 
 		const embed = new MessageEmbed()
 			.setAuthor(`${member.user.tag} (${member.id})`, member.user.displayAvatarURL())
-			.setColor(this.client.settings.get('colors.red'))
+			.setColor(this.client.settings.colors.red)
 			.setTimestamp()
 			.setFooter(member.guild.language.get('GUILD_LOG_GUILDMEMBERREMOVE', member));
 
 		if (member.user.bot) embed.setDescription(botBadgeEmoji);
 
-		const logChannel = await this.client.channels.get(member.guild.settings.get('channels.log'));
+		const logChannel = await this.client.channels.get(member.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		return;
 	}

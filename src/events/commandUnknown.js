@@ -14,13 +14,13 @@ module.exports = class extends Event {
 		const runTime = new Stopwatch();
 
 		// Return if custom commands aren't enabled or there are no custom commands on the server
-		if (!msg.guild.settings.get('commands.customCommandsEnabled')) return;
-		if (!msg.guild.settings.get('commands.customCommands').length) return;
+		if (!msg.guild.settings.commands.customCommandsEnabled) return;
+		if (!msg.guild.settings.commands.customCommands.length) return;
 		await msg.guild.settings.sync(true);
 
 		// Checks unknown command against guild's custom commands
 		command = command.toLowerCase();
-		const customCommand = msg.guild.settings.get('commands.customCommands').find(custCmd => custCmd.name.toLowerCase() === command);
+		const customCommand = msg.guild.settings.commands.customCommands.find(custCmd => custCmd.name.toLowerCase() === command);
 		// Return if custom command doesn't exist
 		if (!customCommand) return;
 

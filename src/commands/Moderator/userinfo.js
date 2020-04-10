@@ -17,10 +17,10 @@ module.exports = class extends Command {
 	}
 
 	async run(msg, [membername = msg.member]) {
-		const onlineEmoji = this.client.emojis.get(this.client.settings.get('emoji.online'));
-		const idleEmoji = this.client.emojis.get(this.client.settings.get('emoji.idle'));
-		const dndEmoji = this.client.emojis.get(this.client.settings.get('emoji.dnd'));
-		const offlineEmoji = this.client.emojis.get(this.client.settings.get('emoji.offline'));
+		const onlineEmoji = this.client.emojis.get(this.client.settings.emoji.online);
+		const idleEmoji = this.client.emojis.get(this.client.settings.emoji.idle);
+		const dndEmoji = this.client.emojis.get(this.client.settings.emoji.dnd);
+		const offlineEmoji = this.client.emojis.get(this.client.settings.emoji.offline);
 		const statuses = {
 			online: `${onlineEmoji} ${msg.guild.language.get('ONLINE')}`,
 			idle: `${idleEmoji} ${msg.guild.language.get('IDLE')}`,
@@ -35,12 +35,12 @@ module.exports = class extends Command {
 		const position = joinPosition.indexOf(membername) + 1;
 
 		const embed = new MessageEmbed()
-			.setColor(!membername.premiumSince ? this.client.settings.get('colors.white') : this.client.settings.get('colors.pink'))
+			.setColor(!membername.premiumSince ? this.client.settings.colors.white : this.client.settings.colors.pink)
 			.addField(msg.guild.language.get('NAME'), `${membername} (${membername.user.tag})`, true)
 			.addField(msg.guild.language.get('ID'), membername.id, true)
 			.addField(msg.language.get('JOIN_POS'), position)
-			.addField(msg.guild.language.get('JOINED'), moment.tz(membername.joinedTimestamp, msg.guild.settings.get('timezone')).format('Do MMMM YYYY, h:mmA zz'))
-			.addField(msg.guild.language.get('REGISTERED'), moment.tz(membername.user.createdTimestamp, msg.guild.settings.get('timezone')).format('Do MMMM YYYY, h:mmA zz'))
+			.addField(msg.guild.language.get('JOINED'), moment.tz(membername.joinedTimestamp, msg.guild.settings.timezone).format('Do MMMM YYYY, h:mmA zz'))
+			.addField(msg.guild.language.get('REGISTERED'), moment.tz(membername.user.createdTimestamp, msg.guild.settings.timezone).format('Do MMMM YYYY, h:mmA zz'))
 			.addField(msg.guild.language.get('COMMAND_USERINFO_STATUS'), statuses[membername.user.presence.status], true)
 			.setThumbnail(membername.user.displayAvatarURL())
 			.setTimestamp()
@@ -52,7 +52,7 @@ module.exports = class extends Command {
 		}
 
 		if (membername.premiumSinceTimestamp) {
-			await embed.addField(msg.guild.language.get('COMMAND_USERINFO_NITROBOOST'), moment.tz(membername.premiumSinceTimestamp, msg.guild.settings.get('timezone')).format('Do MMMM YYYY, h:mmA zz'));
+			await embed.addField(msg.guild.language.get('COMMAND_USERINFO_NITROBOOST'), moment.tz(membername.premiumSinceTimestamp, msg.guild.settings.timezone).format('Do MMMM YYYY, h:mmA zz'));
 		}
 
 		if (roles.length) await embedSplitter(msg.guild.language.get('ROLES'), roles, embed);

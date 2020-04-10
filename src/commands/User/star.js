@@ -14,10 +14,10 @@ module.exports = class extends Command {
 	}
 
 	async random(msg) {
-		if (!msg.guild.settings.get('boards.starboard.starboardEnabled')) return msg.send(msg.language.get('COMMAND_STAR_STARBOARD_NOT_ENABLED'));
+		if (!msg.guild.settings.boards.starboard.starboardEnabled) return msg.send(msg.language.get('COMMAND_STAR_STARBOARD_NOT_ENABLED'));
 
 		let attachment;
-		const starredMessages = msg.guild.settings.get('boards.starboard.starred');
+		const starredMessages = msg.guild.settings.boards.starboard.starred;
 		if (!starredMessages) return msg.send(msg.language.get('COMMAND_STAR_NOSTARRED'));
 		const selected = starredMessages[Math.floor(Math.random() * starredMessages.length)];
 		const { msgID, channelID, stars } = selected;
@@ -27,7 +27,7 @@ module.exports = class extends Command {
 
 		const embed = new MessageEmbed()
 			.setAuthor(msg.language.get('COMMAND_STAR_STARRED'), msg.guild.iconURL())
-			.setColor(this.client.settings.get('colors.gold'))
+			.setColor(this.client.settings.colors.gold)
 			.setDescription(`[${msg.guild.language.get('CLICK_TO_VIEW')}](${fetchedStar.url})`)
 			.addField(msg.language.get('STARBOARD_AUTHOR'), fetchedStar.author, true)
 			.addField(msg.language.get('CHANNEL'), fetchedStar.channel, true)
@@ -47,10 +47,10 @@ module.exports = class extends Command {
 	}
 
 	async top(msg) {
-		if (!msg.guild.settings.get('boards.starboard.starboardEnabled')) return msg.send(msg.language.get('COMMAND_STAR_STARBOARD_NOT_ENABLED'));
+		if (!msg.guild.settings.boards.starboard.starboardEnabled) return msg.send(msg.language.get('COMMAND_STAR_STARBOARD_NOT_ENABLED'));
 
 		let attachment;
-		const starredMessages = msg.guild.settings.get('boards.starboard.starred');
+		const starredMessages = msg.guild.settings.boards.starboard.starred;
 		if (!starredMessages) return msg.send(msg.language.get('COMMAND_STAR_NOSTARRED'));
 		const top = Math.max(...starredMessages.map(st => st.stars), 0);
 		const selected = starredMessages.find(st => st.stars === top);
@@ -61,7 +61,7 @@ module.exports = class extends Command {
 
 		const embed = new MessageEmbed()
 			.setAuthor(msg.language.get('COMMAND_STAR_STARRED'), msg.guild.iconURL())
-			.setColor(this.client.settings.get('colors.gold'))
+			.setColor(this.client.settings.colors.gold)
 			.setDescription(`[${msg.guild.language.get('CLICK_TO_VIEW')}](${fetchedStar.url})`)
 			.addField(msg.language.get('STARBOARD_AUTHOR'), fetchedStar.author, true)
 			.addField(msg.language.get('CHANNEL'), fetchedStar.channel, true)

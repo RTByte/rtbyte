@@ -49,15 +49,15 @@ module.exports = class extends Command {
 			STREAM: msg.language.get('PERMISSIONS_STREAM')
 		};
 		const permissions = Object.entries(rolename.permissions.serialize()).filter(perm => perm[1]).map(([perm]) => perms[perm]).join(', ');
-		const affirmEmoji = this.client.emojis.get(this.client.settings.get('emoji.affirm'));
-		const rejectEmoji = this.client.emojis.get(this.client.settings.get('emoji.reject'));
+		const affirmEmoji = this.client.emojis.get(this.client.settings.emoji.affirm);
+		const rejectEmoji = this.client.emojis.get(this.client.settings.emoji.reject);
 		const status = {
 			true: affirmEmoji,
 			false: rejectEmoji
 		};
 
 		const embed = new MessageEmbed()
-			.setColor(this.client.settings.get('colors.white'))
+			.setColor(this.client.settings.colors.white)
 			.addField(msg.guild.language.get('NAME'), rolename, true)
 			.addField(msg.guild.language.get('ID'), rolename.id, true)
 			.addField(msg.guild.language.get('MEMBERS'), rolename.members.size, true)
@@ -65,7 +65,7 @@ module.exports = class extends Command {
 			.addField(msg.language.get('COMMAND_ROLEINFO_MENTIONABLE'), status[rolename.mentionable], true)
 			.addField(msg.language.get('COMMAND_ROLEINFO_HOIST'), status[rolename.hoist], true)
 			.addField(msg.language.get('COMMAND_ROLEINFO_MANAGED'), status[rolename.managed], true)
-			.addField(msg.guild.language.get('CREATED'), moment.tz(rolename.createdTimestamp, msg.guild.settings.get('timezone')).format('Do MMMM YYYY, h:mmA zz'))
+			.addField(msg.guild.language.get('CREATED'), moment.tz(rolename.createdTimestamp, msg.guild.settings.timezone).format('Do MMMM YYYY, h:mmA zz'))
 			.addField(msg.language.get('COMMAND_ROLEINFO_PERMISSIONS'), `\`${permissions || 'None'}\``)
 			.setThumbnail(msg.guild.iconURL(), 50, 50)
 			.setTimestamp()

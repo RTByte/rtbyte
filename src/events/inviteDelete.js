@@ -21,7 +21,7 @@ module.exports = class extends Event {
 			}
 		}
 
-		if (invite.guild.settings.get('channels.log') && invite.guild.settings.get('logs.events.inviteDelete')) await this.serverLog(invite, uses, executor);
+		if (invite.guild.settings.channels.log && invite.guild.settings.logs.events.inviteDelete) await this.serverLog(invite, uses, executor);
 
 		return;
 	}
@@ -30,7 +30,7 @@ module.exports = class extends Event {
 		const embed = new MessageEmbed()
 			.setAuthor(`discord.gg/${invite.code}`, invite.guild.iconURL())
 			.setDescription(invite.url)
-			.setColor(this.client.settings.get('colors.red'))
+			.setColor(this.client.settings.colors.red)
 			.addField(invite.channel.type === 'text' ? invite.guild.language.get('CHANNEL') : invite.guild.language.get('VOICE_CHANNEL'),
 				invite.channel.type === 'text' ? invite.channel : `${invite.channel.name}`, true)
 			.setTimestamp()
@@ -38,7 +38,7 @@ module.exports = class extends Event {
 
 		if (uses > 0) await embed.addField(invite.guild.language.get('GUILD_LOG_INVITEDELETE_USES'), uses, true);
 
-		const logChannel = await this.client.channels.get(invite.guild.settings.get('channels.log'));
+		const logChannel = await this.client.channels.get(invite.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		return;
 	}

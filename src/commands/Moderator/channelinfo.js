@@ -20,15 +20,15 @@ module.exports = class extends Command {
 	}
 
 	async run(msg, [channelname = msg.channel]) {
-		const affirmEmoji = this.client.emojis.get(this.client.settings.get('emoji.affirm'));
-		const rejectEmoji = this.client.emojis.get(this.client.settings.get('emoji.reject'));
+		const affirmEmoji = this.client.emojis.get(this.client.settings.emoji.affirm);
+		const rejectEmoji = this.client.emojis.get(this.client.settings.emoji.reject);
 		const status = {
 			true: affirmEmoji,
 			false: rejectEmoji
 		};
 
 		const embed = new MessageEmbed()
-			.setColor(this.client.settings.get('colors.white'))
+			.setColor(this.client.settings.colors.white)
 			.addField(msg.guild.language.get('NAME'), channelname.type !== 'voice' && channelname.type !== 'category' ? channelname : channelname.name, true)
 			.addField(msg.guild.language.get('ID'), channelname.id, true)
 			.addField(msg.language.get('COMMAND_CHANNELINFO_TYPE'), msg.language.get('COMMAND_CHANNELINFO_TYPES', channelname), true)
@@ -48,7 +48,7 @@ module.exports = class extends Command {
 			embed.addField(msg.language.get('COMMAND_CHANNELINFO_USERLIMIT'), channelname.userLimit > 0 ? channelname.userLimit : msg.language.get('UNLIMITED'), true);
 		}
 
-		embed.addField(msg.guild.language.get('CREATED'), moment.tz(channelname.createdTimestamp, msg.guild.settings.get('timezone')).format('Do MMMM YYYY, h:mmA zz'));
+		embed.addField(msg.guild.language.get('CREATED'), moment.tz(channelname.createdTimestamp, msg.guild.settings.timezone).format('Do MMMM YYYY, h:mmA zz'));
 
 		await msg.send('', { disableEveryone: true, embed: embed });
 		return;

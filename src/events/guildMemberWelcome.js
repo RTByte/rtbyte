@@ -7,12 +7,12 @@ module.exports = class extends Event {
 	}
 
 	async run(member) {
-		if (!member.guild.settings.get('greetings.welcomeMessage')) return;
+		if (!member.guild.settings.greetings.welcomeMessage) return;
 
-		const welcomeChannel = await this.client.channels.get(member.guild.settings.get('greetings.welcomeChannel'));
-		let welcomeMsg = member.guild.settings.get('greetings.welcomeMessage');
+		const welcomeChannel = await this.client.channels.get(member.guild.settings.greetings.welcomeChannel);
+		let welcomeMsg = member.guild.settings.greetings.welcomeMessage;
 
-		if (member.guild.settings.get('greetings.welcomeMessage')) {
+		if (member.guild.settings.greetings.welcomeMessage) {
 			welcomeMsg = welcomeMsg.replace('%user%', `${member.user}`);
 			await welcomeChannel.send(welcomeMsg);
 		}

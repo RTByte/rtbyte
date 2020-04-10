@@ -19,7 +19,7 @@ module.exports = class extends Command {
 	}
 
 	async run(msg, [username]) {
-		if (!msg.guild.settings.get('roles.muted') || !msg.guild.roles.has(msg.guild.settings.get('roles.muted'))) await this.createRole(msg.guild);
+		if (!msg.guild.settings.roles.muted || !msg.guild.roles.has(msg.guild.settings.roles.muted)) await this.createRole(msg.guild);
 
 		if (username.id === msg.author.id) return msg.reject(msg.language.get('COMMAND_UNMUTE_NO_UNMUTE_SELF'));
 		if (username.id === this.client.user.id) return msg.reject(msg.language.get('COMMAND_UNMUTE_NO_UNMUTE_CLIENT'));
@@ -33,8 +33,8 @@ module.exports = class extends Command {
 
 		const member = await msg.guild.members.fetch(username);
 
-		if (!member.roles.has(msg.guild.settings.get('roles.muted'))) return msg.affirm();
-		const mutedRole = await msg.guild.roles.get(msg.guild.settings.get('roles.muted'));
+		if (!member.roles.has(msg.guild.settings.roles.muted)) return msg.affirm();
+		const mutedRole = await msg.guild.roles.get(msg.guild.settings.roles.muted);
 		await member.roles.remove(mutedRole);
 
 		const embed = await modCase.embed();

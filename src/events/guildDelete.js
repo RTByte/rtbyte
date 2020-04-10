@@ -8,7 +8,7 @@ module.exports = class extends Event {
 	}
 
 	async run(guild) {
-		if (this.client.settings.get('logs.guildDelete')) await this.globalLog(guild);
+		if (this.client.settings.logs.guildDelete) await this.globalLog(guild);
 
 		return;
 	}
@@ -16,11 +16,11 @@ module.exports = class extends Event {
 	async globalLog(guild) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${guild.name} (${guild.id})`, guild.iconURL())
-			.setColor(this.client.settings.get('colors.red'))
+			.setColor(this.client.settings.colors.red)
 			.setTimestamp()
 			.setFooter(guild.language.get('GLOBAL_LOG_GUILDDELETE'));
 
-		const globalLogChannel = await this.client.channels.get(this.client.settings.get('channels.globalLog'));
+		const globalLogChannel = await this.client.channels.get(this.client.settings.channels.globalLog);
 		await globalLogChannel.send('', { disableEveryone: true, embed: embed });
 		return;
 	}

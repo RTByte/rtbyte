@@ -18,7 +18,7 @@ module.exports = class extends Event {
 			if (logEntry.action === 'CHANNEL_DELETE') executor = logEntry ? logEntry.executor : undefined;
 		}
 
-		if (channel.guild.settings.get('channels.log') && channel.guild.settings.get('logs.events.channelDelete')) await this.serverLog(channel, executor);
+		if (channel.guild.settings.channels.log && channel.guild.settings.logs.events.channelDelete) await this.serverLog(channel, executor);
 
 		return;
 	}
@@ -26,7 +26,7 @@ module.exports = class extends Event {
 	async serverLog(channel, executor) {
 		const embed = new MessageEmbed()
 			.setAuthor(`#${channel.name}`, channel.guild.iconURL())
-			.setColor(this.client.settings.get('colors.red'))
+			.setColor(this.client.settings.colors.red)
 			.setTimestamp()
 			.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELDELETE', executor), executor ? executor.displayAvatarURL() : undefined);
 
@@ -52,11 +52,11 @@ module.exports = class extends Event {
 			embed.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELDELETE_STORE', executor), executor ? executor.displayAvatarURL() : undefined);
 		}
 
-		if (channel.guild.settings.get('logs.verboseLogging')) {
+		if (channel.guild.settings.logs.verboseLogging) {
 			embed.addField(channel.guild.language.get('ID'), channel.id);
 			embed.addField(channel.guild.language.get('CATEGORY'), channel.parent);
 		}
-		const logChannel = await this.client.channels.get(channel.guild.settings.get('channels.log'));
+		const logChannel = await this.client.channels.get(channel.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		return;
 	}

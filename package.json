@@ -37,14 +37,13 @@
 		"email": "developers@rtbyte.xyz"
 	},
 	"dependencies": {
-		"@aero/member-gateway": "^1.0.1",
 		"cheerio": "^1.0.0-rc.3",
-		"discord.js": "github:discordjs/discord.js#fe7df708e44e0280dfaf0f8e457b154781bb5140",
+		"discord.js": "github:discordjs/discord.js#master",
 		"erlpack": "github:discordapp/erlpack",
 		"fs-nextra": "^0.4.7",
-		"klasa": "github:dirigeants/klasa#settings",
-		"klasa-dashboard-hooks": "github:dirigeants/klasa-dashboard-hooks#settings",
-		"klasa-member-gateway": "github:dirigeants/klasa-member-gateway#settings",
+		"klasa": "github:dirigeants/klasa#master",
+		"klasa-dashboard-hooks": "github:dirigeants/klasa-dashboard-hooks#master",
+		"klasa-member-gateway": "github:dragondev/Klasa-member-gateway",
 		"moment": "^2.24.0",
 		"moment-timezone": "^0.5.28",
 		"naughty-words": "^1.1.0",

@@ -8,16 +8,16 @@ module.exports = class extends Event {
 	}
 
 	async run(guild) {
-		if (!guild.settings.get('channels.log') && !guild.settings.get('logs.events.guildBoostTierUpdate')) return;
+		if (!guild.settings.channels.log && !guild.settings.logs.events.guildBoostTierUpdate) return;
 
 		const nitroEmbed = new MessageEmbed()
 			.setAuthor(guild.name, guild.iconURL())
-			.setColor(this.client.settings.get('colors.pink'))
+			.setColor(this.client.settings.colors.pink)
 			.addField(guild.language.get('GUILD_LOG_BOOSTTIER_TITLES', guild), guild.language.get('GUILD_LOG_BOOSTTIER_DETAILS', guild))
 			.setTimestamp()
 			.setFooter(guild.language.get('GUILD_LOG_BOOSTTIER'));
 
-		const logChannel = await this.client.channels.get(guild.settings.get('channels.log'));
+		const logChannel = await this.client.channels.get(guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: nitroEmbed });
 		return;
 	}

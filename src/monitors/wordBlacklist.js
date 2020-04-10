@@ -13,10 +13,10 @@ module.exports = class extends Monitor {
 
 	async run(msg) {
 		if (!msg.guild) return;
-		if (!msg.guild.settings.get('filters.wordBlacklistEnabled') || !msg.guild.settings.get('filters.words').length) return;
-		if (msg.guild.settings.get('filters.modBypass') && (msg.member.roles.has(msg.guild.settings.get('roles.moderator')) || msg.member.roles.has(msg.guild.settings.get('roles.administrator')))) return;
+		if (!msg.guild.settings.filters.wordBlacklistEnabled || !msg.guild.settings.filters.words.length) return;
+		if (msg.guild.settings.filters.modBypass && (msg.member.roles.has(msg.guild.settings.roles.moderator) || msg.member.roles.has(msg.guild.settings.roles.administrator))) return;
 		const sentence = msg.content;
-		const blacklist = msg.guild.settings.get('filters.words');
+		const blacklist = msg.guild.settings.filters.words;
 
 		if (!await this.checkMessage(sentence, blacklist)) return;
 
@@ -31,8 +31,8 @@ module.exports = class extends Monitor {
 		const embed = await modCase.embed();
 		await embed.send();
 
-		if (msg.guild.settings.get('filters.delete')) await msg.delete();
-		if (msg.guild.settings.get('filters.ban')) await msg.member.ban({ days: 1, reason: msg.guild.language.get('MODERATION_LOG_BLACKLISTEDWORD') });
+		if (msg.guild.settings.filters.delete) await msg.delete();
+		if (msg.guild.settings.filters.ban) await msg.member.ban({ days: 1, reason: msg.guild.language.get('MODERATION_LOG_BLACKLISTEDWORD') });
 		return;
 	}
 

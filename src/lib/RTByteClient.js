@@ -1,6 +1,6 @@
 const { KlasaClient } = require('klasa');
 
-KlasaClient.use(require('@aero/member-gateway'));
+KlasaClient.use(require('klasa-member-gateway'));
 KlasaClient.use(require('klasa-dashboard-hooks'));
 
 const permissionLevels = require('./structures/schemas/permissionLevels');

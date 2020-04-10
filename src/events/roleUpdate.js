@@ -51,15 +51,15 @@ module.exports = class extends Event {
 			STREAM: role.guild.language.get('PERMISSIONS_STREAM')
 		};
 
-		if (role.guild.settings.get('channels.log') && role.guild.settings.get('logs.events.roleUpdate')) await this.serverLog(oldRole, role, executor, perms);
+		if (role.guild.settings.channels.log && role.guild.settings.logs.events.roleUpdate) await this.serverLog(oldRole, role, executor, perms);
 
 		return;
 	}
 
 	async serverLog(oldRole, role, executor, perms) {
-		const affirmEmoji = this.client.emojis.get(this.client.settings.get('emoji.affirm'));
-		const rejectEmoji = this.client.emojis.get(this.client.settings.get('emoji.reject'));
-		const arrowRightEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowRight'));
+		const affirmEmoji = this.client.emojis.get(this.client.settings.emoji.affirm);
+		const rejectEmoji = this.client.emojis.get(this.client.settings.emoji.reject);
+		const arrowRightEmoji = this.client.emojis.get(this.client.settings.emoji.arrowRight);
 		const oldPermissions = Object.entries(oldRole.permissions.serialize()).filter(perm => perm[1]).map(([perm]) => perms[perm]).join(', ');
 		const newPermissions = Object.entries(role.permissions.serialize()).filter(perm => perm[1]).map(([perm]) => perms[perm]).join(', ');
 		const status = {
@@ -69,7 +69,7 @@ module.exports = class extends Event {
 
 		const embed = new MessageEmbed()
 			.setAuthor(`${role.name}`, role.guild.iconURL())
-			.setColor(this.client.settings.get('colors.blue'))
+			.setColor(this.client.settings.colors.blue)
 			.setTimestamp()
 			.setFooter(role.guild.language.get('GUILD_LOG_ROLEUPDATE', executor), executor ? executor.displayAvatarURL() : undefined);
 
@@ -91,7 +91,7 @@ module.exports = class extends Event {
 
 		if (!embed.fields.length) return;
 
-		const logChannel = await this.client.channels.get(role.guild.settings.get('channels.log'));
+		const logChannel = await this.client.channels.get(role.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		return;
 	}

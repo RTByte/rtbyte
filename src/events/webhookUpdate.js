@@ -32,7 +32,7 @@ module.exports = class extends Event {
 
 			if (logEntry.action === 'WEBHOOK_CREATE') this.client.emit('webhookCreate', channel, executor, webhook);
 			if (logEntry.action === 'WEBHOOK_DELETE') this.client.emit('webhookDelete', channel, executor, oldWebhook);
-			if (logEntry.action === 'WEBHOOK_UPDATE' && channel.guild.settings.get('channels.log') && channel.guild.settings.get('logs.events.webhookCreate')) {
+			if (logEntry.action === 'WEBHOOK_UPDATE' && channel.guild.settings.channels.log && channel.guild.settings.logs.events.webhookCreate) {
 				await this.serverLog(channel, executor, oldWebhook, webhook);
 			}
 		}
@@ -41,11 +41,11 @@ module.exports = class extends Event {
 	}
 
 	async serverLog(channel, executor, oldWebhook, webhook) {
-		const arrowRightEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowRight'));
+		const arrowRightEmoji = this.client.emojis.get(this.client.settings.emoji.arrowRight);
 
 		const embed = new MessageEmbed()
 			.setAuthor(webhook.name, webhook.avatar)
-			.setColor(this.client.settings.get('colors.blue'))
+			.setColor(this.client.settings.colors.blue)
 			.setTimestamp()
 			.setFooter(channel.guild.language.get('GUILD_LOG_WEBHOOKUPDATE', executor), executor ? executor.displayAvatarURL() : undefined);
 
@@ -64,7 +64,7 @@ module.exports = class extends Event {
 			await embed.setTitle(channel.guild.language.get('GUILD_LOG_WEBHOOKUPDATE_AVATAR'));
 		}
 
-		const logChannel = await this.client.channels.get(channel.guild.settings.get('channels.log'));
+		const logChannel = await this.client.channels.get(channel.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		return;
 	}

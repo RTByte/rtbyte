@@ -8,14 +8,14 @@ module.exports = class extends Event {
 	}
 
 	async run(member) {
-		if (!member.guild.settings.get('channels.log') && !member.guild.settings.get('logs.events.guildBoostRemove')) return;
+		if (!member.guild.settings.channels.log && !member.guild.settings.logs.events.guildBoostRemove) return;
 
 		const embed = new MessageEmbed()
 			.setAuthor(`${member.displayName} (${member.user.tag}) `, member.user.displayAvatarURL())
 			.setTimestamp()
 			.setFooter(member.guild.language.get('GUILD_LOG_BOOSTREMOVE'));
 
-		const logChannel = await this.client.channels.get(member.guild.settings.get('channels.log'));
+		const logChannel = await this.client.channels.get(member.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		return;
 	}

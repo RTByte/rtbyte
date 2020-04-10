@@ -12,7 +12,7 @@ module.exports = class extends Event {
 
 	async run() {
 		// Triggering initialization of the control guild if it hasn't been initialized
-		if (this.client.options.controlGuild && !this.client.settings.get('guilds.controlGuild')) await this.setControlGuild();
+		if (this.client.options.controlGuild && !this.client.settings.guilds.controlGuild) await this.setControlGuild();
 
 		// Check to see that the bot is in at least one guild
 		if (!this.client.guilds.size) {
@@ -21,7 +21,7 @@ module.exports = class extends Event {
 		}
 
 		// Check to see that there is a control guild specified
-		if (!this.client.settings.get('guilds.controlGuild')) {
+		if (!this.client.settings.guilds.controlGuild) {
 			await this.client.emit('error', 'Please specify the control guild in your client configs and ensure the bot has been added to it with Administrator permissions.\nShutting down...');
 			await this.client.destroy();
 		}
@@ -30,28 +30,28 @@ module.exports = class extends Event {
 
 		await this.client.guilds.forEach(async (guild) => {
 			if (!guild.available) return;
-			if (this.client.settings.get('guildBlacklist').includes(guild.id)) {
+			if (this.client.settings.guildBlacklist.includes(guild.id)) {
 				guild.leave();
 				this.client.emit('warn', `Blacklisted guild detected: ${guild.name} (${guild.id})`);
 			} else {
-				if ((!guild.settings.get('roles.administrator') || !guild.settings.get('channels.log')) && guild.id === this.client.settings.get('guilds.controlGuild')) await guild.rtbyteInit('control');
-				if ((!guild.settings.get('roles.administrator') || !guild.settings.get('channels.log')) && guild.id !== this.client.settings.get('guilds.controlGuild')) await guild.rtbyteInit();
+				if ((!guild.settings.roles.administrator || !guild.settings.channels.log) && guild.id === this.client.settings.guilds.controlGuild) await guild.rtbyteInit('control');
+				if ((!guild.settings.roles.administrator || !guild.settings.channels.log) && guild.id !== this.client.settings.guilds.controlGuild) await guild.rtbyteInit();
 				await this.client.emit('verbose', `Verified initialization of guild: ${guild.name} (${guild.id})`);
 			}
 		});
 
 		await this.client.emit('verbose', 'All guilds verified!');
-		if (this.client.settings.get('logs.botReady')) await this.botReadyLog();
+		if (this.client.settings.logs.botReady) await this.botReadyLog();
 		return;
 	}
 
 	async botReadyLog() {
 		const embed = new MessageEmbed()
 			.setAuthor(this.client.user.username, this.client.user.displayAvatarURL())
-			.setColor(this.client.settings.get('colors.yellow'))
+			.setColor(this.client.settings.colors.yellow)
 			.setTimestamp()
 			.setFooter('Bot restarted');
-		const globalLog = await this.client.channels.get(this.client.settings.get('channels.globalLog'));
+		const globalLog = await this.client.channels.get(this.client.settings.channels.globalLog);
 		if (globalLog) await globalLog.send('', { disableEveryone: true, embed: embed });
 		return;
 	}

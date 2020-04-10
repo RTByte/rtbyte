@@ -42,8 +42,8 @@ module.exports = class extends Event {
 			if (logEntry.action === 'GUILD_UPDATE') executor = logEntry ? logEntry.executor : undefined;
 		}
 
-		if (this.client.settings.get('logs.guildUpdate')) await this.globalLog(oldGuild, guild);
-		if (guild.settings.get('channels.log') && guild.settings.get('logs.events.guildUpdate')) await this.serverLog(oldGuild, guild, executor);
+		if (this.client.settings.logs.guildUpdate) await this.globalLog(oldGuild, guild);
+		if (guild.settings.channels.log && guild.settings.logs.events.guildUpdate) await this.serverLog(oldGuild, guild, executor);
 
 		if (oldGuild.premiumTier !== guild.premiumTier) this.client.emit('guildBoostTierUpdate', guild);
 
@@ -51,9 +51,9 @@ module.exports = class extends Event {
 	}
 
 	async serverLog(oldGuild, guild, executor) {
-		const affirmEmoji = this.client.emojis.get(this.client.settings.get('emoji.affirm'));
-		const rejectEmoji = this.client.emojis.get(this.client.settings.get('emoji.reject'));
-		const arrowRightEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowRight'));
+		const affirmEmoji = this.client.emojis.get(this.client.settings.emoji.affirm);
+		const rejectEmoji = this.client.emojis.get(this.client.settings.emoji.reject);
+		const arrowRightEmoji = this.client.emojis.get(this.client.settings.emoji.arrowRight);
 		const arrayStatus = [
 			rejectEmoji,
 			affirmEmoji
@@ -68,7 +68,7 @@ module.exports = class extends Event {
 		// Base embed
 		const embed = new MessageEmbed()
 			.setAuthor(guild.name, guild.iconURL())
-			.setColor(this.client.settings.get('colors.blue'))
+			.setColor(this.client.settings.colors.blue)
 			.setTimestamp()
 			.setFooter(guild.language.get('GUILD_LOG_GUILDUPDATE', executor), executor ? executor.displayAvatarURL() : undefined);
 
@@ -185,7 +185,7 @@ module.exports = class extends Event {
 		// Return null when premiumSubscriptionCount changes
 		if (oldGuild.premiumSubscriptionCount !== guild.premiumSubscriptionCount) return;
 
-		const logChannel = await this.client.channels.get(guild.settings.get('channels.log'));
+		const logChannel = await this.client.channels.get(guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		return;
 	}
@@ -193,7 +193,7 @@ module.exports = class extends Event {
 	async globalLog(oldGuild, guild) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${guild.name} (${guild.id})`, guild.iconURL())
-			.setColor(this.client.settings.get('colors.blue'))
+			.setColor(this.client.settings.colors.blue)
 			.setTimestamp();
 
 		// Name changed
@@ -208,7 +208,7 @@ module.exports = class extends Event {
 		}
 
 		if (oldGuild.name !== guild.name || oldGuild.iconURL() !== guild.iconURL()) {
-			const globalLogChannel = await this.client.channels.get(this.client.settings.get('channels.globalLog'));
+			const globalLogChannel = await this.client.channels.get(this.client.settings.channels.globalLog);
 			await globalLogChannel.send('', { disableEveryone: true, embed: embed });
 			return;
 		}

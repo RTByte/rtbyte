@@ -15,7 +15,7 @@ module.exports = class extends Command {
 	async run(msg) {
 		const embed = new MessageEmbed()
 			.setAuthor(msg.language.get('COMMAND_INFO_EMBEDTITLE'), this.client.user.displayAvatarURL())
-			.setColor(this.client.settings.get('colors.white'))
+			.setColor(this.client.settings.colors.white)
 			.setDescription(msg.language.get('COMMAND_INFO_EMBEDDESC'))
 			.addField(msg.language.get('COMMAND_INFO_OURTEAM'), msg.language.get('COMMAND_INFO_TEAMLIST'), true)
 			.addField(msg.language.get('COMMAND_INFO_LINKS'), msg.language.get('COMMAND_INFO_LINKLIST'), true)

@@ -10,7 +10,7 @@ module.exports = class extends Event {
 	async run(msg) {
 		if (!msg.guild) return;
 
-		if (msg.guild.settings.get('channels.log') && msg.guild.settings.get('logs.events.messageDelete')) await this.serverLog(msg);
+		if (msg.guild.settings.channels.log && msg.guild.settings.logs.events.messageDelete) await this.serverLog(msg);
 
 		return;
 	}
@@ -21,7 +21,7 @@ module.exports = class extends Event {
 		const embed = new MessageEmbed()
 			.setAuthor(msg.author.tag, msg.author.displayAvatarURL())
 			.setDescription(msg.channel)
-			.setColor(this.client.settings.get('colors.blue'))
+			.setColor(this.client.settings.colors.blue)
 			.setTimestamp()
 			.setFooter(msg.language.get('GUILD_LOG_MESSAGEDELETE'));
 
@@ -34,7 +34,7 @@ module.exports = class extends Event {
 				.replace('.com/', '.net/');
 			await embed.setImage(attachment);
 		}
-		const logChannel = await this.client.channels.get(msg.guild.settings.get('channels.log'));
+		const logChannel = await this.client.channels.get(msg.guild.settings.channels.log);
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		return;
 	}

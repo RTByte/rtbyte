@@ -18,18 +18,18 @@ module.exports = class extends Command {
 	}
 
 	async list(msg) {
-		if (!msg.guild.settings.get('roles.joinable').length) return msg.reject(msg.language.get('COMMAND_ROLES_NONE_JOINABLE'));
+		if (!msg.guild.settings.roles.joinable.length) return msg.reject(msg.language.get('COMMAND_ROLES_NONE_JOINABLE'));
 
 		const embed = new MessageEmbed()
 			.setAuthor(msg.language.get('COMMAND_ROLES_SERVER'), msg.guild.iconURL())
-			.setColor(this.client.settings.get('colors.white'))
+			.setColor(this.client.settings.colors.white)
 			.setThumbnail(msg.guild.iconURL(), 50, 50)
 			.setTimestamp()
 			.setFooter(msg.language.get('COMMAND_REQUESTED_BY', msg), msg.author.displayAvatarURL());
 
 		const rolesList = [];
-		for (let i = 0; i < msg.guild.settings.get('roles.joinable').length; i++) {
-			const role = msg.guild.roles.get(msg.guild.settings.get('roles.joinable')[i]);
+		for (let i = 0; i < msg.guild.settings.roles.joinable.length; i++) {
+			const role = msg.guild.roles.get(msg.guild.settings.roles.joinable[i]);
 			rolesList.push(msg.language.get('COMMAND_ROLES_ROLE', role));
 		}
 		embed.setDescription(rolesList);
@@ -40,7 +40,7 @@ module.exports = class extends Command {
 
 	async add(msg, [target = msg.member, ...roleName]) {
 		// Fail if there are no joinable roles
-		if (!msg.guild.settings.get('roles.joinable').length) return msg.reject(msg.language.get('COMMAND_ROLES_NONE_JOINABLE'));
+		if (!msg.guild.settings.roles.joinable.length) return msg.reject(msg.language.get('COMMAND_ROLES_NONE_JOINABLE'));
 		if (!roleName.length) return msg.reject(msg.language.get('COMMAND_ROLES_NO_ROLE_NAME'));
 
 		if (target.id !== msg.member.id) {
@@ -63,7 +63,7 @@ module.exports = class extends Command {
 		const targetRole = await msg.guild.roles.find(role => role.name.toLowerCase() === roleName.toLowerCase());
 
 		// Fail if this role isn't joinable
-		if (!msg.guild.settings.get('roles.joinable').includes(targetRole.id)) return msg.reject(msg.language.get('COMMAND_ROLES_NOT_JOINABLE', roleName));
+		if (!msg.guild.settings.roles.joinable.includes(targetRole.id)) return msg.reject(msg.language.get('COMMAND_ROLES_NOT_JOINABLE', roleName));
 
 		// Fail if target already has this role
 		if (target.roles.has(targetRole.id)) return msg.reject(msg.language.get('COMMAND_ROLES_ALREADY_HAVE', roleName, target));
@@ -75,7 +75,7 @@ module.exports = class extends Command {
 
 	async remove(msg, [target = msg.member, ...roleName]) {
 		// Fail if there are no joinable roles
-		if (!msg.guild.settings.get('roles.joinable').length) return msg.reject(msg.language.get('COMMAND_ROLES_NONE_JOINABLE'));
+		if (!msg.guild.settings.roles.joinable.length) return msg.reject(msg.language.get('COMMAND_ROLES_NONE_JOINABLE'));
 		if (!roleName.length) return msg.reject(msg.language.get('COMMAND_ROLES_NO_ROLE_NAME'));
 
 		if (target.id !== msg.member.id) {
@@ -98,7 +98,7 @@ module.exports = class extends Command {
 		const targetRole = await msg.guild.roles.find(role => role.name.toLowerCase() === roleName.toLowerCase());
 
 		// Fail if this role isn't joinable (or leavable)
-		if (!msg.guild.settings.get('roles.joinable').includes(targetRole.id)) return msg.reject(msg.language.get('COMMAND_ROLES_NOT_LEAVABLE', roleName));
+		if (!msg.guild.settings.roles.joinable.includes(targetRole.id)) return msg.reject(msg.language.get('COMMAND_ROLES_NOT_LEAVABLE', roleName));
 
 		// Fail if target does not have this role
 		if (!target.roles.has(targetRole.id)) return msg.reject(msg.language.get('COMMAND_ROLES_DOES_NOT_HAVE', roleName, target));
