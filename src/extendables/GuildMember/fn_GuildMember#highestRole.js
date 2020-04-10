@@ -8,7 +8,7 @@ module.exports = class extends Extendable {
 	}
 
 	get highestRole() {
-		return this.roles.highest ? this.roles.highest : this.guild.defaultRole;
+		return this.roles.highest ? this.roles.highest : this.guild.id;
 	}
 
 };
