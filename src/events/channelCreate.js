@@ -27,6 +27,8 @@ module.exports = class extends Event {
 		const embed = new MessageEmbed()
 			.setAuthor(`#${channel.name}`, channel.guild.iconURL())
 			.setColor(this.client.settings.get('colors.green'))
+			.addField(channel.guild.language.get('ID'), channel.id)
+			.addField(channel.guild.language.get('CATEGORY'), channel.parent)
 			.setTimestamp()
 			.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELCREATE', executor), executor ? executor.displayAvatarURL() : undefined);
 
@@ -52,10 +54,6 @@ module.exports = class extends Event {
 			embed.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELCREATE_STORE', executor), executor ? executor.displayAvatarURL() : undefined);
 		}
 
-		if (channel.guild.settings.get('logs.verboseLogging')) {
-			embed.addField(channel.guild.language.get('ID'), channel.id);
-			embed.addField(channel.guild.language.get('CATEGORY'), channel.parent);
-		}
 		const logChannel = await this.client.channels.get(channel.guild.settings.get('channels.log'));
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		return;

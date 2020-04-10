@@ -39,11 +39,9 @@ module.exports = class extends Event {
 		const embed = new MessageEmbed()
 			.setAuthor(`${member.user.tag} (${member.id})`, member.user.displayAvatarURL())
 			.setColor(this.client.settings.get('colors.green'))
+			.addField(member.guild.language.get('REGISTERED'), moment.tz(member.user.createdTimestamp, member.guild.settings.get('timezone')).format('Do MMMM YYYY, h:mmA zz'))
 			.setTimestamp()
 			.setFooter(member.guild.language.get('GUILD_LOG_GUILDMEMBERADD'));
-
-		const { verboseLogging } = member.guild.settings.get('logs');
-		if (verboseLogging) await embed.addField(member.guild.language.get('REGISTERED'), moment.tz(member.user.createdTimestamp, member.guild.settings.get('timezone')).format('Do MMMM YYYY, h:mmA zz'));
 
 		const logChannel = await this.client.channels.get(member.guild.settings.get('channels.log'));
 		await logChannel.send('', { disableEveryone: true, embed: embed });

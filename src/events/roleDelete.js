@@ -27,12 +27,9 @@ module.exports = class extends Event {
 		const embed = new MessageEmbed()
 			.setAuthor(`${role.name}`, role.guild.iconURL())
 			.setColor(this.client.settings.get('colors.red'))
+			.addField(role.guild.language.get('ID'), role.id, true)
 			.setTimestamp()
 			.setFooter(role.guild.language.get('GUILD_LOG_ROLEDELETE', executor), executor ? executor.displayAvatarURL() : undefined);
-
-		if (role.guild.settings.get('logs.verboseLogging')) {
-			embed.addField(role.guild.language.get('ID'), role.id, true);
-		}
 
 		const logChannel = await this.client.channels.get(role.guild.settings.get('channels.log'));
 		await logChannel.send('', { disableEveryone: true, embed: embed });

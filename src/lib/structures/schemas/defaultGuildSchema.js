@@ -12,7 +12,6 @@ module.exports = KlasaClient.defaultGuildSchema
 		.add('voiceBanned', 'role')
 		.add('joinable', 'role', { array: true }))
 	.add('logs', folder => folder
-		.add('verboseLogging', 'boolean', { default: false })
 		.add('events', folder => folder // eslint-disable-line
 			.add('channelCreate', 'boolean', { default: false })
 			.add('channelDelete', 'boolean', { default: false })

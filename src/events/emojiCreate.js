@@ -30,8 +30,6 @@ module.exports = class extends Event {
 			.setTimestamp()
 			.setFooter(emoji.guild.language.get('GUILD_LOG_EMOJICREATE', executor), executor ? executor.displayAvatarURL() : undefined);
 
-		if (emoji.guild.settings.get('logs.verboseLogging')) embed.addField(emoji.guild.language.get('ID'), emoji.id, true);
-
 		const logChannel = await this.client.channels.get(emoji.guild.settings.get('channels.log'));
 		await logChannel.send('', { disableEveryone: true, embed: embed });
 		return;

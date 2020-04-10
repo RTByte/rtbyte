@@ -27,13 +27,10 @@ module.exports = class extends Event {
 		const embed = new MessageEmbed()
 			.setAuthor(`${role.name}`, role.guild.iconURL())
 			.setColor(this.client.settings.get('colors.green'))
+			.addField(role.guild.language.get('ID'), role.id)
+			.addField(role.guild.language.get('GUILD_LOG_ROLECREATE_V_TAG'), role)
 			.setTimestamp()
 			.setFooter(role.guild.language.get('GUILD_LOG_ROLECREATE', executor), executor ? executor.displayAvatarURL() : undefined);
-
-		if (role.guild.settings.get('logs.verboseLogging')) {
-			embed.addField(role.guild.language.get('ID'), role.id);
-			embed.addField(role.guild.language.get('GUILD_LOG_ROLECREATE_V_TAG'), role);
-		}
 
 		const logChannel = await this.client.channels.get(role.guild.settings.get('channels.log'));
 		await logChannel.send('', { disableEveryone: true, embed: embed });
