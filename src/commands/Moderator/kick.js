@@ -26,6 +26,8 @@ module.exports = class extends Command {
 		if (username.id === this.client.user.id) return msg.reject(msg.language.get('COMMAND_KICK_NO_KICK_CLIENT'));
 		if (!msg.member.canMod(username)) return msg.reject(msg.language.get('COMMAND_KICK_NO_PERMS', username));
 
+		reason += ' (fc)';
+
 		const modCase = new ModCase(msg.guild)
 			.setUser(username)
 			.setType('kick')

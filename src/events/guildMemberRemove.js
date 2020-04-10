@@ -14,6 +14,15 @@ module.exports = class extends Event {
 
 		if (member.guild.available && member.guild.settings.get('greetings.dismissUsers')) this.client.emit('guildMemberDismiss', member);
 
+		if (member.guild.me.hasPermission('VIEW_AUDIT_LOG')) {
+			const auditLog = await member.guild.fetchAuditLogs();
+			const logEntry = await auditLog.entries.first();
+
+			const { reason, executor } = logEntry;
+
+			if (logEntry.action === 'MEMBER_KICK') this.client.emit('guildMemberKick', member, reason, executor);
+		}
+
 		return;
 	}
 
