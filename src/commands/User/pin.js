@@ -7,8 +7,7 @@ module.exports = class extends Command {
 		super(...args, {
 			aliases: ['pinned', 'pins'],
 			description: language => language.get('COMMAND_PIN_DESCRIPTION'),
-			runIn: ['text'],
-			usage: '[member:membername]'
+			runIn: ['text']
 		});
 	}
 
