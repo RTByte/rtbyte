@@ -2,7 +2,7 @@ const { KlasaClient } = require('klasa');
 
 module.exports = KlasaClient.defaultGuildSchema
 	.add('initialization', folder => folder
-		.add('ownerInformed', 'boolean', { default: false }))
+		.add('ownerInformed', 'boolean', { default: false, configurable: false }))
 	.add('developmentSettings', folder => folder
 		.add('developersAreSuperUsers', 'boolean', { default: false })
 		.add('commandAnalytics', 'boolean', { default: true }))
@@ -14,7 +14,7 @@ module.exports = KlasaClient.defaultGuildSchema
 		.add('voiceBanned', 'role')
 		.add('joinable', 'role', { array: true }))
 	.add('logs', folder => folder
-		.add('events', folder => folder // eslint-disable-line
+		.add('events', subfolder => subfolder
 			.add('channelCreate', 'boolean', { default: false })
 			.add('channelDelete', 'boolean', { default: false })
 			.add('channelUpdate', 'boolean', { default: false })
@@ -42,7 +42,7 @@ module.exports = KlasaClient.defaultGuildSchema
 			.add('webhookCreate', 'boolean', { default: false })
 			.add('webhookDelete', 'boolean', { default: false })
 			.add('webhookUpdate', 'boolean', { default: false }))
-		.add('moderation', folder => folder // eslint-disable-line
+		.add('moderation', subfolder => subfolder
 			.add('ban', 'boolean', { default: true })
 			.add('unban', 'boolean', { default: true })
 			.add('kick', 'boolean', { default: true })
@@ -82,10 +82,11 @@ module.exports = KlasaClient.defaultGuildSchema
 		.add('serverinfoExtendedOutput', 'boolean', { default: false })
 		.add('customCommandsEnabled', 'boolean', { default: false })
 		.add('customCommands', 'any', { array: true, configurable: false }))
-	.add('boards', folder => folder.add('starboard', folder => folder // eslint-disable-line
-		.add('starred', 'any', { array: true, configurable: false })
-		.add('starboardEnabled', 'boolean', { default: false })
-		.add('starboardThreshold', 'integer', { min: 1, default: 2 })
-		.add('starboardChannel', 'textchannel')))
+	.add('boards', folder => folder
+		.add('starboard', subfolder => subfolder
+			.add('starred', 'any', { array: true, configurable: false })
+			.add('starboardEnabled', 'boolean', { default: false })
+			.add('starboardThreshold', 'integer', { min: 1, default: 2 })
+			.add('starboardChannel', 'textchannel')))
 	.add('measurementUnits', 'string', { default: 'metric' })
 	.add('timezone', 'string', { default: 'Europe/London' });
