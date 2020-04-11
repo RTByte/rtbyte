@@ -665,8 +665,10 @@ module.exports = class extends Language {
 
 
 			// Board langs
+			BOARD_AUTHOR: 'Author',
 			STARBOARD_STARRED: 'Message starred',
-			STARBOARD_AUTHOR: 'Author',
+			PINBOARD_PINNED: 'Message pinned',
+			PINBOARD_PINNED_BY: (executor) => `Pinned${executor ? ` by ${executor.tag}` : ''}`,
 
 
 			// Initialization langs

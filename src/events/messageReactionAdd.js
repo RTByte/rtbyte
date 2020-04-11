@@ -22,7 +22,7 @@ module.exports = class extends Event {
 			.setAuthor(msg.language.get('STARBOARD_STARRED'), msg.guild.iconURL())
 			.setColor(this.client.settings.get('colors.gold'))
 			.setDescription(`[${msg.guild.language.get('CLICK_TO_VIEW')}](${msg.url})`)
-			.addField(msg.language.get('STARBOARD_AUTHOR'), msg.author, true)
+			.addField(msg.language.get('BOARD_AUTHOR'), msg.author, true)
 			.addField(msg.language.get('CHANNEL'), msg.channel, true)
 			.setThumbnail(msg.author.displayAvatarURL())
 			.setTimestamp(msg.createdTimestamp)
