@@ -4,7 +4,7 @@ const { MessageEmbed } = require('discord.js');
 module.exports = class extends Event {
 
 	constructor(...args) {
-		super(...args, { event: 'messagePinned' });
+		super(...args, { event: 'messagePin' });
 	}
 
 	async run(msg, executor) {

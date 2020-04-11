@@ -506,8 +506,12 @@ module.exports = class extends Language {
 			COMMAND_WEATHER_HUMIDITY: 'Humidity',
 			COMMAND_STAR_DESCRIPTION: 'Fetch a random message from the starboard. Append \`top\` to get the top starred message instead.',
 			COMMAND_STAR_STARRED: 'Starred message',
-			COMMAND_STAR_NOSTARRED: 'There are no starred messages on this server!',
+			COMMAND_STAR_NOSTARRED: 'There are no starred messages in this server!',
 			COMMAND_STAR_STARBOARD_NOT_ENABLED: 'The starboard feature is not enabled in this server!',
+			COMMAND_PIN_DESCRIPTION: 'Fetch a random message from the pinboard.',
+			COMMAND_PIN_PINNED: 'Pinned message',
+			COMMAND_PIN_NOPINNED: 'There are no pinned messages in this server!',
+			COMMAND_PIN_PINBOARD_NOT_ENABLED: 'The pinboard feature is not enabled in this server!',
 
 
 			// Message prompt langs

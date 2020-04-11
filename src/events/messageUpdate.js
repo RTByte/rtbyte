@@ -16,7 +16,7 @@ module.exports = class extends Event {
 			const { executor, target } = logEntry;
 
 
-			if (logEntry.action === 'MESSAGE_PIN' && msg.pinned) this.client.emit('messagePinned', msg, executor);
+			if (logEntry.action === 'MESSAGE_PIN' && msg.pinned) this.client.emit('messagePin', msg, executor);
 		}
 
 		if (msg.guild.settings.get('channels.log') && msg.guild.settings.get('logs.events.messageUpdate') && old.content !== msg.content) await this.serverLog(old, msg);
