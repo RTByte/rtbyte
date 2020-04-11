@@ -695,7 +695,7 @@ module.exports = class extends Language {
 				'You will also need to manually set the appropriate permissions for your server log channel.',
 				'',
 				// eslint-disable-next-line max-len
-				`Please keep in mind that unless you grant ${this.client.user.username} this permission, some features may not function. To get rid of these notifications, please configure the bot by running the commands above.`,
+				`Please keep in mind that unless you grant ${this.client.user.username} this permission, some features may not function.`,
 				'',
 				'',
 				'Visit [rtbyte.xyz](https://rtbyte.xyz) for a full list of commands, our F.A.Q., and more.',
@@ -715,7 +715,7 @@ module.exports = class extends Language {
 					'-conf set channels.log #your-server-log-channel'
 				].join('\n')),
 				// eslint-disable-next-line max-len
-				`Please keep in mind that unless you grant ${this.client.user.username} this permission, some features may not function. To get rid of these notifications, please configure the bot by running the command above.`,
+				`Please keep in mind that unless you grant ${this.client.user.username} this permission, some features may not function.`,
 				'',
 				'',
 				'Visit [rtbyte.xyz](https://rtbyte.xyz) for a full list of commands, our F.A.Q., and more.',
@@ -737,7 +737,7 @@ module.exports = class extends Language {
 					'-conf set channels.log #your-server-log-channel'
 				].join('\n')),
 				// eslint-disable-next-line max-len
-				`Please keep in mind that unless you grant ${this.client.user.username} these permissions, some features may not function. To get rid of these notifications, please configure the bot by running the commands above.`,
+				`Please keep in mind that unless you grant ${this.client.user.username} these permissions, some features may not function.`,
 				'',
 				'',
 				'Visit [rtbyte.xyz](https://rtbyte.xyz) for a full list of commands, our F.A.Q., and more.',
