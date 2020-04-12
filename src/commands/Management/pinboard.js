@@ -9,7 +9,7 @@ module.exports = class extends Command {
 			description: language => language.get('COMMAND_PINBOARD_DESCRIPTION'),
 			runIn: ['text'],
 			subcommands: true,
-			usage: '<enable|disable|set|remove|reset|show:default> [channel|ignored] [specifiedChannel:channel]',
+			usage: '<enable|disable|set|remove|reset|show:default> [channel|ignored] [value:channel]',
 			usageDelim: ' '
 		});
 	}
@@ -23,8 +23,8 @@ module.exports = class extends Command {
 		};
 
 		const pinboardEnabled = status[msg.guild.settings.get('boards.pinboard.pinboardEnabled')];
-		const pinboardChannel = msg.guild.channels.get(msg.guild.settings.get('boards.pinboard.pinboardChannel')) || 'Not set';
-		const pinboardIgnoredChannels = msg.guild.settings.get('boards.pinboard.pinboardIgnoredChannels').map(channel => msg.guild.channels.get(channel)).join(', ') || 'None';
+		const pinboardChannel = msg.guild.channels.get(msg.guild.settings.get('boards.pinboard.pinboardChannel')) || msg.language.get('NOT_SET');
+		const pinboardIgnoredChannels = msg.guild.settings.get('boards.pinboard.pinboardIgnoredChannels').map(channel => msg.guild.channels.get(channel)).join(', ') || msg.language.get('NONE');
 
 		const embed = new MessageEmbed()
 			.setAuthor(msg.language.get('COMMAND_PINBOARD_SHOW_TITLE'), this.client.user.displayAvatarURL())
@@ -57,36 +57,50 @@ module.exports = class extends Command {
 		return msg.affirm(msg.language.get('COMMAND_PINBOARD_DISABLE_SUCCESS'));
 	}
 
-	async set(msg, [setting, specifiedChannel]) {
+	async set(msg, [setting, value]) {
+		if (!setting) return msg.reject(msg.language.get('COMMAND_PINBOARD_NOSETTING'));
+
+		setting = setting.toLowerCase();
+		if (!value && (setting === 'channel' || setting === 'ignored')) return msg.reject(msg.language.get('COMMAND_PINBOARD_NOVALUE_CHANNEL'));
+
 		const pinboardChannel = msg.guild.settings.get('boards.pinboard.pinboardChannel');
 		const pinboardIgnoredChannels = msg.guild.settings.get('boards.pinboard.pinboardIgnoredChannels');
 
 		if (setting === 'channel') setting = 'pinboardChannel';
 		if (setting === 'ignored') setting = 'pinboardIgnoredChannels';
 
-		if (specifiedChannel.id === pinboardChannel) return msg.reject(msg.language.get('COMMAND_PINBOARD_SET_CHANNEL_SAMECHANNEL', specifiedChannel));
-		if (pinboardIgnoredChannels.includes(specifiedChannel.id)) return msg.reject(msg.language.get('COMMAND_PINBOARD_SET_IGNORED_ALREADYADDED', specifiedChannel));
+		if (value.id === pinboardChannel) return msg.reject(msg.language.get('COMMAND_PINBOARD_SET_CHANNEL_SAMECHANNEL', value));
+		if (pinboardIgnoredChannels.includes(value.id)) return msg.reject(msg.language.get('COMMAND_PINBOARD_SET_IGNORED_ALREADYADDED', value));
 
-		await msg.guild.settings.update(`boards.pinboard.${setting}`, specifiedChannel);
-		if (setting === 'pinboardChannel') return msg.affirm(msg.language.get('COMMAND_PINBOARD_SET_CHANNEL_SUCCESS', specifiedChannel));
-		if (setting === 'pinboardIgnoredChannels') return msg.affirm(msg.language.get('COMMAND_PINBOARD_SET_IGNORED_SUCCESS', specifiedChannel));
+		await msg.guild.settings.update(`boards.pinboard.${setting}`, value);
+		if (setting === 'pinboardChannel') return msg.affirm(msg.language.get('COMMAND_PINBOARD_SET_CHANNEL_SUCCESS', value));
+		if (setting === 'pinboardIgnoredChannels') return msg.affirm(msg.language.get('COMMAND_PINBOARD_SET_IGNORED_SUCCESS', value));
 
 		return true;
 	}
 
-	async remove(msg, [setting, specifiedChannel]) {
+	async remove(msg, [setting, value]) {
+		if (!setting) return msg.reject(msg.language.get('COMMAND_PINBOARD_NOSETTING'));
+
+		setting = setting.toLowerCase();
+		if (!value && setting === 'ignored') return msg.reject(msg.language.get('COMMAND_PINBOARD_NOVALUE_CHANNEL'));
+
 		const pinboardIgnoredChannels = msg.guild.settings.get('boards.pinboard.pinboardIgnoredChannels');
 
 		if (setting !== 'ignored') return msg.reject(msg.language.get('COMMAND_PINBOARD_REMOVE_ONLYIGNORED'));
-		if (!pinboardIgnoredChannels.find(channel => channel === specifiedChannel.id)) {
-			return msg.reject(msg.language.get('COMMAND_PINBOARD_REMOVE_NOTADDED', specifiedChannel));
+		if (!pinboardIgnoredChannels.find(channel => channel === value.id)) {
+			return msg.reject(msg.language.get('COMMAND_PINBOARD_REMOVE_NOTADDED', value));
 		}
 
-		await msg.guild.settings.update('boards.pinboard.pinboardIgnoredChannels', specifiedChannel, { action: 'remove' });
-		return msg.affirm(msg.language.get('COMMAND_PINBOARD_REMOVE_SUCCESS', specifiedChannel));
+		await msg.guild.settings.update('boards.pinboard.pinboardIgnoredChannels', value, { action: 'remove' });
+		return msg.affirm(msg.language.get('COMMAND_PINBOARD_REMOVE_SUCCESS', value));
 	}
 
 	async reset(msg, [setting]) {
+		if (!setting) return msg.reject(msg.language.get('COMMAND_PINBOARD_NOSETTING'));
+
+		setting = setting.toLowerCase();
+
 		const pinboardChannel = msg.guild.settings.get('boards.pinboard.pinboardChannel');
 		const pinboardIgnoredChannels = msg.guild.settings.get('boards.pinboard.pinboardIgnoredChannels');
 

@@ -63,8 +63,8 @@ module.exports = KlasaClient.defaultGuildSchema
 		.add('welcomeChannel', 'textchannel')
 		.add('welcomeMessage', 'string')
 		.add('dismissUsers', 'boolean', { default: false })
-		.add('goodbyeChannel', 'textchannel')
-		.add('goodbyeMessage', 'string'))
+		.add('dismissChannel', 'textchannel')
+		.add('dismissMessage', 'string'))
 	.add('filters', folder => folder
 		.add('wordBlacklistEnabled', 'boolean', { default: false })
 		.add('antiInviteEnabled', 'boolean', { default: false })

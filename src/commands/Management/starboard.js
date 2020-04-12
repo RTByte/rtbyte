@@ -24,8 +24,8 @@ module.exports = class extends Command {
 
 		const starboardEnabled = status[msg.guild.settings.get('boards.starboard.starboardEnabled')];
 		const starboardThreshold = msg.guild.settings.get('boards.starboard.starboardThreshold');
-		const starboardChannel = msg.guild.channels.get(msg.guild.settings.get('boards.starboard.starboardChannel')) || 'Not set';
-		const starboardIgnoredChannels = msg.guild.settings.get('boards.starboard.starboardIgnoredChannels').map(channel => msg.guild.channels.get(channel)).join(', ') || 'None';
+		const starboardChannel = msg.guild.channels.get(msg.guild.settings.get('boards.starboard.starboardChannel')) || msg.language.get('NOT_SET');
+		const starboardIgnoredChannels = msg.guild.settings.get('boards.starboard.starboardIgnoredChannels').map(channel => msg.guild.channels.get(channel)).join(', ') || msg.language.get('NONE');
 
 		const embed = new MessageEmbed()
 			.setAuthor(msg.language.get('COMMAND_STARBOARD_SHOW_TITLE'), this.client.user.displayAvatarURL())
@@ -60,6 +60,9 @@ module.exports = class extends Command {
 	}
 
 	async set(msg, [setting, value]) {
+		if (!setting) return msg.reject(msg.language.get('COMMAND_STARBOARD_NOSETTING'));
+
+		setting = setting.toLowerCase();
 		if (!value && setting === 'threshold') return msg.reject(msg.language.get('COMMAND_STARBOARD_NOVALUE_NUMBER'));
 		if (!value && (setting === 'channel' || setting === 'ignored')) return msg.reject(msg.language.get('COMMAND_STARBOARD_NOVALUE_CHANNEL'));
 
@@ -84,6 +87,11 @@ module.exports = class extends Command {
 	}
 
 	async remove(msg, [setting, value]) {
+		if (!setting) return msg.reject(msg.language.get('COMMAND_STARBOARD_NOSETTING'));
+
+		setting = setting.toLowerCase();
+		if (!value && setting === 'ignored') return msg.reject(msg.language.get('COMMAND_STARBOARD_NOVALUE_CHANNEL'));
+
 		const starboardIgnoredChannels = msg.guild.settings.get('boards.starboard.starboardIgnoredChannels');
 
 		if (setting !== 'ignored') return msg.reject(msg.language.get('COMMAND_STARBOARD_REMOVE_ONLYIGNORED'));
@@ -96,6 +104,10 @@ module.exports = class extends Command {
 	}
 
 	async reset(msg, [setting]) {
+		if (!setting) return msg.reject(msg.language.get('COMMAND_STARBOARD_NOSETTING'));
+
+		setting = setting.toLowerCase();
+
 		const starboardThreshold = msg.guild.settings.get('boards.starboard.starboardThreshold');
 		const starboardChannel = msg.guild.settings.get('boards.starboard.starboardChannel');
 		const starboardIgnoredChannels = msg.guild.settings.get('boards.starboard.starboardIgnoredChannels');

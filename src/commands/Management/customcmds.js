@@ -23,7 +23,7 @@ module.exports = class extends Command {
 		};
 
 		const customCommandsEnabled = status[msg.guild.settings.get('commands.customCommandsEnabled')];
-		const customCommands = msg.guild.settings.get('commands.customCommands').map(command => `• ${command.name}`).join('\n') || 'None';
+		const customCommands = msg.guild.settings.get('commands.customCommands').map(command => `• ${command.name}`).join('\n') || msg.language.get('NONE');
 
 		const embed = new MessageEmbed()
 			.setAuthor(msg.language.get('COMMAND_CUSTOMCMDS_SHOW_TITLE'), this.client.user.displayAvatarURL())
