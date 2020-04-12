@@ -7,9 +7,10 @@ module.exports = class extends Event {
 		super(...args, { event: 'customCmdUpdate' });
 	}
 
-	async run(msg, cmdName, cmdContent, oldCmd, executor) {
+	async run(msg, cmdName, cmdContent, oldCmd) {
 		if (!msg.guild) return;
 
+		const executor = msg.author;
 		if (msg.guild.settings.get('channels.log') && msg.guild.settings.get('logs.events.customCmdUpdate')) await this.serverLog(msg, cmdName, cmdContent, oldCmd, executor);
 
 		return;

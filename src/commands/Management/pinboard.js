@@ -29,9 +29,9 @@ module.exports = class extends Command {
 		const embed = new MessageEmbed()
 			.setAuthor(msg.language.get('COMMAND_PINBOARD_SHOW_TITLE'), this.client.user.displayAvatarURL())
 			.setColor(this.client.settings.get('colors.white'))
-			.addField(msg.language.get('COMMAND_PINBOARD_SHOW_ENABLED'), pinboardEnabled, true)
+			.addField(msg.language.get('ENABLED'), pinboardEnabled, true)
 			.addField(msg.language.get('CHANNEL'), pinboardChannel, true)
-			.addField(msg.language.get('COMMAND_PINBOARD_SHOW_IGNORED'), pinboardIgnoredChannels)
+			.addField(msg.language.get('IGNORED_CHANNELS'), pinboardIgnoredChannels)
 			.setThumbnail(msg.guild.iconURL(), 50, 50)
 			.setTimestamp()
 			.setFooter(msg.language.get('COMMAND_REQUESTED_BY', msg), msg.author.displayAvatarURL());

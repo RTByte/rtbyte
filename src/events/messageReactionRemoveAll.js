@@ -8,6 +8,7 @@ module.exports = class extends Event {
 
 	async run(msg) {
 		if (!msg.guild) return;
+		if (msg.guild.settings.get('boards.starboard.starboardIgnoredChannels').includes(msg.channel.id)) return;
 
 		const starboardChannel = await this.client.channels.get(msg.guild.settings.get('boards.starboard.starboardChannel'));
 		if (!msg.guild.settings.get('boards.starboard.starboardEnabled')) return;
