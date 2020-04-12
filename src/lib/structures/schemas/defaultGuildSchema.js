@@ -87,7 +87,8 @@ module.exports = KlasaClient.defaultGuildSchema
 			.add('starred', 'any', { array: true, configurable: false })
 			.add('starboardEnabled', 'boolean', { default: false })
 			.add('starboardThreshold', 'integer', { min: 1, default: 2 })
-			.add('starboardChannel', 'textchannel'))
+			.add('starboardChannel', 'textchannel')
+			.add('starboardIgnoredChannels', 'textchannel', { array: true }))
 		.add('pinboard', subfolder => subfolder
 			.add('pinned', 'any', { array: true, configurable: false })
 			.add('pinboardEnabled', 'boolean', { default: false })
