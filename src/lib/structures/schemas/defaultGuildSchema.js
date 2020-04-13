@@ -32,6 +32,7 @@ module.exports = KlasaClient.defaultGuildSchema
 			.add('guildMemberUpdate', 'boolean', { default: true })
 			.add('guildBoostAdd', 'boolean', { default: true })
 			.add('guildBoostRemove', 'boolean', { default: true })
+			.add('guildBoostTierUpdate', 'boolean', { default: true })
 			.add('inviteCreate', 'boolean', { default: false })
 			.add('inviteDelete', 'boolean', { default: false })
 			.add('messageDelete', 'boolean', { default: true })

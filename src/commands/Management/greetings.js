@@ -64,7 +64,7 @@ module.exports = class extends Command {
 
 		await msg.guild.settings.update(`greetings.${setting}`, true);
 
-		return msg.affirm(msg.language.get('COMMAND_GREETINGS_ENABLE_SUCCESS', setting));
+		return msg.affirm();
 	}
 
 	async disable(msg, [setting]) {
@@ -84,7 +84,7 @@ module.exports = class extends Command {
 
 		await msg.guild.settings.update(`greetings.${setting}`, false);
 
-		return msg.affirm(msg.language.get('COMMAND_GREETINGS_DISABLE_SUCCESS', setting));
+		return msg.affirm();
 	}
 
 	async set(msg, [setting, value]) {
@@ -113,12 +113,8 @@ module.exports = class extends Command {
 		if (setting === 'dismissMessage' && value === dismissMessage) return msg.reject(msg.language.get('COMMAND_GREETINGS_SET_DISMISSMESSAGE_SAMEVALUE', value));
 
 		await msg.guild.settings.update(`greetings.${setting}`, value);
-		if (setting === 'welcomeChannel') return msg.affirm(msg.language.get('COMMAND_GREETINGS_SET_WELCOMECHANNEL_SUCCESS', value));
-		if (setting === 'welcomeMessage') return msg.affirm(msg.language.get('COMMAND_GREETINGS_SET_WELCOMEMESSAGE_SUCCESS', value));
-		if (setting === 'dismissChannel') return msg.affirm(msg.language.get('COMMAND_GREETINGS_SET_DISMISSCHANNEL_SUCCESS', value));
-		if (setting === 'dismissMessage') return msg.affirm(msg.language.get('COMMAND_GREETINGS_SET_DISMISSMESSAGE_SUCCESS', value));
 
-		return true;
+		return msg.affirm();
 	}
 
 	async reset(msg, [setting]) {
@@ -145,12 +141,8 @@ module.exports = class extends Command {
 		if (setting === 'dismissMessage' && !dismissMessage) return msg.reject(msg.language.get('COMMAND_GREETINGS_RESET_DISMISSMESSAGE_NOTSET'));
 
 		await msg.guild.settings.reset(`greetings.${setting}`);
-		if (setting === 'welcomeChannel') return msg.affirm(msg.language.get('COMMAND_GREETINGS_RESET_WELCOMECHANNEL_SUCCESS'));
-		if (setting === 'welcomeMessage') return msg.affirm(msg.language.get('COMMAND_GREETINGS_RESET_WELCOMEMESSAGE_SUCCESS'));
-		if (setting === 'dimissChannel') return msg.affirm(msg.language.get('COMMAND_GREETINGS_RESET_DISMISSCHANNEL_SUCCESS'));
-		if (setting === 'dismissMessage') return msg.affirm(msg.language.get('COMMAND_GREETINGS_RESET_DISMISSMESSAGE_SUCCESS'));
 
-		return true;
+		return msg.affirm();
 	}
 
 };

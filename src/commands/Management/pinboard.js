@@ -45,7 +45,8 @@ module.exports = class extends Command {
 		if (pinboardEnabled) return msg.reject(msg.language.get('COMMAND_PINBOARD_ENABLE_ALREADYENABLED'));
 
 		await msg.guild.settings.update('boards.pinboard.pinboardEnabled', true);
-		return msg.affirm(msg.language.get('COMMAND_PINBOARD_ENABLE_SUCCESS'));
+
+		return msg.affirm();
 	}
 
 	async disable(msg) {
@@ -54,7 +55,8 @@ module.exports = class extends Command {
 		if (!pinboardEnabled) return msg.reject(msg.language.get('COMMAND_PINBOARD_DISABLE_ALREADYDISABLED'));
 
 		await msg.guild.settings.update('boards.pinboard.pinboardEnabled', false);
-		return msg.affirm(msg.language.get('COMMAND_PINBOARD_DISABLE_SUCCESS'));
+
+		return msg.affirm();
 	}
 
 	async set(msg, [setting, value]) {
@@ -73,10 +75,8 @@ module.exports = class extends Command {
 		if (pinboardIgnoredChannels.includes(value.id)) return msg.reject(msg.language.get('COMMAND_PINBOARD_SET_IGNORED_ALREADYADDED', value));
 
 		await msg.guild.settings.update(`boards.pinboard.${setting}`, value);
-		if (setting === 'pinboardChannel') return msg.affirm(msg.language.get('COMMAND_PINBOARD_SET_CHANNEL_SUCCESS', value));
-		if (setting === 'pinboardIgnoredChannels') return msg.affirm(msg.language.get('COMMAND_PINBOARD_SET_IGNORED_SUCCESS', value));
 
-		return true;
+		return msg.affirm();
 	}
 
 	async remove(msg, [setting, value]) {
@@ -93,7 +93,8 @@ module.exports = class extends Command {
 		}
 
 		await msg.guild.settings.update('boards.pinboard.pinboardIgnoredChannels', value, { action: 'remove' });
-		return msg.affirm(msg.language.get('COMMAND_PINBOARD_REMOVE_SUCCESS', value));
+
+		return msg.affirm();
 	}
 
 	async reset(msg, [setting]) {
@@ -111,10 +112,8 @@ module.exports = class extends Command {
 		if (setting === 'pinboardIgnoredChannels' && !pinboardIgnoredChannels.length) return msg.reject(msg.language.get('COMMAND_PINBOARD_RESET_IGNORED_NOTSET'));
 
 		await msg.guild.settings.reset(`boards.pinboard.${setting}`);
-		if (setting === 'pinboardChannel') return msg.affirm(msg.language.get('COMMAND_PINBOARD_RESET_CHANNEL_SUCCESS'));
-		if (setting === 'pinboardIgnoredChannels') return msg.affirm(msg.language.get('COMMAND_PINBOARD_RESET_IGNORED_SUCCESS'));
 
-		return true;
+		return msg.affirm();
 	}
 
 };

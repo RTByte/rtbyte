@@ -47,7 +47,8 @@ module.exports = class extends Command {
 		if (starboardEnabled) return msg.reject(msg.language.get('COMMAND_STARBOARD_ENABLE_ALREADYENABLED'));
 
 		await msg.guild.settings.update('boards.starboard.starboardEnabled', true);
-		return msg.affirm(msg.language.get('COMMAND_STARBOARD_ENABLE_SUCCESS'));
+
+		return msg.affirm();
 	}
 
 	async disable(msg) {
@@ -56,7 +57,8 @@ module.exports = class extends Command {
 		if (!starboardEnabled) return msg.reject(msg.language.get('COMMAND_STARBOARD_DISABLE_ALREADYDISABLED'));
 
 		await msg.guild.settings.update('boards.starboard.starboardEnabled', false);
-		return msg.affirm(msg.language.get('COMMAND_STARBOARD_DISABLE_SUCCESS'));
+
+		return msg.affirm();
 	}
 
 	async set(msg, [setting, value]) {
@@ -79,11 +81,8 @@ module.exports = class extends Command {
 		if (setting === 'starboardIgnoredChannels' && starboardIgnoredChannels.includes(value.id)) return msg.reject(msg.language.get('COMMAND_STARBOARD_SET_IGNORED_ALREADYADDED', value));
 
 		await msg.guild.settings.update(`boards.starboard.${setting}`, value);
-		if (setting === 'starboardThreshold') return msg.affirm(msg.language.get('COMMAND_STARBOARD_SET_THRESHOLD_SUCCESS', value));
-		if (setting === 'starboardChannel') return msg.affirm(msg.language.get('COMMAND_STARBOARD_SET_CHANNEL_SUCCESS', value));
-		if (setting === 'starboardIgnoredChannels') return msg.affirm(msg.language.get('COMMAND_STARBOARD_SET_IGNORED_SUCCESS', value));
 
-		return true;
+		return msg.affirm();
 	}
 
 	async remove(msg, [setting, value]) {
@@ -100,7 +99,8 @@ module.exports = class extends Command {
 		}
 
 		await msg.guild.settings.update('boards.starboard.starboardIgnoredChannels', value, { action: 'remove' });
-		return msg.affirm(msg.language.get('COMMAND_STARBOARD_REMOVE_SUCCESS', value));
+
+		return msg.affirm();
 	}
 
 	async reset(msg, [setting]) {
@@ -121,11 +121,8 @@ module.exports = class extends Command {
 		if (setting === 'starboardIgnoredChannels' && !starboardIgnoredChannels.length) return msg.reject(msg.language.get('COMMAND_STARBOARD_RESET_IGNORED_NOTSET'));
 
 		await msg.guild.settings.reset(`boards.starboard.${setting}`);
-		if (setting === 'starboardThreshold') return msg.affirm(msg.language.get('COMMAND_STARBOARD_RESET_THRESHOLD_SUCCESS'));
-		if (setting === 'starboardChannel') return msg.affirm(msg.language.get('COMMAND_STARBOARD_RESET_CHANNEL_SUCCESS'));
-		if (setting === 'starboardIgnoredChannels') return msg.affirm(msg.language.get('COMMAND_STARBOARD_RESET_IGNORED_SUCCESS'));
 
-		return true;
+		return msg.affirm();
 	}
 
 };
