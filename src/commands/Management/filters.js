@@ -12,7 +12,7 @@ module.exports = class extends Command {
 	constructor(...args) {
 		super(...args, {
 			permissionLevel: 6,
-			description: language => language.get('COMMAND_STARBOARD_DESCRIPTION'),
+			description: language => language.get('COMMAND_FILTERS_DESCRIPTION'),
 			runIn: ['text'],
 			subcommands: true,
 			// eslint-disable-next-line max-len

@@ -3,14 +3,12 @@ const { Command, RichDisplay } = require('klasa');
 const { MessageEmbed } = require('discord.js');
 
 const enableDisableArr = ['cmdrun', 'msgdelete', 'msgedit', 'serverupdate',
-	'invitecreate', 'invitedelete', 'channelcreate',
-	'channeldelete', 'channelupdate', 'rolecreate',
-	'roledelete', 'roleupdate', 'emojicreate', 'emojidelete',
-	'emojiupdate', 'webhookcreate', 'webhookdelete',
-	'webhookupdate', 'customcmdcreate', 'customcmddelete',
-	'customcmdupdate', 'memberjoin', 'botadd', 'memberleave',
-	'memberupdate', 'nitroadd', 'nitroremove', 'nitrolvlupdate'
-];
+	'invitecreate', 'invitedelete', 'channelcreate', 'channeldelete',
+	'channelupdate', 'rolecreate', 'roledelete', 'roleupdate', 'emojicreate',
+	'emojidelete', 'emojiupdate', 'webhookcreate', 'webhookdelete',
+	'webhookupdate', 'customcmdcreate', 'customcmddelete', 'customcmdupdate',
+	'memberjoin', 'botadd', 'memberleave', 'memberupdate', 'nitroadd',
+	'nitroremove', 'nitrolvlupdate'];
 const timeout = 1000 * 60 * 3;
 
 module.exports = class extends Command {
@@ -18,7 +16,7 @@ module.exports = class extends Command {
 	constructor(...args) {
 		super(...args, {
 			permissionLevel: 6,
-			description: language => language.get('COMMAND_PINBOARD_DESCRIPTION'),
+			description: language => language.get('COMMAND_LOGS_DESCRIPTION'),
 			runIn: ['text'],
 			subcommands: true,
 			usage: '<enable|disable|set|reset|show:default> [channel|event:str] [value:channel]',

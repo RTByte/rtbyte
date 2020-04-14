@@ -7,7 +7,7 @@ module.exports = class extends Command {
 	constructor(...args) {
 		super(...args, {
 			permissionLevel: 6,
-			description: language => language.get('COMMAND_PINBOARD_DESCRIPTION'),
+			description: language => language.get('COMMAND_GREETINGS_DESCRIPTION'),
 			runIn: ['text'],
 			subcommands: true,
 			usage: '<enable|disable|set|reset|show:default> [welcome|dismiss|welcomeChannel|dismissChannel|welcomeMessage|dismissMessage] [value:channel|value:...str]',
