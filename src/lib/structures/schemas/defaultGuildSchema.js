@@ -78,7 +78,7 @@ module.exports = KlasaClient.defaultGuildSchema
 		.add('checkDisplayNames', 'boolean', { default: false })
 		.add('words', 'string', { array: true })
 		.add('inviteWhitelist', 'string', { array: true })
-		.add('mentionSpamThreshold', 'integer', { min: 2, max: 90 }))
+		.add('mentionSpamThreshold', 'integer', { default: 12, min: 2, max: 90 }))
 	.add('moderation', folder => folder
 		.add('notifyUser', 'boolean', { default: false }))
 	.add('commands', folder => folder
