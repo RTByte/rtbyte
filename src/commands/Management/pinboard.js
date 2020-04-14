@@ -63,7 +63,7 @@ module.exports = class extends Command {
 		if (!setting) return msg.reject(msg.language.get('COMMAND_PINBOARD_NOSETTING'));
 
 		setting = setting.toLowerCase();
-		if (!value && (setting === 'channel' || setting === 'ignored')) return msg.reject(msg.language.get('COMMAND_PINBOARD_NOVALUE_CHANNEL'));
+		if (!value && ['channel', 'ignored'].includes(setting)) return msg.reject(msg.language.get('COMMAND_PINBOARD_NOVALUE_CHANNEL'));
 
 		const pinboardChannel = msg.guild.settings.get('boards.pinboard.pinboardChannel');
 		const pinboardIgnoredChannels = msg.guild.settings.get('boards.pinboard.pinboardIgnoredChannels');

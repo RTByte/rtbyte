@@ -542,7 +542,7 @@ module.exports = class extends Language {
 			COMMAND_STARBOARD_SET_IGNORED_ALREADYADDED: (channel) => `${channel} is already on the starboard's ignored channels list.`,
 			COMMAND_STARBOARD_REMOVE_ONLYIGNORED: "You can only use the `remove` option when modifying the starboard's ignored channels list.",
 			COMMAND_STARBOARD_REMOVE_NOTADDED: (channel) => `${channel} is not on the starboard's list of ignored channels.`,
-			COMMAND_STARBOARD_RESET_THRESHOLD_DEFAULT: "The starboard's star threshold is already set to it's default value, so you can't reset it.",
+			COMMAND_STARBOARD_RESET_THRESHOLD_DEFAULT: "The starboard's star threshold is already set to its default value, so you can't reset it.",
 			COMMAND_STARBOARD_RESET_CHANNEL_NOTSET: "The starboard channel has not been set, so you can't reset it.",
 			COMMAND_STARBOARD_RESET_IGNORED_NOTSET: "No channels have beeen added to the starboard's ignored channels list, so you can't reset it.",
 			COMMAND_GREETINGS_DESCRIPTION: "A series of commands to let you modify the greeting settings for your server. When setting the welcome message, you can type %user% to get the user's @mention.",

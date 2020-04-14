@@ -51,7 +51,7 @@ module.exports = class extends Command {
 		if (!setting) return msg.reject(msg.language.get('COMMAND_GREETINGS_ENABLE_NOSETTING'));
 
 		setting = setting.toLowerCase();
-		if (setting !== 'welcome' && setting !== 'dismiss') return msg.reject(msg.language.get('COMMAND_GREETINGS_ENABLE_ONLY_WELCOME_DISMISS'));
+		if (!['welcome', 'dismiss'].includes(setting)) return msg.reject(msg.language.get('COMMAND_GREETINGS_ENABLE_ONLY_WELCOME_DISMISS'));
 
 		const welcomeNewUsers = msg.guild.settings.get('greetings.welcomeNewUsers');
 		const dismissUsers = msg.guild.settings.get('greetings.dismissUsers');
@@ -71,7 +71,7 @@ module.exports = class extends Command {
 		if (!setting) return msg.reject(msg.language.get('COMMAND_GREETINGS_DISABLE_NOSETTING'));
 
 		setting = setting.toLowerCase();
-		if (setting !== 'welcome' && setting !== 'dismiss') return msg.reject(msg.language.get('COMMAND_GREETINGS_DISABLE_ONLY_WELCOME_DISMISS'));
+		if (!['welcome', 'dismiss'].includes(setting)) return msg.reject(msg.language.get('COMMAND_GREETINGS_DISABLE_ONLY_WELCOME_DISMISS'));
 
 		const welcomeNewUsers = msg.guild.settings.get('greetings.welcomeNewUsers');
 		const dismissUsers = msg.guild.settings.get('greetings.dismissUsers');
@@ -91,9 +91,9 @@ module.exports = class extends Command {
 		if (!setting) return msg.reject(msg.language.get('COMMAND_GREETINGS_NOSETTING'));
 
 		setting = setting.toLowerCase();
-		if (!value && (setting === 'welcomechannel' || setting === 'dismisschannel')) return msg.reject(msg.language.get('COMMAND_GREETINGS_NOVALUE_CHANNEL'));
-		if (!value && (setting === 'welcomemessage' || setting === 'dismissmessage')) return msg.reject(msg.language.get('COMMAND_GREETINGS_NOVALUE_MESSAGE'));
-		if (setting !== 'welcomechannel' && setting !== 'dismisschannel' && setting !== 'welcomemessage' && setting !== 'dismissmessage') {
+		if (!value && ['welcomechannel', 'dismisschannel'].includes(setting)) return msg.reject(msg.language.get('COMMAND_GREETINGS_NOVALUE_CHANNEL'));
+		if (!value && ['welcomemessage', 'dismissmessage'].includes(setting)) return msg.reject(msg.language.get('COMMAND_GREETINGS_NOVALUE_MESSAGE'));
+		if (!['welcomechannel', 'dismisschannel', 'welcomemessage', 'dismissmessage'].includes(setting)) {
 			return msg.reject(msg.language.get('COMMAND_GREETINGS_ONLY_WELCCH_DISCH_WELCMSG_DISMSG'));
 		}
 
@@ -121,7 +121,7 @@ module.exports = class extends Command {
 		if (!setting) return msg.reject(msg.language.get('COMMAND_GREETINGS_NOSETTING'));
 
 		setting = setting.toLowerCase();
-		if (setting !== 'welcomechannel' && setting !== 'dismisschannel' && setting !== 'welcomemessage' && setting !== 'dismissmessage') {
+		if (!['welcomechannel', 'dismisschannel', 'welcomemessage', 'dismissmessage'].includes(setting)) {
 			return msg.reject(msg.language.get('COMMAND_GREETINGS_ONLY_WELCCH_DISCH_WELCMSG_DISMSG'));
 		}
 

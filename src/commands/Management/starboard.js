@@ -66,7 +66,7 @@ module.exports = class extends Command {
 
 		setting = setting.toLowerCase();
 		if (!value && setting === 'threshold') return msg.reject(msg.language.get('COMMAND_STARBOARD_NOVALUE_NUMBER'));
-		if (!value && (setting === 'channel' || setting === 'ignored')) return msg.reject(msg.language.get('COMMAND_STARBOARD_NOVALUE_CHANNEL'));
+		if (!value && ['channel', 'ignored'].includes(setting)) return msg.reject(msg.language.get('COMMAND_STARBOARD_NOVALUE_CHANNEL'));
 
 		const starboardThreshold = msg.guild.settings.get('boards.starboard.starboardThreshold');
 		const starboardChannel = msg.guild.settings.get('boards.starboard.starboardChannel');

@@ -2,6 +2,15 @@
 const { Command, RichDisplay } = require('klasa');
 const { MessageEmbed } = require('discord.js');
 
+const enableDisableArr = ['cmdrun', 'msgdelete', 'msgedit', 'serverupdate',
+	'invitecreate', 'invitedelete', 'channelcreate',
+	'channeldelete', 'channelupdate', 'rolecreate',
+	'roledelete', 'roleupdate', 'emojicreate', 'emojidelete',
+	'emojiupdate', 'webhookcreate', 'webhookdelete',
+	'webhookupdate', 'customcmdcreate', 'customcmddelete',
+	'customcmdupdate', 'memberjoin', 'botadd', 'memberleave',
+	'memberupdate', 'nitroadd', 'nitroremove', 'nitrolvlupdate'
+];
 const timeout = 1000 * 60 * 3;
 
 module.exports = class extends Command {
@@ -44,36 +53,7 @@ module.exports = class extends Command {
 		if (!setting) return msg.reject(msg.language.get('COMMAND_LOGS_NOSETTING'));
 
 		setting = setting.toLowerCase();
-		if (
-			setting !== 'cmdrun' &&
-			setting !== 'msgdelete' &&
-			setting !== 'msgedit' &&
-			setting !== 'serverupdate' &&
-			setting !== 'invitecreate' &&
-			setting !== 'invitedelete' &&
-			setting !== 'channelcreate' &&
-			setting !== 'channeldelete' &&
-			setting !== 'channelupdate' &&
-			setting !== 'rolecreate' &&
-			setting !== 'roledelete' &&
-			setting !== 'roleupdate' &&
-			setting !== 'emojicreate' &&
-			setting !== 'emojidelete' &&
-			setting !== 'emojiupdate' &&
-			setting !== 'webhookcreate' &&
-			setting !== 'webhookdelete' &&
-			setting !== 'webhookupdate' &&
-			setting !== 'customcmdcreate' &&
-			setting !== 'customcmddelete' &&
-			setting !== 'customcmdupdate' &&
-			setting !== 'memberjoin' &&
-			setting !== 'botadd' &&
-			setting !== 'memberleave' &&
-			setting !== 'memberupdate' &&
-			setting !== 'nitroadd' &&
-			setting !== 'nitroremove' &&
-			setting !== 'nitrolvlupdate'
-		) return msg.reject(msg.language.get('COMMAND_LOGS_ENABLE_ONLY_EVENT'));
+		if (!enableDisableArr.includes(setting)) return msg.reject(msg.language.get('COMMAND_LOGS_ENABLE_ONLY_EVENT'));
 
 		const channelCreate = msg.guild.settings.get('logs.events.channelCreate');
 		const channelDelete = msg.guild.settings.get('logs.events.channelDelete');
@@ -171,36 +151,7 @@ module.exports = class extends Command {
 		if (!setting) return msg.reject(msg.language.get('COMMAND_LOGS_NOSETTING'));
 
 		setting = setting.toLowerCase();
-		if (
-			setting !== 'cmdrun' &&
-			setting !== 'msgdelete' &&
-			setting !== 'msgedit' &&
-			setting !== 'serverupdate' &&
-			setting !== 'invitecreate' &&
-			setting !== 'invitedelete' &&
-			setting !== 'channelcreate' &&
-			setting !== 'channeldelete' &&
-			setting !== 'channelupdate' &&
-			setting !== 'rolecreate' &&
-			setting !== 'roledelete' &&
-			setting !== 'roleupdate' &&
-			setting !== 'emojicreate' &&
-			setting !== 'emojidelete' &&
-			setting !== 'emojiupdate' &&
-			setting !== 'webhookcreate' &&
-			setting !== 'webhookdelete' &&
-			setting !== 'webhookupdate' &&
-			setting !== 'customcmdcreate' &&
-			setting !== 'customcmddelete' &&
-			setting !== 'customcmdupdate' &&
-			setting !== 'memberjoin' &&
-			setting !== 'botadd' &&
-			setting !== 'memberleave' &&
-			setting !== 'memberupdate' &&
-			setting !== 'nitroadd' &&
-			setting !== 'nitroremove' &&
-			setting !== 'nitrolvlupdate'
-		) return msg.reject(msg.language.get('COMMAND_LOGS_DISABLE_ONLY_EVENT'));
+		if (!enableDisableArr.includes(setting)) return msg.reject(msg.language.get('COMMAND_LOGS_DISABLE_ONLY_EVENT'));
 
 		const channelCreate = msg.guild.settings.get('logs.events.channelCreate');
 		const channelDelete = msg.guild.settings.get('logs.events.channelDelete');
