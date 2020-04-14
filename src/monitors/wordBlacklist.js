@@ -32,7 +32,14 @@ module.exports = class extends Monitor {
 		await embed.send();
 
 		if (msg.guild.settings.get('filters.delete')) await msg.delete();
-		if (msg.guild.settings.get('filters.ban')) await msg.member.ban({ days: 1, reason: msg.guild.language.get('MODERATION_LOG_BLACKLISTEDWORD') });
+
+		const antiInvite = this.client.monitors.get('antiInvite');
+		const punishment = msg.guild.settings.get('filters.wordBlacklistPunishment');
+		if (punishment === 'mute') antiInvite.punishmentMute(msg);
+		if (punishment === 'kick') antiInvite.punishmentKick(msg);
+		if (punishment === 'softban') antiInvite.punishmentSoftban(msg);
+		if (punishment === 'ban') antiInvite.punishmentBan(msg);
+
 		return;
 	}
 
