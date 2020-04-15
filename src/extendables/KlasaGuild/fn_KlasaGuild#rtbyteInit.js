@@ -174,6 +174,9 @@ module.exports = class extends Extendable {
 
 		await this.client.emit('verbose', `Initialized guild: ${this.name} (${this.id})`);
 		embed.setDescription(this.language.get('INIT_SUCCESS', this));
+
+		this.settings.update('initialization.serverInitialized', true);
+
 		// eslint-disable-next-line max-len
 		if (!this.settings.get('initialization.ownerInformed')) await owner.send('', { disableEveryone: true, embed: embed });
 		this.settings.update('initialization.ownerInformed', true);

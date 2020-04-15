@@ -2,6 +2,7 @@ const { KlasaClient } = require('klasa');
 
 module.exports = KlasaClient.defaultGuildSchema
 	.add('initialization', folder => folder
+		.add('serverInitialized', 'boolean', { default: false, configurable: false })
 		.add('ownerInformed', 'boolean', { default: false, configurable: false }))
 	.add('developmentSettings', folder => folder
 		.add('developersAreSuperUsers', 'boolean', { default: false })
