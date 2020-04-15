@@ -1,13 +1,17 @@
 const { KlasaClient } = require('klasa');
 
 module.exports = KlasaClient.defaultGuildSchema
+	// Unmanagable
 	.add('initialization', folder => folder
 		.add('serverInitialized', 'boolean', { default: false, configurable: false })
 		.add('ownerInformed', 'boolean', { default: false, configurable: false }))
+	// Managed by -settings
 	.add('developmentSettings', folder => folder
 		.add('developersAreSuperUsers', 'boolean', { default: false })
 		.add('commandAnalytics', 'boolean', { default: true }))
+	// Managed by -logs
 	.add('channels', folder => folder.add('log', 'textchannel'))
+	// Managed by -settings
 	.add('roles', folder => folder
 		.add('administrator', 'role')
 		.add('moderator', 'role')
@@ -15,6 +19,7 @@ module.exports = KlasaClient.defaultGuildSchema
 		.add('voiceBanned', 'role')
 		.add('joinable', 'role', { array: true }))
 	.add('logs', folder => folder
+		// Managed by -logs
 		.add('events', subfolder => subfolder
 			.add('channelCreate', 'boolean', { default: false })
 			.add('channelDelete', 'boolean', { default: false })
@@ -44,6 +49,7 @@ module.exports = KlasaClient.defaultGuildSchema
 			.add('webhookCreate', 'boolean', { default: false })
 			.add('webhookDelete', 'boolean', { default: false })
 			.add('webhookUpdate', 'boolean', { default: false }))
+		// Managed by -moderation
 		.add('moderation', subfolder => subfolder
 			.add('ban', 'boolean', { default: true })
 			.add('unban', 'boolean', { default: true })
@@ -60,6 +66,7 @@ module.exports = KlasaClient.defaultGuildSchema
 			.add('blacklistedWord', 'boolean', { default: true })
 			.add('blacklistedNickname', 'boolean', { default: true })
 			.add('warn', 'boolean', { default: true })))
+	// Managed by -greetings
 	.add('greetings', folder => folder
 		.add('welcomeNewUsers', 'boolean', { default: false })
 		.add('welcomeChannel', 'textchannel')
@@ -67,6 +74,7 @@ module.exports = KlasaClient.defaultGuildSchema
 		.add('dismissUsers', 'boolean', { default: false })
 		.add('dismissChannel', 'textchannel')
 		.add('dismissMessage', 'string'))
+	// Managed by -filters
 	.add('filters', folder => folder
 		.add('wordBlacklistEnabled', 'boolean', { default: false })
 		.add('antiInviteEnabled', 'boolean', { default: false })
@@ -80,23 +88,29 @@ module.exports = KlasaClient.defaultGuildSchema
 		.add('words', 'string', { array: true })
 		.add('inviteWhitelist', 'string', { array: true })
 		.add('mentionSpamThreshold', 'integer', { default: 12, min: 2, max: 90 }))
+	// Managed by -moderation
 	.add('moderation', folder => folder
 		.add('notifyUser', 'boolean', { default: false }))
 	.add('commands', folder => folder
+		// Managed by -settings
 		.add('serverinfoExtendedOutput', 'boolean', { default: false })
+		// Managed by -customcmds
 		.add('customCommandsEnabled', 'boolean', { default: false })
 		.add('customCommands', 'any', { array: true, configurable: false }))
 	.add('boards', folder => folder
+		// Managed by -starboard
 		.add('starboard', subfolder => subfolder
 			.add('starred', 'any', { array: true, configurable: false })
 			.add('starboardEnabled', 'boolean', { default: false })
 			.add('starboardThreshold', 'integer', { min: 1, default: 2 })
 			.add('starboardChannel', 'textchannel')
 			.add('starboardIgnoredChannels', 'textchannel', { array: true }))
+		// Managed by -pinboard
 		.add('pinboard', subfolder => subfolder
 			.add('pinned', 'any', { array: true, configurable: false })
 			.add('pinboardEnabled', 'boolean', { default: false })
 			.add('pinboardChannel', 'textchannel')
 			.add('pinboardIgnoredChannels', 'textchannel', { array: true })))
+	// Manager by -settings
 	.add('measurementUnits', 'string', { default: 'metric' })
 	.add('timezone', 'string', { default: 'Europe/London' });
