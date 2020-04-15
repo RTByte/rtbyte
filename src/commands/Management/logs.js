@@ -317,7 +317,7 @@ module.exports = class extends Command {
 
 		const page1 = new MessageEmbed()
 			.setAuthor(msg.language.get('COMMAND_LOGS_SHOW_TITLE'), this.client.user.displayAvatarURL())
-			.setDescription(msg.language.get('COMMAND_LOGS_SHOW_DESCRIPTION'))
+			.setDescription(msg.language.get('COMMAND_MANAGEMENT_SHOW_DESCRIPTION'))
 			.setColor(this.client.settings.get('colors.white'))
 			.addField(msg.language.get('CHANNEL'), logChannel)
 			.addField(msg.language.get('COMMAND_LOGS_SHOW_COMMANDRUN'), commandRun, true)
@@ -341,7 +341,7 @@ module.exports = class extends Command {
 
 		const page2 = new MessageEmbed()
 			.setAuthor(msg.language.get('COMMAND_LOGS_SHOW_TITLE'), this.client.user.displayAvatarURL())
-			.setDescription(msg.language.get('COMMAND_LOGS_SHOW_DESCRIPTION'))
+			.setDescription(msg.language.get('COMMAND_MANAGEMENT_SHOW_DESCRIPTION'))
 			.setColor(this.client.settings.get('colors.white'))
 			.addField(msg.language.get('COMMAND_LOGS_SHOW_WEBHOOKCREATE'), webhookCreate, true)
 			.addField(msg.language.get('COMMAND_LOGS_SHOW_WEBHOOKDELETE'), webhookDelete, true)

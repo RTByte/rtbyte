@@ -46,7 +46,7 @@ module.exports = class extends Command {
 
 		const embed = new MessageEmbed()
 			.setAuthor(msg.language.get('COMMAND_MODERATION_SHOW_TITLE'), this.client.user.displayAvatarURL())
-			.setDescription(msg.language.get('COMMAND_LOGS_SHOW_DESCRIPTION'))
+			.setDescription(msg.language.get('COMMAND_MANAGEMENT_SHOW_DESCRIPTION'))
 			.setColor(this.client.settings.get('colors.white'))
 			.addField(msg.language.get('COMMAND_MODERATION_SHOW_NOTIFYUSER'), notifyUser)
 			.addField(msg.language.get('COMMAND_MODERATION_SHOW_PURGE'), purge, true)
