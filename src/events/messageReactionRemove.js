@@ -8,7 +8,9 @@ module.exports = class extends Event {
 	}
 
 	async run(reaction) {
-		if (!reaction.message.guild) return;
+		const msg = reaction.message;
+		if (!msg.guild) return;
+		if (msg.guild.settings.get('boards.starboard.starboardIgnoredChannels').includes(msg.channel.id)) return;
 
 		let attachment;
 		const msg = reaction.message;
