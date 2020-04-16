@@ -1,12 +1,8 @@
 const { Language, util } = require('klasa');
+const { momentThreshold } = require('../lib/util/Util');
 const moment = require('moment');
 
-moment.relativeTimeThreshold('s', 60);
-moment.relativeTimeThreshold('ss', 0);
-moment.relativeTimeThreshold('m', 60);
-moment.relativeTimeThreshold('h', 24);
-moment.relativeTimeThreshold('d', 31);
-moment.relativeTimeThreshold('M', 12);
+momentThreshold(moment);
 
 module.exports = class extends Language {
 
@@ -499,7 +495,7 @@ module.exports = class extends Language {
 			COMMAND_DISCORDSTATUS_INCIDENT_TSTAMP: 'Incident timestamp',
 			COMMAND_DISCORDSTATUS_INCIDENT_UPDATES: 'Incident updates',
 			COMMAND_DISCORDSTATUS_INCIDENT_LINK: 'View incident on status.discordapp.com',
-			COMMAND_DISCORDSTATUS_LASTUPDATE: 'Last updated on',
+			COMMAND_DISCORDSTATUS_LASTUPDATE: 'Last updated',
 			COMMAND_WEATHER_DESCRIPTION: 'Fetch the current weather for a specified location.',
 			COMMAND_WEATHER_NOPARAM: 'Please provide a location.',
 			COMMAND_WEATHER_NOTFOUND: "Sorry, I can't find this location anywhere.",

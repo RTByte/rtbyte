@@ -1,7 +1,9 @@
 const { Command } = require('klasa');
 const { MessageEmbed } = require('discord.js');
-const { embedSplitter } = require('../../lib/util/Util');
+const { embedSplitter, momentThreshold, timezoneWithDate } = require('../../lib/util/Util');
 const moment = require('moment-timezone');
+
+momentThreshold(moment);
 
 module.exports = class extends Command {
 
@@ -63,7 +65,8 @@ module.exports = class extends Command {
 			.addField(msg.guild.language.get('EMOJIS'), msg.guild.emojis.size, true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_VLEVEL'), msg.guild.language.get('COMMAND_SERVERINFO_VLEVEL_LEVELS', msg.guild), true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_ECFILTER'), msg.guild.language.get('COMMAND_SERVERINFO_ECFILTER_LEVELS', msg.guild), true)
-			.addField(msg.guild.language.get('CREATED'), moment.tz(msg.guild.createdTimestamp, msg.guild.settings.timezone).format('Do MMMM YYYY, h:mmA zz'), true)
+			// eslint-disable-next-line max-len
+			.addField(msg.guild.language.get('CREATED'), timezoneWithDate(msg.guild.createdTimestamp, msg.guild))
 			.setThumbnail(msg.guild.iconURL(), 50, 50)
 			.setImage(msg.guild.splashURL())
 			.setTimestamp()
@@ -79,6 +82,7 @@ module.exports = class extends Command {
 
 		if (!msg.guild.settings.get('commands.serverinfoExtendedOutput')) return msg.channel.send('', { disableEveryone: true, embed: embed });
 
+		embed.addBlankField();
 		if (roles.length) await embedSplitter(msg.guild.language.get('ROLES'), roles, embed);
 		if (textChannels.length) await embedSplitter(msg.guild.language.get('COMMAND_SERVERINFO_TEXTCHANNELS'), textChannels, embed);
 		if (emojis.length) await embedSplitter(msg.guild.language.get('EMOJIS'), emojis, embed);

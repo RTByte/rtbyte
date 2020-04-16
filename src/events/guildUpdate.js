@@ -1,7 +1,10 @@
 /* eslint-disable complexity */
 const { Event } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { momentThreshold } = require('../lib/util/Util');
 const moment = require('moment');
+
+momentThreshold(moment);
 
 module.exports = class extends Event {
 

@@ -1,6 +1,9 @@
 const { Event } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { momentThreshold, timezone } = require('../lib/util/Util');
 const moment = require('moment-timezone');
+
+momentThreshold(moment);
 
 module.exports = class extends Event {
 
@@ -31,7 +34,7 @@ module.exports = class extends Event {
 		if (invite.maxAge) {
 			embed.addField(invite.guild.language.get('GUILD_LOG_INVITECREATE_EXPIRYTIME'), moment.duration(invite.maxAge, 's').humanize(), true)
 				.addField(invite.guild.language.get('GUILD_LOG_INVITECREATE_EXPIRYTIMESTAMP'),
-					moment.tz(invite.expiresTimestamp, invite.guild.settings.get('timezone')).format('Do MMMM YYYY, h:mmA zz'));
+					timezone(invite.expiresTimestamp, invite.guild));
 		}
 
 		if (invite.maxUses) {

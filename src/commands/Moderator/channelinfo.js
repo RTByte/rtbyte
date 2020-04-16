@@ -1,10 +1,9 @@
 const { Command } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { momentThreshold, timezoneWithDate } = require('../../lib/util/Util');
 const moment = require('moment-timezone');
 
-moment.relativeTimeThreshold('s', 60);
-moment.relativeTimeThreshold('ss', 0);
-moment.relativeTimeThreshold('m', 60);
+momentThreshold(moment);
 
 module.exports = class extends Command {
 
@@ -48,8 +47,7 @@ module.exports = class extends Command {
 			embed.addField(msg.language.get('COMMAND_CHANNELINFO_USERLIMIT'), channelname.userLimit > 0 ? channelname.userLimit : msg.language.get('UNLIMITED'), true);
 		}
 
-		embed.addField(msg.guild.language.get('CREATED'), moment.tz(channelname.createdTimestamp, msg.guild.settings.get('timezone')).format('Do MMMM YYYY, h:mmA zz'));
-
+		embed.addField(msg.guild.language.get('CREATED'), timezoneWithDate(channelname.createdTimestamp, msg.guild));
 		await msg.send('', { disableEveryone: true, embed: embed });
 		return;
 	}

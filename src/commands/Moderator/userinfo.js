@@ -1,7 +1,9 @@
 const { Command } = require('klasa');
 const { MessageEmbed } = require('discord.js');
-const { embedSplitter } = require('../../lib/util/Util');
+const { embedSplitter, momentThreshold, timezoneWithDate } = require('../../lib/util/Util');
 const moment = require('moment-timezone');
+
+momentThreshold(moment);
 
 module.exports = class extends Command {
 
@@ -39,8 +41,8 @@ module.exports = class extends Command {
 			.addField(msg.guild.language.get('NAME'), `${membername} (${membername.user.tag})`, true)
 			.addField(msg.guild.language.get('ID'), membername.id, true)
 			.addField(msg.language.get('JOIN_POS'), position)
-			.addField(msg.guild.language.get('JOINED'), moment.tz(membername.joinedTimestamp, msg.guild.settings.get('timezone')).format('Do MMMM YYYY, h:mmA zz'))
-			.addField(msg.guild.language.get('REGISTERED'), moment.tz(membername.user.createdTimestamp, msg.guild.settings.get('timezone')).format('Do MMMM YYYY, h:mmA zz'))
+			.addField(msg.guild.language.get('JOINED'), timezoneWithDate(membername.joinedTimestamp, msg.guild))
+			.addField(msg.guild.language.get('REGISTERED'), timezoneWithDate(membername.user.createdTimestamp, msg.guild))
 			.addField(msg.guild.language.get('COMMAND_USERINFO_STATUS'), statuses[membername.user.presence.status], true)
 			.setThumbnail(membername.user.displayAvatarURL())
 			.setTimestamp()
@@ -52,7 +54,7 @@ module.exports = class extends Command {
 		}
 
 		if (membername.premiumSinceTimestamp) {
-			await embed.addField(msg.guild.language.get('COMMAND_USERINFO_NITROBOOST'), moment.tz(membername.premiumSinceTimestamp, msg.guild.settings.get('timezone')).format('Do MMMM YYYY, h:mmA zz'));
+			await embed.addField(msg.guild.language.get('COMMAND_USERINFO_NITROBOOST'), timezoneWithDate(membername.premiumSinceTimestamp, msg.guild));
 		}
 
 		if (roles.length) await embedSplitter(msg.guild.language.get('ROLES'), roles, embed);
