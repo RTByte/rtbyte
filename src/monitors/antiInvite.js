@@ -32,6 +32,13 @@ module.exports = class extends Monitor {
 		await embed.send();
 
 		if (msg.guild.settings.get('filters.delete')) await msg.delete();
+
+		const punishment = msg.guild.settings.get('filters.antiInvitePunishment');
+		if (punishment === 'mute') this.punishmentMute(msg);
+		if (punishment === 'kick') this.punishmentKick(msg);
+		if (punishment === 'softban') this.punishmentSoftban(msg);
+		if (punishment === 'ban') this.punishmentBan(msg);
+
 		return;
 	}
 
@@ -57,6 +64,40 @@ module.exports = class extends Monitor {
 			}
 		}
 		return whitelistedInvite;
+	}
+
+	async punishmentMute(msg) {
+		if (!msg.member.canMod(msg.author)) return;
+		const mute = this.client.commands.get('mute');
+		if (!msg.guild.settings.get('roles.muted') || !msg.guild.roles.has(msg.guild.settings.get('roles.muted'))) await mute.createRole(msg.guild);
+		if (msg.member.roles.has(msg.guild.settings.get('roles.muted'))) return;
+		const mutedRole = await msg.guild.roles.get(msg.guild.settings.get('roles.muted'));
+		await msg.member.roles.add(mutedRole);
+
+		const modCase = new ModCase(msg.guild)
+			.setUser(msg.author)
+			.setType('mute')
+			.setModerator(this.client.user);
+		await modCase.submit();
+
+		const modEmbed = await modCase.embed();
+		await modEmbed.send();
+	}
+
+	async punishmentKick(msg) {
+		if (!msg.member.canMod(msg.author)) return;
+		await msg.member.kick();
+	}
+
+	async punishmentSoftban(msg) {
+		if (!msg.member.canMod(msg.author)) return;
+		await msg.guild.members.ban(msg.author, { days: 1 });
+		await msg.guild.members.unban(msg.author.id, msg.language.get('COMMAND_SOFTBAN_SOFTBAN_RELEASED', msg.channel));
+	}
+
+	async punishmentBan(msg) {
+		if (!msg.member.canMod(msg.author)) return;
+		await msg.guild.members.ban(msg.author, { days: 1 });
 	}
 
 };

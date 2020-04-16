@@ -8,10 +8,11 @@ module.exports = class extends Event {
 	}
 
 	async run(reaction) {
-		if (!reaction.message.guild) return;
+		const msg = reaction.message;
+		if (!msg.guild) return;
+		if (msg.guild.settings.get('boards.starboard.starboardIgnoredChannels').includes(msg.channel.id)) return;
 
 		let attachment;
-		const msg = reaction.message;
 		const starboardChannel = await this.client.channels.get(msg.guild.settings.get('boards.starboard.starboardChannel'));
 
 		if (reaction.emoji.name !== '🌟' || msg.author.bot || msg.channel === starboardChannel) return;
@@ -22,7 +23,7 @@ module.exports = class extends Event {
 			.setAuthor(msg.language.get('STARBOARD_STARRED'), msg.guild.iconURL())
 			.setColor(this.client.settings.get('colors.gold'))
 			.setDescription(`[${msg.guild.language.get('CLICK_TO_VIEW')}](${msg.url})`)
-			.addField(msg.language.get('STARBOARD_AUTHOR'), msg.author, true)
+			.addField(msg.language.get('BOARD_AUTHOR'), msg.author, true)
 			.addField(msg.language.get('CHANNEL'), msg.channel, true)
 			.setThumbnail(msg.author.displayAvatarURL())
 			.setTimestamp(msg.createdTimestamp)

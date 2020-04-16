@@ -34,8 +34,9 @@ module.exports = class extends Event {
 				guild.leave();
 				this.client.emit('warn', `Blacklisted guild detected: ${guild.name} (${guild.id})`);
 			} else {
-				if ((!guild.settings.get('roles.administrator') || !guild.settings.get('channels.log')) && guild.id === this.client.settings.get('guilds.controlGuild')) await guild.rtbyteInit('control');
-				if ((!guild.settings.get('roles.administrator') || !guild.settings.get('channels.log')) && guild.id !== this.client.settings.get('guilds.controlGuild')) await guild.rtbyteInit();
+				// eslint-disable-next-line max-len
+				if ((!guild.settings.get('initialization.serverInitialized') || !guild.settings.get('channels.log')) && guild.id === this.client.settings.get('guilds.controlGuild')) await guild.rtbyteInit('control');
+				if ((!guild.settings.get('initialization.serverInitialized') || !guild.settings.get('channels.log')) && guild.id !== this.client.settings.get('guilds.controlGuild')) await guild.rtbyteInit();
 				await this.client.emit('verbose', `Verified initialization of guild: ${guild.name} (${guild.id})`);
 			}
 		});
