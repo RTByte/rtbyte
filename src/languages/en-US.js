@@ -689,6 +689,7 @@ module.exports = class extends Language {
 			COMMAND_MODERATION_ENABLE_ALREADYENABLED: (setting) => `\`${setting}\` is already enabled.`,
 			COMMAND_MODERATION_DISABLE_ONLYSPECIFIED: 'You can only use the `disable` subcommand with a valid moderation toggle (refer to `-moderation` for a list).',
 			COMMAND_MODERATION_DISABLE_ALREADYDISABLED: (setting) => `\`${setting}\` is already disabled.`,
+			COMMAND_SETTINGS_DESCRIPTION: 'A series of commands to let you modify the general and role settings for your server.',
 			COMMAND_SETTINGS_SHOW_TITLE: 'Server settings',
 			COMMAND_SETTINGS_SHOW_MEASUREMENTUNITS: 'Measurement units `(units)`',
 			COMMAND_SETTINGS_SHOW_MEASUREMENTUNITS_METRIC: 'Metric',
