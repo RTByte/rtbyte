@@ -1,5 +1,9 @@
 const { Event } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { momentThreshold, timezone } = require('../lib/util/Util');
+const moment = require('moment-timezone');
+
+momentThreshold(moment);
 
 module.exports = class extends Event {
 
@@ -32,6 +36,7 @@ module.exports = class extends Event {
 		const embed = new MessageEmbed()
 			.setAuthor(`${member.user.tag} (${member.id})`, member.user.displayAvatarURL())
 			.setColor(this.client.settings.get('colors.red'))
+			.addField(member.guild.language.get('JOINED'), timezone(member.joinedTimestamp, member.guild))
 			.setTimestamp()
 			.setFooter(member.guild.language.get('GUILD_LOG_GUILDMEMBERREMOVE', member));
 
