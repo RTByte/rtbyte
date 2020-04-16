@@ -30,17 +30,9 @@ module.exports = class extends Monitor {
 		const embed = await modCase.embed();
 		await embed.send();
 
-		if (msg.guild.settings.get('filters.delete')) await msg.delete();
-
-		const antiInvite = this.client.monitors.get('antiInvite');
-		const punishment = msg.guild.settings.get('filters.mentionSpamPunishment');
-		if (punishment === 'mute') antiInvite.punishmentMute(msg);
-		if (punishment === 'kick') antiInvite.punishmentKick(msg);
-		if (punishment === 'softban') antiInvite.punishmentSoftban(msg);
-		if (punishment === 'ban') antiInvite.punishmentBan(msg);
-
-		await msg.send(msg.guild.language.get('MONITOR_MENTIONSPAM_APOLOGY', msg.guild, punishment));
-
+		await msg.delete();
+		await msg.guild.members.ban(member, { days: 1, reason: msg.guild.language.get('GUILD_LOG_MENTIONSPAM') });
+		await msg.send(msg.guild.language.get('MONITOR_MENTIONSPAM_APOLOGY', msg.guild));
 		return;
 	}
 

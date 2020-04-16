@@ -114,7 +114,7 @@ module.exports = class extends Command {
 
 		display.addPage(new MessageEmbed()
 			.setAuthor(msg.language.get('COMMAND_HELP_EMBEDTITLE'), this.client.user.displayAvatarURL())
-			.setTitle(msg.language.get('CUSTOM_COMMANDS'))
+			.setTitle(msg.language.get('COMMAND_HELP_CUSTOMCOMMANDS'))
 			.setColor(this.client.settings.get('colors.white'))
 			.setThumbnail(this.client.user.displayAvatarURL(), 50, 50)
 			.setTimestamp()

@@ -7,14 +7,14 @@ module.exports = class extends Event {
 	}
 
 	async run(member) {
-		if (!member.guild.settings.get('greetings.dismissMessage')) return;
+		if (!member.guild.settings.get('greetings.goodbyeMessage')) return;
 
-		const dismissChannel = await this.client.channels.get(member.guild.settings.get('greetings.dismissChannel'));
-		let goodbyeMsg = member.guild.settings.get('greetings.dismissMessage');
+		const goodbyeChannel = await this.client.channels.get(member.guild.settings.get('greetings.goodbyeChannel'));
+		let goodbyeMsg = member.guild.settings.get('greetings.goodbyeMessage');
 
-		if (member.guild.settings.get('greetings.dismissMessage')) {
+		if (member.guild.settings.get('greetings.goodbyeMessage')) {
 			goodbyeMsg = goodbyeMsg.replace('%user%', `${member.user.tag}`);
-			await dismissChannel.send(goodbyeMsg);
+			await goodbyeChannel.send(goodbyeMsg);
 		}
 	}
 

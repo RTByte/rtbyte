@@ -23,12 +23,12 @@ module.exports = class extends Event {
 		}
 
 		// Ignore if ban was initiated by command
-		if (banInfo && banInfo.reason ? banInfo.reason.endsWith('(fc)') : false) return;
+		if (banInfo.reason && banInfo.reason.endsWith('(fc)')) return;
 
 		const modCase = new ModCase(guild)
 			.setType('ban')
 			.setUser(user)
-			.setReason(banInfo && banInfo.reason ? banInfo.reason : guild.language.get('MODERATION_LOG_UNSPECIFIED'));
+			.setReason(banInfo.reason);
 		if (executor) modCase.setModerator(executor);
 		await modCase.submit();
 
