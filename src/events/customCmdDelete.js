@@ -7,10 +7,9 @@ module.exports = class extends Event {
 		super(...args, { event: 'customCmdDelete' });
 	}
 
-	async run(msg, cmdName) {
+	async run(msg, cmdName, executor) {
 		if (!msg.guild) return;
 
-		const executor = msg.author;
 		if (msg.guild.settings.get('channels.log') && msg.guild.settings.get('logs.events.customCmdDelete')) await this.serverLog(msg, cmdName, executor);
 
 		return;

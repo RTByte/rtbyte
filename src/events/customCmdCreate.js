@@ -7,10 +7,9 @@ module.exports = class extends Event {
 		super(...args, { event: 'customCmdCreate' });
 	}
 
-	async run(msg, cmdName, cmdContent) {
+	async run(msg, cmdName, cmdContent, executor) {
 		if (!msg.guild) return;
 
-		const executor = msg.author;
 		if (msg.guild.settings.get('channels.log') && msg.guild.settings.get('logs.events.customCmdCreate')) await this.serverLog(msg, cmdName, cmdContent, executor);
 
 		return;
