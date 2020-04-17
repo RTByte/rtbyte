@@ -914,8 +914,8 @@ module.exports = class extends Language {
 				// eslint-disable-next-line max-len
 				"To finish the setup manually, please create or find the role(s) you'd like to use for your administrator and moderator permission levels (you can use the same role for both if you'd like), then run the commands below.",
 				util.codeBlock('', [
-					'-conf set roles.administrator @your-admin-role',
-					'-conf set roles.moderator @your-mod-role'
+					'-settings set roles admin @your-admin-role',
+					'-settings set roles mod @your-mod-role'
 				].join('\n')),
 				'You will also need to manually set the appropriate permissions for your server log channel.',
 				'',
@@ -937,7 +937,7 @@ module.exports = class extends Language {
 				// eslint-disable-next-line max-len
 				"To finish the setup manually, please create or find the channel you'd like to use for your server log, then run the command below.",
 				util.codeBlock('', [
-					'-conf set channels.log #your-server-log-channel'
+					'-logs set channel #your-log-channel'
 				].join('\n')),
 				// eslint-disable-next-line max-len
 				`Please keep in mind that unless you grant ${this.client.user.username} this permission, some features may not function.`,
@@ -957,9 +957,9 @@ module.exports = class extends Language {
 				// eslint-disable-next-line max-len
 				"To finish the setup manually, please create or find the roles(s) and channel you'd like to use for your administrator and moderator permission levels (you can use the same role for both if you'd like) and your server log, then run the commands below.",
 				util.codeBlock('', [
-					'-conf set roles.administrator @your-admin-role',
-					'-conf set roles.moderator @your-mod-role',
-					'-conf set channels.log #your-server-log-channel'
+					'-settings set roles admin @your-admin-role',
+					'-settings set roles mod @your-mod-role',
+					'-logs set channel #your-log-channel'
 				].join('\n')),
 				// eslint-disable-next-line max-len
 				`Please keep in mind that unless you grant ${this.client.user.username} these permissions, some features may not function.`,
