@@ -7,17 +7,20 @@ module.exports = class extends Command {
 		super(...args, {
 			aliases: ['pinned', 'pins'],
 			description: language => language.get('COMMAND_PIN_DESCRIPTION'),
-			runIn: ['text']
+			runIn: ['text'],
+			usage: '[member:membername]'
 		});
 	}
 
-	async run(msg) {
+	async run(msg, [member]) {
 		if (!msg.guild.settings.get('boards.pinboard.pinboardEnabled')) return msg.send(msg.language.get('COMMAND_PIN_PINBOARD_NOT_ENABLED'));
 
 		let attachment;
 		const pinnedMessages = msg.guild.settings.get('boards.pinboard.pinned');
 		if (!pinnedMessages) return msg.send(msg.language.get('COMMAND_PIN_NOPINNED'));
-		const selected = pinnedMessages[Math.floor(Math.random() * pinnedMessages.length)];
+
+		let selected = pinnedMessages[Math.floor(Math.random() * pinnedMessages.length)];
+		if (member) selected = pinnedMessages.filter(pinned => member.id === pinned.msgAuthor)[Math.floor(Math.random() * pinnedMessages.filter(pinned => member.id === pinned.msgAuthor).length)];
 		const { msgID, channelID, pinner } = selected;
 
 		const channel = await msg.guild.channels.get(channelID);
