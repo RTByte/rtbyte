@@ -9,6 +9,13 @@ const enableDisableArr = ['cmdrun', 'msgdelete', 'msgedit', 'serverupdate',
 	'webhookupdate', 'customcmdcreate', 'customcmddelete', 'customcmdupdate',
 	'memberjoin', 'botadd', 'memberleave', 'memberupdate', 'nitroadd',
 	'nitroremove', 'nitrolvlupdate'];
+const logsArr = ['commandRun', 'messageDelete',
+	'messageUpdate', 'guildUpdate', 'inviteCreate', 'inviteDelete', 'channelCreate',
+	'channelDelete', 'channelUpdate', 'roleCreate', 'roleDelete', 'roleUpdate',
+	'emojiCreate', 'emojiDelete', 'emojiUpdate', 'webhookCreate', 'webhookDelete',
+	'webhookUpdate', 'customCmdCreate', 'customCmdDelete', 'customCmdUpdate',
+	'guildMemberAdd', 'guildBotAdd', 'guildMemberRemove', 'guildMemberUpdate',
+	'guildBoostAdd', 'guildBoostRemove', 'guildBoostTierUpdate'];
 const timeout = 1000 * 60 * 3;
 
 module.exports = class extends Command {
@@ -19,7 +26,7 @@ module.exports = class extends Command {
 			description: language => language.get('COMMAND_LOGS_DESCRIPTION'),
 			runIn: ['text'],
 			subcommands: true,
-			usage: '<enable|disable|set|reset|show:default> [channel|event:str] [value:channel]',
+			usage: '<enable|disable|set|reset|show:default> [channel|all|event:str] [value:channel]',
 			usageDelim: ' '
 		});
 
@@ -51,7 +58,7 @@ module.exports = class extends Command {
 		if (!setting) return msg.reject(msg.language.get('COMMAND_LOGS_NOSETTING'));
 
 		setting = setting.toLowerCase();
-		if (!enableDisableArr.includes(setting)) return msg.reject(msg.language.get('COMMAND_LOGS_ENABLE_ONLY_EVENT'));
+		if (!enableDisableArr.includes(setting) && setting !== 'all') return msg.reject(msg.language.get('COMMAND_LOGS_ENABLE_ONLY_EVENT'));
 
 		const channelCreate = msg.guild.settings.get('logs.events.channelCreate');
 		const channelDelete = msg.guild.settings.get('logs.events.channelDelete');
@@ -140,7 +147,14 @@ module.exports = class extends Command {
 		if (setting === 'nitroremove') setting = 'guildBoostRemove';
 		if (setting === 'nitrolvlupdate') setting = 'guildBoostTierUpdate';
 
-		await msg.guild.settings.update(`logs.events.${setting}`, true);
+		if (setting === 'all') {
+			logsArr.forEach(async (sett) => {
+				await msg.guild.settings.sync();
+				await msg.guild.settings.update(`logs.events.${sett}`, true);
+			});
+		} else {
+			await msg.guild.settings.update(`logs.events.${setting}`, true);
+		}
 
 		return msg.affirm();
 	}
@@ -149,7 +163,7 @@ module.exports = class extends Command {
 		if (!setting) return msg.reject(msg.language.get('COMMAND_LOGS_NOSETTING'));
 
 		setting = setting.toLowerCase();
-		if (!enableDisableArr.includes(setting)) return msg.reject(msg.language.get('COMMAND_LOGS_DISABLE_ONLY_EVENT'));
+		if (!enableDisableArr.includes(setting) && setting !== 'all') return msg.reject(msg.language.get('COMMAND_LOGS_DISABLE_ONLY_EVENT'));
 
 		const channelCreate = msg.guild.settings.get('logs.events.channelCreate');
 		const channelDelete = msg.guild.settings.get('logs.events.channelDelete');
@@ -238,7 +252,14 @@ module.exports = class extends Command {
 		if (setting === 'nitroremove') setting = 'guildBoostRemove';
 		if (setting === 'nitrolvlupdate') setting = 'guildBoostTierUpdate';
 
-		await msg.guild.settings.update(`logs.events.${setting}`, false);
+		if (setting === 'all') {
+			logsArr.forEach(async (sett) => {
+				await msg.guild.settings.sync();
+				await msg.guild.settings.update(`logs.events.${sett}`, false);
+			});
+		} else {
+			await msg.guild.settings.update(`logs.events.${setting}`, false);
+		}
 
 		return msg.affirm();
 	}
