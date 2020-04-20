@@ -52,6 +52,21 @@ module.exports = class extends Language {
 			store: 'Store channel',
 			unknown: 'Unknown'
 		};
+		this.regions = {
+			brazil: '🇧🇷 Brazil',
+			europe: '🇪🇺 Europe',
+			hongkong: '🇭🇰 Hong Kong',
+			india: '🇮🇳 India',
+			japan: '🇯🇵 Japan',
+			russia: '🇷🇺 Russia',
+			singapore: '🇸🇬 Singapore',
+			southafrica: '🇿🇦 South Africa',
+			sydney: '🇦🇺 Sydney',
+			'us-central': '🇺🇸 US Central',
+			'us-east': '🇺🇸 US East',
+			'us-south': '🇺🇸 US South',
+			'us-west': '🇺🇸 US West'
+		};
 
 		this.language = {
 			// Default langs
@@ -99,6 +114,7 @@ module.exports = class extends Language {
 			CUSTOM_COMMANDS: 'Custom commands',
 			NONE: 'None',
 			NOT_SET: 'Not set',
+			REGION: (region) => this.regions[region],
 
 
 			// Permission langs

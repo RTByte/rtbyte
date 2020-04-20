@@ -16,28 +16,6 @@ module.exports = class extends Command {
 			description: language => language.get('COMMAND_SERVERINFO_DESCRIPTION'),
 			extendedHelp: ''
 		});
-		this.regions = {
-			brazil: '🇧🇷 Brazil',
-			'vip-us-west': '🇺🇸 VIP US West',
-			'us-west': '🇺🇸 US West',
-			japan: '🇯🇵 Japan',
-			singapore: '🇸🇬 Singapore',
-			'eu-central': '🇪🇺 EU Central',
-			hongkong: '🇭🇰 Hong Kong',
-			'vip-amsterdam': '🇳🇱 VIP Amsterdam',
-			'us-south': '🇺🇸 US South',
-			southafrica: '🇿🇦 South Africa',
-			'vip-us-east': '🇺🇸 VIP US East',
-			'us-central': '🇺🇸 US Central',
-			london: '🇬🇧 London',
-			'us-east': '🇺🇸 US East',
-			sydney: '🇦🇺 Sydney',
-			'eu-west': '🇪🇺 EU West',
-			amsterdam: '🇳🇱 Amsterdam',
-			frankfurt: '🇩🇪 Frankfurt',
-			russia: '🇷🇺 Russia',
-			india: '🇮🇳 India'
-		};
 	}
 
 	async run(msg) {
@@ -57,7 +35,7 @@ module.exports = class extends Command {
 			.addField(msg.guild.language.get('NAME'), msg.guild.name, true)
 			.addField(msg.guild.language.get('ID'), msg.guild.id, true)
 			.addField(msg.guild.language.get('OWNER'), msg.guild.owner, true)
-			.addField(msg.guild.language.get('COMMAND_SERVERINFO_REGION'), this.regions[msg.guild.region], true)
+			.addField(msg.guild.language.get('COMMAND_SERVERINFO_REGION'), msg.language.get('REGION', msg.guild.region), true)
 			.addField(msg.guild.language.get('MEMBERS'), msg.guild.language.get('COMMAND_SERVERINFO_MEMBERCOUNT', msg.guild), true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_PRUNABLE'), prunable, true)
 			.addField(msg.guild.language.get('ROLES'), roles.length, true)
