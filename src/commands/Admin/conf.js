@@ -6,6 +6,7 @@ module.exports = class extends Command {
 		super(...args, {
 			runIn: ['text'],
 			permissionLevel: 6,
+			enabled: false,
 			guarded: true,
 			subcommands: true,
 			description: language => language.get('COMMAND_CONF_SERVER_DESCRIPTION'),

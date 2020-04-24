@@ -1,34 +1,15 @@
 /* eslint-disable complexity */
 const { Event } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { momentThreshold } = require('../lib/util/Util');
 const moment = require('moment');
+
+momentThreshold(moment);
 
 module.exports = class extends Event {
 
 	constructor(...args) {
 		super(...args, { event: 'guildUpdate' });
-		this.regions = {
-			brazil: '🇧🇷 Brazil',
-			'vip-us-west': '🇺🇸 VIP US West',
-			'us-west': '🇺🇸 US West',
-			japan: '🇯🇵 Japan',
-			singapore: '🇸🇬 Singapore',
-			'eu-central': '🇪🇺 EU Central',
-			hongkong: '🇭🇰 Hong Kong',
-			'vip-amsterdam': '🇳🇱 VIP Amsterdam',
-			'us-south': '🇺🇸 US South',
-			southafrica: '🇿🇦 South Africa',
-			'vip-us-east': '🇺🇸 VIP US East',
-			'us-central': '🇺🇸 US Central',
-			london: '🇬🇧 London',
-			'us-east': '🇺🇸 US East',
-			sydney: '🇦🇺 Sydney',
-			'eu-west': '🇪🇺 EU West',
-			amsterdam: '🇳🇱 Amsterdam',
-			frankfurt: '🇩🇪 Frankfurt',
-			russia: '🇷🇺 Russia',
-			india: '🇮🇳 India'
-		};
 	}
 
 	async run(oldGuild, guild) {
@@ -106,7 +87,7 @@ module.exports = class extends Event {
 
 		// Region changed
 		// eslint-disable-next-line max-len
-		if (oldGuild.region !== guild.region) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_REGION'), `${this.regions[oldGuild.region]} ${arrowRightEmoji} ${this.regions[guild.region]}`);
+		if (oldGuild.region !== guild.region) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_REGION'), `${guild.language.get('REGION', oldGuild.region)} ${arrowRightEmoji} ${guild.language.get('REGION', guild.region)}`);
 
 		// System messages channel changed
 		// eslint-disable-next-line max-len

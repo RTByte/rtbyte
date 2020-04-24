@@ -1,6 +1,9 @@
 const { Command } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { momentThreshold, timezoneWithDate } = require('../../lib/util/Util');
 const moment = require('moment-timezone');
+
+momentThreshold(moment);
 
 module.exports = class extends Command {
 
@@ -23,8 +26,8 @@ module.exports = class extends Command {
 			.setAuthor(membername.user.tag, membername.user.displayAvatarURL())
 			.setColor(this.client.settings.get('colors.white'))
 			.addField(msg.language.get('JOIN_POS'), position)
-			.addField(msg.language.get('JOINED'), moment.tz(membername.joinedTimestamp, msg.guild.settings.get('timezone')).format('Do MMMM YYYY, h:mmA zz'))
-			.addField(msg.language.get('REGISTERED'), moment.tz(membername.user.createdTimestamp, msg.guild.settings.get('timezone')).format('Do MMMM YYYY, h:mmA zz'))
+			.addField(msg.language.get('JOINED'), timezoneWithDate(membername.joinedTimestamp, msg.guild))
+			.addField(msg.language.get('REGISTERED'), timezoneWithDate(membername.user.createdTimestamp, msg.guild))
 			.setThumbnail(membername.user.displayAvatarURL())
 			.setTimestamp()
 			.setFooter(msg.language.get('COMMAND_REQUESTED_BY', msg), msg.author.displayAvatarURL());

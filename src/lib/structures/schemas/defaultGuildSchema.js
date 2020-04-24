@@ -1,10 +1,17 @@
 const { KlasaClient } = require('klasa');
 
 module.exports = KlasaClient.defaultGuildSchema
+	// Unmanagable
+	.add('initialization', folder => folder
+		.add('serverInitialized', 'boolean', { default: false, configurable: false })
+		.add('ownerInformed', 'boolean', { default: false, configurable: false }))
+	// Managed by -settings
 	.add('developmentSettings', folder => folder
 		.add('developersAreSuperUsers', 'boolean', { default: false })
 		.add('commandAnalytics', 'boolean', { default: true }))
+	// Managed by -logs
 	.add('channels', folder => folder.add('log', 'textchannel'))
+	// Managed by -settings
 	.add('roles', folder => folder
 		.add('administrator', 'role')
 		.add('moderator', 'role')
@@ -12,7 +19,8 @@ module.exports = KlasaClient.defaultGuildSchema
 		.add('voiceBanned', 'role')
 		.add('joinable', 'role', { array: true }))
 	.add('logs', folder => folder
-		.add('events', folder => folder // eslint-disable-line
+		// Managed by -logs
+		.add('events', subfolder => subfolder
 			.add('channelCreate', 'boolean', { default: false })
 			.add('channelDelete', 'boolean', { default: false })
 			.add('channelUpdate', 'boolean', { default: false })
@@ -30,6 +38,7 @@ module.exports = KlasaClient.defaultGuildSchema
 			.add('guildMemberUpdate', 'boolean', { default: true })
 			.add('guildBoostAdd', 'boolean', { default: true })
 			.add('guildBoostRemove', 'boolean', { default: true })
+			.add('guildBoostTierUpdate', 'boolean', { default: true })
 			.add('inviteCreate', 'boolean', { default: false })
 			.add('inviteDelete', 'boolean', { default: false })
 			.add('messageDelete', 'boolean', { default: true })
@@ -40,7 +49,8 @@ module.exports = KlasaClient.defaultGuildSchema
 			.add('webhookCreate', 'boolean', { default: false })
 			.add('webhookDelete', 'boolean', { default: false })
 			.add('webhookUpdate', 'boolean', { default: false }))
-		.add('moderation', folder => folder // eslint-disable-line
+		// Managed by -moderation
+		.add('moderation', subfolder => subfolder
 			.add('ban', 'boolean', { default: true })
 			.add('unban', 'boolean', { default: true })
 			.add('kick', 'boolean', { default: true })
@@ -56,34 +66,51 @@ module.exports = KlasaClient.defaultGuildSchema
 			.add('blacklistedWord', 'boolean', { default: true })
 			.add('blacklistedNickname', 'boolean', { default: true })
 			.add('warn', 'boolean', { default: true })))
+	// Managed by -greetings
 	.add('greetings', folder => folder
 		.add('welcomeNewUsers', 'boolean', { default: false })
 		.add('welcomeChannel', 'textchannel')
 		.add('welcomeMessage', 'string')
 		.add('dismissUsers', 'boolean', { default: false })
-		.add('goodbyeChannel', 'textchannel')
-		.add('goodbyeMessage', 'string'))
+		.add('dismissChannel', 'textchannel')
+		.add('dismissMessage', 'string'))
+	// Managed by -filters
 	.add('filters', folder => folder
 		.add('wordBlacklistEnabled', 'boolean', { default: false })
 		.add('antiInviteEnabled', 'boolean', { default: false })
 		.add('mentionSpamEnabled', 'boolean', { default: false })
-		.add('ban', 'boolean', { default: false })
+		.add('wordBlacklistPunishment', 'string')
+		.add('antiInvitePunishment', 'string')
+		.add('mentionSpamPunishment', 'string')
+		.add('modBypass', 'boolean', { default: false })
 		.add('delete', 'boolean', { default: false })
 		.add('checkDisplayNames', 'boolean', { default: false })
-		.add('modBypass', 'boolean', { default: false })
 		.add('words', 'string', { array: true })
 		.add('inviteWhitelist', 'string', { array: true })
-		.add('mentionSpamThreshold', 'integer', { min: 2, max: 90 }))
+		.add('mentionSpamThreshold', 'integer', { default: 12, min: 2, max: 90 }))
+	// Managed by -moderation
 	.add('moderation', folder => folder
 		.add('notifyUser', 'boolean', { default: false }))
 	.add('commands', folder => folder
+		// Managed by -settings
 		.add('serverinfoExtendedOutput', 'boolean', { default: false })
+		// Managed by -customcmds
 		.add('customCommandsEnabled', 'boolean', { default: false })
 		.add('customCommands', 'any', { array: true, configurable: false }))
-	.add('boards', folder => folder.add('starboard', folder => folder // eslint-disable-line
-		.add('starred', 'any', { array: true, configurable: false })
-		.add('starboardEnabled', 'boolean', { default: false })
-		.add('starboardThreshold', 'integer', { min: 1, default: 2 })
-		.add('starboardChannel', 'textchannel')))
+	.add('boards', folder => folder
+		// Managed by -starboard
+		.add('starboard', subfolder => subfolder
+			.add('starred', 'any', { array: true, configurable: false })
+			.add('starboardEnabled', 'boolean', { default: false })
+			.add('starboardThreshold', 'integer', { min: 1, default: 2 })
+			.add('starboardChannel', 'textchannel')
+			.add('starboardIgnoredChannels', 'textchannel', { array: true }))
+		// Managed by -pinboard
+		.add('pinboard', subfolder => subfolder
+			.add('pinned', 'any', { array: true, configurable: false })
+			.add('pinboardEnabled', 'boolean', { default: false })
+			.add('pinboardChannel', 'textchannel')
+			.add('pinboardIgnoredChannels', 'textchannel', { array: true })))
+	// Manager by -settings
 	.add('measurementUnits', 'string', { default: 'metric' })
 	.add('timezone', 'string', { default: 'Europe/London' });

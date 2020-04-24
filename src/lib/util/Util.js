@@ -1,3 +1,5 @@
+const moment = require('moment-timezone');
+
 exports.embedSplitter = async function embedSplitter(name, valueArray, embed) {
 	const bigString = valueArray.join(' ') + ' '; // eslint-disable-line prefer-template
 	if (bigString.length < 1024) return embed.addField(name, bigString);
@@ -22,4 +24,27 @@ exports.embedSplitter = async function embedSplitter(name, valueArray, embed) {
 	});
 
 	return null;
+};
+
+exports.capitalize = (str) => {
+	if (typeof str !== 'string') return '';
+	return str.charAt(0).toUpperCase() + str.slice(1);
+};
+
+exports.momentThreshold = () => {
+	moment.relativeTimeThreshold('s', 60);
+	moment.relativeTimeThreshold('ss', 0);
+	moment.relativeTimeThreshold('m', 60);
+	moment.relativeTimeThreshold('h', 24);
+	moment.relativeTimeThreshold('d', 31);
+	moment.relativeTimeThreshold('M', 12);
+};
+
+exports.timezone = (prop, guild) => {
+	const { capitalize } = require('./Util');
+	return capitalize(moment.tz(prop, guild.settings.get('timezone')).fromNow());
+};
+exports.timezoneWithDate = (prop, guild) => {
+	const { capitalize } = require('./Util');
+	return `${capitalize(moment.tz(prop, guild.settings.get('timezone')).fromNow())} (${moment.tz(prop, guild.settings.get('timezone')).format('MMMM Do, YYYY')})`;
 };

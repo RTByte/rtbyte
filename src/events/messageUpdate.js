@@ -10,6 +10,15 @@ module.exports = class extends Event {
 	async run(old, msg) {
 		if (!msg.guild) return;
 
+		if (msg.guild.me.hasPermission('VIEW_AUDIT_LOG')) {
+			const auditLog = await msg.guild.fetchAuditLogs();
+			const logEntry = await auditLog.entries.first();
+			const { executor, target } = logEntry;
+
+
+			if (logEntry.action === 'MESSAGE_PIN' && msg.pinned) this.client.emit('messagePin', msg, executor);
+		}
+
 		if (msg.guild.settings.get('channels.log') && msg.guild.settings.get('logs.events.messageUpdate') && old.content !== msg.content) await this.serverLog(old, msg);
 
 		return;

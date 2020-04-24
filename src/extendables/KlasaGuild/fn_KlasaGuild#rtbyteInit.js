@@ -133,7 +133,7 @@ module.exports = class extends Extendable {
 			channelsSkipped = true;
 		}
 
-		// Informing guild owner of bot initialization
+		// Get owner member and log channel
 		const owner = await this.client.users.get(this.ownerID);
 		// Building server owner message embed
 		const embed = new MessageEmbed()
@@ -146,7 +146,8 @@ module.exports = class extends Extendable {
 			await this.client.emit('verbose', `Partially initialized guild: ${this.name} (${this.id}) - role setup skipped, missing permissions`);
 			// eslint-disable-next-line max-len
 			embed.setDescription(this.language.get('INIT_PARTIAL_R', this));
-			await owner.send('', { disableEveryone: true, embed: embed });
+			if (!this.settings.get('initialization.ownerInformed')) await owner.send('', { disableEveryone: true, embed: embed });
+			this.settings.update('initialization.ownerInformed', true);
 
 			return;
 		}
@@ -155,7 +156,8 @@ module.exports = class extends Extendable {
 			await this.client.emit('verbose', `Partially initialized guild: ${this.name} (${this.id}) - channel setup skipped, missing permissions`);
 			// eslint-disable-next-line max-len
 			embed.setDescription(this.language.get('INIT_PARTIAL_C', this));
-			await owner.send('', { disableEveryone: true, embed: embed });
+			if (!this.settings.get('initialization.ownerInformed')) await owner.send('', { disableEveryone: true, embed: embed });
+			this.settings.update('initialization.ownerInformed', true);
 
 			return;
 		}
@@ -164,15 +166,20 @@ module.exports = class extends Extendable {
 			await this.client.emit('verbose', `Partially initialized guild: ${this.name} (${this.id}) - channel and role setup skipped, missing permissions`);
 			// eslint-disable-next-line max-len
 			embed.setDescription(this.language.get('INIT_FAIL', this));
-			await owner.send('', { disableEveryone: true, embed: embed });
+			if (!this.settings.get('initialization.ownerInformed')) await owner.send('', { disableEveryone: true, embed: embed });
+			this.settings.update('initialization.ownerInformed', true);
 
 			return;
 		}
 
 		await this.client.emit('verbose', `Initialized guild: ${this.name} (${this.id})`);
 		embed.setDescription(this.language.get('INIT_SUCCESS', this));
+
+		this.settings.update('initialization.serverInitialized', true);
+
 		// eslint-disable-next-line max-len
-		await owner.send('', { disableEveryone: true, embed: embed });
+		if (!this.settings.get('initialization.ownerInformed')) await owner.send('', { disableEveryone: true, embed: embed });
+		this.settings.update('initialization.ownerInformed', true);
 
 		return;
 	}

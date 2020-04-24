@@ -13,7 +13,6 @@ module.exports = class extends Event {
 		if (msg.guild.settings.get('boards.starboard.starboardIgnoredChannels').includes(msg.channel.id)) return;
 
 		let attachment;
-		const msg = reaction.message;
 		const starboardChannel = await this.client.channels.get(msg.guild.settings.get('boards.starboard.starboardChannel'));
 
 		if (reaction.emoji.name !== '🌟' || msg.author.bot || msg.channel === starboardChannel) return;
@@ -24,7 +23,7 @@ module.exports = class extends Event {
 			.setAuthor(msg.language.get('STARBOARD_STARRED'), msg.guild.iconURL())
 			.setColor(this.client.settings.get('colors.gold'))
 			.setDescription(`[${msg.guild.language.get('CLICK_TO_VIEW')}](${msg.url})`)
-			.addField(msg.language.get('STARBOARD_AUTHOR'), msg.author, true)
+			.addField(msg.language.get('BOARD_AUTHOR'), msg.author, true)
 			.addField(msg.language.get('CHANNEL'), msg.channel, true)
 			.setThumbnail(msg.author.displayAvatarURL())
 			.setTimestamp(msg.createdTimestamp)
@@ -46,7 +45,7 @@ module.exports = class extends Event {
 			await starboardChannel.send('', { disableEveryone: true, embed: embed })
 				.then(message => {
 					starboardMsgID = message.id;
-					msg.guild.settings.update('boards.starboard.starred', { msgID: msg.id, channelID: msg.channel.id, stars: reaction.count, starID: starboardMsgID });
+					msg.guild.settings.update('boards.starboard.starred', { msgID: msg.id, msgAuthor: msg.author.id, channelID: msg.channel.id, stars: reaction.count, starID: starboardMsgID });
 				});
 		}
 
@@ -57,7 +56,8 @@ module.exports = class extends Event {
 					.then(message => {
 						starboardMsgID = message.id;
 						msg.guild.settings.update('boards.starboard.starred', starred, { action: 'remove' });
-						msg.guild.settings.update('boards.starboard.starred', { msgID: msg.id, channelID: msg.channel.id, stars: reaction.count, starID: starboardMsgID }, { action: 'add' });
+						// eslint-disable-next-line max-len
+						msg.guild.settings.update('boards.starboard.starred', { msgID: msg.id, msgAuthor: msg.author.id, channelID: msg.channel.id, stars: reaction.count, starID: starboardMsgID }, { action: 'add' });
 
 						message.edit({ embed });
 					});
