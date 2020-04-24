@@ -21,6 +21,7 @@ module.exports = class extends Command {
 
 		let selected = pinnedMessages[Math.floor(Math.random() * pinnedMessages.length)];
 		if (member) selected = pinnedMessages.filter(pinned => member.id === pinned.msgAuthor)[Math.floor(Math.random() * pinnedMessages.filter(pinned => member.id === pinned.msgAuthor).length)];
+		if (pinnedMessages.filter(pinned => member.id === pinned.msgAuthor).length === 0) return msg.reject(msg.language.get('COMMAND_PIN_MEMBER_NOPINNED'));
 		const { msgID, channelID, pinner } = selected;
 
 		const channel = await msg.guild.channels.get(channelID);
