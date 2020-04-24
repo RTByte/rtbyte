@@ -23,7 +23,7 @@ module.exports = class extends Command {
 
 		let selected = starredMessages[Math.floor(Math.random() * starredMessages.length)];
 		if (member) selected = starredMessages.filter(st => member.id === st.msgAuthor)[Math.floor(Math.random() * starredMessages.filter(st => member.id === st.msgAuthor).length)];
-		if (starredMessages.filter(st => member.id === st.msgAuthor).length === 0) return msg.reject(msg.language.get('COMMAND_STAR_MEMBER_NOSTARRED'));
+		if (member && starredMessages.filter(st => member.id === st.msgAuthor).length === 0) return msg.reject(msg.language.get('COMMAND_STAR_MEMBER_NOSTARRED'));
 		const { msgID, channelID, stars } = selected;
 
 		const channel = await msg.guild.channels.get(channelID);
