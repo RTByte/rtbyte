@@ -58,9 +58,11 @@ module.exports = class extends Command {
 		if (!starredMessages) return msg.send(msg.language.get('COMMAND_STAR_NOSTARRED'));
 
 		const top = Math.max(...starredMessages.map(st => st.stars), 0);
-		const memberTop = Math.max(...starredMessages.filter(st => member.id === st.msgAuthor).map(st => st.stars), 0);
 		let selected = starredMessages.find(st => st.stars === top);
-		if (member) selected = starredMessages.filter(st => member.id === st.msgAuthor).find(st => st.stars === memberTop);
+		if (member) {
+			const memberTop = Math.max(...starredMessages.filter(st => member.id === st.msgAuthor).map(st => st.stars), 0);
+			selected = starredMessages.filter(st => member.id === st.msgAuthor).find(st => st.stars === memberTop);
+		}
 		if (!selected) return msg.reject(msg.language.get('COMMAND_STAR_NOTOP', member));
 		const { msgID, channelID, stars } = selected;
 
