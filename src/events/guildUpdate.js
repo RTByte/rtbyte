@@ -74,7 +74,7 @@ module.exports = class extends Event {
 		if (oldGuild.verificationLevel !== guild.verificationLevel) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_VLEVEL'), `${guild.language.get('GUILD_LOG_GUILDUPDATE_VLEVEL_OLD', oldGuild)} ${arrowRightEmoji} ${guild.language.get('GUILD_LOG_GUILDUPDATE_VLEVEL_NEW', guild)}`);
 
 		// Icon changed
-		if (oldGuild.iconURL() !== guild.iconURL()) await embed.setTitle(guild.language.get('GUILD_LOG_GUILDUPDATE_ICON'));
+		if (oldGuild.iconURL() !== guild.iconURL()) await embed.setFooter(guild.language.get('GUILD_LOG_GUILDUPDATE_ICON', executor), executor ? executor.displayAvatarURL() : undefined);
 
 		// 2FA requirement toggled
 		if (oldGuild.mfaLevel !== guild.mfaLevel) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_MFALEVEL'), arrayStatus[guild.mfaLevel]);

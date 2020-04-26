@@ -32,9 +32,7 @@ module.exports = class extends Event {
 			.setFooter(invite.guild.language.get('GUILD_LOG_INVITECREATE', invite.inviter), invite.inviter.displayAvatarURL());
 
 		if (invite.maxAge) {
-			embed.addField(invite.guild.language.get('GUILD_LOG_INVITECREATE_EXPIRYTIME'), moment.duration(invite.maxAge, 's').humanize(), true)
-				.addField(invite.guild.language.get('GUILD_LOG_INVITECREATE_EXPIRYTIMESTAMP'),
-					timezone(invite.expiresTimestamp, invite.guild));
+			embed.addField(invite.guild.language.get('GUILD_LOG_INVITECREATE_EXPIRY'), timezone(invite.expiresTimestamp, invite.guild), true);
 		}
 
 		if (invite.maxUses) {
