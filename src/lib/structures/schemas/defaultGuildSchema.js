@@ -111,6 +111,13 @@ module.exports = KlasaClient.defaultGuildSchema
 			.add('pinboardEnabled', 'boolean', { default: false })
 			.add('pinboardChannel', 'textchannel')
 			.add('pinboardIgnoredChannels', 'textchannel', { array: true })))
-	// Manager by -settings
+	// Managed by -twitch
+	.add('twitch', folder => folder
+		.add('twitchNotifsEnabled', 'boolean', { default: false })
+		.add('twitchTaskID', 'string', { configurable: false })
+		.add('twitchNotifsChannel', 'textchannel')
+		.add('twitchNotifsRole', 'role')
+		.add('streamers', 'any', { array: true, configurable: false }))
+	// Managed by -settings
 	.add('measurementUnits', 'string', { default: 'metric' })
 	.add('timezone', 'string', { default: 'Europe/London' });
