@@ -487,7 +487,7 @@ module.exports = class extends Language {
 			COMMAND_ROLES_NOT_LEAVABLE: (roleName) => `You're not allowed to remove the role \`${roleName}\`.`,
 			COMMAND_ROLES_DOES_NOT_HAVE: (roleName, target) => `${target} does not have the role \`${roleName}\`.`,
 			COMMAND_ROLES_SERVER: 'Joinable roles',
-			COMMAND_ROLES_ROLE: (role) => `• **${role.name}:** ${role.members.size} members`,
+			COMMAND_ROLES_ROLE: (role) => `• ${role} - ${role.members.size} member${role.members.size > 1 ? 's' : ''}`,
 			COMMAND_SUPPORT_DESCRIPTION: 'Contacts the bot developers in case of an issue with the bot.',
 			COMMAND_SUPPORT_REQUESTED: 'Support requested',
 			COMMAND_SUPPORT_JUMPTO: 'Jump to message',

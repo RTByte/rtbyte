@@ -11,7 +11,7 @@ module.exports = class extends Command {
 			aliases: ['roleme', 'team', 'squad', 'role'],
 			description: language => language.get('COMMAND_ROLES_DESCRIPTION'),
 			extendedHelp: language => language.get('COMMAND_ROLES_EXTENDED'),
-			usage: '<add|remove|join|leave|list:default> [target:member] [roleName:...string]',
+			usage: '<add|remove|join|leave|list:default> [target:membername] [roleName:...string]',
 			usageDelim: ' ',
 			subcommands: true
 		});
@@ -21,7 +21,7 @@ module.exports = class extends Command {
 		if (!msg.guild.settings.get('roles.joinable').length) return msg.reject(msg.language.get('COMMAND_ROLES_NONE_JOINABLE'));
 
 		const embed = new MessageEmbed()
-			.setAuthor(msg.language.get('COMMAND_ROLES_SERVER'), msg.guild.iconURL())
+			.setAuthor(msg.language.get('COMMAND_ROLES_SERVER'), this.client.user.displayAvatarURL())
 			.setColor(this.client.settings.get('colors.white'))
 			.setThumbnail(msg.guild.iconURL(), 50, 50)
 			.setTimestamp()
@@ -30,7 +30,7 @@ module.exports = class extends Command {
 		const rolesList = [];
 		for (let i = 0; i < msg.guild.settings.get('roles.joinable').length; i++) {
 			const role = msg.guild.roles.get(msg.guild.settings.get('roles.joinable')[i]);
-			rolesList.push(msg.language.get('COMMAND_ROLES_ROLE', role));
+			if (role) rolesList.push(msg.language.get('COMMAND_ROLES_ROLE', role));
 		}
 		embed.setDescription(rolesList);
 
@@ -46,7 +46,7 @@ module.exports = class extends Command {
 			// Fail if user is not at least a moderator and is trying to add roles to other users
 			if (!msg.hasAtLeastPermissionLevel(5) || !msg.member.permissions.has('MANAGE_ROLES')) return msg.reject(msg.language.get('COMMAND_ROLES_NO_MODERATE'));
 
-			const canMod = await msg.member.canMod(target);
+			const canMod = await msg.member.canMod(target.user);
 
 			// Fail if user is trying to add roles to someone higher on the hierarchy than themself
 			if (!canMod) return msg.reject(msg.language.get('COMMAND_ROLES_NO_PERMS', target));
@@ -81,7 +81,7 @@ module.exports = class extends Command {
 			// Fail if user is not at least a moderator and is trying to add roles to other users
 			if (!msg.hasAtLeastPermissionLevel(5) || !msg.member.permissions.has('MANAGE_ROLES')) return msg.reject(msg.language.get('COMMAND_ROLES_NO_MODERATE'));
 
-			const canMod = await msg.member.canMod(target);
+			const canMod = await msg.member.canMod(target.user);
 
 			// Fail if user is trying to add roles to someone higher on the hierarchy than themself
 			if (!canMod) return msg.reject(msg.language.get('COMMAND_ROLES_NO_PERMS', target));
