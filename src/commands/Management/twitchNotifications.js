@@ -48,7 +48,7 @@ module.exports = class extends Command {
 		if (twitchNotifsEnabled) return msg.reject(msg.language.get('COMMAND_TWITCHNOTIFS_ENABLE_ALREADYENABLED'));
 
 		await msg.guild.settings.update('twitch.twitchNotifsEnabled', true);
-		this.client.schedule.create('twitchNotifications', '*/1 * * * *', {
+		this.client.schedule.create('twitchNotifications', '*/5 * * * *', {
 			data: {
 				guildID: msg.guild.id
 			}
