@@ -38,6 +38,8 @@ module.exports = KlasaClient.defaultClientSchema
 	// Nitro Boosts
 		.add('pink', 'string', { default: '#F47FFF' })
 	// Starboard
-		.add('gold', 'string', { default: '#DAA520' }))
+		.add('gold', 'string', { default: '#DAA520' })
+	// Twitch
+		.add('purple', 'string', { default: '#9046FF' }))
 	.add('moderation', folder => folder
 		.add('cases', 'any', { array: true }));

@@ -737,13 +737,13 @@ module.exports = class extends Language {
 			COMMAND_SETTINGS_SET_NOVALUE_TIMEZONE: 'Please enter a valid timezone (this is unfortunately case-sensitive, see https://rtbyte.xyz/rtbyte-timezones.txt for a list of valid timezones).',
 			COMMAND_SETTINGS_SET_MEASUREMENTUNITS_SAME_UNIT: (unit) => `The server's preferred measurement units is already set to \`${unit}\`.`,
 			COMMAND_SETTINGS_SET_TIMEZONE_SAME_TZ: (tz) => `The server's timezone is already set to \`${tz}\`.`,
-			COMMAND_SETTINGS_SET_ROLES_ADMINISTRATOR_SAME_ROLE: (role) => `The administrator role is already set to ${role}.`,
-			COMMAND_SETTINGS_SET_ROLES_MODERATOR_SAME_ROLE: (role) => `The moderator role is already set to ${role}.`,
-			COMMAND_SETTINGS_SET_ROLES_MUTED_SAME_ROLE: (role) => `The muted role is already set to ${role}.`,
-			COMMAND_SETTINGS_SET_ROLES_VOICEBANNED_SAME_ROLE: (role) => `The voice chat banned role is already set to ${role}.`,
-			COMMAND_SETTINGS_SET_ROLES_JOINABLE_SAME_ROLE: (role) => `${role} is already on the joinable roles list.`,
+			COMMAND_SETTINGS_SET_ROLES_ADMINISTRATOR_SAME_ROLE: (role) => `The administrator role is already set to \`${role.name}\`.`,
+			COMMAND_SETTINGS_SET_ROLES_MODERATOR_SAME_ROLE: (role) => `The moderator role is already set to \`${role.name}\`.`,
+			COMMAND_SETTINGS_SET_ROLES_MUTED_SAME_ROLE: (role) => `The muted role is already set to \`${role.name}\`.`,
+			COMMAND_SETTINGS_SET_ROLES_VOICEBANNED_SAME_ROLE: (role) => `The voice chat banned role is already set to \`${role.name}\`.`,
+			COMMAND_SETTINGS_SET_ROLES_JOINABLE_SAME_ROLE: (role) => `\`${role.name}\` is already on the joinable roles list.`,
 			COMMAND_SETTINGS_REMOVE_NOSETTING: 'You need to specify what setting you want to modify (`roles joinable`).',
-			COMMAND_SETTINGS_REMOVE_ROLE_NOTEXIST: (role) => `${role} is not on the joinable roles list.`,
+			COMMAND_SETTINGS_REMOVE_ROLE_NOTEXIST: (role) => `\`${role.name}\` is not on the joinable roles list.`,
 			COMMAND_SETTINGS_RESET_MEASUREMENTUNITS: "The server's preferred measurement units is already set to its default value (`metric`), so you can't reset it.",
 			COMMAND_SETTINGS_RESET_TIMEZONE: "The server's timezone is already set to its default value (`Europe/London`), so you can't reset it.",
 			COMMAND_SETTINGS_RESET_ADMINISTRATOR: "The administrator role has not been set, so you can't reset it.",
@@ -751,6 +751,26 @@ module.exports = class extends Language {
 			COMMAND_SETTINGS_RESET_MUTED: "The muted role has not been set, so you can't reset it.",
 			COMMAND_SETTINGS_RESET_VOICEBANNED: "The voice chat banned role has not been set, so you can't reset it.",
 			COMMAND_SETTINGS_RESET_JOINABLE: "No roles have been added to the joinable roles list, so you can't reset it.",
+			COMMAND_TWITCHNOTIFS_DESCRIPTION: '',
+			COMMAND_TWITCHNOTIFS_NOSETTING: 'You need to specify what setting you want to modify (`channel`, `role` or `streamers`).',
+			COMMAND_TWITCHNOTIFS_NOVALUE_CHANNEL: 'You need to specify a channel.',
+			COMMAND_TWITCHNOTIFS_NOVALUE_ROLE: 'You need to specify a role.',
+			COMMAND_TWITCHNOTIFS_NOVALUE_STREAMERS: 'You need to specify a streamer by their username.',
+			COMMAND_TWITCHNOTIFS_SHOW_TITLE: 'Twitch settings',
+			COMMAND_TWITCHNOTIFS_SHOW_CHANNEL: 'Notification channel (`channel`)',
+			COMMAND_TWITCHNOTIFS_SHOW_ROLE: 'Notification role (`role`)',
+			COMMAND_TWITCHNOTIFS_SHOW_STREAMERS: 'Streamers (`streamers`)',
+			COMMAND_TWITCHNOTIFS_ENABLE_ALREADYENABLED: 'Twitch notifications are already enabled.',
+			COMMAND_TWITCHNOTIFS_DISABLE_ALREADYDISABLED: 'Twitch notifications are already disabled.',
+			COMMAND_TWITCHNOTIFS_SET_CHANNEL_SAMEVALUE: (channel) => `The Twitch notification channel is already set to ${channel}.`,
+			COMMAND_TWITCHNOTIFS_SET_ROLE_SAMECHANNEL: (role) => `The Twitch notification role is already set to \`${role.name}\`.`,
+			COMMAND_TWITCHNOTIFS_SET_STREAMERS_ALREADYADDED: (streamer) => `\`${streamer}\` is already on the Twitch notification list.`,
+			COMMAND_TWITCHNOTIFS_REMOVE_NOSETTING: 'You need to specify what setting you want to modify (`streamers`).',
+			COMMAND_TWITCHNOTIFS_REMOVE_ONLYSTREAMER: 'You can only use the `remove` option when modifying the list of streamers.',
+			COMMAND_TWITCHNOTIFS_REMOVE_NOTADDED: (streamer) => `\`${streamer}\` is not on the list of streamers.`,
+			COMMAND_TWITCHNOTIFS_RESET_CHANNEL_NOTSET: "The Twitch notification channel has not been set, so you can't reset it.",
+			COMMAND_TWITCHNOTIFS_RESET_ROLE_NOTSET: "The Twitch notification role has not been set, so you can't reset it.",
+			COMMAND_TWITCHNOTIFS_RESET_STREAMERS_NOTSET: "No streamers have beeen added to the list of streamers, so you can't reset it.",
 
 
 			// Message prompt langs
@@ -904,6 +924,11 @@ module.exports = class extends Language {
 			MODERATION_LOG_BADNICKNAME: 'Blacklisted nickname',
 			MODERATION_LOG_LINK: (link) => `[Click here to view](${link})`,
 			MODERATION_LOG_SILENT: 'Command executed silently',
+
+
+			// Notification langs
+			NOTIFICATION_TWITCH_LINK: (streamer) => `[Watch on Twitch.tv](https://twitch.tv/${streamer})`,
+			NOTIFICATION_TWITCH_VIEWERS: 'Viewers',
 
 
 			// Board langs
