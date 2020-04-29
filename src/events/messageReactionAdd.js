@@ -42,25 +42,24 @@ module.exports = class extends Event {
 		const starred = msg.guild.settings.get('boards.starboard.starred').find(star => star.msgID === msg.id);
 
 		if (!starred) {
-			await starboardChannel.send('', { disableEveryone: true, embed: embed })
-				.then(message => {
-					starboardMsgID = message.id;
-					msg.guild.settings.update('boards.starboard.starred', { msgID: msg.id, msgAuthor: msg.author.id, channelID: msg.channel.id, stars: reaction.count, starID: starboardMsgID });
-				});
+			const message = await starboardChannel.send('', { disableEveryone: true, embed: embed });
+
+			starboardMsgID = message.id;
+
+			await msg.guild.settings.update('boards.starboard.starred', { msgID: msg.id, msgAuthor: msg.author.id, channelID: msg.channel.id, stars: reaction.count, starID: starboardMsgID });
 		}
 
 		if (starred) {
 			const oldStarred = starred;
 			if (oldStarred.stars < reaction.count) {
-				await starboardChannel.messages.fetch(starred.starID)
-					.then(message => {
-						starboardMsgID = message.id;
-						msg.guild.settings.update('boards.starboard.starred', starred, { action: 'remove' });
-						// eslint-disable-next-line max-len
-						msg.guild.settings.update('boards.starboard.starred', { msgID: msg.id, msgAuthor: msg.author.id, channelID: msg.channel.id, stars: reaction.count, starID: starboardMsgID }, { action: 'add' });
+				const message = await starboardChannel.messages.fetch(starred.starID);
 
-						message.edit({ embed });
-					});
+				starboardMsgID = message.id;
+
+				await msg.guild.settings.update('boards.starboard.starred', starred, { action: 'remove' });
+				await msg.guild.settings.update('boards.starboard.starred', { msgID: msg.id, msgAuthor: msg.author.id, channelID: msg.channel.id, stars: reaction.count, starID: starboardMsgID });
+
+				await message.edit({ embed });
 			}
 		}
 

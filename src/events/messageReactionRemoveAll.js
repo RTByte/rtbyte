@@ -16,11 +16,11 @@ module.exports = class extends Event {
 		const starred = msg.guild.settings.get('boards.starboard.starred').find(star => star.msgID === msg.id);
 
 		if (starred) {
-			await starboardChannel.messages.fetch(starred.starID)
-				.then(message => {
-					msg.guild.settings.update('boards.starboard.starred', starred, { action: 'remove' });
-					message.delete();
-				});
+			const message = await starboardChannel.messages.fetch(starred.starID);
+
+			await msg.guild.settings.update('boards.starboard.starred', starred, { action: 'remove' });
+
+			await message.delete();
 		}
 
 		return;

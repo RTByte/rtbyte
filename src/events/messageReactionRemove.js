@@ -44,23 +44,24 @@ module.exports = class extends Event {
 		if (starred) {
 			const oldStarred = starred;
 			if (reaction.count < msg.guild.settings.get('boards.starboard.starboardThreshold') || reaction.count === 0) {
-				await starboardChannel.messages.fetch(starred.starID)
-					.then(message => {
-						msg.guild.settings.update('boards.starboard.starred', starred, { action: 'remove' });
-						message.delete();
-					});
+				const message = await starboardChannel.messages.fetch(starred.starID);
+
+				await msg.guild.settings.update('boards.starboard.starred', starred, { action: 'remove' });
+
+				await message.delete();
 			}
 
 			if (oldStarred.stars > reaction.count) {
-				await starboardChannel.messages.fetch(starred.starID)
-					.then(message => {
-						starboardMsgID = message.id;
-						msg.guild.settings.update('boards.starboard.starred', starred, { action: 'remove' });
-						if (!(reaction.count < msg.guild.settings.boards.starboard.starboardThreshold)) {
-							msg.guild.settings.update('boards.starboard.starred', { msgID: msg.id, msgAuthor: msg.author.id, channelID: msg.channel.id, stars: reaction.count, starID: starboardMsgID }, { action: 'add' });
-							message.edit({ embed });
-						}
-					});
+				const message = await starboardChannel.messages.fetch(starred.starID);
+
+				starboardMsgID = message.id;
+
+				await msg.guild.settings.update('boards.starboard.starred', starred, { action: 'remove' });
+				if (!(reaction.count < msg.guild.settings.get('boards.starboard.starboardThreshold'))) {
+					await msg.guild.settings.update('boards.starboard.starred', { msgID: msg.id, msgAuthor: msg.author.id, channelID: msg.channel.id, stars: reaction.count, starID: starboardMsgID });
+
+					await message.edit({ embed });
+				}
 			}
 		}
 
