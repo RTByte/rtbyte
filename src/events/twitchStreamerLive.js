@@ -28,7 +28,7 @@ module.exports = class extends Event {
 			.setFooter('twitch.tv', 'https://i.imgur.com/haYO7V0.png');
 		const role = await guild.roles.get(guild.settings.get('twitch.twitchNotifsRole'));
 		const channel = await this.client.channels.get(guild.settings.get('twitch.twitchNotifsChannel'));
-		await channel.send(role, { disableEveryone: true, embed: embed });
+		await channel.send(role, { embed: embed });
 
 		return;
 	}
