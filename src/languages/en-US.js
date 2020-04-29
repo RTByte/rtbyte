@@ -758,7 +758,7 @@ module.exports = class extends Language {
 			COMMAND_TWITCHNOTIFS_NOVALUE_STREAMERS: 'You need to specify a streamer by their username.',
 			COMMAND_TWITCHNOTIFS_SHOW_TITLE: 'Twitch settings',
 			COMMAND_TWITCHNOTIFS_SHOW_CHANNEL: 'Notification channel (`channel`)',
-			COMMAND_TWITCHNOTIFS_SHOW_ROLE: 'Notification role (`role`)',
+			COMMAND_TWITCHNOTIFS_SHOW_ROLE: '[TEMPORARILY DISABLED] Notification role (`role`)',
 			COMMAND_TWITCHNOTIFS_SHOW_STREAMERS: 'Streamers (`streamers`)',
 			COMMAND_TWITCHNOTIFS_ENABLE_ALREADYENABLED: 'Twitch notifications are already enabled.',
 			COMMAND_TWITCHNOTIFS_DISABLE_ALREADYDISABLED: 'Twitch notifications are already disabled.',
