@@ -48,11 +48,13 @@ module.exports = class extends Command {
 		if (twitchNotifsEnabled) return msg.reject(msg.language.get('COMMAND_TWITCHNOTIFS_ENABLE_ALREADYENABLED'));
 
 		await msg.guild.settings.update('twitch.twitchNotifsEnabled', true);
-		this.client.schedule.create('twitchNotifications', '*/5 * * * *', {
+
+		const schedule = this.client.schedule.create('twitchNotifications', '*/5 * * * *', {
 			data: {
 				guildID: msg.guild.id
 			}
-		}).then(schedule => msg.guild.settings.update('twitch.twitchTaskID', schedule.id));
+		});
+		await msg.guild.settings.update('twitch.twitchTaskID', schedule.id);
 
 		return msg.affirm();
 	}
@@ -64,7 +66,8 @@ module.exports = class extends Command {
 
 		await msg.guild.settings.update('twitch.twitchNotifsEnabled', false);
 		this.client.schedule.delete(msg.guild.settings.get('twitch.twitchTaskID'));
-		msg.guild.settings.reset('twitch.twitchTaskID');
+
+		await msg.guild.settings.reset('twitch.twitchTaskID');
 
 		return msg.affirm();
 	}

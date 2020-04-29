@@ -37,16 +37,16 @@ module.exports = class extends Event {
 		const pinned = msg.guild.settings.get('boards.pinboard.pinned').find(pin => pin.msgID === msg.id);
 
 		if (!pinned) {
-			await pinboardChannel.send('', { disableEveryone: true, embed: embed })
-				.then(message => {
-					const pinboardMsgID = message.id;
-					msg.guild.settings.update('boards.pinboard.pinned', { msgID: msg.id, msgAuthor: msg.author.id, channelID: msg.channel.id, pinID: pinboardMsgID, pinner: executor.id });
-				});
-			msg.unpin();
+			const message = await pinboardChannel.send('', { disableEveryone: true, embed: embed });
+
+			const pinboardMsgID = message.id;
+			await msg.guild.settings.update('boards.pinboard.pinned', { msgID: msg.id, msgAuthor: msg.author.id, channelID: msg.channel.id, pinID: pinboardMsgID, pinner: executor.id });
+
+			await msg.unpin();
 		}
 
 		if (pinned) {
-			msg.unpin();
+			await msg.unpin();
 		}
 
 		return;
