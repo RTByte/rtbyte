@@ -18,7 +18,7 @@ module.exports = class extends Task {
 				.then(res => res.json());
 
 			// Skip to next streamer if not currently live
-			if (!twitch.data.length) { continue; }
+			if (twitch && !twitch.data.length) { continue; }
 
 			const streamID = twitch.data[0].id;
 			const streamer = twitch.data[0].user_name;
