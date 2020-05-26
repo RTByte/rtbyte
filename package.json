@@ -45,7 +45,7 @@
 		"klasa": "github:dirigeants/klasa#settings",
 		"klasa-dashboard-hooks": "github:dirigeants/klasa-dashboard-hooks#settings",
 		"klasa-member-gateway": "github:dirigeants/klasa-member-gateway#settings",
-		"moment": "^2.25.1",
+		"moment": "^2.26.0",
 		"moment-timezone": "^0.5.28",
 		"naughty-words": "^1.1.0",
 		"node-fetch": "^2.3.0"
