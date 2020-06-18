@@ -12,9 +12,10 @@ class ModEmbed extends MessageEmbed {
 	// eslint-disable-next-line complexity
 	async build() {
 		this.setAuthor(this.modCase.guild.language.get(`MODERATION_LOG_${this.modCase.type.toUpperCase()}`));
-		if (this.modCase.user.id !== this.client.user.id) this.setTitle(`${this.modCase.user.tag} (${this.modCase.user.id})`);
+		if (this.modCase.user && this.modCase.user.id !== this.client.user.id) this.setTitle(`${this.modCase.user.tag} (${this.modCase.user.id})`);
+		if (!this.modCase.user) this.setTitle(this.modCase.guild.language.get('UNFETCHABLE_USER'));
 		this.setDescription(this.modCase.guild.language.get('MODERATION_LOG_CASEID', this.modCase.id));
-		this.setThumbnail(this.modCase.user.displayAvatarURL());
+		if (this.modCase.user) this.setThumbnail(this.modCase.user.displayAvatarURL());
 		/* eslint-disable indent */
 			this.setColor(
 				this.modCase.type === 'ban' ? this.modCase.client.settings.get('colors.red') :

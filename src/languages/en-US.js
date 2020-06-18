@@ -115,6 +115,7 @@ module.exports = class extends Language {
 			NONE: 'None',
 			NOT_SET: 'Not set',
 			REGION: (region) => this.regions[region],
+			UNFETCHABLE_USER: 'Unfetchable user',
 
 
 			// Permission langs
