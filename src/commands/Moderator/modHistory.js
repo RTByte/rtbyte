@@ -22,7 +22,7 @@ module.exports = class extends Command {
 		this.handlers = new Map();
 	}
 
-	async run(msg, [target = msg.member, caseID = null]) {
+	async run(msg, [target = undefined, caseID = null]) {
 		if (caseID) {
 			if (!this.client.settings.get('moderation.cases').find(thisCase => thisCase.id === caseID)) return msg.reject(msg.language.get('COMMAND_MODHISTORY_INVALID_CASEID', caseID));
 
@@ -32,26 +32,50 @@ module.exports = class extends Command {
 			return msg.send('', { embed: await modCase.embed() });
 		}
 
-		if (!target.settings.get('moderation.cases').length) return msg.affirm(msg.language.get('COMMAND_MODHISTORY_NOMODHISTORY', target));
+		if (target) {
+			if (!target.settings.get('moderation.cases').length) return msg.affirm(msg.language.get('COMMAND_MODHISTORY_NOMODHISTORY', target));
 
-		const previousHandler = this.handlers.get(msg.author.id);
-		if (previousHandler) previousHandler.stop();
-		const caseEmbedArray = await this.buildEmbedArray(msg, target);
+			const previousHandler = this.handlers.get(msg.author.id);
+			if (previousHandler) previousHandler.stop();
+			const caseEmbedArray = await this.buildEmbedArray(msg, target);
 
-		const loadingEmbed = new MessageEmbed()
-			.setTitle(msg.language.get('COMMAND_MODHISTORY_LOADING'))
-			.setColor(this.client.settings.get('colors.white'))
-			.setThumbnail(target.user.displayAvatarURL(), 50, 50)
-			.setTimestamp();
+			const loadingEmbed = new MessageEmbed()
+				.setTitle(msg.language.get('COMMAND_MODHISTORY_LOADING'))
+				.setColor(this.client.settings.get('colors.white'))
+				.setThumbnail(target.user.displayAvatarURL(), 50, 50)
+				.setTimestamp();
 
-		const handler = await (await this.buildDisplay(caseEmbedArray)).run(await msg.send('', { disableEveryone: true, embed: loadingEmbed }), {
-			filter: (reaction, user) => user.id === msg.author.id,
-			timeout
-		});
+			const handler = await (await this.buildDisplay(caseEmbedArray)).run(await msg.send('', { disableEveryone: true, embed: loadingEmbed }), {
+				filter: (reaction, user) => user.id === msg.author.id,
+				timeout
+			});
 
-		handler.on('end', () => this.handlers.delete(msg.author.id));
-		this.handlers.set(msg.author.id, handler);
-		return handler;
+			handler.on('end', () => this.handlers.delete(msg.author.id));
+			this.handlers.set(msg.author.id, handler);
+			return handler;
+		} else {
+			const serverCases = this.client.settings.get('moderation.cases').filter(modCase => modCase.guild === msg.guild.id);
+			if (!serverCases.length) return msg.affirm(msg.language.get('COMMAND_MODHISTORY_NOMODHISTORY', msg.guild.name));
+
+			const previousHandler = this.handlers.get(msg.author.id);
+			if (previousHandler) previousHandler.stop();
+			const caseEmbedArray = await this.buildServerEmbedArray(msg, serverCases);
+
+			const loadingEmbed = new MessageEmbed()
+				.setTitle(msg.language.get('COMMAND_MODHISTORY_LOADING'))
+				.setColor(this.client.settings.get('colors.white'))
+				.setThumbnail(msg.guild.iconURL(), 50, 50)
+				.setTimestamp();
+
+			const handler = await (await this.buildDisplay(caseEmbedArray)).run(await msg.send('', { disableEveryone: true, embed: loadingEmbed }), {
+				filter: (reaction, user) => user.id === msg.author.id,
+				timeout
+			});
+
+			handler.on('end', () => this.handlers.delete(msg.author.id));
+			this.handlers.set(msg.author.id, handler);
+			return handler;
+		}
 	}
 
 	async buildEmbedArray(msg, target) {
@@ -59,6 +83,18 @@ module.exports = class extends Command {
 		for (const caseID of target.settings.get('moderation.cases')) {
 			const modCase = new ModCase(msg.guild);
 			await modCase.unpack(this.client.settings.get('moderation.cases').find(thisCase => thisCase.id === caseID));
+
+			caseEmbedArray.push(await modCase.embed());
+		}
+		caseEmbedArray.reverse();
+		return caseEmbedArray;
+	}
+
+	async buildServerEmbedArray(msg, serverCases) {
+		const caseEmbedArray = [];
+		for (const serverCase of serverCases) {
+			const modCase = new ModCase(msg.guild);
+			await modCase.unpack(serverCases.find(thisCase => thisCase.id === serverCase.id));
 
 			caseEmbedArray.push(await modCase.embed());
 		}
