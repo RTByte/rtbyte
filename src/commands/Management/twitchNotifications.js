@@ -33,7 +33,6 @@ module.exports = class extends Command {
 			.setColor(this.client.settings.get('colors.white'))
 			.addField(msg.language.get('ENABLED'), twitchNotifsEnabled)
 			.addField(msg.language.get('COMMAND_TWITCHNOTIFS_SHOW_CHANNEL'), twitchNotifsChannel, true)
-			.addField(msg.language.get('COMMAND_TWITCHNOTIFS_SHOW_ROLE'), twitchNotifsRole, true)
 			.addField(msg.language.get('COMMAND_TWITCHNOTIFS_SHOW_STREAMERS'), streamers)
 			.setThumbnail(msg.guild.iconURL(), 50, 50)
 			.setTimestamp()
