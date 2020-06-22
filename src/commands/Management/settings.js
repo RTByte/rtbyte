@@ -4,7 +4,6 @@ const { MessageEmbed } = require('discord.js');
 const moment = require('moment-timezone');
 
 const rolesArr = ['admin', 'mod', 'muted', 'vcbanned', 'joinable'];
-const inviteRegex = /^(discord.gg)\/.+[a-z]/g;
 
 module.exports = class extends Command {
 
@@ -15,7 +14,7 @@ module.exports = class extends Command {
 			runIn: ['text'],
 			subcommands: true,
 			// eslint-disable-next-line max-len
-			usage: '<enable|disable|set|remove|reset|show:default> [units|timezone|commandanalytics|devsaresuperusers|sinfoextendedoutput|roles] [admin|mod|muted|vcbanned|joinable] [value:role|value:...str]',
+			usage: '<enable|disable|set|remove|reset|show:default> [prefix|language|units|timezone|commandanalytics|devsaresuperusers|sinfoextendedoutput|roles] [admin|mod|muted|vcbanned|joinable] [value:role|value:...str]',
 			usageDelim: ' '
 		});
 	}
@@ -27,11 +26,16 @@ module.exports = class extends Command {
 			true: affirmEmoji,
 			false: rejectEmoji
 		};
+		const language = {
+			'en-US': 'English'
+		};
 
 		const measurementUnits = msg.guild.settings.get('measurementUnits') === 'metric' ?
 			msg.language.get('COMMAND_SETTINGS_SHOW_MEASUREMENTUNITS_METRIC') :
 			msg.language.get('COMMAND_SETTINGS_SHOW_MEASUREMENTUNITS_IMPERIAL');
 		const timezone = msg.guild.settings.get('timezone');
+		const serverLanguage = language[msg.guild.settings.get('language')];
+		const prefix = msg.guild.settings.get('prefix');
 		const commandAnalytics = status[msg.guild.settings.get('developmentSettings.commandAnalytics')];
 		const developersAreSuperUsers = status[msg.guild.settings.get('developmentSettings.developersAreSuperUsers')];
 		const serverinfoExtendedOutput = status[msg.guild.settings.get('commands.serverinfoExtendedOutput')];
@@ -45,11 +49,13 @@ module.exports = class extends Command {
 			.setAuthor(msg.language.get('COMMAND_SETTINGS_SHOW_TITLE'), this.client.user.displayAvatarURL())
 			.setDescription(msg.language.get('COMMAND_MANAGEMENT_SHOW_DESCRIPTION'))
 			.setColor(this.client.settings.get('colors.white'))
+			.addField(msg.language.get('COMMAND_SETTINGS_SHOW_PREFIX'), `\`${prefix}\``, true)
+			.addField(msg.language.get('COMMAND_SETTINGS_SHOW_LANGUAGE'), serverLanguage, true)
 			.addField(msg.language.get('COMMAND_SETTINGS_SHOW_MEASUREMENTUNITS'), measurementUnits, true)
 			.addField(msg.language.get('COMMAND_SETTINGS_SHOW_TIMEZONE'), timezone, true)
-			.addField(msg.language.get('COMMAND_SETTINGS_SHOW_SERVERINFOEXTENDEDOUTPUT'), serverinfoExtendedOutput)
 			.addField(msg.language.get('COMMAND_SETTINGS_SHOW_COMMANDANALYTICS'), commandAnalytics, true)
-			.addField(msg.language.get('COMMAND_SETTINGS_SHOW_DEVELOPERSARESUPERUSERS'), developersAreSuperUsers, true)
+			.addField(msg.language.get('COMMAND_SETTINGS_SHOW_DEVELOPERSARESUPERUSERS'), developersAreSuperUsers)
+			.addField(msg.language.get('COMMAND_SETTINGS_SHOW_SERVERINFOEXTENDEDOUTPUT'), serverinfoExtendedOutput)
 			.addBlankField()
 			.addField(msg.language.get('COMMAND_SETTINGS_SHOW_ADMINISTRATOR'), administrator, true)
 			.addField(msg.language.get('COMMAND_SETTINGS_SHOW_MODERATOR'), moderator, true)
@@ -121,19 +127,22 @@ module.exports = class extends Command {
 		if (!setting) return msg.reject(msg.language.get('COMMAND_SETTINGS_NOSETTING'));
 		setting = setting.toLowerCase();
 
-		if (!['units', 'timezone', 'roles'].includes(setting)) return msg.reject(msg.language.get('COMMAND_SETTINGS_SET_ONLYSPECIFIED'));
-		if (['units', 'timezone'].includes(setting) && subsetting) return msg.reject(msg.language.get('COMMAND_SETTINGS_SET_NOSUBSETTINGALLOWED'));
+		if (!['prefix', 'language', 'units', 'timezone', 'roles'].includes(setting)) return msg.reject(msg.language.get('COMMAND_SETTINGS_SET_ONLYSPECIFIED'));
+		if (['preifx', 'language', 'units', 'timezone'].includes(setting) && subsetting) return msg.reject(msg.language.get('COMMAND_SETTINGS_NOSUBSETTINGALLOWED'));
 		if (setting === 'roles' && !rolesArr.includes(subsetting)) return msg.reject(msg.language.get('COMMAND_SETTINGS_NOTROLESUBSETTING'));
 
 		if (setting === 'roles' && !subsetting) msg.reject(msg.language.get('COMMAND_SETTINGS_SET_NOTROLESUBSETTING'));
 		if (subsetting) subsetting = subsetting.toLowerCase();
 
-		if (setting === 'units' && !['metric', 'imperial'].includes(value)) return msg.reject(msg.language.get('COMMAND_SETTINGS_SET_NOVALUE_UNITS'));
+		if (setting === 'language' && !['english'].includes(value.toLowerCase())) return msg.reject(msg.language.get('COMMAND_SETTINGS_SET_NOVALUE_LANGUAGE'));
+		if (setting === 'units' && !['metric', 'imperial'].includes(value.toLowerCase())) return msg.reject(msg.language.get('COMMAND_SETTINGS_SET_NOVALUE_UNITS'));
 		if (setting === 'timezone' && !moment.tz.names().includes(value)) return msg.reject(msg.language.get('COMMAND_SETTINGS_SET_NOVALUE_TIMEZONE'));
 		if (rolesArr.includes(subsetting) && !value) return msg.reject(msg.language.get('COMMAND_SETTINGS_NOVALUE_ROLES'));
 
 		const measurementUnits = msg.guild.settings.get('measurementUnits');
 		const timezone = msg.guild.settings.get('timezone');
+		const serverLanguage = msg.guild.settings.get('language');
+		const prefix = msg.guild.settings.get('prefix');
 		const administrator = msg.guild.settings.get('roles.administrator');
 		const moderator = msg.guild.settings.get('roles.moderator');
 		const muted = msg.guild.settings.get('roles.muted');
@@ -147,6 +156,8 @@ module.exports = class extends Command {
 
 		if (setting === 'measurementUnits' && value === measurementUnits) return msg.reject(msg.language.get('COMMAND_SETTINGS_SET_MEASUREMENTUNITS_SAME_UNIT', value));
 		if (setting === 'timezone' && value === timezone) return msg.reject(msg.language.get('COMMAND_SETTINGS_SET_TIMEZONE_SAME_TZ', value));
+		if (setting === 'language' && value === serverLanguage) return msg.reject(msg.language.get('COMMAND_SETTINGS_SET_LANGUAGE_SAME_LANG', value));
+		if (setting === 'prefix' && value === prefix) return msg.reject(msg.language.get('COMMAND_SETTINGS_SET_PREFIX_SAME_PREFIX', value));
 		if (subsetting === 'administrator' && value.id === administrator) return msg.reject(msg.language.get('COMMAND_SETTINGS_SET_ROLES_ADMINISTRATOR_SAME_ROLE', value));
 		if (subsetting === 'moderator' && value.id === moderator) return msg.reject(msg.language.get('COMMAND_SETTINGS_SET_ROLES_MODERATOR_SAME_ROLE', value));
 		if (subsetting === 'muted' && value.id === muted) return msg.reject(msg.language.get('COMMAND_SETTINGS_SET_ROLES_MUTED_SAME_ROLE', value));
@@ -188,8 +199,8 @@ module.exports = class extends Command {
 		if (!setting) return msg.reject(msg.language.get('COMMAND_SETTINGS_NOSETTING'));
 		setting = setting.toLowerCase();
 
-		if (!['units', 'timezone', 'roles'].includes(setting)) return msg.reject(msg.language.get('COMMAND_SETTINGS_SET_ONLYSPECIFIED'));
-		if (['units', 'timezone'].includes(setting) && subsetting) return msg.reject(msg.language.get('COMMAND_SETTINGS_SET_NOSUBSETTINGALLOWED'));
+		if (!['prefix', 'language', 'units', 'timezone', 'roles'].includes(setting)) return msg.reject(msg.language.get('COMMAND_SETTINGS_RESET_ONLYSPECIFIED'));
+		if (['prefix', 'language', 'units', 'timezone'].includes(setting) && subsetting) return msg.reject(msg.language.get('COMMAND_SETTINGS_NOSUBSETTINGALLOWED'));
 		if (setting === 'roles' && !rolesArr.includes(subsetting)) return msg.reject(msg.language.get('COMMAND_SETTINGS_NOTROLESUBSETTING'));
 
 		if (setting === 'roles' && !subsetting) msg.reject(msg.language.get('COMMAND_SETTINGS_SET_NOTROLESUBSETTING'));
@@ -197,6 +208,8 @@ module.exports = class extends Command {
 
 		const measurementUnits = msg.guild.settings.get('measurementUnits');
 		const timezone = msg.guild.settings.get('timezone');
+		const serverLanguage = msg.guild.settings.get('language');
+		const prefix = msg.guild.settings.get('prefix');
 		const administrator = msg.guild.settings.get('roles.administrator');
 		const moderator = msg.guild.settings.get('roles.moderator');
 		const muted = msg.guild.settings.get('roles.muted');
@@ -210,6 +223,8 @@ module.exports = class extends Command {
 
 		if (setting === 'measurementUnits' && measurementUnits === 'metric') return msg.reject(msg.language.get('COMMAND_SETTINGS_RESET_MEASUREMENTUNITS'));
 		if (setting === 'timezone' && timezone === 'Europe/London') return msg.reject(msg.language.get('COMMAND_SETTINGS_RESET_TIMEZONE'));
+		if (setting === 'language' && serverLanguage === 'en-US') return msg.reject(msg.language.get('COMMAND_SETTINGS_RESET_LANGUAGE'));
+		if (setting === 'prefix' && prefix === '-') return msg.reject(msg.language.get('COMMAND_SETTINGS_RESET_PREFIX'));
 		if (subsetting === 'administrator' && !administrator) return msg.reject(msg.language.get('COMMAND_SETTINGS_RESET_ADMINISTRATOR'));
 		if (subsetting === 'moderator' && !moderator) return msg.reject(msg.language.get('COMMAND_SETTINGS_RESET_MODERATOR'));
 		if (subsetting === 'muted' && !muted) return msg.reject(msg.language.get('COMMAND_SETTINGS_RESET_MUTED'));
