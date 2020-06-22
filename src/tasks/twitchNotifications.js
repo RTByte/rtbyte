@@ -12,13 +12,16 @@ module.exports = class extends Task {
 
 
 		for (let i = 0; i < streamers.length; i++) {
-			const twitch = await fetch(`https://api.twitch.tv/helix/streams?first=1&user_login=${streamers[i].name}`, { headers: { 'Client-ID': apis.twitch } })
+			const twitch = await fetch(`https://api.twitch.tv/helix/streams?first=1&user_login=${streamers[i].name}`,
+				{ headers: { Authorization: `Bearer ${this.client.settings.get('twitchOauthBearer')}`, 'Client-ID': apis.twitch } })
 				.then(res => res.json());
-			const twitchStreamer = await fetch(`https://api.twitch.tv/helix/users?login=${streamers[i].name}`, { headers: { 'Client-ID': apis.twitch } })
+			const twitchStreamer = await fetch(`https://api.twitch.tv/helix/users?login=${streamers[i].name}`,
+				{ headers: { Authorization: `Bearer ${this.client.settings.get('twitchOauthBearer')}`, 'Client-ID': apis.twitch } })
 				.then(res => res.json());
 
+			if (!twitch || !twitchStreamer) { continue; }
 			// Skip to next streamer if not currently live
-			if (twitch && !twitch.data.length) { continue; }
+			if (twitch.data && !twitch.data.length) { continue; }
 
 			const streamID = twitch.data[0].id;
 			const streamer = twitch.data[0].user_name;

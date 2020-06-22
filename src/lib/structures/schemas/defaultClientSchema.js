@@ -42,4 +42,5 @@ module.exports = KlasaClient.defaultClientSchema
 	// Twitch
 		.add('purple', 'string', { default: '#9046FF' }))
 	.add('moderation', folder => folder
-		.add('cases', 'any', { array: true }));
+		.add('cases', 'any', { array: true }))
+	.add('twitchOauthBearer', 'string');
