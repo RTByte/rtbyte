@@ -26,7 +26,8 @@ module.exports = class extends Event {
 			.setImage(streamThumbnail)
 			.setTimestamp(startedAt)
 			.setFooter('twitch.tv', 'https://i.imgur.com/haYO7V0.png');
-		const role = await guild.roles.get(guild.settings.get('twitch.twitchNotifsRole'));
+		// Unused for now
+		/* const role = await guild.roles.get(guild.settings.get('twitch.twitchNotifsRole')); */
 		const channel = await this.client.channels.get(guild.settings.get('twitch.twitchNotifsChannel'));
 		await channel.send('@everyone', { embed: embed });
 

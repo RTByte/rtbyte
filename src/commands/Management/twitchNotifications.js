@@ -25,7 +25,8 @@ module.exports = class extends Command {
 
 		const twitchNotifsEnabled = status[msg.guild.settings.get('twitch.twitchNotifsEnabled')];
 		const twitchNotifsChannel = msg.guild.channels.get(msg.guild.settings.get('twitch.twitchNotifsChannel')) || msg.language.get('NOT_SET');
-		const twitchNotifsRole = msg.guild.roles.get(msg.guild.settings.get('twitch.twitchNotifsRole')) || msg.language.get('NOT_SET');
+		// Unused for now
+		/* const twitchNotifsRole = msg.guild.roles.get(msg.guild.settings.get('twitch.twitchNotifsRole')) || msg.language.get('NOT_SET'); */
 		const streamers = msg.guild.settings.get('twitch.streamers').map(streamer => `\`${streamer.name}\``).join(', ') || msg.language.get('NONE');
 
 		const embed = new MessageEmbed()

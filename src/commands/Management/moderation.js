@@ -1,5 +1,5 @@
 /* eslint-disable complexity */
-const { Command, RichDisplay } = require('klasa');
+const { Command } = require('klasa');
 const { MessageEmbed } = require('discord.js');
 
 const enableDisableArr = ['notify', 'purge', 'warn', 'mute', 'unmute',
