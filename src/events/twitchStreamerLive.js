@@ -17,7 +17,7 @@ module.exports = class extends Event {
 
 	async announceStream(guild, streamer, streamerPic, streamTitle, streamThumbnail, streamViewers, startedAt) {
 		const embed = new MessageEmbed()
-			.setAuthor(streamer, 'https://i.imgur.com/8uLz7KW.png')
+			.setAuthor(streamer, 'https://rtbyte.xyz/src/img/assets/liveIcon.png')
 			.setColor(this.client.settings.get('colors.purple'))
 			.setTitle(streamTitle)
 			.setDescription(guild.language.get('NOTIFICATION_TWITCH_LINK', streamer))
@@ -25,7 +25,7 @@ module.exports = class extends Event {
 			.addField(guild.language.get('NOTIFICATION_TWITCH_VIEWERS'), streamViewers)
 			.setImage(streamThumbnail)
 			.setTimestamp(startedAt)
-			.setFooter('twitch.tv', 'https://i.imgur.com/haYO7V0.png');
+			.setFooter('twitch.tv', 'https://rtbyte.xyz/src/img/assets/twitchLogo.png');
 		// Unused for now
 		/* const role = await guild.roles.get(guild.settings.get('twitch.twitchNotifsRole')); */
 		const channel = await this.client.channels.get(guild.settings.get('twitch.twitchNotifsChannel'));
