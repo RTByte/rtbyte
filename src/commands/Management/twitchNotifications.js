@@ -49,7 +49,7 @@ module.exports = class extends Command {
 
 		await msg.guild.settings.update('twitch.twitchNotifsEnabled', true);
 
-		const schedule = this.client.schedule.create('twitchNotifications', '*/5 * * * *', {
+		const schedule = await this.client.schedule.create('twitchNotifications', '*/5 * * * *', {
 			data: {
 				guildID: msg.guild.id
 			}
