@@ -760,7 +760,7 @@ module.exports = class extends Language {
 			COMMAND_SETTINGS_RESET_MUTED: "The muted role has not been set, so you can't reset it.",
 			COMMAND_SETTINGS_RESET_VOICEBANNED: "The voice chat banned role has not been set, so you can't reset it.",
 			COMMAND_SETTINGS_RESET_JOINABLE: "No roles have been added to the joinable roles list, so you can't reset it.",
-			COMMAND_TWITCHNOTIFS_DESCRIPTION: '',
+			COMMAND_TWITCHNOTIFS_DESCRIPTION: 'A series of commands to let you modify the Twitch.tv notifications for your server.',
 			COMMAND_TWITCHNOTIFS_NOSETTING: 'You need to specify what setting you want to modify (`channel`, `role` or `streamers`).',
 			COMMAND_TWITCHNOTIFS_NOVALUE_CHANNEL: 'You need to specify a channel.',
 			COMMAND_TWITCHNOTIFS_NOVALUE_ROLE: 'You need to specify a role.',

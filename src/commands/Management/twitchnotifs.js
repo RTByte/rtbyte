@@ -5,7 +5,7 @@ module.exports = class extends Command {
 
 	constructor(...args) {
 		super(...args, {
-			aliases: ['twitchnotifs', 'twitchnotif'],
+			aliases: ['twitchnotif', 'twitchnotifications'],
 			permissionLevel: 6,
 			description: language => language.get('COMMAND_TWITCHNOTIFS_DESCRIPTION'),
 			runIn: ['text'],
