@@ -24,7 +24,9 @@ exports.config = {
 exports.apis = {
 	genius: '',
 	google: '',
-	darksky: ''
+	darksky: '',
+	twitch: '',
+	twitchSecret: ''
 };
 
 // The token for this bot to login with
