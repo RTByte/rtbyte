@@ -31,7 +31,9 @@ module.exports = class extends Finalizer {
 			.setFooter(message.author.tag, message.author.displayAvatarURL());
 
 		logChannel = await this.client.channels.get(logChannel);
-		return logChannel.send('', { disableEveryone: true, embed: embed });
+		if (logChannel) logChannel.send('', { disableEveryone: true, embed: embed });
+
+		return;
 	}
 
 	async dmCommandLog(message, runTime, logChannel) {
@@ -45,7 +47,9 @@ module.exports = class extends Finalizer {
 			.setFooter(message.author.tag, message.author.displayAvatarURL());
 
 		logChannel = await this.client.channels.get(logChannel);
-		return logChannel.send('', { disableEveryone: true, embed: embed });
+		if (logChannel) logChannel.send('', { disableEveryone: true, embed: embed });
+
+		return;
 	}
 
 };
