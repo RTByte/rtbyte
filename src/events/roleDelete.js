@@ -20,6 +20,30 @@ module.exports = class extends Event {
 
 		if (role.guild.settings.get('channels.log') && role.guild.settings.get('logs.events.roleDelete')) await this.serverLog(role, executor);
 
+		// Config checks
+		// Checks server and client configs to see if the deleted role has been configured anywhere. If it has, resets or removes it.
+		if (role.id === role.guild.settings.get('roles.administrator')) await role.guild.settings.reset('roles.administrator');
+		if (role.id === role.guild.settings.get('roles.moderator')) await role.guild.settings.reset('roles.moderator');
+		if (role.id === role.guild.settings.get('roles.muted')) await role.guild.settings.reset('roles.muted');
+		if (role.id === role.guild.settings.get('roles.voiceBanned')) await role.guild.settings.reset('roles.voiceBanned');
+		if (role.id === role.guild.settings.get('twitch.twitchNotifsRole')) await role.guild.settings.reset('twitch.twitchNotifsRole');
+
+		// Reset won't work for arrays of role IDs, and we can't use update() with a deleted role.
+		if (role.guild.settings.get('roles.joinable').includes(role.id)) {
+			// Capture old list of roles
+			const oldList = role.guild.settings.get('roles.joinable');
+
+			// Reset current list
+			await role.guild.settings.reset('roles.joinable');
+
+			// Declare new list without the deleted role and re-add the other ones
+			const newList = oldList.filter(rl => rl !== role.id);
+			for (let i = 0; i < newList.length; i++) {
+				await role.guild.settings.sync();
+				await role.guild.settings.update('roles.joinable', newList[i]);
+			}
+		}
+
 		return;
 	}
 
