@@ -20,6 +20,11 @@ module.exports = KlasaClient.defaultClientSchema
 	.add('logs', folder => folder
 		.add('botReady', 'boolean', { default: true })
 		.add('commandRun', 'boolean', { default: true })
+		.add('commandError', 'boolean', { default: true })
+		.add('eventError', 'boolean', { default: true })
+		.add('finalizerError', 'boolean', { default: true })
+		.add('monitorError', 'boolean', { default: true })
+		.add('taskError', 'boolean', { default: true })
 		.add('guildCreate', 'boolean', { default: true })
 		.add('guildDelete', 'boolean', { default: true })
 		.add('guildUpdate', 'boolean', { default: true })
