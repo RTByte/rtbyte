@@ -27,7 +27,7 @@ module.exports = class extends Command {
 					.setFooter(msg.author.tag, msg.author.displayAvatarURL());
 
 				if (reason.length) embed.addField('Reason', reason.join(' '));
-				globalLogChannel.send(`<@&${this.client.options.controlGuildDeveloperRole}>`, { disableEveryone: false, embed: embed });
+				if (globalLogChannel) globalLogChannel.send(`<@&${this.client.options.controlGuildDeveloperRole}>`, { disableEveryone: false, embed: embed });
 
 				return msg.affirm(msg.guild.language.get('COMMAND_SUPPORT_CONTACTED'));
 			});
