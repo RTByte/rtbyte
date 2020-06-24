@@ -59,7 +59,7 @@ class ModEmbed extends MessageEmbed {
 	async send() {
 		if (this.modCase.guild.settings.get(`logs.moderation.${[this.modCase.type]}`)) {
 			const logChannel = this.modCase.guild.channels.get(this.modCase.guild.settings.get('channels.log'));
-			await logChannel.send('', { disableEveryone: true, embed: this });
+			if (logChannel) await logChannel.send('', { disableEveryone: true, embed: this });
 		}
 
 		if (!this.modCase.guild.settings.get('moderation.notifyUser')) return null;
