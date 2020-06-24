@@ -114,7 +114,7 @@ module.exports = class extends Event {
 		});
 		await oldChannel.permissionOverwrites.forEach(async (overwrite) => {
 			const subject = await this.resolveSubject(channel, overwrite);
-			if (!channel.permissionOverwrites.has(overwrite.id)) return embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_PERMISSIONOVERWRITEREMOVE'), subject);
+			if (!channel.permissionOverwrites.has(overwrite.id) && subject) return embed.addField(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE_PERMISSIONOVERWRITEREMOVE'), subject);
 
 			return null;
 		});
