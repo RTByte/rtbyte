@@ -7,6 +7,7 @@ module.exports = class extends Command {
 		super(...args, {
 			permissionLevel: 6,
 			description: language => language.get('COMMAND_CUSTOMCMDS_DESCRIPTION'),
+			extendedHelp: language => language.get('COMMAND_CUSTOMCMDS_EXTENDEDHELP', this.client.options.prefix),
 			runIn: ['text'],
 			subcommands: true,
 			usage: '<enable|disable|create|delete|update|show:default> [name:str] [content:...str]',

@@ -334,6 +334,12 @@ module.exports = class extends Language {
 			COMMAND_CONF_USER_DESCRIPTION: 'Define per-user settings.',
 			COMMAND_CONF_USER: (key, list) => `**User Settings${key}**\n${list}`,
 			COMMAND_CUSTOMCMDS_DESCRIPTION: 'A series of commands to let you manage your custom commands.',
+			COMMAND_CUSTOMCMDS_EXTENDEDHELP: (prefix = `-`) => [
+				`• To enable or disable the usage of custom commands, run \`${prefix}customcmds enable\` or \`${prefix}customcmds disable\``,
+				`• To create a custom command, run \`${prefix}customcmds create <command name> <command response>\``,
+				`• To delete a custom command, run \`${prefix}customcmds delete <command name>\``,
+				`• To update a custom command, run \`${prefix}customcmds update <command name> <new command response>\``
+			],
 			COMMAND_CUSTOMCMDS_NOTEXIST: (name) => `The custom command \`${name}\` does not exist in this server.`,
 			COMMAND_CUSTOMCMDS_SHOW_TITLE: 'Custom command settings',
 			COMMAND_CUSTOMCMDS_ENABLE_ALREADYENABLED: 'Custom commands are already enabled.',
