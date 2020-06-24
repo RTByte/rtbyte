@@ -20,6 +20,48 @@ module.exports = class extends Event {
 
 		if (channel.guild.settings.get('channels.log') && channel.guild.settings.get('logs.events.channelDelete')) await this.serverLog(channel, executor);
 
+		// Config checks
+		// Checks server and client configs to see if the deleted channel has been configured anywhere. If it has, resets or removes it.
+		if (channel.id === channel.guild.settings.get('channels.log')) await channel.guild.settings.reset('channels.log');
+		if (channel.id === channel.guild.settings.get('greetings.welcomeChannel')) await channel.guild.settings.reset('greetings.welcomeChannel');
+		if (channel.id === channel.guild.settings.get('greetings.dismissChannel')) await channel.guild.settings.reset('greetings.dismissChannel');
+		if (channel.id === channel.guild.settings.get('boards.starboard.starboardChannel')) await channel.guild.settings.reset('boards.starboard.starboardChannel');
+		if (channel.id === channel.guild.settings.get('boards.pinboard.pinboardChannel')) await channel.guild.settings.reset('boards.pinboard.pinboardChannel');
+		if (channel.id === channel.guild.settings.get('twitch.twitchNotifsChannel')) await channel.guild.settings.reset('twitch.twitchNotifsChannel');
+
+		// Reset won't work for arrays of channel IDs, and we can't use update() with a deleted channel.
+		if (channel.guild.settings.get('boards.starboard.starboardIgnoredChannels').includes(channel.id)) {
+			// Capture old list of channels
+			const oldList = channel.guild.settings.get('boards.starboard.starboardIgnoredChannels');
+
+			// Reset current list
+			await channel.guild.settings.reset('boards.starboard.starboardIgnoredChannels');
+
+			// Declare new list without the deleted channel and re-add the other ones
+			const newList = oldList.filter(chnl => chnl !== channel.id);
+			for (let i = 0; i < newList.length; i++) {
+				await channel.guild.settings.sync();
+				await channel.guild.settings.update('boards.starboard.starboardIgnoredChannels', newList[i]);
+			}
+		}
+		if (channel.guild.settings.get('boards.pinboard.pinboardIgnoredChannels').includes(channel.id)) {
+			// Capture old list of channels
+			const oldList = channel.guild.settings.get('boards.pinboard.pinboardIgnoredChannels');
+
+			// Reset current list
+			await channel.guild.settings.reset('boards.pinboard.pinboardIgnoredChannels');
+
+			// Declare new list without the deleted channel and re-add the other ones
+			const newList = oldList.filter(chnl => chnl !== channel.id);
+			for (let i = 0; i < newList.length; i++) {
+				await channel.guild.settings.sync();
+				await channel.guild.settings.update('boards.pinboard.pinboardIgnoredChannels', newList[i]);
+			}
+		}
+
+		// Add check for the global log channel, just in case.
+		if (channel.id === this.client.settings.get('channels.globalLog')) await this.client.settings.reset('channels.globalLog');
+
 		return;
 	}
 
