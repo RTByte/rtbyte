@@ -116,6 +116,7 @@ module.exports = class extends Language {
 			NOT_SET: 'Not set',
 			REGION: (region) => this.regions[region],
 			UNFETCHABLE_USER: 'Unfetchable user',
+			COMMAND: 'Command',
 
 
 			// Permission langs
@@ -238,6 +239,7 @@ module.exports = class extends Language {
 
 
 			// Command langs
+			COMMAND_ERROR: 'Sorry, it seems like the bot ran into an error when trying to execute this command. It has been reported to the developers.',
 			COMMAND_REQUESTED_BY: (msg) => `Requested by ${msg.author.tag}`,
 			COMMAND_BLACKLIST_DESCRIPTION: 'Blacklists or un-blacklists users and servers from the bot.',
 			COMMAND_BLACKLIST_SUCCESS: (usersAdded, usersRemoved, guildsAdded, guildsRemoved) => [
@@ -893,6 +895,7 @@ module.exports = class extends Language {
 			GUILD_LOG_WEBHOOKUPDATE_CHANNEL: 'Channel changed',
 			GUILD_LOG_WEBHOOKUPDATE_AVATAR: 'Icon changed',
 
+
 			// Global log langs
 			GLOBAL_LOG_GUILDCREATE: 'Bot added to server',
 			GLOBAL_LOG_GUILDDELETE: 'Bot removed from server',
@@ -901,6 +904,14 @@ module.exports = class extends Language {
 			GLOBAL_LOG_GUILDUNAVAILABLE: 'Server unavailable, likely due to a server outage',
 			GLOBAL_LOG_COMMANDRUN: 'Command ran',
 			GLOBAL_LOG_COMMANDRUN_DM: 'Command ran in DM',
+			GLOBAL_LOG_ERROR_EXECUTEDIN: 'Originating server',
+			GLOBAL_LOG_ERROR_ORIGIN: 'Originating file',
+			GLOBAL_LOG_ERROR_ERRORSTACK: 'Error stack',
+			GLOBAL_LOG_COMMANDERROR: 'Command error',
+			GLOBAL_LOG_EVENTERROR: 'Event error',
+			GLOBAL_LOG_FINALIZERERROR: 'Finalizer error',
+			GLOBAL_LOG_MONITORERROR: 'Monitor error',
+			GLOBAL_LOG_TASKERROR: 'Task error',
 
 
 			// Moderation action langs
