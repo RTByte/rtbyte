@@ -8,8 +8,12 @@ module.exports = class extends Event {
 	}
 
 	async run(member) {
-		if (!member.guild.settings.get('channels.log') && !member.guild.settings.get('logs.events.guildBoostAdd')) return;
+		if (member.guild.settings.get('channels.log') && member.guild.settings.get('logs.events.guildBoostAdd')) await this.serverLog(member);
 
+		return;
+	}
+
+	async serverLog(member) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${member.displayName} (${member.user.tag}) `, member.user.displayAvatarURL())
 			.setColor(this.client.settings.get('colors.pink'))

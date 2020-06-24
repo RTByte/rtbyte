@@ -8,8 +8,12 @@ module.exports = class extends Event {
 	}
 
 	async run(guild) {
-		if (!guild.settings.get('channels.log') && !guild.settings.get('logs.events.guildBoostTierUpdate')) return;
+		if (guild.settings.get('channels.log') && guild.settings.get('logs.events.guildBoostTierUpdate')) await this.serverLog(guild);
 
+		return;
+	}
+
+	async serverLog(guild) {
 		const nitroEmbed = new MessageEmbed()
 			.setAuthor(guild.name, guild.iconURL())
 			.setColor(this.client.settings.get('colors.pink'))
