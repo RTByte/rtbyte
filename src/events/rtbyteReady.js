@@ -43,6 +43,7 @@ module.exports = class extends Event {
 
 		await this.client.emit('verbose', 'All guilds verified!');
 		if (this.client.settings.get('logs.botReady')) await this.botReadyLog();
+
 		return;
 	}
 
@@ -54,6 +55,7 @@ module.exports = class extends Event {
 			.setFooter('Bot restarted');
 		const globalLog = await this.client.channels.get(this.client.settings.get('channels.globalLog'));
 		if (globalLog) await globalLog.send('', { disableEveryone: true, embed: embed });
+
 		return;
 	}
 
@@ -74,6 +76,7 @@ module.exports = class extends Event {
 		// Registering control guild in clientStorage
 		await this.client.settings.update('guilds.controlGuild', controlGuild.id);
 		await this.client.settings.sync(true);
+
 		return;
 	}
 

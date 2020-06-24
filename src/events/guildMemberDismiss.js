@@ -14,7 +14,7 @@ module.exports = class extends Event {
 
 		if (member.guild.settings.get('greetings.dismissMessage')) {
 			goodbyeMsg = goodbyeMsg.replace('%user%', `${member.user.tag}`);
-			await dismissChannel.send(goodbyeMsg);
+			if (dismissChannel) await dismissChannel.send(goodbyeMsg);
 		}
 	}
 

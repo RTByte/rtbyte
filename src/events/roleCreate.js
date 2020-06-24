@@ -33,7 +33,8 @@ module.exports = class extends Event {
 			.setFooter(role.guild.language.get('GUILD_LOG_ROLECREATE', executor), executor ? executor.displayAvatarURL() : undefined);
 
 		const logChannel = await this.client.channels.get(role.guild.settings.get('channels.log'));
-		await logChannel.send('', { disableEveryone: true, embed: embed });
+		if (logChannel) await logChannel.send('', { disableEveryone: true, embed: embed });
+
 		return;
 	}
 

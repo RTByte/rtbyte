@@ -43,7 +43,8 @@ module.exports = class extends Event {
 		if (member.user.bot) embed.setDescription(botBadgeEmoji);
 
 		const logChannel = await this.client.channels.get(member.guild.settings.get('channels.log'));
-		await logChannel.send('', { disableEveryone: true, embed: embed });
+		if (logChannel) await logChannel.send('', { disableEveryone: true, embed: embed });
+
 		return;
 	}
 

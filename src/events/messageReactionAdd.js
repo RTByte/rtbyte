@@ -16,7 +16,7 @@ module.exports = class extends Event {
 		const starboardChannel = await this.client.channels.get(msg.guild.settings.get('boards.starboard.starboardChannel'));
 
 		if (reaction.emoji.name !== '🌟' || msg.author.bot || msg.channel === starboardChannel) return;
-		if (!msg.guild.settings.get('boards.starboard.starboardEnabled')) return;
+		if (!msg.guild.settings.get('boards.starboard.starboardEnabled') || !starboardChannel) return;
 		if (reaction.count < msg.guild.settings.get('boards.starboard.starboardThreshold')) return;
 
 		const embed = new MessageEmbed()

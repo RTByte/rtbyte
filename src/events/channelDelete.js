@@ -70,9 +70,13 @@ module.exports = class extends Event {
 			.setAuthor(`#${channel.name}`, channel.guild.iconURL())
 			.setColor(this.client.settings.get('colors.red'))
 			.addField(channel.guild.language.get('ID'), channel.id)
-			.addField(channel.guild.language.get('CATEGORY'), channel.parent)
 			.setTimestamp()
 			.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELDELETE', executor), executor ? executor.displayAvatarURL() : undefined);
+
+		// Add category field if channel is in category
+		if (channel.parent) {
+			embed.addField(channel.guild.language.get('CATEGORY'), channel.parent);
+		}
 
 		// Change author and footer fields if channel is voice channel
 		if (channel.type === 'voice') {
@@ -97,7 +101,8 @@ module.exports = class extends Event {
 		}
 
 		const logChannel = await this.client.channels.get(channel.guild.settings.get('channels.log'));
-		await logChannel.send('', { disableEveryone: true, embed: embed });
+		if (logChannel) await logChannel.send('', { disableEveryone: true, embed: embed });
+
 		return;
 	}
 

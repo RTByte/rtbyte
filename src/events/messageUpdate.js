@@ -33,7 +33,8 @@ module.exports = class extends Event {
 			.setFooter(msg.language.get('GUILD_LOG_MESSAGEUPDATE'));
 
 		const logChannel = await this.client.channels.get(msg.guild.settings.get('channels.log'));
-		await logChannel.send('', { disableEveryone: true, embed: embed });
+		if (logChannel) await logChannel.send('', { disableEveryone: true, embed: embed });
+
 		return;
 	}
 

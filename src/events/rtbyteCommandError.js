@@ -24,6 +24,7 @@ module.exports = class extends Event {
 			.setTimestamp()
 			.setFooter(globalLog.guild.language.get('GLOBAL_LOG_COMMANDERROR'));
 		if (globalLog) await globalLog.send('', { disableEveryone: true, embed: embed });
+
 		return;
 	}
 

@@ -16,7 +16,7 @@ module.exports = class extends Task {
 			.setFooter(`Reminder set in ${guild ? channel.name : 'DMs'}${guild ? ` on the ${guild.name} Discord` : ''}`);
 
 		if (dmBool) return member.user.send('', { disableEveryone: true, embed: embed });
-		return channel.send(`${member}`, { disableEveryone: true, embed: embed });
+		if (channel) return channel.send(`${member}`, { disableEveryone: true, embed: embed });
 	}
 
 };

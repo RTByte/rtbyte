@@ -17,7 +17,7 @@ module.exports = class extends Event {
 
 		if (reaction.emoji.name !== '🌟') return;
 		if (msg.author.bot) return;
-		if (!msg.guild.settings.get('boards.starboard.starboardEnabled')) return;
+		if (!msg.guild.settings.get('boards.starboard.starboardEnabled') || !starboardChannel) return;
 
 		const embed = new MessageEmbed()
 			.setAuthor(msg.language.get('STARBOARD_STARRED'), msg.guild.iconURL())
