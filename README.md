@@ -39,18 +39,6 @@ For support, changelogs, and a link to add RTByte to your server, please join ou
 
 * Create custom commands for your users with full integration into RTByte's logging system.
 
-## Documentation
-
-Coming Soon™
-
-## Rooster Teeth Community Discord Servers
-
-[Rooster Teeth Community](https://discord.gg/rtcd)  
-[Cow Chop Community](https://discord.gg/cowchop)  
-[Achievement Hunter Community](https://discord.gg/achievementhunter)  
-[Sugar Pine 7 Community](https://discord.gg/HUHExdK)  
-[Kinda Funny](https://discord.gg/kindafunny)    
-
 ## Shout-Outs
 
 #### Our Team
