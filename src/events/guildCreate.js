@@ -25,7 +25,8 @@ module.exports = class extends Event {
 			.setFooter(guild.language.get('GLOBAL_LOG_GUILDCREATE'));
 
 		const globalLogChannel = await this.client.channels.get(this.client.settings.get('channels.globalLog'));
-		await globalLogChannel.send('', { disableEveryone: true, embed: embed });
+		if (globalLogChannel) await globalLogChannel.send('', { disableEveryone: true, embed: embed });
+
 		return;
 	}
 

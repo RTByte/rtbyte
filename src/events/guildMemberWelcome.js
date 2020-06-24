@@ -14,7 +14,7 @@ module.exports = class extends Event {
 
 		if (member.guild.settings.get('greetings.welcomeMessage')) {
 			welcomeMsg = welcomeMsg.replace('%user%', `${member.user}`);
-			await welcomeChannel.send(welcomeMsg);
+			if (welcomeChannel) await welcomeChannel.send(welcomeMsg);
 		}
 	}
 
