@@ -23,6 +23,8 @@ module.exports = class extends Command {
 	}
 
 	async run(msg, [target = undefined, caseID = null]) {
+		const serverCases = this.client.settings.get('moderation.cases').filter(modCase => modCase.guild === msg.guild.id);
+
 		if (caseID) {
 			if (!this.client.settings.get('moderation.cases').find(thisCase => thisCase.id === caseID)) return msg.reject(msg.language.get('COMMAND_MODHISTORY_INVALID_CASEID', caseID));
 
@@ -33,11 +35,12 @@ module.exports = class extends Command {
 		}
 
 		if (target) {
-			if (!target.settings.get('moderation.cases').length) return msg.affirm(msg.language.get('COMMAND_MODHISTORY_NOMODHISTORY', target));
+			const targetCases = serverCases.filter(modCase => modCase.user === target.user.id);
+			if (!targetCases.length) return msg.affirm(msg.language.get('COMMAND_MODHISTORY_NOMODHISTORY', target));
 
 			const previousHandler = this.handlers.get(msg.author.id);
 			if (previousHandler) previousHandler.stop();
-			const caseEmbedArray = await this.buildEmbedArray(msg, target);
+			const caseEmbedArray = await this.buildEmbedArray(msg, targetCases);
 
 			const loadingEmbed = new MessageEmbed()
 				.setTitle(msg.language.get('COMMAND_MODHISTORY_LOADING'))
@@ -54,12 +57,11 @@ module.exports = class extends Command {
 			this.handlers.set(msg.author.id, handler);
 			return handler;
 		} else {
-			const serverCases = this.client.settings.get('moderation.cases').filter(modCase => modCase.guild === msg.guild.id);
 			if (!serverCases.length) return msg.affirm(msg.language.get('COMMAND_MODHISTORY_NOMODHISTORY', msg.guild.name));
 
 			const previousHandler = this.handlers.get(msg.author.id);
 			if (previousHandler) previousHandler.stop();
-			const caseEmbedArray = await this.buildServerEmbedArray(msg, serverCases);
+			const caseEmbedArray = await this.buildEmbedArray(msg, serverCases);
 
 			const loadingEmbed = new MessageEmbed()
 				.setTitle(msg.language.get('COMMAND_MODHISTORY_LOADING'))
@@ -78,23 +80,12 @@ module.exports = class extends Command {
 		}
 	}
 
-	async buildEmbedArray(msg, target) {
-		const caseEmbedArray = [];
-		for (const caseID of target.settings.get('moderation.cases')) {
-			const modCase = new ModCase(msg.guild);
-			await modCase.unpack(this.client.settings.get('moderation.cases').find(thisCase => thisCase.id === caseID));
 
-			caseEmbedArray.push(await modCase.embed());
-		}
-		caseEmbedArray.reverse();
-		return caseEmbedArray;
-	}
-
-	async buildServerEmbedArray(msg, serverCases) {
+	async buildEmbedArray(msg, cases) {
 		const caseEmbedArray = [];
-		for (const serverCase of serverCases) {
+		for (const cse of cases) {
 			const modCase = new ModCase(msg.guild);
-			await modCase.unpack(serverCases.find(thisCase => thisCase.id === serverCase.id));
+			await modCase.unpack(cases.find(thisCase => thisCase.id === cse.id));
 
 			caseEmbedArray.push(await modCase.embed());
 		}
