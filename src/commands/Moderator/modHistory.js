@@ -22,7 +22,7 @@ module.exports = class extends Command {
 		this.handlers = new Map();
 	}
 
-	async run(msg, [target = undefined, caseID = null]) {
+	async run(msg, [target, caseID = null]) {
 		const serverCases = this.client.settings.get('moderation.cases').filter(modCase => modCase.guild === msg.guild.id);
 
 		if (caseID) {
