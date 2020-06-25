@@ -123,10 +123,7 @@ module.exports = class Case {
 		this.id = await this._getID();
 		this.submitted = true;
 
-		const member = this.guild.members.get(this.user.id);
-
 		await this.client.settings.update('moderation.cases', await this.pack(), this.guild);
-		if (member && member.id !== this.client.user.id) await member.settings.update('moderation.cases', this.id, this.guild);
 
 		return this;
 	}
@@ -134,10 +131,7 @@ module.exports = class Case {
 	async delete() {
 		if (!this.submitted) throw 'Cases cannot be deleted unless submitted first!';
 
-		const member = this.guild.members.get(this.user);
-
 		await this.client.settings.destroy('moderation.cases', this, this.guild);
-		await member.settings.destroy('moderation.cases', this.id, this.guild);
 
 		return this;
 	}

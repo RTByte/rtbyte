@@ -14,14 +14,6 @@ module.exports = class extends Event {
 	async run(member) {
 		if (!member.guild) return;
 
-		const modHistory = await this.client.settings.get('moderation.cases').filter(modCase => modCase.user === member.id && modCase.guild === member.guild.id);
-		for (const modCase of modHistory) {
-			if (!member.settings.get('moderation.cases').includes(modCase.id)) {
-				await member.settings.sync();
-				await member.settings.update('moderation.cases', modCase.id, member.guild);
-			}
-		}
-
 		if (member.guild.settings.get('channels.log') && member.guild.settings.get('logs.events.guildMemberAdd') && !member.user.bot) await this.serverLog(member);
 
 		if (member.guild.settings.get('greetings.welcomeNewUsers')) this.client.emit('guildMemberWelcome', member);
