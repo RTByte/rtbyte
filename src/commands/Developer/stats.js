@@ -23,7 +23,6 @@ module.exports = class extends Command {
 			.setColor('#ffffff')
 			.addField(msg.guild.language.get('COMMAND_STATS_MEMUSAGE'), `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`, true)
 			.addField(msg.guild.language.get('COMMAND_STATS_UPTIME'), capitalize(moment.duration(this.client.uptime, 'ms').humanize()), true)
-			// eslint-disable-next-line max-len
 			.addField(msg.guild.language.get('COMMAND_STATS_CONNECTIONS'), msg.guild.language.get('COMMAND_STATS_CONNECTIONINFO', this.client.guilds.size, this.client.channels.size, this.client.users.size))
 			// eslint-disable-next-line max-len
 			.addField(msg.guild.language.get('COMMAND_STATS_LIBRARIES'), `• [Klasa v${klasaVersion}](https://klasa.js.org/)\n• [Discord.js v${discordVersion}](https://discord.js.org/)\n• [Node.js ${process.version}](https://nodejs.org/)`, true)
