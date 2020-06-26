@@ -12,7 +12,6 @@ module.exports = class extends Event {
 		if (!msg.guild) return;
 		if (msg.guild.settings.get('boards.starboard.starboardIgnoredChannels').includes(msg.channel.id)) return;
 
-		let attachment;
 		const starboardChannel = await this.client.channels.get(msg.guild.settings.get('boards.starboard.starboardChannel'));
 
 		if (reaction.emoji.name !== '🌟' || msg.author.bot || msg.channel === starboardChannel) return;
@@ -22,27 +21,41 @@ module.exports = class extends Event {
 		const embed = new MessageEmbed()
 			.setAuthor(msg.language.get('STARBOARD_STARRED'), msg.guild.iconURL())
 			.setColor(this.client.settings.get('colors.gold'))
-			.setDescription(`[${msg.guild.language.get('CLICK_TO_VIEW')}](${msg.url})`)
+			.setDescription(`[${msg.language.get('CLICK_TO_VIEW')}](${msg.url})`)
 			.addField(msg.language.get('BOARD_AUTHOR'), msg.author, true)
 			.addField(msg.language.get('CHANNEL'), msg.channel, true)
 			.setThumbnail(msg.author.displayAvatarURL())
 			.setTimestamp(msg.createdTimestamp)
 			.setFooter(`🌟 ${reaction.count}`);
 
+		// Message attachment checks.
+		let attachment, hasVideo = false;
 		if (msg.content) await embed.addField(msg.guild.language.get('MESSAGE'), msg.content);
-		if (msg.attachments.size > 0) {
-			attachment = msg.attachments.map(atch => atch.url).join(' ');
-			attachment = attachment
-				.replace('//cdn.', '//media.')
-				.replace('.com/', '.net/');
-			await embed.setImage(attachment);
+		if (msg.attachments) {
+			const atchs = msg.attachments.map(atch => atch.proxyURL);
+			const atchSize = msg.attachments.map(atch => atch.size)[0] < 8388119;
+			if (atchs.filter(pURL => pURL.endsWith('.mp4')).length || atchs.filter(pURL => pURL.endsWith('.webm')).length || atchs.filter(pURL => pURL.endsWith('.mov')).length) {
+				if (atchSize) {
+					hasVideo = true;
+					[attachment] = [atchs[0]];
+				} else {
+					await embed.addField('‎', msg.language.get('MESSAGE_ATCH_TOOBIG', msg.url));
+				}
+			} else if (msg.attachments.size > 1) {
+				[attachment] = [atchs[0]];
+				await embed.addField('‎', msg.language.get('MESSAGE_MULTIPLE_ATCH'));
+				await embed.setImage(attachment);
+			} else {
+				[attachment] = [atchs[0]];
+				await embed.setImage(attachment);
+			}
 		}
 
 		let starboardMsgID;
 		const starred = msg.guild.settings.get('boards.starboard.starred').find(star => star.msgID === msg.id);
 
 		if (!starred) {
-			const message = await starboardChannel.send('', { disableEveryone: true, embed: embed });
+			const message = await starboardChannel.send('', hasVideo ? { disableEveryone: true, embed: embed, files: [attachment] } : { disableEveryone: true, embed: embed });
 
 			starboardMsgID = message.id;
 

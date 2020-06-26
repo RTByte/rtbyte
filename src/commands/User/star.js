@@ -17,7 +17,6 @@ module.exports = class extends Command {
 	async random(msg, [member]) {
 		if (!msg.guild.settings.get('boards.starboard.starboardEnabled')) return msg.send(msg.language.get('COMMAND_STAR_STARBOARD_NOT_ENABLED'));
 
-		let attachment;
 		const starredMessages = msg.guild.settings.get('boards.starboard.starred');
 		if (!starredMessages) return msg.send(msg.language.get('COMMAND_STAR_NOSTARRED'));
 
@@ -38,22 +37,36 @@ module.exports = class extends Command {
 			.setThumbnail(fetchedStar.author.displayAvatarURL())
 			.setTimestamp(fetchedStar.createdTimestamp)
 			.setFooter(`🌟 ${stars}`);
+
+		// Message attachment checks.
+		let attachment, hasVideo = false;
 		if (fetchedStar.content) await embed.addField(msg.guild.language.get('MESSAGE'), fetchedStar.content);
-		if (fetchedStar.attachments.size > 0) {
-			attachment = fetchedStar.attachments.map(atch => atch.url).join(' ');
-			attachment = attachment
-				.replace('//cdn.', '//media.')
-				.replace('.com/', '.net/');
-			await embed.setImage(attachment);
+		if (fetchedStar.attachments) {
+			const atchs = fetchedStar.attachments.map(atch => atch.proxyURL);
+			const atchSize = fetchedStar.attachments.map(atch => atch.size)[0] < 8388119;
+			if (atchs.filter(pURL => pURL.endsWith('.mp4')).length || atchs.filter(pURL => pURL.endsWith('.webm')).length || atchs.filter(pURL => pURL.endsWith('.mov')).length) {
+				if (atchSize) {
+					hasVideo = true;
+					[attachment] = [atchs[0]];
+				} else {
+					await embed.addField('‎', msg.language.get('MESSAGE_ATCH_TOOBIG', fetchedStar.url));
+				}
+			} else if (fetchedStar.attachments.size > 1) {
+				[attachment] = [atchs[0]];
+				await embed.addField('‎', msg.language.get('MESSAGE_MULTIPLE_ATCH'));
+				await embed.setImage(attachment);
+			} else {
+				[attachment] = [atchs[0]];
+				await embed.setImage(attachment);
+			}
 		}
 
-		return msg.send('', { disableEveryone: true, embed: embed });
+		return msg.send('', hasVideo ? { disableEveryone: true, embed: embed, files: [attachment] } : { disableEveryone: true, embed: embed });
 	}
 
 	async top(msg, [member]) {
 		if (!msg.guild.settings.get('boards.starboard.starboardEnabled')) return msg.send(msg.language.get('COMMAND_STAR_STARBOARD_NOT_ENABLED'));
 
-		let attachment;
 		const starredMessages = msg.guild.settings.get('boards.starboard.starred');
 		if (!starredMessages) return msg.send(msg.language.get('COMMAND_STAR_NOSTARRED'));
 
@@ -78,16 +91,31 @@ module.exports = class extends Command {
 			.setThumbnail(fetchedStar.author.displayAvatarURL())
 			.setTimestamp(fetchedStar.createdTimestamp)
 			.setFooter(`🌟 ${stars}`);
+
+		// Message attachment checks.
+		let attachment, hasVideo = false;
 		if (fetchedStar.content) await embed.addField(msg.guild.language.get('MESSAGE'), fetchedStar.content);
-		if (fetchedStar.attachments.size > 0) {
-			attachment = fetchedStar.attachments.map(atch => atch.url).join(' ');
-			attachment = attachment
-				.replace('//cdn.', '//media.')
-				.replace('.com/', '.net/');
-			await embed.setImage(attachment);
+		if (fetchedStar.attachments) {
+			const atchs = fetchedStar.attachments.map(atch => atch.proxyURL);
+			const atchSize = fetchedStar.attachments.map(atch => atch.size)[0] < 8388119;
+			if (atchs.filter(pURL => pURL.endsWith('.mp4')).length || atchs.filter(pURL => pURL.endsWith('.webm')).length || atchs.filter(pURL => pURL.endsWith('.mov')).length) {
+				if (atchSize) {
+					hasVideo = true;
+					[attachment] = [atchs[0]];
+				} else {
+					await embed.addField('‎', msg.language.get('MESSAGE_ATCH_TOOBIG', fetchedStar.url));
+				}
+			} else if (fetchedStar.attachments.size > 1) {
+				[attachment] = [atchs[0]];
+				await embed.addField('‎', msg.language.get('MESSAGE_MULTIPLE_ATCH'));
+				await embed.setImage(attachment);
+			} else {
+				[attachment] = [atchs[0]];
+				await embed.setImage(attachment);
+			}
 		}
 
-		return msg.send('', { disableEveryone: true, embed: embed });
+		return msg.send('', hasVideo ? { disableEveryone: true, embed: embed, files: [attachment] } : { disableEveryone: true, embed: embed });
 	}
 
 };

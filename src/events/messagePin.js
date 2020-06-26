@@ -11,7 +11,6 @@ module.exports = class extends Event {
 		if (!msg.guild) return;
 		if (msg.guild.settings.get('boards.pinboard.pinboardIgnoredChannels').includes(msg.channel.id)) return;
 
-		let attachment;
 		const pinboardChannel = await this.client.channels.get(msg.guild.settings.get('boards.pinboard.pinboardChannel'));
 		if (!msg.guild.settings.get('boards.pinboard.pinboardEnabled') || !pinboardChannel) return;
 
@@ -25,19 +24,33 @@ module.exports = class extends Event {
 			.setTimestamp(msg.createdTimestamp)
 			.setFooter(msg.language.get('PINBOARD_PINNED_BY', executor), executor ? executor.displayAvatarURL() : undefined);
 
+		// Message attachment checks.
+		let attachment, hasVideo = false;
 		if (msg.content) await embed.addField(msg.guild.language.get('MESSAGE'), msg.content);
-		if (msg.attachments.size > 0) {
-			attachment = msg.attachments.map(atch => atch.url).join(' ');
-			attachment = attachment
-				.replace('//cdn.', '//media.')
-				.replace('.com/', '.net/');
-			await embed.setImage(attachment);
+		if (msg.attachments) {
+			const atchs = msg.attachments.map(atch => atch.proxyURL);
+			const atchSize = msg.attachments.map(atch => atch.size)[0] < 8388119;
+			if (atchs.filter(pURL => pURL.endsWith('.mp4')).length || atchs.filter(pURL => pURL.endsWith('.webm')).length || atchs.filter(pURL => pURL.endsWith('.mov')).length) {
+				if (atchSize) {
+					hasVideo = true;
+					[attachment] = [atchs[0]];
+				} else {
+					await embed.addField('‎', msg.language.get('MESSAGE_ATCH_TOOBIG', msg.url));
+				}
+			} else if (msg.attachments.size > 1) {
+				[attachment] = [atchs[0]];
+				await embed.addField('‎', msg.language.get('MESSAGE_MULTIPLE_ATCH'));
+				await embed.setImage(attachment);
+			} else {
+				[attachment] = [atchs[0]];
+				await embed.setImage(attachment);
+			}
 		}
 
 		const pinned = msg.guild.settings.get('boards.pinboard.pinned').find(pin => pin.msgID === msg.id);
 
 		if (!pinned) {
-			const message = await pinboardChannel.send('', { disableEveryone: true, embed: embed });
+			const message = await pinboardChannel.send('', hasVideo ? { disableEveryone: true, embed: embed, files: [attachment] } : { disableEveryone: true, embed: embed });
 
 			const pinboardMsgID = message.id;
 			await msg.guild.settings.update('boards.pinboard.pinned', { msgID: msg.id, msgAuthor: msg.author.id, channelID: msg.channel.id, pinID: pinboardMsgID, pinner: executor.id });

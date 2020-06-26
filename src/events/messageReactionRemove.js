@@ -12,7 +12,7 @@ module.exports = class extends Event {
 		if (!msg.guild) return;
 		if (msg.guild.settings.get('boards.starboard.starboardIgnoredChannels').includes(msg.channel.id)) return;
 
-		let attachment;
+
 		const starboardChannel = await this.client.channels.get(msg.guild.settings.get('boards.starboard.starboardChannel'));
 
 		if (reaction.emoji.name !== '🌟') return;
@@ -29,13 +29,19 @@ module.exports = class extends Event {
 			.setTimestamp(msg.createdTimestamp)
 			.setFooter(`🌟 ${reaction.count}`);
 
+		// Message attachment checks.
+		let attachment;
 		if (msg.content) await embed.addField(msg.guild.language.get('MESSAGE'), msg.content);
-		if (msg.attachments.size > 0) {
-			attachment = msg.attachments.map(atch => atch.url).join(' ');
-			attachment = attachment
-				.replace('//cdn.', '//media.')
-				.replace('.com/', '.net/');
-			await embed.setImage(attachment);
+		if (msg.attachments) {
+			const attachments = msg.attachments.map(atch => atch.proxyURL);
+			if (msg.attachments.size > 1) {
+				[attachment] = [attachments[0]];
+				await embed.addField('‎', msg.language.get('MESSAGE_MULTIPLE_ATCH'));
+				await embed.setImage(attachment);
+			} else {
+				[attachment] = [attachments[0]];
+				await embed.setImage(attachment);
+			}
 		}
 
 		let starboardMsgID;

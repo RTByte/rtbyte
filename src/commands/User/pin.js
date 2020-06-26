@@ -15,7 +15,6 @@ module.exports = class extends Command {
 	async run(msg, [member]) {
 		if (!msg.guild.settings.get('boards.pinboard.pinboardEnabled')) return msg.send(msg.language.get('COMMAND_PIN_PINBOARD_NOT_ENABLED'));
 
-		let attachment;
 		const pinnedMessages = msg.guild.settings.get('boards.pinboard.pinned');
 		if (!pinnedMessages) return msg.send(msg.language.get('COMMAND_PIN_NOPINNED'));
 
@@ -38,16 +37,30 @@ module.exports = class extends Command {
 			.setTimestamp(fetchedPin.createdTimestamp)
 			.setFooter(msg.language.get('PINBOARD_PINNED_BY', fetchedPinner), fetchedPinner ? fetchedPinner.displayAvatarURL() : undefined);
 
+		// Message attachment checks.
+		let attachment, hasVideo = false;
 		if (fetchedPin.content) await embed.addField(msg.guild.language.get('MESSAGE'), fetchedPin.content);
-		if (fetchedPin.attachments.size > 0) {
-			attachment = fetchedPin.attachments.map(atch => atch.url).join(' ');
-			attachment = attachment
-				.replace('//cdn.', '//media.')
-				.replace('.com/', '.net/');
-			await embed.setImage(attachment);
+		if (fetchedPin.attachments) {
+			const atchs = fetchedPin.attachments.map(atch => atch.proxyURL);
+			const atchSize = fetchedPin.attachments.map(atch => atch.size)[0] < 8388119;
+			if (atchs.filter(pURL => pURL.endsWith('.mp4')).length || atchs.filter(pURL => pURL.endsWith('.webm')).length || atchs.filter(pURL => pURL.endsWith('.mov')).length) {
+				if (atchSize) {
+					hasVideo = true;
+					[attachment] = [atchs[0]];
+				} else {
+					await embed.addField('‎', msg.language.get('MESSAGE_ATCH_TOOBIG', fetchedPin.url));
+				}
+			} else if (fetchedPin.attachments.size > 1) {
+				[attachment] = [atchs[0]];
+				await embed.addField('‎', msg.language.get('MESSAGE_MULTIPLE_ATCH'));
+				await embed.setImage(attachment);
+			} else {
+				[attachment] = [atchs[0]];
+				await embed.setImage(attachment);
+			}
 		}
 
-		return msg.send('', { disableEveryone: true, embed: embed });
+		return msg.send('', hasVideo ? { disableEveryone: true, embed: embed, files: [attachment] } : { disableEveryone: true, embed: embed });
 	}
 
 };

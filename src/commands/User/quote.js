@@ -24,7 +24,6 @@ module.exports = class extends Command {
 	}
 
 	async sendQuote(msg, qmsg) {
-		let attachment;
 		const embed = new MessageEmbed()
 			.setAuthor(qmsg.author.tag, qmsg.author.displayAvatarURL())
 			.setColor(this.client.settings.get('colors.white'))
@@ -32,17 +31,30 @@ module.exports = class extends Command {
 			// eslint-disable-next-line max-len
 			.setFooter(`${moment.tz(qmsg.createdTimestamp, msg.guild ? msg.guild.settings.get('timezone') : 'Etc/Greenwich').format('Do MMMM YYYY, h:mmA zz')} ${msg.guild ? msg.language.get('COMMAND_QUOTE_CHANNEL', qmsg) : msg.language.get('COMMAND_QUOTE_DMS')}`);
 
-		if (qmsg.content) await embed.addField(msg.language.get('MESSAGE'), `${qmsg.content}`, true);
-		if (!qmsg.content) await embed.setTitle(msg.language.get('MESSAGE'));
-		if (qmsg.attachments.size > 0) {
-			attachment = qmsg.attachments.map(atch => atch.url).join(' ');
-			attachment = attachment
-				.replace('//cdn.', '//media.')
-				.replace('.com/', '.net/');
-			await embed.setImage(attachment);
+		// Message attachment checks.
+		let attachment, hasVideo = false;
+		if (qmsg.content) await embed.addField(msg.guild.language.get('MESSAGE'), qmsg.content);
+		if (qmsg.attachments) {
+			const atchs = qmsg.attachments.map(atch => atch.proxyURL);
+			const atchSize = qmsg.attachments.map(atch => atch.size)[0] < 8388119;
+			if (atchs.filter(pURL => pURL.endsWith('.mp4')).length || atchs.filter(pURL => pURL.endsWith('.webm')).length || atchs.filter(pURL => pURL.endsWith('.mov')).length) {
+				if (atchSize) {
+					hasVideo = true;
+					[attachment] = [atchs[0]];
+				} else {
+					await embed.addField('‎', msg.language.get('MESSAGE_ATCH_TOOBIG', qmsg.url));
+				}
+			} else if (qmsg.attachments.size > 1) {
+				[attachment] = [atchs[0]];
+				await embed.addField('‎', msg.language.get('MESSAGE_MULTIPLE_ATCH'));
+				await embed.setImage(attachment);
+			} else {
+				[attachment] = [atchs[0]];
+				await embed.setImage(attachment);
+			}
 		}
 
-		return msg.send('', { disableEveryone: true, embed: embed });
+		return msg.send('', hasVideo ? { disableEveryone: true, embed: embed, files: [attachment] } : { disableEveryone: true, embed: embed });
 	}
 
 };
