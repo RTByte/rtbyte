@@ -890,7 +890,7 @@ module.exports = class extends Language {
 			GUILD_LOG_CUSTOMCMDUPDATE: (executor) => `Custom command updated${executor ? ` by ${executor.tag}` : ''}`,
 			GUILD_LOG_CUSTOMCMDUPDATE_OLD: 'Old command response',
 			GUILD_LOG_CUSTOMCMDUPDATE_NEW: 'New command response',
-			GUILD_LOG_INVITECREATE: (executor) => `Invite created by ${executor.tag}`,
+			GUILD_LOG_INVITECREATE: (executor) => `Invite created${executor ? ` by ${executor.tag}` : ''}`,
 			GUILD_LOG_INVITECREATE_EXPIRY: 'Expiry',
 			GUILD_LOG_INVITECREATE_MAXUSES: 'Max number of uses',
 			GUILD_LOG_INVITECREATE_TEMPORARY: 'Grants temporary membership',
