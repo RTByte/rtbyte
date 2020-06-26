@@ -20,11 +20,11 @@ module.exports = class extends Language {
 			MENTIONS: 'Only @mentions'
 		};
 		this.verificationLevels = [
-			'None',
-			'Low',
-			'Medium',
-			'(╯°□°）╯︵ ┻━┻',
-			'┻━┻ ﾐヽ(ಠ益ಠ)ノ彡┻━┻'
+			'None (unrestricted)',
+			'Low (verified email)',
+			'Medium (5 minute registration)',
+			'High (10 minute membership)',
+			'Highest (verified phone number)'
 		];
 		this.filterLevels = [
 			'Off',
