@@ -24,9 +24,11 @@ module.exports = class extends Event {
 			.setTimestamp(msg.createdTimestamp)
 			.setFooter(msg.language.get('PINBOARD_PINNED_BY', executor), executor ? executor.displayAvatarURL() : undefined);
 
+		if (msg.content) await embed.addField(msg.guild.language.get('MESSAGE'), msg.content);
+		if (msg.embeds.length) await embed.addField('‎', msg.language.get('MESSAGE_EMBED', msg.url));
+
 		// Message attachment checks.
 		let attachment, hasVideo = false;
-		if (msg.content) await embed.addField(msg.guild.language.get('MESSAGE'), msg.content);
 		if (msg.attachments) {
 			const atchs = msg.attachments.map(atch => atch.proxyURL);
 			const atchSize = msg.attachments.map(atch => atch.size)[0] < 8388119;

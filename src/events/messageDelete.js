@@ -23,9 +23,11 @@ module.exports = class extends Event {
 			.setTimestamp()
 			.setFooter(msg.language.get('GUILD_LOG_MESSAGEDELETE'));
 
+		if (msg.content) await embed.addField(msg.guild.language.get('MESSAGE'), msg.content);
+		if (msg.embeds.length) await embed.addField('‎', msg.language.get('GUILD_LOG_MESSAGEDELETE_EMBED'));
+
 		// Message attachment checks.
 		let attachment, hasVideo = false;
-		if (msg.content) await embed.addField(msg.guild.language.get('MESSAGE'), msg.content);
 		if (msg.attachments) {
 			const atchs = msg.attachments.map(atch => atch.proxyURL);
 			const atchSize = msg.attachments.map(atch => atch.size)[0] < 8388119;

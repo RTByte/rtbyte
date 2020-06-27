@@ -117,6 +117,7 @@ module.exports = class extends Language {
 			COMMAND: 'Command',
 			MESSAGE_MULTIPLE_ATCH: 'Message has multiple attachments, showing the first one.',
 			MESSAGE_ATCH_TOOBIG: (msgLink) => `Attached file is too big to display, please [click to view](${msgLink}).`,
+			MESSAGE_EMBED: (msgLink) => `Message has an embed, please [click to view](${msgLink}).`,
 
 
 			// Permission langs
@@ -810,6 +811,7 @@ module.exports = class extends Language {
 			GUILD_LOG_MESSAGEDELETE: 'Message deleted',
 			GUILD_LOG_MESSAGEDELETE_MULTIPLE_ATCH: 'Deleted message had multiple attachments, showing the first one.',
 			GUILD_LOG_MESSAGEDELETE_TOOBIG: 'Attached file was too big to display.',
+			GUILD_LOG_MESSAGEDELETE_EMBED: 'Deleted message had an embed.',
 			GUILD_LOG_MESSAGEUPDATE: 'Message edited',
 			GUILD_LOG_ROLECREATE: (executor) => `Role created${executor ? ` by ${executor.tag}` : ''}`,
 			GUILD_LOG_ROLECREATE_V_TAG: 'Tag',

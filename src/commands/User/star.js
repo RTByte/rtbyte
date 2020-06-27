@@ -38,9 +38,11 @@ module.exports = class extends Command {
 			.setTimestamp(fetchedStar.createdTimestamp)
 			.setFooter(`🌟 ${stars}`);
 
+		if (fetchedStar.content) await embed.addField(msg.guild.language.get('MESSAGE'), fetchedStar.content);
+		if (fetchedStar.embeds.length) await embed.addField('‎', msg.language.get('MESSAGE_EMBED', fetchedStar.url));
+
 		// Message attachment checks.
 		let attachment, hasVideo = false;
-		if (fetchedStar.content) await embed.addField(msg.guild.language.get('MESSAGE'), fetchedStar.content);
 		if (fetchedStar.attachments) {
 			const atchs = fetchedStar.attachments.map(atch => atch.proxyURL);
 			const atchSize = fetchedStar.attachments.map(atch => atch.size)[0] < 8388119;
@@ -92,9 +94,11 @@ module.exports = class extends Command {
 			.setTimestamp(fetchedStar.createdTimestamp)
 			.setFooter(`🌟 ${stars}`);
 
+		if (fetchedStar.content) await embed.addField(msg.guild.language.get('MESSAGE'), fetchedStar.content);
+		if (fetchedStar.embeds.length) await embed.addField('‎', msg.language.get('MESSAGE_EMBED', fetchedStar.url));
+
 		// Message attachment checks.
 		let attachment, hasVideo = false;
-		if (fetchedStar.content) await embed.addField(msg.guild.language.get('MESSAGE'), fetchedStar.content);
 		if (fetchedStar.attachments) {
 			const atchs = fetchedStar.attachments.map(atch => atch.proxyURL);
 			const atchSize = fetchedStar.attachments.map(atch => atch.size)[0] < 8388119;

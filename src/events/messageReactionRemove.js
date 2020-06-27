@@ -29,9 +29,11 @@ module.exports = class extends Event {
 			.setTimestamp(msg.createdTimestamp)
 			.setFooter(`🌟 ${reaction.count}`);
 
+		if (msg.content) await embed.addField(msg.guild.language.get('MESSAGE'), msg.content);
+		if (msg.embeds.length) await embed.addField('‎', msg.language.get('MESSAGE_EMBED', msg.url));
+
 		// Message attachment checks.
 		let attachment;
-		if (msg.content) await embed.addField(msg.guild.language.get('MESSAGE'), msg.content);
 		if (msg.attachments) {
 			const attachments = msg.attachments.map(atch => atch.proxyURL);
 			if (msg.attachments.size > 1) {

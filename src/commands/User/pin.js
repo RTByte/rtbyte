@@ -37,9 +37,11 @@ module.exports = class extends Command {
 			.setTimestamp(fetchedPin.createdTimestamp)
 			.setFooter(msg.language.get('PINBOARD_PINNED_BY', fetchedPinner), fetchedPinner ? fetchedPinner.displayAvatarURL() : undefined);
 
+		if (fetchedPin.content) await embed.addField(msg.guild.language.get('MESSAGE'), fetchedPin.content);
+		if (fetchedPin.embeds.length) await embed.addField('‎', msg.language.get('MESSAGE_EMBED', fetchedPin.url));
+
 		// Message attachment checks.
 		let attachment, hasVideo = false;
-		if (fetchedPin.content) await embed.addField(msg.guild.language.get('MESSAGE'), fetchedPin.content);
 		if (fetchedPin.attachments) {
 			const atchs = fetchedPin.attachments.map(atch => atch.proxyURL);
 			const atchSize = fetchedPin.attachments.map(atch => atch.size)[0] < 8388119;
