@@ -18,7 +18,7 @@ module.exports = class extends Command {
 	}
 
 	async list(msg) {
-		if (!msg.guild.settings.get('roles.joinable').length) return msg.reject(msg.language.get('COMMAND_ROLES_NONE_JOINABLE'));
+		if (!msg.guild.settings.roles.joinable.length) return msg.reject(msg.language.get('COMMAND_ROLES_NONE_JOINABLE'));
 
 		const embed = new MessageEmbed()
 			.setAuthor(msg.language.get('COMMAND_ROLES_SERVER'), this.client.user.displayAvatarURL())
@@ -39,7 +39,7 @@ module.exports = class extends Command {
 
 	async add(msg, [target = msg.member, ...roleName]) {
 		// Fail if there are no joinable roles
-		if (!msg.guild.settings.get('roles.joinable').length) return msg.reject(msg.language.get('COMMAND_ROLES_NONE_JOINABLE'));
+		if (!msg.guild.settings.roles.joinable.length) return msg.reject(msg.language.get('COMMAND_ROLES_NONE_JOINABLE'));
 		if (!roleName.length) return msg.reject(msg.language.get('COMMAND_ROLES_NO_ROLE_NAME'));
 
 		if (target.id !== msg.member.id) {
@@ -56,16 +56,16 @@ module.exports = class extends Command {
 		roleName = roleName.join(' ');
 
 		// Fail if there is no role with this name
-		if (!msg.guild.roles.find(role => role.name.toLowerCase() === roleName.toLowerCase())) return msg.reject(msg.language.get('COMMAND_ROLES_DOES_NOT_EXIST', roleName));
+		if (!msg.guild.roles.cache.find(role => role.name.toLowerCase() === roleName.toLowerCase())) return msg.reject(msg.language.get('COMMAND_ROLES_DOES_NOT_EXIST', roleName));
 
 		// Fetching role specified by the user
-		const targetRole = await msg.guild.roles.find(role => role.name.toLowerCase() === roleName.toLowerCase());
+		const targetRole = await msg.guild.roles.cache.find(role => role.name.toLowerCase() === roleName.toLowerCase());
 
 		// Fail if this role isn't joinable
-		if (!msg.guild.settings.get('roles.joinable').includes(targetRole.id)) return msg.reject(msg.language.get('COMMAND_ROLES_NOT_JOINABLE', roleName));
+		if (!msg.guild.settings.roles.joinable.includes(targetRole.id)) return msg.reject(msg.language.get('COMMAND_ROLES_NOT_JOINABLE', roleName));
 
 		// Fail if target already has this role
-		if (target.roles.has(targetRole.id)) return msg.reject(msg.language.get('COMMAND_ROLES_ALREADY_HAVE', roleName, target));
+		if (target.roles.cache.has(targetRole.id)) return msg.reject(msg.language.get('COMMAND_ROLES_ALREADY_HAVE', roleName, target));
 
 		// Add the role to the target
 		await target.roles.add(targetRole);
@@ -74,7 +74,7 @@ module.exports = class extends Command {
 
 	async remove(msg, [target = msg.member, ...roleName]) {
 		// Fail if there are no joinable roles
-		if (!msg.guild.settings.get('roles.joinable').length) return msg.reject(msg.language.get('COMMAND_ROLES_NONE_JOINABLE'));
+		if (!msg.guild.settings.roles.joinable.length) return msg.reject(msg.language.get('COMMAND_ROLES_NONE_JOINABLE'));
 		if (!roleName.length) return msg.reject(msg.language.get('COMMAND_ROLES_NO_ROLE_NAME'));
 
 		if (target.id !== msg.member.id) {
@@ -91,16 +91,16 @@ module.exports = class extends Command {
 		roleName = roleName.join(' ');
 
 		// Fail if there is no role with this name
-		if (!msg.guild.roles.find(role => role.name.toLowerCase() === roleName.toLowerCase())) return msg.reject(msg.language.get('COMMAND_ROLES_DOES_NOT_EXIST', roleName));
+		if (!msg.guild.roles.cache.find(role => role.name.toLowerCase() === roleName.toLowerCase())) return msg.reject(msg.language.get('COMMAND_ROLES_DOES_NOT_EXIST', roleName));
 
 		// Fetching role specified by the user
-		const targetRole = await msg.guild.roles.find(role => role.name.toLowerCase() === roleName.toLowerCase());
+		const targetRole = await msg.guild.roles.cache.find(role => role.name.toLowerCase() === roleName.toLowerCase());
 
 		// Fail if this role isn't joinable (or leavable)
-		if (!msg.guild.settings.get('roles.joinable').includes(targetRole.id)) return msg.reject(msg.language.get('COMMAND_ROLES_NOT_LEAVABLE', roleName));
+		if (!msg.guild.settings.roles.joinable.includes(targetRole.id)) return msg.reject(msg.language.get('COMMAND_ROLES_NOT_LEAVABLE', roleName));
 
 		// Fail if target does not have this role
-		if (!target.roles.has(targetRole.id)) return msg.reject(msg.language.get('COMMAND_ROLES_DOES_NOT_HAVE', roleName, target));
+		if (!target.roles.cache.has(targetRole.id)) return msg.reject(msg.language.get('COMMAND_ROLES_DOES_NOT_HAVE', roleName, target));
 
 		// Remove the role from the target
 		await target.roles.remove(targetRole);

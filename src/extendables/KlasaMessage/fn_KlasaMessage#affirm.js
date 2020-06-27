@@ -7,7 +7,7 @@ module.exports = class extends Extendable {
 	}
 
 	async affirm(message = null, messageOptions = {}) {
-		const affirmEmoji = await this.client.emojis.get(this.client.settings.get('emoji.affirm'));
+		const affirmEmoji = await this.client.emojis.cache.get(this.client.settings.emoji.affirm);
 		await this.react(affirmEmoji);
 		return message ? this.sendMessage(`${this.author}\n${affirmEmoji} ${message}`, messageOptions) : this;
 	}

@@ -28,8 +28,8 @@ module.exports = class extends Extendable {
 		}
 
 		if (clientMember.hasPermission('MANAGE_CHANNELS')) {
-			const adminRole = await this.roles.get(this.settings.get('roles.administrator'));
-			const modRole = await this.roles.get(this.settings.get('roles.moderator'));
+			const adminRole = await this.roles.cache.get(this.settings.roles.administrator);
+			const modRole = await this.roles.cache.get(this.settings.roles.moderator);
 
 			// Creating log channel
 			const logChannel = await this.channels.create('server-log', {
@@ -138,7 +138,7 @@ module.exports = class extends Extendable {
 		// Building server owner message embed
 		const embed = new MessageEmbed()
 			.setAuthor(this.language.get('INIT_TITLE'), this.client.user.displayAvatarURL())
-			.setColor(this.client.settings.get('colors.white'))
+			.setColor(this.client.settings.colors.white)
 			.setImage('https://rtbyte.xyz/src/img/og-img.jpg')
 			.setTimestamp();
 

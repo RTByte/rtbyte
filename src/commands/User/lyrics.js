@@ -54,7 +54,7 @@ module.exports = class extends Command {
 		// Build and send the embed
 		const embed = new MessageEmbed()
 			.setAuthor(artist, artistPic)
-			.setColor(this.client.settings.get('colors.white'))
+			.setColor(this.client.settings.colors.white)
 			.setTitle(songTitle)
 			.setDescription(`[${msg.language.get('COMMAND_LYRICS_LINK')}](${geniusLink})`)
 			.addField(msg.language.get('COMMAND_LYRICS_LYRICS'), lyricsBody)

@@ -18,21 +18,21 @@ module.exports = class extends Event {
 			const { executor, target } = logEntry;
 
 			const oldWebhook = {
-				channel: logEntry.changes.find(o => o.key === 'channel_id') ? channel.guild.channels.get(logEntry.changes.find(o => o.key === 'channel_id').old) : undefined,
+				channel: logEntry.changes.find(o => o.key === 'channel_id') ? channel.guild.channels.cache.get(logEntry.changes.find(o => o.key === 'channel_id').old) : undefined,
 				name: logEntry.changes.find(o => o.key === 'name') ? logEntry.changes.find(o => o.key === 'name').old : undefined,
 				avatar: logEntry.changes.find(o => o.key === 'avatar_hash') ?
 					`https://cdn.discordapp.com/avatars/${logEntry.target.id}/${logEntry.changes.find(o => o.key === 'avatar_hash').old}.jpg` : undefined
 			};
 
 			const webhook = {
-				channel: channel.guild.channels.get(target.channelID),
+				channel: channel.guild.channels.cache.get(target.channelID),
 				name: target.name,
 				avatar: `https://cdn.discordapp.com/avatars/${logEntry.target.id}/${logEntry.target.avatar}.jpg`
 			};
 
 			if (logEntry.action === 'WEBHOOK_CREATE') this.client.emit('webhookCreate', channel, executor, webhook);
 			if (logEntry.action === 'WEBHOOK_DELETE') this.client.emit('webhookDelete', channel, executor, oldWebhook);
-			if (logEntry.action === 'WEBHOOK_UPDATE' && channel.guild.settings.get('channels.log') && channel.guild.settings.get('logs.events.webhookCreate')) {
+			if (logEntry.action === 'WEBHOOK_UPDATE' && channel.guild.settings.channels.log && channel.guild.settings.logs.events.webhookCreate) {
 				await this.serverLog(channel, executor, oldWebhook, webhook);
 			}
 		}
@@ -41,11 +41,11 @@ module.exports = class extends Event {
 	}
 
 	async serverLog(channel, executor, oldWebhook, webhook) {
-		const arrowRightEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowRight'));
+		const arrowRightEmoji = this.client.emojis.cache.get(this.client.settings.emoji.arrowRight);
 
 		const embed = new MessageEmbed()
 			.setAuthor(webhook.name, webhook.avatar)
-			.setColor(this.client.settings.get('colors.blue'))
+			.setColor(this.client.settings.colors.blue)
 			.setTimestamp()
 			.setFooter(channel.guild.language.get('GUILD_LOG_WEBHOOKUPDATE', executor), executor ? executor.displayAvatarURL() : undefined);
 

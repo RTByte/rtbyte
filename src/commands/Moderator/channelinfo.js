@@ -19,15 +19,15 @@ module.exports = class extends Command {
 	}
 
 	async run(msg, [channelname = msg.channel]) {
-		const affirmEmoji = this.client.emojis.get(this.client.settings.get('emoji.affirm'));
-		const rejectEmoji = this.client.emojis.get(this.client.settings.get('emoji.reject'));
+		const affirmEmoji = this.client.emojis.cache.get(this.client.settings.emoji.affirm);
+		const rejectEmoji = this.client.emojis.cache.get(this.client.settings.emoji.reject);
 		const status = {
 			true: affirmEmoji,
 			false: rejectEmoji
 		};
 
 		const embed = new MessageEmbed()
-			.setColor(this.client.settings.get('colors.white'))
+			.setColor(this.client.settings.colors.white)
 			.addField(msg.guild.language.get('NAME'), channelname.type !== 'voice' && channelname.type !== 'category' ? channelname : channelname.name, true)
 			.addField(msg.guild.language.get('ID'), channelname.id, true)
 			.addField(msg.language.get('COMMAND_CHANNELINFO_TYPE'), msg.language.get('COMMAND_CHANNELINFO_TYPES', channelname), true)

@@ -413,7 +413,7 @@ module.exports = class extends Language {
 			COMMAND_SENDMSG_DISCLAIMER: (guild) => `This message was sent from the **${guild.name}** Discord and can not be replied to. If you have any questions regarding the contents of it, please contact a moderator.`,
 			COMMAND_SERVERINFO_DESCRIPTION: 'Displays server information.',
 			COMMAND_SERVERINFO_REGION: 'Region',
-			COMMAND_SERVERINFO_MEMBERCOUNT: (guild) => `${guild.memberCount} (${guild.members.filter(member => member.user.bot).size} bots)`,
+			COMMAND_SERVERINFO_MEMBERCOUNT: (guild) => `${guild.memberCount} (${guild.members.cache.filter(member => member.user.bot).size} bots)`,
 			COMMAND_SERVERINFO_PRUNABLE: 'Prunable members',
 			COMMAND_SERVERINFO_CHANNELDETAILS: (textVoiceChannels, textChannels, voiceChannels) => `${textVoiceChannels} (${textChannels} text, ${voiceChannels} voice)`,
 			COMMAND_SERVERINFO_VLEVEL: 'Verification level',

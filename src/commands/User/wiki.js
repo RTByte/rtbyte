@@ -15,7 +15,7 @@ module.exports = class extends Command {
 	}
 
 	async run(msg, [query]) {
-		const blacklist = msg.guild.settings.get('filters.words');
+		const blacklist = msg.guild.settings.filters.words;
 		if (!msg.channel.nsfw && await this.nsfwWord(query)) return msg.reject(msg.language.get('COMMAND_WIKI_NSFW_WORD'));
 		if (await this.blacklistedWord(query, blacklist)) return msg.reject();
 		const wikiArticle = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(query)}`)

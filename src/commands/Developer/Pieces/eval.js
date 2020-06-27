@@ -10,8 +10,7 @@ module.exports = class extends Command {
 			guarded: true,
 			description: language => language.get('COMMAND_EVAL_DESCRIPTION'),
 			extendedHelp: language => language.get('COMMAND_EVAL_EXTENDEDHELP'),
-			usage: '<expression:str>',
-			usageDelim: null
+			usage: '<expression:str>'
 		});
 	}
 

@@ -26,10 +26,10 @@ module.exports = class extends Command {
 		const serverCases = this.client.settings.get('moderation.cases').filter(modCase => modCase.guild === msg.guild.id);
 
 		if (caseID) {
-			if (!this.client.settings.get('moderation.cases').find(thisCase => thisCase.id === caseID)) return msg.reject(msg.language.get('COMMAND_MODHISTORY_INVALID_CASEID', caseID));
+			if (!this.client.settings.moderation.cases.find(thisCase => thisCase.id === caseID)) return msg.reject(msg.language.get('COMMAND_MODHISTORY_INVALID_CASEID', caseID));
 
 			const modCase = new ModCase(msg.guild);
-			await modCase.unpack(this.client.settings.get('moderation.cases').find(thisCase => thisCase.id === caseID));
+			await modCase.unpack(this.client.settings.moderation.cases.find(thisCase => thisCase.id === caseID));
 
 			return msg.send('', { embed: await modCase.embed() });
 		}
@@ -94,12 +94,12 @@ module.exports = class extends Command {
 	}
 
 	async buildDisplay(caseEmbedArray) {
-		const arrowToLeftEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowToLeft'));
-		const arrowLeftEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowLeft'));
-		const arrowRightEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowRight'));
-		const arrowToRightEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowToRight'));
-		const rejectEmoji = this.client.emojis.get(this.client.settings.get('emoji.reject'));
-		const listEmoji = this.client.emojis.get(this.client.settings.get('emoji.list'));
+		const arrowToLeftEmoji = this.client.emojis.cache.get(this.client.settings.emoji.arrowToLeft);
+		const arrowLeftEmoji = this.client.emojis.cache.get(this.client.settings.emoji.arrowLeft);
+		const arrowRightEmoji = this.client.emojis.cache.get(this.client.settings.emoji.arrowRight);
+		const arrowToRightEmoji = this.client.emojis.cache.get(this.client.settings.emoji.arrowToRight);
+		const rejectEmoji = this.client.emojis.cache.get(this.client.settings.emoji.reject);
+		const listEmoji = this.client.emojis.cache.get(this.client.settings.emoji.list);
 		const display = new RichDisplay()
 			.setEmojis({
 				first: arrowToLeftEmoji.id,

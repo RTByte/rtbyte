@@ -18,7 +18,7 @@ module.exports = class extends Command {
 	}
 
 	async run(msg, [membername = null, amount, all = null, silent = null]) {
-		if (membername && !msg.member.canMod(membername)) return msg.reject(msg.language.get('COMMAND_PURGE_NO_PERMS', this.client.emojis.get(this.client.settings.get('emoji.reject')), membername));
+		if (membername && !msg.member.canMod(membername)) return msg.reject(msg.language.get('COMMAND_PURGE_NO_PERMS', this.client.emojis.cache.get(this.client.settings.emoji.reject), membername));
 
 		let messages = await msg.channel.messages.fetch({ limit: amount });
 
@@ -32,7 +32,7 @@ module.exports = class extends Command {
 		}
 
 		const modCase = new ModCase(msg.guild)
-			.setUser(membername ? this.client.users.get(membername.id) : this.client.user)
+			.setUser(membername ? this.client.users.cache.get(membername.id) : this.client.user)
 			.setType('purge')
 			.setModerator(msg.author)
 			.setSilent(silent)
@@ -42,7 +42,7 @@ module.exports = class extends Command {
 		try {
 			await msg.channel.bulkDelete(messages);
 		} catch (err) {
-			await messages.each(mes => mes.delete());
+			await messages.cache.each(mes => mes.delete());
 		}
 
 		const embed = await modCase.embed();

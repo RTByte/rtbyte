@@ -18,13 +18,13 @@ module.exports = class extends Command {
 	}
 
 	async run(msg, [membername = msg.member]) {
-		const joinPosition = await msg.guild.members.array().sort((first, last) => first.joinedAt - last.joinedAt);
+		const joinPosition = await msg.guild.members.cache.array().sort((first, last) => first.joinedAt - last.joinedAt);
 
 		const position = joinPosition.indexOf(membername) + 1;
 
 		const embed = new MessageEmbed()
 			.setAuthor(membername.user.tag, membername.user.displayAvatarURL())
-			.setColor(this.client.settings.get('colors.white'))
+			.setColor(this.client.settings.colors.white)
 			.addField(msg.language.get('JOIN_POS'), position)
 			.addField(msg.language.get('JOINED'), timezoneWithDate(membername.joinedTimestamp, msg.guild))
 			.addField(msg.language.get('REGISTERED'), timezoneWithDate(membername.user.createdTimestamp, msg.guild))

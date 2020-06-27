@@ -25,12 +25,12 @@ module.exports = class extends Command {
 		if (member && starredMessages.filter(st => member.id === st.msgAuthor).length === 0) return msg.reject(msg.language.get('COMMAND_STAR_MEMBER_NOSTARRED'));
 		const { msgID, channelID, stars } = selected;
 
-		const channel = await msg.guild.channels.get(channelID);
+		const channel = await msg.guild.channels.cache.get(channelID);
 		const fetchedStar = await channel.messages.fetch(msgID);
 
 		const embed = new MessageEmbed()
 			.setAuthor(msg.language.get('COMMAND_STAR_STARRED'), msg.guild.iconURL())
-			.setColor(this.client.settings.get('colors.gold'))
+			.setColor(this.client.settings.colors.gold)
 			.setDescription(`[${msg.guild.language.get('CLICK_TO_VIEW')}](${fetchedStar.url})`)
 			.addField(msg.language.get('BOARD_AUTHOR'), fetchedStar.author, true)
 			.addField(msg.language.get('CHANNEL'), fetchedStar.channel, true)
@@ -81,12 +81,12 @@ module.exports = class extends Command {
 		if (!selected) return msg.reject(msg.language.get('COMMAND_STAR_NOTOP', member));
 		const { msgID, channelID, stars } = selected;
 
-		const channel = await msg.guild.channels.get(channelID);
+		const channel = await msg.guild.channels.cache.get(channelID);
 		const fetchedStar = await channel.messages.fetch(msgID);
 
 		const embed = new MessageEmbed()
 			.setAuthor(msg.language.get('COMMAND_STAR_STARRED'), msg.guild.iconURL())
-			.setColor(this.client.settings.get('colors.gold'))
+			.setColor(this.client.settings.colors.gold)
 			.setDescription(`[${msg.guild.language.get('CLICK_TO_VIEW')}](${fetchedStar.url})`)
 			.addField(msg.language.get('BOARD_AUTHOR'), fetchedStar.author, true)
 			.addField(msg.language.get('CHANNEL'), fetchedStar.channel, true)
