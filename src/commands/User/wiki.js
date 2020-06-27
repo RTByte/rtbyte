@@ -10,7 +10,7 @@ module.exports = class extends Command {
 			aliases: ['wikipedia'],
 			description: language => language.get('COMMAND_WIKI_DESCRIPTION'),
 			runIn: ['text', 'dm'],
-			usage: '<query:str>'
+			usage: '<query:...str>'
 		});
 	}
 
@@ -18,9 +18,10 @@ module.exports = class extends Command {
 		const blacklist = msg.guild.settings.get('filters.words');
 		if (!msg.channel.nsfw && await this.nsfwWord(query)) return msg.reject(msg.language.get('COMMAND_WIKI_NSFW_WORD'));
 		if (await this.blacklistedWord(query, blacklist)) return msg.reject();
-		await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(query)}`)
+		const wikiArticle = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(query)}`)
 			.then(response => response.json())
 			.then(json => {
+				if (json.type === 'https://mediawiki.org/wiki/HyperSwitch/errors/not_found') return msg.language.get('COMMAND_WIKI_NOTFOUND');
 				const embed = new MessageEmbed()
 					.setAuthor(msg.language.get('COMMAND_WIKI_WIKIPEDIA'), 'https://www.wikipedia.org/portal/wikipedia.org/assets/img/Wikipedia-logo-v2.png')
 					.setColor(this.client.settings.get('colors.white'))
@@ -31,9 +32,10 @@ module.exports = class extends Command {
 					.setThumbnail((json.thumbnail && json.thumbnail.source) || 'https://www.wikipedia.org/portal/wikipedia.org/assets/img/Wikipedia-logo-v2.png')
 					.setTimestamp()
 					.setFooter(msg.language.get('COMMAND_REQUESTED_BY', msg), msg.author.displayAvatarURL());
-				return msg.send(embed);
-			})
-			.catch(() => { throw msg.language.get('COMMAND_WIKI_NOTFOUND'); });
+				return embed;
+			});
+
+		return msg.send(wikiArticle);
 	}
 
 	async nsfwWord(query) {
