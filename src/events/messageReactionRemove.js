@@ -55,9 +55,7 @@ module.exports = class extends Event {
 				await msg.guild.settings.update('boards.starboard.starred', starred, { action: 'remove' });
 
 				await message.delete();
-			}
-
-			if (oldStarred.stars > reaction.count) {
+			} else if (oldStarred.stars > reaction.count) {
 				const message = await starboardChannel.messages.fetch(starred.starID);
 
 				starboardMsgID = message.id;
