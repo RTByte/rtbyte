@@ -13,7 +13,7 @@ module.exports = class extends Event {
 		if (!msg.guild) return;
 		if (msg.guild.settings.get('boards.starboard.starboardIgnoredChannels').includes(msg.channel.id)) return;
 
-		const starboardChannel = await this.client.channels.get(msg.guild.settings.get('boards.starboard.starboardChannel'));
+		const starboardChannel = await this.client.channels.cache.get(msg.guild.settings.get('boards.starboard.starboardChannel'));
 
 		if (reaction.emoji.name !== '🌟' || msg.author.bot || msg.channel === starboardChannel) return;
 		if (!msg.guild.settings.get('boards.starboard.starboardEnabled') || !starboardChannel) return;

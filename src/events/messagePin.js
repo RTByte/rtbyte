@@ -11,7 +11,7 @@ module.exports = class extends Event {
 		if (!msg.guild) return;
 		if (msg.guild.settings.get('boards.pinboard.pinboardIgnoredChannels').includes(msg.channel.id)) return;
 
-		const pinboardChannel = await this.client.channels.get(msg.guild.settings.get('boards.pinboard.pinboardChannel'));
+		const pinboardChannel = await this.client.channels.cache.get(msg.guild.settings.get('boards.pinboard.pinboardChannel'));
 		if (!msg.guild.settings.get('boards.pinboard.pinboardEnabled') || !pinboardChannel) return;
 
 		const embed = new MessageEmbed()

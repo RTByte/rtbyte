@@ -15,7 +15,7 @@ const alternateNames = [
 	'Dummy',
 	'Shithead',
 	'Fuckface',
-	'Don\'t',
+	"Don't",
 	'Stop'
 ];
 
@@ -37,7 +37,7 @@ module.exports = class extends Event {
 		}
 
 		if (member.guild.settings.get('channels.log') && member.guild.settings.get('logs.events.guildMemberUpdate')) await this.serverLog(oldMember, member, executor);
-		if (member.guild.settings.get('filters.checkDisplayNames')) await this.autoSelener(member);
+		if (member.guild.settings.get('filters.checkDisplayNames')) await this.blacklistedName(member);
 
 		if (!oldMember.premiumSince && member.premiumSince) this.client.emit('guildBoostAdd', member);
 		if (oldMember.premiumSince && !member.premiumSince) this.client.emit('guildBoostRemove', member);
@@ -46,16 +46,16 @@ module.exports = class extends Event {
 	}
 
 	async serverLog(oldMember, member, executor) {
-		const arrowRightEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowRight'));
+		const arrowRightEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.arrowRight'));
 
 		// Filter the user's roles and remove the @everyone role
-		const oldRoleCollection = oldMember.roles.reduce((userRoles, roles) => {
+		const oldRoleCollection = oldMember.roles.cache.reduce((userRoles, roles) => {
 			if (!roles.name.includes('everyone')) {
 				userRoles.push(roles);
 			}
 			return userRoles;
 		}, []);
-		const newRoleCollection = member.roles.reduce((userRoles, roles) => {
+		const newRoleCollection = member.roles.cache.reduce((userRoles, roles) => {
 			if (!roles.name.includes('everyone')) {
 				userRoles.push(roles);
 			}
@@ -79,20 +79,20 @@ module.exports = class extends Event {
 
 		// User roles changed
 		if (oldActualRoles !== newActualRoles) {
-			await embed.addField(member.guild.language.get('GUILD_LOG_BEFORE'), oldActualRoles.length < 1 ? oldMember.roles.map(roles => `${roles}`).join(', ') : oldActualRoles);
-			await embed.addField(member.guild.language.get('GUILD_LOG_AFTER'), newActualRoles.length > 1 ? newActualRoles : member.roles.map(roles => `${roles}`).join(', '));
+			await embed.addField(member.guild.language.get('GUILD_LOG_BEFORE'), oldActualRoles.length < 1 ? oldMember.roles.cache.map(roles => `${roles}`).join(', ') : oldActualRoles);
+			await embed.addField(member.guild.language.get('GUILD_LOG_AFTER'), newActualRoles.length > 1 ? newActualRoles : member.roles.cache.map(roles => `${roles}`).join(', '));
 		}
 
 		// Return nothing if no fields are populated
 		if (!embed.fields.length) return;
 
-		const logChannel = await this.client.channels.get(member.guild.settings.get('channels.log'));
+		const logChannel = await this.client.channels.cache.get(member.guild.settings.get('channels.log'));
 		if (logChannel) await logChannel.send('', { disableEveryone: true, embed: embed });
 
 		return;
 	}
 
-	async autoSelener(member) {
+	async blacklistedName(member) {
 		if (!member.manageable) return;
 
 		const name = member.displayName;

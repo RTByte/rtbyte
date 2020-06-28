@@ -15,7 +15,7 @@ module.exports = class extends Event {
 		if (this.client.options.controlGuild && !this.client.settings.get('guilds.controlGuild')) await this.setControlGuild();
 
 		// Check to see that the bot is in at least one guild
-		if (!this.client.guilds.size) {
+		if (!this.client.guilds.cache.size) {
 			await this.client.emit('error', 'Please add the bot to at least one guild.\nShutting down...');
 			await this.client.destroy();
 		}
@@ -28,7 +28,7 @@ module.exports = class extends Event {
 
 		await this.client.emit('verbose', 'Verifying that all guilds are initialized...');
 
-		await this.client.guilds.forEach(async (guild) => {
+		await this.client.guilds.cache.forEach(async (guild) => {
 			if (!guild.available) return;
 			if (this.client.settings.get('guildBlacklist').includes(guild.id)) {
 				guild.leave();
@@ -53,7 +53,8 @@ module.exports = class extends Event {
 			.setColor(this.client.settings.get('colors.yellow'))
 			.setTimestamp()
 			.setFooter('Bot restarted');
-		const globalLog = await this.client.channels.get(this.client.settings.get('channels.globalLog'));
+
+		const globalLog = await this.client.channels.cache.get(this.client.settings.get('channels.globalLog'));
 		if (globalLog) await globalLog.send('', { disableEveryone: true, embed: embed });
 
 		return;
@@ -62,7 +63,7 @@ module.exports = class extends Event {
 	async setControlGuild() {
 		await this.client.emit('verbose', 'Setting control guild.');
 		// Fail initialization if bot is not in the configured control guild
-		if (!this.client.guilds.has(this.client.options.controlGuild)) return;
+		if (!this.client.guilds.cache.has(this.client.options.controlGuild)) return;
 
 		// Making sure we have a fully resolved guild object
 		const controlGuild = await this.client.guilds.resolve(this.client.options.controlGuild);

@@ -57,9 +57,9 @@ module.exports = class extends Event {
 	}
 
 	async serverLog(oldRole, role, executor, perms) {
-		const affirmEmoji = this.client.emojis.get(this.client.settings.get('emoji.affirm'));
-		const rejectEmoji = this.client.emojis.get(this.client.settings.get('emoji.reject'));
-		const arrowRightEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowRight'));
+		const affirmEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.affirm'));
+		const rejectEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.reject'));
+		const arrowRightEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.arrowRight'));
 		const oldPermissions = Object.entries(oldRole.permissions.serialize()).filter(perm => perm[1]).map(([perm]) => perms[perm]).join(', ');
 		const newPermissions = Object.entries(role.permissions.serialize()).filter(perm => perm[1]).map(([perm]) => perms[perm]).join(', ');
 		const status = {
@@ -91,7 +91,7 @@ module.exports = class extends Event {
 
 		if (!embed.fields.length) return;
 
-		const logChannel = await this.client.channels.get(role.guild.settings.get('channels.log'));
+		const logChannel = await this.client.channels.cache.get(role.guild.settings.get('channels.log'));
 		if (logChannel) await logChannel.send('', { disableEveryone: true, embed: embed });
 
 		return;

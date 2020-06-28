@@ -12,7 +12,8 @@ module.exports = class extends Event {
 	}
 
 	async finalizerErrorLog(message, command, response, timer, finalizer, error) {
-		const globalLog = await this.client.channels.get(this.client.settings.get('channels.globalLog'));
+		const globalLog = await this.client.channels.cache.get(this.client.settings.get('channels.globalLog'));
+
 		const embed = new MessageEmbed()
 			.setAuthor(this.client.user.username, this.client.user.displayAvatarURL())
 			.setColor(this.client.settings.get('colors.red'))
@@ -22,6 +23,7 @@ module.exports = class extends Event {
 			.addField(globalLog.guild.language.get('GLOBAL_LOG_ERROR_ERRORSTACK'), `\`\`\`${error ? error.stack ? error.stack : error : 'Unknown error'}\`\`\``)
 			.setTimestamp()
 			.setFooter(globalLog.guild.language.get('GLOBAL_LOG_FINALIZERERROR'));
+
 		if (globalLog) await globalLog.send('', { disableEveryone: true, embed: embed });
 
 		return;

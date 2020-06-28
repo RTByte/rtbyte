@@ -48,7 +48,7 @@ module.exports = class extends Event {
 			}
 		}
 
-		const logChannel = await this.client.channels.get(msg.guild.settings.get('channels.log'));
+		const logChannel = await this.client.channels.cache.get(msg.guild.settings.get('channels.log'));
 		if (logChannel) await logChannel.send('', hasVideo ? { disableEveryone: true, embed: embed, files: [attachment] } : { disableEveryone: true, embed: embed });
 
 		return;

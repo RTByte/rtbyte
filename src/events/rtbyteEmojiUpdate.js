@@ -24,7 +24,7 @@ module.exports = class extends Event {
 	}
 
 	async serverLog(oldEmoji, emoji, executor) {
-		const arrowRightEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowRight'));
+		const arrowRightEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.arrowRight'));
 
 		const embed = new MessageEmbed()
 			.setAuthor(`:${emoji.name}:`, `https://cdn.discordapp.com/emojis/${emoji.id}.${emoji.animated ? 'gif' : 'png'}`)
@@ -33,7 +33,7 @@ module.exports = class extends Event {
 			.setTimestamp()
 			.setFooter(emoji.guild.language.get('GUILD_LOG_EMOJIUPDATE', executor), executor ? executor.displayAvatarURL() : undefined);
 
-		const logChannel = await this.client.channels.get(emoji.guild.settings.get('channels.log'));
+		const logChannel = await this.client.channels.cache.get(emoji.guild.settings.get('channels.log'));
 		if (logChannel) await logChannel.send('', { disableEveryone: true, embed: embed });
 
 		return;
