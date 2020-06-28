@@ -23,9 +23,9 @@ module.exports = class extends Command {
 		if (member && pinnedMessages.filter(pinned => member.id === pinned.msgAuthor).length === 0) return msg.reject(msg.language.get('COMMAND_PIN_MEMBER_NOPINNED'));
 		const { msgID, channelID, pinner } = selected;
 
-		const channel = await msg.guild.channels.get(channelID);
+		const channel = await msg.guild.channels.cache.get(channelID);
 		const fetchedPin = await channel.messages.fetch(msgID);
-		const fetchedPinner = await this.client.users.get(pinner);
+		const fetchedPinner = await this.client.users.cache.get(pinner);
 
 		const embed = new MessageEmbed()
 			.setAuthor(msg.language.get('COMMAND_PIN_PINNED'), msg.guild.iconURL())
@@ -41,14 +41,13 @@ module.exports = class extends Command {
 		if (fetchedPin.embeds.length) await embed.addField('‎', msg.language.get('MESSAGE_EMBED', fetchedPin.url));
 
 		// Message attachment checks.
-		let attachment, hasVideo = false;
+		let attachment;
 		if (fetchedPin.attachments) {
 			const atchs = fetchedPin.attachments.map(atch => atch.proxyURL);
 			const atchSize = fetchedPin.attachments.map(atch => atch.size)[0] < 8388119;
 			if (atchs.filter(pURL => pURL.endsWith('.mp4')).length || atchs.filter(pURL => pURL.endsWith('.webm')).length || atchs.filter(pURL => pURL.endsWith('.mov')).length) {
 				if (atchSize) {
-					hasVideo = true;
-					[attachment] = [atchs[0]];
+					await embed.attachFiles(atchs[0]);
 				} else {
 					await embed.addField('‎', msg.language.get('MESSAGE_ATCH_TOOBIG', fetchedPin.url));
 				}
@@ -62,7 +61,7 @@ module.exports = class extends Command {
 			}
 		}
 
-		return msg.send('', hasVideo ? { disableEveryone: true, embed: embed, files: [attachment] } : { disableEveryone: true, embed: embed });
+		return msg.send('', { disableEveryone: true, embed: embed });
 	}
 
 };

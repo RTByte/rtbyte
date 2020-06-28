@@ -15,7 +15,8 @@ module.exports = class extends Command {
 	}
 
 	async run(msg, [...reason]) {
-		const globalLogChannel = await this.client.channels.get(this.client.settings.get('channels.globalLog'));
+		const globalLogChannel = await this.client.channels.cache.get(this.client.settings.get('channels.globalLog'));
+
 		await msg.channel.createInvite({ temporary: true, maxUses: 10, unique: true, reason: msg.language.get('COMMAND_SUPPORT_INVITE_GENERATED') })
 			.then(invite => {
 				const embed = new MessageEmbed()
@@ -26,7 +27,7 @@ module.exports = class extends Command {
 					.setTimestamp()
 					.setFooter(msg.author.tag, msg.author.displayAvatarURL());
 
-				if (reason.length) embed.addField('Reason', reason.join(' '));
+				if (reason.length) embed.addField(globalLogChannel.guild.language.get('REASON'), reason);
 				if (globalLogChannel) globalLogChannel.send(`<@&${this.client.options.controlGuildDeveloperRole}>`, { disableEveryone: false, embed: embed });
 
 				return msg.affirm(msg.guild.language.get('COMMAND_SUPPORT_CONTACTED'));

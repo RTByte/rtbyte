@@ -23,7 +23,7 @@ module.exports = class extends Event {
 			.setTimestamp()
 			.setFooter(channel.guild.language.get('GUILD_LOG_WEBHOOKDELETE', executor), executor ? executor.displayAvatarURL() : undefined);
 
-		const logChannel = await this.client.channels.get(channel.guild.settings.get('channels.log'));
+		const logChannel = await this.client.channels.cache.get(channel.guild.settings.get('channels.log'));
 		if (logChannel) await logChannel.send('', { disableEveryone: true, embed: embed });
 
 		return;

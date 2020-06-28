@@ -16,15 +16,15 @@ module.exports = class extends Command {
 	}
 
 	async show(msg) {
-		const affirmEmoji = this.client.emojis.get(this.client.settings.get('emoji.affirm'));
-		const rejectEmoji = this.client.emojis.get(this.client.settings.get('emoji.reject'));
+		const affirmEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.affirm'));
+		const rejectEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.reject'));
 		const status = {
 			true: affirmEmoji,
 			false: rejectEmoji
 		};
 
 		const twitchNotifsEnabled = status[msg.guild.settings.get('twitch.twitchNotifsEnabled')];
-		const twitchNotifsChannel = msg.guild.channels.get(msg.guild.settings.get('twitch.twitchNotifsChannel')) || msg.language.get('NOT_SET');
+		const twitchNotifsChannel = msg.guild.channels.cache.get(msg.guild.settings.get('twitch.twitchNotifsChannel')) || msg.language.get('NOT_SET');
 		// Unused for now
 		/* const twitchNotifsRole = msg.guild.roles.get(msg.guild.settings.get('twitch.twitchNotifsRole')) || msg.language.get('NOT_SET'); */
 		const streamers = msg.guild.settings.get('twitch.streamers').map(streamer => `\`${streamer.name}\``).join(', ') || msg.language.get('NONE');

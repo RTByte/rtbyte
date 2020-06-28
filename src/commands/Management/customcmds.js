@@ -17,8 +17,8 @@ module.exports = class extends Command {
 
 	async show(msg) {
 		// Fetch required emojis and assiociate true or false with the corresponding one.
-		const affirmEmoji = this.client.emojis.get(this.client.settings.get('emoji.affirm'));
-		const rejectEmoji = this.client.emojis.get(this.client.settings.get('emoji.reject'));
+		const affirmEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.affirm'));
+		const rejectEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.reject'));
 		const status = {
 			true: affirmEmoji,
 			false: rejectEmoji

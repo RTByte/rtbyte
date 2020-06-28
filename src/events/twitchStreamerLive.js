@@ -26,9 +26,10 @@ module.exports = class extends Event {
 			.setImage(streamThumbnail)
 			.setTimestamp(startedAt)
 			.setFooter('twitch.tv', 'https://rtbyte.xyz/src/img/assets/twitchLogo.png');
+
 		// Unused for now
 		/* const role = await guild.roles.get(guild.settings.get('twitch.twitchNotifsRole')); */
-		const twitchNotifsChannel = await this.client.channels.get(guild.settings.get('twitch.twitchNotifsChannel'));
+		const twitchNotifsChannel = await this.client.channels.cache.get(guild.settings.get('twitch.twitchNotifsChannel'));
 		if (twitchNotifsChannel) await twitchNotifsChannel.send('@everyone', { embed: embed });
 
 		return;

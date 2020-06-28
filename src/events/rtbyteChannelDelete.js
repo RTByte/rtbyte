@@ -90,17 +90,17 @@ module.exports = class extends Event {
 			embed.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELDELETE_CATEGORY', executor), executor ? executor.displayAvatarURL() : undefined);
 		}
 
-		// Change author and footer fields if channel is news channel
+		// Change footer field if channel is news channel
 		if (channel.type === 'news') {
 			embed.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELDELETE_NEWS', executor), executor ? executor.displayAvatarURL() : undefined);
 		}
 
-		// Change author and footer fields if channel is store channel
+		// Change footer field if channel is store channel
 		if (channel.type === 'store') {
 			embed.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELDELETE_STORE', executor), executor ? executor.displayAvatarURL() : undefined);
 		}
 
-		const logChannel = await this.client.channels.get(channel.guild.settings.get('channels.log'));
+		const logChannel = await this.client.channels.cache.get(channel.guild.settings.get('channels.log'));
 		if (logChannel) await logChannel.send('', { disableEveryone: true, embed: embed });
 
 		return;

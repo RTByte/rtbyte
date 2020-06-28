@@ -32,9 +32,9 @@ module.exports = class extends Event {
 	}
 
 	async serverLog(oldGuild, guild, executor) {
-		const affirmEmoji = this.client.emojis.get(this.client.settings.get('emoji.affirm'));
-		const rejectEmoji = this.client.emojis.get(this.client.settings.get('emoji.reject'));
-		const arrowRightEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowRight'));
+		const affirmEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.affirm'));
+		const rejectEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.reject'));
+		const arrowRightEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.arrowRight'));
 		const arrayStatus = [
 			rejectEmoji,
 			affirmEmoji
@@ -63,7 +63,7 @@ module.exports = class extends Event {
 
 		// Default notification settings changed
 		// eslint-disable-next-line max-len
-		if (oldGuild.defaultMessageNotifications !== guild.defaultMessageNotifications) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_DEFAULTMSGNOTIF'), `${guild.language.get('GUILD_LOG_GUILDUPDATE_DEFAULTMSGNOTIF_OLD', oldGuild)} ${arrowRightEmoji} ${guild.language.get('GUILD_LOG_GUILDUPDATE_DEFAULTMSGNOTIF_NEW', guild)}`);
+		if (oldGuild.defaultMessageNotifications !== guild.defaultMessageNotifications) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_DEFAULTMSGNOTIF'), `${guild.language.get('GUILD_LOG_GUILDUPDATE_DEFAULTMSGNOTIF_CH', oldGuild.defaultMessageNotifications)} ${arrowRightEmoji} ${guild.language.get('GUILD_LOG_GUILDUPDATE_DEFAULTMSGNOTIF_CH', guild.defaultMessageNotifications)}`);
 
 		// Explicit content filter level changed
 		// eslint-disable-next-line max-len
@@ -107,6 +107,14 @@ module.exports = class extends Event {
 
 		// Server widget toggled
 		if (oldGuild.widgetEnabled !== guild.widgetEnabled) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_WIDGET'), booleanStatus[guild.widgetEnabled]);
+
+		// Public updates channel changed
+		// eslint-disable-next-line max-len
+		if (oldGuild.publicUpdatesChannel !== guild.publicUpdatesChannel) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_PUBLICUPDATESCHANNEL'), `${oldGuild.publicUpdatesChannel || guild.language.get('GUILD_LOG_GUILDUPDATE_PUBLICUPDATESCHANNEL_NONE')} ${arrowRightEmoji} ${guild.publicUpdatesChannel || guild.language.get('GUILD_LOG_GUILDUPDATE_PUBLICUPDATESCHANNEL_NONE')}`);
+
+		// Rules channel changed
+		// eslint-disable-next-line max-len
+		if (oldGuild.rulesChannel !== guild.rulesChannel) await embed.addField(guild.language.get('GUILD_LOG_GUILDUPDATE_RULESCHANNEL'), `${oldGuild.rulesChannel || guild.language.get('GUILD_LOG_GUILDUPDATE_RULESCHANNEL_NONE')} ${arrowRightEmoji} ${guild.rulesChannel || guild.language.get('GUILD_LOG_GUILDUPDATE_RULESCHANNEL_NONE')}`);
 
 		if (oldGuild.systemChannelFlags.bitfield !== guild.systemChannelFlags.bitfield) {
 			if (oldGuild.systemChannelFlags.bitfield === 0 && guild.systemChannelFlags.bitfield === 1) {
@@ -166,7 +174,7 @@ module.exports = class extends Event {
 		// Return null when premiumSubscriptionCount changes
 		if (oldGuild.premiumSubscriptionCount !== guild.premiumSubscriptionCount) return;
 
-		const logChannel = await this.client.channels.get(guild.settings.get('channels.log'));
+		const logChannel = await this.client.channels.cache.get(guild.settings.get('channels.log'));
 		if (logChannel) await logChannel.send('', { disableEveryone: true, embed: embed });
 
 		return;
@@ -190,7 +198,7 @@ module.exports = class extends Event {
 		}
 
 		if (oldGuild.name !== guild.name || oldGuild.iconURL() !== guild.iconURL()) {
-			const globalLogChannel = await this.client.channels.get(this.client.settings.get('channels.globalLog'));
+			const globalLogChannel = await this.client.channels.cache.get(this.client.settings.get('channels.globalLog'));
 			if (globalLogChannel) await globalLogChannel.send('', { disableEveryone: true, embed: embed });
 
 			return;

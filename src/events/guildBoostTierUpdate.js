@@ -21,7 +21,7 @@ module.exports = class extends Event {
 			.setTimestamp()
 			.setFooter(guild.language.get('GUILD_LOG_BOOSTTIER'));
 
-		const logChannel = await this.client.channels.get(guild.settings.get('channels.log'));
+		const logChannel = await this.client.channels.cache.get(guild.settings.get('channels.log'));
 		if (logChannel) await logChannel.send('', { disableEveryone: true, embed: nitroEmbed });
 
 		return;

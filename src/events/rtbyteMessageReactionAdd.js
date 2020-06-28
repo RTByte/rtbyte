@@ -13,7 +13,7 @@ module.exports = class extends Event {
 		if (!msg.guild) return;
 		if (msg.guild.settings.get('boards.starboard.starboardIgnoredChannels').includes(msg.channel.id)) return;
 
-		const starboardChannel = await this.client.channels.get(msg.guild.settings.get('boards.starboard.starboardChannel'));
+		const starboardChannel = await this.client.channels.cache.get(msg.guild.settings.get('boards.starboard.starboardChannel'));
 
 		if (reaction.emoji.name !== '🌟' || msg.author.bot || msg.channel === starboardChannel) return;
 		if (!msg.guild.settings.get('boards.starboard.starboardEnabled') || !starboardChannel) return;
@@ -33,14 +33,13 @@ module.exports = class extends Event {
 		if (msg.embeds.length) await embed.addField('‎', msg.language.get('MESSAGE_EMBED', msg.url));
 
 		// Message attachment checks.
-		let attachment, hasVideo = false;
+		let attachment;
 		if (msg.attachments) {
 			const atchs = msg.attachments.map(atch => atch.proxyURL);
 			const atchSize = msg.attachments.map(atch => atch.size)[0] < 8388119;
 			if (atchs.filter(pURL => pURL.endsWith('.mp4')).length || atchs.filter(pURL => pURL.endsWith('.webm')).length || atchs.filter(pURL => pURL.endsWith('.mov')).length) {
 				if (atchSize) {
-					hasVideo = true;
-					[attachment] = [atchs[0]];
+					await embed.attachFiles(atchs[0]);
 				} else {
 					await embed.addField('‎', msg.language.get('MESSAGE_ATCH_TOOBIG', msg.url));
 				}
@@ -58,7 +57,7 @@ module.exports = class extends Event {
 		const starred = msg.guild.settings.get('boards.starboard.starred').find(star => star.msgID === msg.id);
 
 		if (!starred) {
-			const message = await starboardChannel.send('', hasVideo ? { disableEveryone: true, embed: embed, files: [attachment] } : { disableEveryone: true, embed: embed });
+			const message = await starboardChannel.send('', { disableEveryone: true, embed: embed });
 
 			starboardMsgID = message.id;
 

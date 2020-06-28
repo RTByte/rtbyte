@@ -20,7 +20,7 @@ module.exports = class extends Event {
 			.setTimestamp()
 			.setFooter(guild.language.get('GLOBAL_LOG_GUILDDELETE'));
 
-		const globalLogChannel = await this.client.channels.get(this.client.settings.get('channels.globalLog'));
+		const globalLogChannel = await this.client.channels.cache.get(this.client.settings.get('channels.globalLog'));
 		if (globalLogChannel) await globalLogChannel.send('', { disableEveryone: true, embed: embed });
 
 		return;

@@ -27,14 +27,13 @@ module.exports = class extends Event {
 		if (msg.embeds.length) await embed.addField('‎', msg.language.get('GUILD_LOG_MESSAGEDELETE_EMBED'));
 
 		// Message attachment checks.
-		let attachment, hasVideo = false;
+		let attachment;
 		if (msg.attachments) {
 			const atchs = msg.attachments.map(atch => atch.proxyURL);
 			const atchSize = msg.attachments.map(atch => atch.size)[0] < 8388119;
 			if (atchs.filter(pURL => pURL.endsWith('.mp4')).length || atchs.filter(pURL => pURL.endsWith('.webm')).length || atchs.filter(pURL => pURL.endsWith('.mov')).length) {
 				if (atchSize) {
-					hasVideo = true;
-					[attachment] = [atchs[0]];
+					await embed.attachFiles(atchs[0]);
 				} else {
 					await embed.addField('‎', msg.language.get('GUILD_LOG_MESSAGEDELETE_TOOBIG', msg.url));
 				}
@@ -48,8 +47,8 @@ module.exports = class extends Event {
 			}
 		}
 
-		const logChannel = await this.client.channels.get(msg.guild.settings.get('channels.log'));
-		if (logChannel) await logChannel.send('', hasVideo ? { disableEveryone: true, embed: embed, files: [attachment] } : { disableEveryone: true, embed: embed });
+		const logChannel = await this.client.channels.cache.get(msg.guild.settings.get('channels.log'));
+		if (logChannel) await logChannel.send('', { disableEveryone: true, embed: embed });
 
 		return;
 	}

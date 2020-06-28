@@ -25,7 +25,7 @@ module.exports = class extends Command {
 		if (member && starredMessages.filter(st => member.id === st.msgAuthor).length === 0) return msg.reject(msg.language.get('COMMAND_STAR_MEMBER_NOSTARRED'));
 		const { msgID, channelID, stars } = selected;
 
-		const channel = await msg.guild.channels.get(channelID);
+		const channel = await msg.guild.channels.cache.get(channelID);
 		const fetchedStar = await channel.messages.fetch(msgID);
 
 		const embed = new MessageEmbed()
@@ -42,14 +42,13 @@ module.exports = class extends Command {
 		if (fetchedStar.embeds.length) await embed.addField('‎', msg.language.get('MESSAGE_EMBED', fetchedStar.url));
 
 		// Message attachment checks.
-		let attachment, hasVideo = false;
+		let attachment;
 		if (fetchedStar.attachments) {
 			const atchs = fetchedStar.attachments.map(atch => atch.proxyURL);
 			const atchSize = fetchedStar.attachments.map(atch => atch.size)[0] < 8388119;
 			if (atchs.filter(pURL => pURL.endsWith('.mp4')).length || atchs.filter(pURL => pURL.endsWith('.webm')).length || atchs.filter(pURL => pURL.endsWith('.mov')).length) {
 				if (atchSize) {
-					hasVideo = true;
-					[attachment] = [atchs[0]];
+					await embed.attachFiles(atchs[0]);
 				} else {
 					await embed.addField('‎', msg.language.get('MESSAGE_ATCH_TOOBIG', fetchedStar.url));
 				}
@@ -63,7 +62,7 @@ module.exports = class extends Command {
 			}
 		}
 
-		return msg.send('', hasVideo ? { disableEveryone: true, embed: embed, files: [attachment] } : { disableEveryone: true, embed: embed });
+		return msg.send('', { disableEveryone: true, embed: embed });
 	}
 
 	async top(msg, [member]) {
@@ -81,7 +80,7 @@ module.exports = class extends Command {
 		if (!selected) return msg.reject(msg.language.get('COMMAND_STAR_NOTOP', member));
 		const { msgID, channelID, stars } = selected;
 
-		const channel = await msg.guild.channels.get(channelID);
+		const channel = await msg.guild.channels.cache.get(channelID);
 		const fetchedStar = await channel.messages.fetch(msgID);
 
 		const embed = new MessageEmbed()
@@ -98,14 +97,13 @@ module.exports = class extends Command {
 		if (fetchedStar.embeds.length) await embed.addField('‎', msg.language.get('MESSAGE_EMBED', fetchedStar.url));
 
 		// Message attachment checks.
-		let attachment, hasVideo = false;
+		let attachment;
 		if (fetchedStar.attachments) {
 			const atchs = fetchedStar.attachments.map(atch => atch.proxyURL);
 			const atchSize = fetchedStar.attachments.map(atch => atch.size)[0] < 8388119;
 			if (atchs.filter(pURL => pURL.endsWith('.mp4')).length || atchs.filter(pURL => pURL.endsWith('.webm')).length || atchs.filter(pURL => pURL.endsWith('.mov')).length) {
 				if (atchSize) {
-					hasVideo = true;
-					[attachment] = [atchs[0]];
+					await embed.attachFiles(atchs[0]);
 				} else {
 					await embed.addField('‎', msg.language.get('MESSAGE_ATCH_TOOBIG', fetchedStar.url));
 				}
@@ -119,7 +117,7 @@ module.exports = class extends Command {
 			}
 		}
 
-		return msg.send('', hasVideo ? { disableEveryone: true, embed: embed, files: [attachment] } : { disableEveryone: true, embed: embed });
+		return msg.send('', { disableEveryone: true, embed: embed });
 	}
 
 };

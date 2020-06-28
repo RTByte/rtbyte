@@ -294,19 +294,19 @@ module.exports = class extends Command {
 	}
 
 	async buildDisplay(msg) {
-		const affirmEmoji = this.client.emojis.get(this.client.settings.get('emoji.affirm'));
-		const rejectEmoji = this.client.emojis.get(this.client.settings.get('emoji.reject'));
-		const arrowToLeftEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowToLeft'));
-		const arrowLeftEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowLeft'));
-		const arrowRightEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowRight'));
-		const arrowToRightEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowToRight'));
-		const listEmoji = this.client.emojis.get(this.client.settings.get('emoji.list'));
+		const affirmEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.affirm'));
+		const rejectEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.reject'));
+		const arrowToLeftEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.arrowToLeft'));
+		const arrowLeftEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.arrowLeft'));
+		const arrowRightEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.arrowRight'));
+		const arrowToRightEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.arrowToRight'));
+		const listEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.list'));
 		const status = {
 			true: affirmEmoji,
 			false: rejectEmoji
 		};
 
-		const logChannel = msg.guild.channels.get(msg.guild.settings.get('channels.log')) || msg.language.get('NOT_SET');
+		const logChannel = msg.guild.channels.cache.get(msg.guild.settings.get('channels.log')) || msg.language.get('NOT_SET');
 		const channelCreate = status[msg.guild.settings.get('logs.events.channelCreate')];
 		const channelDelete = status[msg.guild.settings.get('logs.events.channelDelete')];
 		const channelUpdate = status[msg.guild.settings.get('logs.events.channelUpdate')];

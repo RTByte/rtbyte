@@ -20,7 +20,7 @@ module.exports = class extends Event {
 	}
 
 	async serverLog(invite) {
-		const affirmEmoji = this.client.emojis.get(this.client.settings.get('emoji.affirm'));
+		const affirmEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.affirm'));
 
 		const embed = new MessageEmbed()
 			.setAuthor(`discord.gg/${invite.code}`, invite.guild.iconURL())
@@ -43,7 +43,7 @@ module.exports = class extends Event {
 			embed.addField(invite.guild.language.get('GUILD_LOG_INVITECREATE_TEMPORARY'), affirmEmoji, true);
 		}
 
-		const logChannel = await this.client.channels.get(invite.guild.settings.get('channels.log'));
+		const logChannel = await this.client.channels.cache.get(invite.guild.settings.get('channels.log'));
 		if (logChannel) await logChannel.send('', { disableEveryone: true, embed: embed });
 
 		return;

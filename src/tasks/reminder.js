@@ -4,9 +4,9 @@ const { MessageEmbed } = require('discord.js');
 module.exports = class extends Task {
 
 	async run({ guildID, channelID, userID, dmBool, reminderMsg, timestamp }) {
-		const guild = this.client.guilds.get(guildID);
-		const channel = guild ? await guild.channels.get(channelID) : await this.client.users.get(userID);
-		const member = guild ? await guild.members.fetch(userID).catch(() => null) : await this.client.users.get(userID);
+		const guild = this.client.guilds.cache.get(guildID);
+		const channel = guild ? await guild.channels.cache.get(channelID) : await this.client.users.cache.get(userID);
+		const member = guild ? await guild.members.fetch(userID).catch(() => null) : await this.client.users.cache.get(userID);
 
 		const embed = new MessageEmbed()
 			.setAuthor(guild ? member.user.tag : member.tag, guild ? member.user.displayAvatarURL() : member.displayAvatarURL())
@@ -18,7 +18,7 @@ module.exports = class extends Task {
 		if (dmBool) return member.user.send('', { disableEveryone: true, embed: embed });
 		if (channel) return channel.send(`${member}`, { disableEveryone: true, embed: embed });
 
-		return true;
+		return this;
 	}
 
 };

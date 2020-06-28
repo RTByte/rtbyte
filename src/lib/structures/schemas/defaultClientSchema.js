@@ -16,7 +16,9 @@ module.exports = KlasaClient.defaultClientSchema
 		.add('idle', 'string')
 		.add('dnd', 'string')
 		.add('offline', 'string')
-		.add('botBadge', 'string'))
+		.add('botBadge', 'string')
+		.add('discordPartner', 'string')
+		.add('discordVerified', 'string'))
 	.add('logs', folder => folder
 		.add('botReady', 'boolean', { default: true })
 		.add('commandRun', 'boolean', { default: true })

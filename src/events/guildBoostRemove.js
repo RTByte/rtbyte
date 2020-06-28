@@ -19,7 +19,7 @@ module.exports = class extends Event {
 			.setTimestamp()
 			.setFooter(member.guild.language.get('GUILD_LOG_BOOSTREMOVE'));
 
-		const logChannel = await this.client.channels.get(member.guild.settings.get('channels.log'));
+		const logChannel = await this.client.channels.cache.get(member.guild.settings.get('channels.log'));
 		if (logChannel) await logChannel.send('', { disableEveryone: true, embed: embed });
 
 		return;
