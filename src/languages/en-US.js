@@ -19,18 +19,18 @@ module.exports = class extends Language {
 			ALL: 'All messages',
 			MENTIONS: 'Only @mentions'
 		};
-		this.verificationLevels = [
-			'None (unrestricted)',
-			'Low (verified email)',
-			'Medium (5 minute registration)',
-			'High (10 minute membership)',
-			'Highest (verified phone number)'
-		];
-		this.filterLevels = [
-			'Off',
-			'On for unroled users',
-			'On for everyone'
-		];
+		this.verificationLevels = {
+			NONE: 'None (unrestricted)',
+			LOW: 'Low (verified email)',
+			MEDIUM: 'Medium (5 minute registration)',
+			HIGH: 'High (10 minute membership)',
+			VERY_HIGH: 'Highest (verified phone number)'
+		};
+		this.filterLevels = {
+			DISABLED: 'Off',
+			MEMBERS_WITHOUT_ROLES: 'On for unroled users',
+			ALL_MEMBERS: 'On for everyone'
+		};
 		this.nitroTierTitles = [
 			'No levels achieved yet',
 			'Level 1 (2 boosts)',
@@ -410,18 +410,18 @@ module.exports = class extends Language {
 			COMMAND_SENDMSG_NOPARAM_TARGET: "Please provide a channel name, ID or #mention for the channel you'd like to send a message to.",
 			COMMAND_SENDMSG_NOPARAM_MSG: 'Please provide a message to send to your specified channel or user.',
 			// eslint-disable-next-line max-len
-			COMMAND_SENDMSG_DISCLAIMER: (guild) => `This message was sent from the **${guild.name}** Discord and can not be replied to. If you have any questions regarding the contents of it, please contact a moderator.`,
+			COMMAND_SENDMSG_DISCLAIMER: (guild) => `This message was sent from the **${guild.name}** Discord and cannot be replied to. If you have any questions regarding the contents of it, please contact a moderator.`,
 			COMMAND_SERVERINFO_DESCRIPTION: 'Displays server information.',
 			COMMAND_SERVERINFO_REGION: 'Region',
-			COMMAND_SERVERINFO_MEMBERCOUNT: (guild) => `${guild.memberCount} (${guild.members.filter(member => member.user.bot).size} bots)`,
+			COMMAND_SERVERINFO_MEMBERCOUNT: (members, bots) => `${members} (${bots} bots)`,
 			COMMAND_SERVERINFO_PRUNABLE: 'Prunable members',
 			COMMAND_SERVERINFO_CHANNELDETAILS: (textVoiceChannels, textChannels, voiceChannels) => `${textVoiceChannels} (${textChannels} text, ${voiceChannels} voice)`,
 			COMMAND_SERVERINFO_VLEVEL: 'Verification level',
-			COMMAND_SERVERINFO_VLEVEL_LEVELS: (guild) => `${this.verificationLevels[guild.verificationLevel]}`,
+			COMMAND_SERVERINFO_VLEVEL_LEVELS: (verificationLevel) => `${this.verificationLevels[verificationLevel]}`,
 			COMMAND_SERVERINFO_ECFILTER: 'Explicit content filter',
-			COMMAND_SERVERINFO_ECFILTER_LEVELS: (guild) => `${this.filterLevels[guild.explicitContentFilter]}`,
+			COMMAND_SERVERINFO_ECFILTER_LEVELS: (explicitContentFilter) => `${this.filterLevels[explicitContentFilter]}`,
 			COMMAND_SERVERINFO_NITROTIER: 'Nitro boost level',
-			COMMAND_SERVERINFO_NITROTIER_LEVELS: (guild) => `${this.nitroTierTitles[guild.premiumTier]}`,
+			COMMAND_SERVERINFO_NITROTIER_LEVELS: (premiumTier) => `${this.nitroTierTitles[premiumTier]}`,
 			COMMAND_SERVERINFO_NITROAMOUNT: 'Nitro boosters',
 			COMMAND_SERVERINFO_TEXTCHANNELS: 'Text channels',
 			COMMAND_SOFTBAN_DESCRIPTION: 'Softbans a specified user and logs the reason.',
@@ -856,8 +856,7 @@ module.exports = class extends Language {
 			GUILD_LOG_GUILDUPDATE_AFKCHANNEL_NONE: 'No AFK channel',
 			GUILD_LOG_GUILDUPDATE_AFKTIMEOUT: 'AFK timeout changed',
 			GUILD_LOG_GUILDUPDATE_DEFAULTMSGNOTIF: 'Default notification settings changed',
-			GUILD_LOG_GUILDUPDATE_DEFAULTMSGNOTIF_OLD: (oldGuild) => this.defaultMsgNotifs[oldGuild.defaultMessageNotifications],
-			GUILD_LOG_GUILDUPDATE_DEFAULTMSGNOTIF_NEW: (guild) => this.defaultMsgNotifs[guild.defaultMessageNotifications],
+			GUILD_LOG_GUILDUPDATE_DEFAULTMSGNOTIF_CH: (defaultMessageNotifications) => this.defaultMsgNotifs[defaultMessageNotifications],
 			GUILD_LOG_GUILDUPDATE_CONTENTFILTER: 'Explicit content filter level changed',
 			GUILD_LOG_GUILDUPDATE_CONTENTFILTER_OLD: (oldGuild) => this.filterLevels[oldGuild.explicitContentFilter],
 			GUILD_LOG_GUILDUPDATE_CONTENTFILTER_NEW: (guild) => this.filterLevels[guild.explicitContentFilter],
@@ -880,6 +879,10 @@ module.exports = class extends Language {
 			GUILD_LOG_GUILDUPDATE_WIDGET: 'Server widget toggled',
 			GUILD_LOG_GUILDUPDATE_WIDGETCHANNEL: 'Server widget invite channel changed',
 			GUILD_LOG_GUILDUPDATE_WIDGETCHANNEL_NONE: 'No server widget invite channel',
+			GUILD_LOG_GUILDUPDATE_PUBLICUPDATESCHANNEL: 'Public updates channel changed',
+			GUILD_LOG_GUILDUPDATE_PUBLICUPDATESCHANNEL_NONE: 'No public updates channel',
+			GUILD_LOG_GUILDUPDATE_RULESCHANNEL: 'Rules channel changed',
+			GUILD_LOG_GUILDUPDATE_RULESCHANNEL_NONE: 'No rules channel',
 			GUILD_LOG_GUILDUPDATE_WELCOMEMESSAGES: 'Random welcome messages toggled',
 			GUILD_LOG_GUILDUPDATE_BOOSTMESSAGES: 'Nitro boost messages toggled',
 			GUILD_LOG_GUILDBANADD_TIMED: (when) => `User banned for ${moment.duration(moment().diff(when)).humanize()}`,
