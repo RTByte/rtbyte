@@ -14,7 +14,8 @@ module.exports = class extends Monitor {
 	async run(msg) {
 		if (!msg.guild) return;
 		if (!msg.guild.settings.get('filters.antiInviteEnabled')) return;
-		if (msg.guild.settings.get('filters.modBypass') && (msg.member.roles.has(msg.guild.settings.get('roles.moderator')) || msg.member.roles.has(msg.guild.settings.get('roles.administrator')))) return;
+		// eslint-disable-next-line max-len
+		if (msg.guild.settings.get('filters.modBypass') && (msg.member.roles.cache.has(msg.guild.settings.get('roles.moderator')) || msg.member.roles.cache.has(msg.guild.settings.get('roles.administrator')))) return;
 		const words = msg.content.split(' ');
 		const inviteWhitelist = Object(msg.guild.settings.get('filters.inviteWhitelist'));
 
@@ -69,9 +70,9 @@ module.exports = class extends Monitor {
 	async punishmentMute(msg) {
 		if (!msg.member.canMod(msg.author)) return;
 		const mute = this.client.commands.get('mute');
-		if (!msg.guild.settings.get('roles.muted') || !msg.guild.roles.has(msg.guild.settings.get('roles.muted'))) await mute.createRole(msg.guild);
-		if (msg.member.roles.has(msg.guild.settings.get('roles.muted'))) return;
-		const mutedRole = await msg.guild.roles.get(msg.guild.settings.get('roles.muted'));
+		if (!msg.guild.settings.get('roles.muted') || !msg.guild.roles.cache.has(msg.guild.settings.get('roles.muted'))) await mute.createRole(msg.guild);
+		if (msg.member.roles.cache.has(msg.guild.settings.get('roles.muted'))) return;
+		const mutedRole = await msg.guild.roles.cache.get(msg.guild.settings.get('roles.muted'));
 		await msg.member.roles.add(mutedRole);
 
 		const modCase = new ModCase(msg.guild)
