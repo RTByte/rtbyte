@@ -17,8 +17,8 @@ module.exports = class extends Command {
 
 	async show(msg) {
 		// Fetch required emojis and assiociate true or false with the corresponding one.
-		const affirmEmoji = this.client.emojis.get(this.client.settings.get('emoji.affirm'));
-		const rejectEmoji = this.client.emojis.get(this.client.settings.get('emoji.reject'));
+		const affirmEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.affirm'));
+		const rejectEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.reject'));
 		const status = {
 			true: affirmEmoji,
 			false: rejectEmoji
@@ -26,10 +26,10 @@ module.exports = class extends Command {
 
 		// Fetch and resolve relevant guild settings.
 		const welcomeNewUsers = status[msg.guild.settings.get('greetings.welcomeNewUsers')];
-		const welcomeChannel = msg.guild.channels.get(msg.guild.settings.get('greetings.welcomeChannel')) || msg.language.get('NOT_SET');
+		const welcomeChannel = msg.guild.channels.cache.get(msg.guild.settings.get('greetings.welcomeChannel')) || msg.language.get('NOT_SET');
 		const welcomeMessage = msg.guild.settings.get('greetings.welcomeMessage') ? msg.guild.settings.get('greetings.welcomeMessage').replace('%user%', '`@username`') : msg.language.get('NOT_SET');
 		const dismissUsers = status[msg.guild.settings.get('greetings.dismissUsers')];
-		const dismissChannel = msg.guild.channels.get(msg.guild.settings.get('greetings.dismissChannel')) || msg.language.get('NOT_SET');
+		const dismissChannel = msg.guild.channels.cache.get(msg.guild.settings.get('greetings.dismissChannel')) || msg.language.get('NOT_SET');
 		const dismissMessage = msg.guild.settings.get('greetings.dismissMessage') ? msg.guild.settings.get('greetings.dismissMessage').replace('%user%', '`@username`') : msg.language.get('NOT_SET');
 
 		// Build embed before sending.
@@ -39,7 +39,6 @@ module.exports = class extends Command {
 			.addField(msg.language.get('COMMAND_GREETINGS_SHOW_WELCOME'), welcomeNewUsers, true)
 			.addField(msg.language.get('COMMAND_GREETINGS_SHOW_WELCOME_CHANNEL'), welcomeChannel, true)
 			.addField(msg.language.get('COMMAND_GREETINGS_SHOW_WELCOME_MESSAGE'), welcomeMessage)
-			.addBlankField()
 			.addField(msg.language.get('COMMAND_GREETINGS_SHOW_DISMISS'), dismissUsers, true)
 			.addField(msg.language.get('COMMAND_GREETINGS_SHOW_DISMISS_CHANNEL'), dismissChannel, true)
 			.addField(msg.language.get('COMMAND_GREETINGS_SHOW_DISMISS_MESSAGE'), dismissMessage)

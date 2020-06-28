@@ -2,8 +2,7 @@
 const { Command } = require('klasa');
 const { MessageEmbed } = require('discord.js');
 
-const enableDisableArr = ['blacklist', 'antiinvite', 'mentionspam',
-	'modbypass', 'deletion', 'blistchecknames'];
+const enableDisableArr = ['blacklist', 'antiinvite', 'mentionspam', 'modbypass', 'deletion', 'blistchecknames'];
 const punishmentArr = ['mute', 'kick', 'softban', 'ban'];
 const inviteRegex = /^(discord.gg)\/.+[a-z]/g;
 
@@ -23,8 +22,8 @@ module.exports = class extends Command {
 
 	async show(msg) {
 		// Fetch required emojis and assiociate true or false with the corresponding one.
-		const affirmEmoji = this.client.emojis.get(this.client.settings.get('emoji.affirm'));
-		const rejectEmoji = this.client.emojis.get(this.client.settings.get('emoji.reject'));
+		const affirmEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.affirm'));
+		const rejectEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.reject'));
 		const status = {
 			true: affirmEmoji,
 			false: rejectEmoji
@@ -59,16 +58,13 @@ module.exports = class extends Command {
 			.setColor(this.client.settings.get('colors.white'))
 			.addField(msg.language.get('COMMAND_FILTERS_SHOW_MODBYPASS'), modBypass, true)
 			.addField(msg.language.get('COMMAND_FILTERS_SHOW_DELETION'), deletion, true)
-			.addBlankField()
 			.addField(msg.language.get('COMMAND_FILTERS_SHOW_WORDBLACKLIST'), wordBlacklistEnabled, true)
 			.addField(msg.language.get('COMMAND_FILTERS_SHOW_CHECKNAMES'), checkDisplayNames, true)
 			.addField(msg.language.get('COMMAND_FILTERS_SHOW_PUNISHMENT', 'blacklist'), wordBlacklistPunishment, true)
 			.addField(msg.language.get('COMMAND_FILTERS_SHOW_WORDBLACKLIST_WORDS'), words)
-			.addBlankField()
 			.addField(msg.language.get('COMMAND_FILTERS_SHOW_ANTIINVITE'), anitInviteEnabled, true)
 			.addField(msg.language.get('COMMAND_FILTERS_SHOW_PUNISHMENT', 'antiinvite'), antiInvitePunishment, true)
 			.addField(msg.language.get('COMMAND_FILTERS_SHOW_ANTIINVITE_WHITELIST'), inviteWhitelist)
-			.addBlankField()
 			.addField(msg.language.get('COMMAND_FILTERS_SHOW_MENTIONSPAM'), mentionSpamEnabled, true)
 			.addField(msg.language.get('COMMAND_FILTERS_SHOW_PUNISHMENT', 'mentionspam'), mentionSpamPunishment, true)
 			.addField(msg.language.get('COMMAND_FILTERS_SHOW_MENTIONSPAM_THRESHOLD'), mentionSpamThreshold)

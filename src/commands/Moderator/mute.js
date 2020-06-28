@@ -22,7 +22,7 @@ module.exports = class extends Command {
 		if (!Array.isArray(reason) || !reason.length) reason.unshift('Unspecified');
 		const silent = reason[0].endsWith('-s');
 		if (silent) reason[0].replace('-s', '');
-		if (!msg.guild.settings.get('roles.muted') || !msg.guild.roles.has(msg.guild.settings.get('roles.muted'))) await this.createRole(msg.guild);
+		if (!msg.guild.settings.get('roles.muted') || !msg.guild.roles.cache.has(msg.guild.settings.get('roles.muted'))) await this.createRole(msg.guild);
 
 		if (username.id === msg.author.id) return msg.reject(msg.language.get('COMMAND_MUTE_NO_MUTE_SELF'));
 		if (username.id === this.client.user.id) return msg.reject(msg.language.get('COMMAND_MUTE_NO_MUTE_CLIENT'));
@@ -39,8 +39,8 @@ module.exports = class extends Command {
 
 		const member = await msg.guild.members.fetch(username);
 
-		if (member.roles.has(msg.guild.settings.get('roles.muted'))) return msg.affirm();
-		const mutedRole = await msg.guild.roles.get(msg.guild.settings.get('roles.muted'));
+		if (member.roles.cache.has(msg.guild.settings.get('roles.muted'))) return msg.affirm();
+		const mutedRole = await msg.guild.roles.cache.get(msg.guild.settings.get('roles.muted'));
 		await member.roles.add(mutedRole);
 
 		if (when) {

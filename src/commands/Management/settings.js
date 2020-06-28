@@ -20,8 +20,8 @@ module.exports = class extends Command {
 	}
 
 	async show(msg) {
-		const affirmEmoji = this.client.emojis.get(this.client.settings.get('emoji.affirm'));
-		const rejectEmoji = this.client.emojis.get(this.client.settings.get('emoji.reject'));
+		const affirmEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.affirm'));
+		const rejectEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.reject'));
 		const status = {
 			true: affirmEmoji,
 			false: rejectEmoji
@@ -39,11 +39,11 @@ module.exports = class extends Command {
 		const commandAnalytics = status[msg.guild.settings.get('developmentSettings.commandAnalytics')];
 		const developersAreSuperUsers = status[msg.guild.settings.get('developmentSettings.developersAreSuperUsers')];
 		const serverinfoExtendedOutput = status[msg.guild.settings.get('commands.serverinfoExtendedOutput')];
-		const administrator = msg.guild.roles.get(msg.guild.settings.get('roles.administrator')) || msg.language.get('NOT_SET');
-		const moderator = msg.guild.roles.get(msg.guild.settings.get('roles.moderator')) || msg.language.get('NOT_SET');
-		const muted = msg.guild.roles.get(msg.guild.settings.get('roles.muted')) || msg.language.get('NOT_SET');
-		const voiceBanned = msg.guild.roles.get(msg.guild.settings.get('roles.voiceBanned')) || msg.language.get('NOT_SET');
-		const joinable = msg.guild.settings.get('roles.joinable').map(role => msg.guild.roles.get(role)).join(', ') || msg.guild.settings.get('NONE');
+		const administrator = msg.guild.roles.cache.get(msg.guild.settings.get('roles.administrator')) || msg.language.get('NOT_SET');
+		const moderator = msg.guild.roles.cache.get(msg.guild.settings.get('roles.moderator')) || msg.language.get('NOT_SET');
+		const muted = msg.guild.roles.cache.get(msg.guild.settings.get('roles.muted')) || msg.language.get('NOT_SET');
+		const voiceBanned = msg.guild.roles.cache.get(msg.guild.settings.get('roles.voiceBanned')) || msg.language.get('NOT_SET');
+		const joinable = msg.guild.settings.get('roles.joinable').map(role => msg.guild.roles.cache.get(role)).join(', ') || msg.language.get('NONE');
 
 		const embed = new MessageEmbed()
 			.setAuthor(msg.language.get('COMMAND_SETTINGS_SHOW_TITLE'), this.client.user.displayAvatarURL())
@@ -56,7 +56,6 @@ module.exports = class extends Command {
 			.addField(msg.language.get('COMMAND_SETTINGS_SHOW_COMMANDANALYTICS'), commandAnalytics, true)
 			.addField(msg.language.get('COMMAND_SETTINGS_SHOW_DEVELOPERSARESUPERUSERS'), developersAreSuperUsers)
 			.addField(msg.language.get('COMMAND_SETTINGS_SHOW_SERVERINFOEXTENDEDOUTPUT'), serverinfoExtendedOutput)
-			.addBlankField()
 			.addField(msg.language.get('COMMAND_SETTINGS_SHOW_ADMINISTRATOR'), administrator, true)
 			.addField(msg.language.get('COMMAND_SETTINGS_SHOW_MODERATOR'), moderator, true)
 			.addField(msg.language.get('COMMAND_SETTINGS_SHOW_MUTED'), muted, true)
@@ -165,7 +164,7 @@ module.exports = class extends Command {
 		if (subsetting === 'joinable' && joinable.includes(value.id)) return msg.reject(msg.language.get('COMMAND_SETTINGS_SET_ROLES_JOINABLE_SAME_ROLE', value));
 
 		if (setting === 'roles') {
-			await msg.guild.settings.update(`roles.${subsetting}`, value);
+			await msg.guild.settings.update(`roles.${subsetting}`, value, msg.guild);
 		} else {
 			await msg.guild.settings.update(setting, value);
 		}
@@ -190,7 +189,7 @@ module.exports = class extends Command {
 
 		if (subsetting === 'joinable' && !joinable.includes(value.id)) return msg.reject(msg.language.get('COMMAND_SETTINGS_REMOVE_ROLE_NOTEXIST', value));
 
-		await msg.guild.settings.update(`roles.${subsetting}`, value, { action: 'remove' });
+		await msg.guild.settings.update(`roles.${subsetting}`, value, msg.guild, { action: 'remove' });
 
 		return msg.affirm();
 	}

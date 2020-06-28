@@ -23,9 +23,9 @@ module.exports = class extends Command {
 		if (member && pinnedMessages.filter(pinned => member.id === pinned.msgAuthor).length === 0) return msg.reject(msg.language.get('COMMAND_PIN_MEMBER_NOPINNED'));
 		const { msgID, channelID, pinner } = selected;
 
-		const channel = await msg.guild.channels.get(channelID);
+		const channel = await msg.guild.channels.cache.get(channelID);
 		const fetchedPin = await channel.messages.fetch(msgID);
-		const fetchedPinner = await this.client.users.get(pinner);
+		const fetchedPinner = await this.client.users.cache.get(pinner);
 
 		const embed = new MessageEmbed()
 			.setAuthor(msg.language.get('COMMAND_PIN_PINNED'), msg.guild.iconURL())

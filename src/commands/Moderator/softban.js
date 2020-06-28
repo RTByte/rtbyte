@@ -26,6 +26,8 @@ module.exports = class extends Command {
 		if (username.id === this.client.user.id) return msg.reject(msg.language.get('COMMAND_SOFTBAN_NO_SOFTBAN_CLIENT'));
 		if (!await msg.member.canMod(username)) return msg.reject(msg.language.get('COMMAND_SOFTBAN_NO_PERMS', username));
 
+		reason += ' (fc)';
+
 		const modCase = new ModCase(msg.guild)
 			.setUser(username)
 			.setType('softban')

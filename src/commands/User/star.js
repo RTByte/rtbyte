@@ -25,7 +25,7 @@ module.exports = class extends Command {
 		if (member && starredMessages.filter(st => member.id === st.msgAuthor).length === 0) return msg.reject(msg.language.get('COMMAND_STAR_MEMBER_NOSTARRED'));
 		const { msgID, channelID, stars } = selected;
 
-		const channel = await msg.guild.channels.get(channelID);
+		const channel = await msg.guild.channels.cache.get(channelID);
 		const fetchedStar = await channel.messages.fetch(msgID);
 
 		const embed = new MessageEmbed()
@@ -81,7 +81,7 @@ module.exports = class extends Command {
 		if (!selected) return msg.reject(msg.language.get('COMMAND_STAR_NOTOP', member));
 		const { msgID, channelID, stars } = selected;
 
-		const channel = await msg.guild.channels.get(channelID);
+		const channel = await msg.guild.channels.cache.get(channelID);
 		const fetchedStar = await channel.messages.fetch(msgID);
 
 		const embed = new MessageEmbed()

@@ -94,12 +94,12 @@ module.exports = class extends Command {
 	}
 
 	async buildDisplay(caseEmbedArray) {
-		const arrowToLeftEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowToLeft'));
-		const arrowLeftEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowLeft'));
-		const arrowRightEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowRight'));
-		const arrowToRightEmoji = this.client.emojis.get(this.client.settings.get('emoji.arrowToRight'));
-		const rejectEmoji = this.client.emojis.get(this.client.settings.get('emoji.reject'));
-		const listEmoji = this.client.emojis.get(this.client.settings.get('emoji.list'));
+		const arrowToLeftEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.arrowToLeft'));
+		const arrowLeftEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.arrowLeft'));
+		const arrowRightEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.arrowRight'));
+		const arrowToRightEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.arrowToRight'));
+		const rejectEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.reject'));
+		const listEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.list'));
 		const display = new RichDisplay()
 			.setEmojis({
 				first: arrowToLeftEmoji.id,

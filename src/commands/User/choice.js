@@ -17,7 +17,7 @@ module.exports = class extends Command {
 	async run(msg, [...choices]) {
 		const validChoices = choices.filter(choice => choice);
 
-		if (validChoices.length === 1) {
+		if (validChoices.length < 2) {
 			return msg.reply(msg.language.get('COMMAND_CHOICE_NOTENOUGH'));
 		} else {
 			return msg.reply(`\n🤔 ${choices[Math.floor(Math.random() * choices.length)]}.`);

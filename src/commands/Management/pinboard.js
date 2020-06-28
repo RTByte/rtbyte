@@ -15,16 +15,16 @@ module.exports = class extends Command {
 	}
 
 	async show(msg) {
-		const affirmEmoji = this.client.emojis.get(this.client.settings.get('emoji.affirm'));
-		const rejectEmoji = this.client.emojis.get(this.client.settings.get('emoji.reject'));
+		const affirmEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.affirm'));
+		const rejectEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.reject'));
 		const status = {
 			true: affirmEmoji,
 			false: rejectEmoji
 		};
 
 		const pinboardEnabled = status[msg.guild.settings.get('boards.pinboard.pinboardEnabled')];
-		const pinboardChannel = msg.guild.channels.get(msg.guild.settings.get('boards.pinboard.pinboardChannel')) || msg.language.get('NOT_SET');
-		const pinboardIgnoredChannels = msg.guild.settings.get('boards.pinboard.pinboardIgnoredChannels').map(channel => msg.guild.channels.get(channel)).join(', ') || msg.language.get('NONE');
+		const pinboardChannel = msg.guild.channels.cache.get(msg.guild.settings.get('boards.pinboard.pinboardChannel')) || msg.language.get('NOT_SET');
+		const pinboardIgnoredChannels = msg.guild.settings.get('boards.pinboard.pinboardIgnoredChannels').map(channel => msg.guild.channels.cache.get(channel)).join(', ') || msg.language.get('NONE');
 
 		const embed = new MessageEmbed()
 			.setAuthor(msg.language.get('COMMAND_PINBOARD_SHOW_TITLE'), this.client.user.displayAvatarURL())

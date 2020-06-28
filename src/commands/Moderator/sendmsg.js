@@ -42,7 +42,7 @@ module.exports = class extends Command {
 		}
 
 		if (target.constructor.name === 'KlasaUser') {
-			return await msg.guild.members.has(target.id);
+			return await msg.guild.members.cache.has(target.id);
 		}
 
 		return false;

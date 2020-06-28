@@ -19,10 +19,10 @@ module.exports = class extends Command {
 	}
 
 	async run(msg, [membername = msg.member]) {
-		const onlineEmoji = this.client.emojis.get(this.client.settings.get('emoji.online'));
-		const idleEmoji = this.client.emojis.get(this.client.settings.get('emoji.idle'));
-		const dndEmoji = this.client.emojis.get(this.client.settings.get('emoji.dnd'));
-		const offlineEmoji = this.client.emojis.get(this.client.settings.get('emoji.offline'));
+		const onlineEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.online'));
+		const idleEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.idle'));
+		const dndEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.dnd'));
+		const offlineEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.offline'));
 		const statuses = {
 			online: `${onlineEmoji} ${msg.guild.language.get('ONLINE')}`,
 			idle: `${idleEmoji} ${msg.guild.language.get('IDLE')}`,
@@ -30,9 +30,9 @@ module.exports = class extends Command {
 			offline: `${offlineEmoji} ${msg.guild.language.get('OFFLINE')}`
 		};
 
-		const roles = await membername.roles.filter(role => role.name !== '@everyone').sort().array();
+		const roles = await membername.roles.cache.filter(role => role.name !== '@everyone').sort().array();
 
-		const joinPosition = await msg.guild.members.array().sort((first, last) => first.joinedAt - last.joinedAt);
+		const joinPosition = await msg.guild.members.cache.array().sort((first, last) => first.joinedAt - last.joinedAt);
 
 		const position = joinPosition.indexOf(membername) + 1;
 
@@ -49,8 +49,13 @@ module.exports = class extends Command {
 			.setFooter(msg.language.get('COMMAND_REQUESTED_BY', msg), msg.author.displayAvatarURL());
 
 		if (membername.user.presence.activity) {
-			// eslint-disable-next-line max-len
-			await embed.addField(msg.guild.language.get('COMMAND_USERINFO_ACTIVITY', membername), membername.user.presence.activity.type === 'CUSTOM_STATUS' ? `${`${membername.user.presence.activity.emoji} ` || ''}${membername.user.presence.activity.state}` || 'N/A' : membername.user.presence.activity ? !membername.user.presence.activity.details ? membername.user.presence.activity.name : membername.user.presence.activity.type === 'LISTENING' ? `${membername.user.presence.activity.name}\n\`${membername.user.presence.activity.details} by ${membername.user.presence.activity.state}\`` : `${membername.user.presence.activity.name}\n\`${membername.user.presence.activity.details}\`` : 'N/A', true);
+			await embed.addField(msg.guild.language.get('COMMAND_USERINFO_ACTIVITY', membername), membername.user.presence.activity.type === 'CUSTOM_STATUS' ?
+				`${`${membername.user.presence.activity.emoji} ` || ''}${membername.user.presence.activity.state}` || 'N/A' : membername.user.presence.activity ?
+					!membername.user.presence.activity.details ?
+						membername.user.presence.activity.name :
+						membername.user.presence.activity.type === 'LISTENING' ?
+							`${membername.user.presence.activity.name}\n\`${membername.user.presence.activity.details} by ${membername.user.presence.activity.state}\`` :
+							`${membername.user.presence.activity.name}\n\`${membername.user.presence.activity.details}\`` : 'N/A', true);
 		}
 
 		if (membername.premiumSinceTimestamp) {

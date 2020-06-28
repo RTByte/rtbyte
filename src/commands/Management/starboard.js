@@ -15,8 +15,8 @@ module.exports = class extends Command {
 	}
 
 	async show(msg) {
-		const affirmEmoji = this.client.emojis.get(this.client.settings.get('emoji.affirm'));
-		const rejectEmoji = this.client.emojis.get(this.client.settings.get('emoji.reject'));
+		const affirmEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.affirm'));
+		const rejectEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.reject'));
 		const status = {
 			true: affirmEmoji,
 			false: rejectEmoji
@@ -24,8 +24,8 @@ module.exports = class extends Command {
 
 		const starboardEnabled = status[msg.guild.settings.get('boards.starboard.starboardEnabled')];
 		const starboardThreshold = msg.guild.settings.get('boards.starboard.starboardThreshold');
-		const starboardChannel = msg.guild.channels.get(msg.guild.settings.get('boards.starboard.starboardChannel')) || msg.language.get('NOT_SET');
-		const starboardIgnoredChannels = msg.guild.settings.get('boards.starboard.starboardIgnoredChannels').map(channel => msg.guild.channels.get(channel)).join(', ') || msg.language.get('NONE');
+		const starboardChannel = msg.guild.channels.cache.get(msg.guild.settings.get('boards.starboard.starboardChannel')) || msg.language.get('NOT_SET');
+		const starboardIgnoredChannels = msg.guild.settings.get('boards.starboard.starboardIgnoredChannels').map(channel => msg.guild.channels.cache.get(channel)).join(', ') || msg.language.get('NONE');
 
 		const embed = new MessageEmbed()
 			.setAuthor(msg.language.get('COMMAND_STARBOARD_SHOW_TITLE'), this.client.user.displayAvatarURL())
