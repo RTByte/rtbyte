@@ -42,7 +42,7 @@ module.exports = class extends Command {
 		if (fetchedStar.embeds.length) await embed.addField('‎', msg.language.get('MESSAGE_EMBED', fetchedStar.url));
 
 		// Message attachment checks.
-		let attachment, ;
+		let attachment;
 		if (fetchedStar.attachments) {
 			const atchs = fetchedStar.attachments.map(atch => atch.proxyURL);
 			const atchSize = fetchedStar.attachments.map(atch => atch.size)[0] < 8388119;
@@ -103,7 +103,7 @@ module.exports = class extends Command {
 			const atchSize = fetchedStar.attachments.map(atch => atch.size)[0] < 8388119;
 			if (atchs.filter(pURL => pURL.endsWith('.mp4')).length || atchs.filter(pURL => pURL.endsWith('.webm')).length || atchs.filter(pURL => pURL.endsWith('.mov')).length) {
 				if (atchSize) {
-					await embed.attachFiles(atchs[0])
+					await embed.attachFiles(atchs[0]);
 				} else {
 					await embed.addField('‎', msg.language.get('MESSAGE_ATCH_TOOBIG', fetchedStar.url));
 				}
