@@ -35,7 +35,7 @@ module.exports = class extends Command {
 		const embed = new MessageEmbed()
 			.setAuthor(msg.guild.name, msg.guild.iconURL())
 			.setColor(this.client.settings.get('colors.white'))
-			.addField(msg.guild.language.get('NAME'), `${msg.guild.partner ? `${partnerEmoji} ` : msg.guild.verified ? `${verifiedEmoji} ` : ''}${msg.guild.name}`, true)
+			.addField(msg.guild.language.get('NAME'), `${msg.guild.partnered ? `${partnerEmoji} ` : msg.guild.verified ? `${verifiedEmoji} ` : ''}${msg.guild.name}`, true)
 			.addField(msg.guild.language.get('ID'), msg.guild.id, true)
 			.addField(msg.guild.language.get('OWNER'), msg.guild.owner, true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_REGION'), msg.language.get('REGION', msg.guild.region), true)
