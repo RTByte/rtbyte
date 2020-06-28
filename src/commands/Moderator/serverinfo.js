@@ -19,6 +19,9 @@ module.exports = class extends Command {
 	}
 
 	async run(msg) {
+		const partnerEmoji = await msg.guild.emojis.cache.get(this.client.settings.get('emoji.discordPartner'));
+		const verifiedEmoji = await msg.guild.emojis.cache.get(this.client.settings.get('emoji.discordVerified'));
+
 		const roles = await msg.guild.roles.cache.filter(role => role.name !== '@everyone').sort().array();
 		const textVoiceChannels = await msg.guild.channels.cache.filter(channel => channel.type === 'text' || channel.type === 'news' || channel.type === 'voice').array();
 		const textChannels = await msg.guild.channels.cache.filter(channel => channel.type === 'text' || channel.type === 'news').array();
@@ -32,7 +35,7 @@ module.exports = class extends Command {
 		const embed = new MessageEmbed()
 			.setAuthor(msg.guild.name, msg.guild.iconURL())
 			.setColor(this.client.settings.get('colors.white'))
-			.addField(msg.guild.language.get('NAME'), msg.guild.name, true)
+			.addField(msg.guild.language.get('NAME'), `${msg.guild.partner ? `${partnerEmoji} ` : msg.guild.verified ? `${verifiedEmoji} ` : ''}${msg.guild.name}`, true)
 			.addField(msg.guild.language.get('ID'), msg.guild.id, true)
 			.addField(msg.guild.language.get('OWNER'), msg.guild.owner, true)
 			.addField(msg.guild.language.get('COMMAND_SERVERINFO_REGION'), msg.language.get('REGION', msg.guild.region), true)
