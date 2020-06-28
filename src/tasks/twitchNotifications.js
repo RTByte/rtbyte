@@ -5,7 +5,7 @@ const { apis } = require('../config');
 module.exports = class extends Task {
 
 	async run({ guildID }) {
-		const guild = this.client.guilds.get(guildID);
+		const guild = this.client.guilds.cache.get(guildID);
 		const twitchNotifsEnabled = guild.settings.get('twitch.twitchNotifsEnabled');
 		const streamers = guild.settings.get('twitch.streamers');
 		if (!twitchNotifsEnabled || streamers.length === 0) return;
