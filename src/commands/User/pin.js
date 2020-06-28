@@ -41,14 +41,13 @@ module.exports = class extends Command {
 		if (fetchedPin.embeds.length) await embed.addField('‎', msg.language.get('MESSAGE_EMBED', fetchedPin.url));
 
 		// Message attachment checks.
-		let attachment, hasVideo = false;
+		let attachment;
 		if (fetchedPin.attachments) {
 			const atchs = fetchedPin.attachments.map(atch => atch.proxyURL);
 			const atchSize = fetchedPin.attachments.map(atch => atch.size)[0] < 8388119;
 			if (atchs.filter(pURL => pURL.endsWith('.mp4')).length || atchs.filter(pURL => pURL.endsWith('.webm')).length || atchs.filter(pURL => pURL.endsWith('.mov')).length) {
 				if (atchSize) {
-					hasVideo = true;
-					[attachment] = [atchs[0]];
+					await embed.attachFiles(atchs[0]);
 				} else {
 					await embed.addField('‎', msg.language.get('MESSAGE_ATCH_TOOBIG', fetchedPin.url));
 				}
@@ -62,7 +61,7 @@ module.exports = class extends Command {
 			}
 		}
 
-		return msg.send('', hasVideo ? { disableEveryone: true, embed: embed, files: [attachment] } : { disableEveryone: true, embed: embed });
+		return msg.send('', { disableEveryone: true, embed: embed });
 	}
 
 };
