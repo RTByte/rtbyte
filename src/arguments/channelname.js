@@ -6,9 +6,9 @@ const { Channel, Message } = require('discord.js');
 const CHANNEL_REGEXP = Argument.regex.channel;
 
 function resolveChannel(query, guild) {
-	if (query instanceof Channel) return guild.channels.has(query.id) ? query : null;
+	if (query instanceof Channel) return guild.channels.cache.has(query.id) ? query : null;
 	if (query instanceof Message) return query.guild.id === guild.id ? query.channel : null;
-	if (typeof query === 'string' && CHANNEL_REGEXP.test(query)) return guild.channels.get(CHANNEL_REGEXP.exec(query)[1]);
+	if (typeof query === 'string' && CHANNEL_REGEXP.test(query)) return guild.channels.cache.get(CHANNEL_REGEXP.exec(query)[1]);
 	return null;
 }
 
@@ -21,7 +21,7 @@ module.exports = class extends Argument {
 
 		const results = [];
 		const reg = new RegExp(regExpEsc(arg), 'i');
-		for (const channel of msg.guild.channels.values()) {
+		for (const channel of msg.guild.channels.cache.values()) {
 			if (reg.test(channel.name)) results.push(channel);
 		}
 
