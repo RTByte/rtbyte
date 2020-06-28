@@ -19,8 +19,8 @@ module.exports = class extends Command {
 	}
 
 	async run(msg) {
-		const partnerEmoji = await msg.guild.emojis.cache.get(this.client.settings.get('emoji.discordPartner'));
-		const verifiedEmoji = await msg.guild.emojis.cache.get(this.client.settings.get('emoji.discordVerified'));
+		const partnerEmoji = await this.client.emojis.cache.get(this.client.settings.get('emoji.discordPartner'));
+		const verifiedEmoji = await this.client.emojis.cache.get(this.client.settings.get('emoji.discordVerified'));
 
 		const roles = await msg.guild.roles.cache.filter(role => role.name !== '@everyone').sort().array();
 		const textVoiceChannels = await msg.guild.channels.cache.filter(channel => channel.type === 'text' || channel.type === 'news' || channel.type === 'voice').array();
