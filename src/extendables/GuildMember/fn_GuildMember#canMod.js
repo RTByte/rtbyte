@@ -9,7 +9,7 @@ module.exports = class extends Extendable {
 
 	async canMod(user) {
 		const member = await this.guild.members.fetch(user).catch(() => null);
-		return member.highestRole.position < this.highestRole.position;
+		return member ? member.highestRole.position < this.highestRole.position : false;
 	}
 
 };
