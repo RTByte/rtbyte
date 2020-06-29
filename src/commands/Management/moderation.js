@@ -129,7 +129,7 @@ module.exports = class extends Command {
 		if (setting === 'blacklistedname') setting = 'blacklistedNickname';
 
 		if (setting === 'notifyUser') {
-			await msg.guild.settings.update('logs.moderation.notifyUser', true);
+			await msg.guild.settings.update('moderation.notifyUser', true);
 		} else {
 			await msg.guild.settings.update(`logs.moderation.${setting}`, true);
 		}
