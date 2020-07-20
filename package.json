@@ -49,7 +49,7 @@
         "node-fetch": "^2.3.0"
     },
     "devDependencies": {
-        "eslint": "^7.4.0"
+        "eslint": "^7.5.0"
     },
     "engines": {
         "node": ">=10.15.3"
