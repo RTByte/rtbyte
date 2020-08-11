@@ -19,6 +19,17 @@
         "infra",
         "projectManagement"
       ]
+    },
+    {
+      "login": "mcumbers",
+      "name": "Michael Cumbers",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/16696023?v=4",
+      "profile": "https://michaelcumbers.ca/",
+      "contributions": [
+        "code",
+        "doc",
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7,

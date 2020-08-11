@@ -1,6 +1,6 @@
 # RTByte
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 [![Discord](https://img.shields.io/discord/450163430373064704.svg?colorB=7289da&label=discord&logo=Discord&logoColor=fff&style=flat)](https://discord.gg/eRauWP4)
 [![Open Issues](https://img.shields.io/github/issues/RTByte/RTByte.svg)](https://github.com/RTByte/RTByte/issues)
@@ -71,6 +71,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="http://rasmusgerdin.com/"><img src="https://avatars0.githubusercontent.com/u/11445945?v=4" width="100px;" alt=""/><br /><sub><b>Rasmus Gerdin</b></sub></a><br /><a href="https://github.com/RTByte/rtbyte/commits?author=rasmusgerdin" title="Code">💻</a> <a href="#content-rasmusgerdin" title="Content">🖋</a> <a href="https://github.com/RTByte/rtbyte/commits?author=rasmusgerdin" title="Documentation">📖</a> <a href="#design-rasmusgerdin" title="Design">🎨</a> <a href="#ideas-rasmusgerdin" title="Ideas, Planning, & Feedback">🤔</a> <a href="#infra-rasmusgerdin" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#projectManagement-rasmusgerdin" title="Project Management">📆</a></td>
+    <td align="center"><a href="https://michaelcumbers.ca/"><img src="https://avatars0.githubusercontent.com/u/16696023?v=4" width="100px;" alt=""/><br /><sub><b>Michael Cumbers</b></sub></a><br /><a href="https://github.com/RTByte/rtbyte/commits?author=mcumbers" title="Code">💻</a> <a href="https://github.com/RTByte/rtbyte/commits?author=mcumbers" title="Documentation">📖</a> <a href="#ideas-mcumbers" title="Ideas, Planning, & Feedback">🤔</a></td>
   </tr>
 </table>
 
