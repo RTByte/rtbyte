@@ -1,4 +1,7 @@
 # RTByte
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 [![Discord](https://img.shields.io/discord/450163430373064704.svg?colorB=7289da&label=discord&logo=Discord&logoColor=fff&style=flat)](https://discord.gg/eRauWP4)
 [![Open Issues](https://img.shields.io/github/issues/RTByte/RTByte.svg)](https://github.com/RTByte/RTByte/issues)
 [![Open PRS](https://img.shields.io/github/issues-pr/RTByte/RTByte.svg)](https://github.com/RTByte/RTByte/pulls)
@@ -57,3 +60,22 @@ For support, changelogs, and a link to add RTByte to your server, please join ou
 * [Amish Shah](https://github.com/hydrabolt), [and the rest of the team behind discord.js](https://github.com/discordjs): These ladies and gentlemen have poured countless hours into making one of the best interfaces around.
 
 * [MokkaQuill](http://mokkaquillart.tumblr.com/): Thanks to MokkaQuill for providing us with our logo.
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="http://rasmusgerdin.com/"><img src="https://avatars0.githubusercontent.com/u/11445945?v=4" width="100px;" alt=""/><br /><sub><b>Rasmus Gerdin</b></sub></a><br /><a href="https://github.com/RTByte/rtbyte/commits?author=rasmusgerdin" title="Code">💻</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
