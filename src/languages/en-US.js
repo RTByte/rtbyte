@@ -980,6 +980,10 @@ module.exports = class extends Language {
 			PINBOARD_PINNED_BY: (executor) => `Pinned${executor ? ` by ${executor.tag}` : ''}`,
 
 
+			// Task langs
+			TASK_TIMEDMUTE_EXPIRE: 'Timed mute expired',
+
+
 			// Initialization langs
 			INIT_TITLE: () => `${this.client.user.username} Initialization`,
 			// eslint-disable-next-line max-len

@@ -18,6 +18,7 @@ module.exports = class extends Task {
 		const modCase = new ModCase(guild)
 			.setUser(member.user)
 			.setType('unmute')
+			.setReason(guild.language.get('TASK_TIMEDMUTE_EXPIRE'))
 			.setModerator(mod.user);
 		await modCase.submit();
 
