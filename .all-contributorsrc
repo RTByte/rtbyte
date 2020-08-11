@@ -11,7 +11,13 @@
       "avatar_url": "https://avatars0.githubusercontent.com/u/11445945?v=4",
       "profile": "http://rasmusgerdin.com/",
       "contributions": [
-        "code"
+        "code",
+        "content",
+        "doc",
+        "design",
+        "ideas",
+        "infra",
+        "projectManagement"
       ]
     }
   ],
