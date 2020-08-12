@@ -1,6 +1,5 @@
 # RTByte
 [![Discord](https://img.shields.io/discord/450163430373064704.svg?colorB=7289da&label=discord&logo=Discord&logoColor=fff&style=flat)](https://discord.gg/eRauWP4)
-[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat)](#contributors-)
 [![Open Issues](https://img.shields.io/github/issues/RTByte/RTByte.svg)](https://github.com/RTByte/RTByte/issues)
 [![Open PRS](https://img.shields.io/github/issues-pr/RTByte/RTByte.svg)](https://github.com/RTByte/RTByte/pulls)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/RTByte/RTByte.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/RTByte/RTByte/context:javascript)
