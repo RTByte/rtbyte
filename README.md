@@ -1,8 +1,6 @@
 # RTByte
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
 [![Discord](https://img.shields.io/discord/450163430373064704.svg?colorB=7289da&label=discord&logo=Discord&logoColor=fff&style=flat)](https://discord.gg/eRauWP4)
+[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat)](#contributors-)
 [![Open Issues](https://img.shields.io/github/issues/RTByte/RTByte.svg)](https://github.com/RTByte/RTByte/issues)
 [![Open PRS](https://img.shields.io/github/issues-pr/RTByte/RTByte.svg)](https://github.com/RTByte/RTByte/pulls)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/RTByte/RTByte.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/RTByte/RTByte/context:javascript)
@@ -42,25 +40,6 @@ For support, changelogs, and a link to add RTByte to your server, please join ou
 
 * Create custom commands for your users with full integration into RTByte's logging system.
 
-## Shout-Outs
-
-#### Our Team
-
-* [Rasmus Gerdin](https://github.com/rasmusgerdin)
-* [Michael Cumbers](https://github.com/mcumbers)
-* [Killian Higgins](https://github.com/Uzui2012)
-* [Justin Shull](https://github.com/JShull97)
-
-#### People Who Made It Possible
-
-* [Évelyne Lachance](https://github.com/eslachance): Evie made the original [Komada](https://github.com/dirigeants/komada) framework and has done incredible amounts of work to help the [discord.js](https://github.com/discordjs/discord.js) community.
-
-* [AoDude](https://github.com/bdistin), [Kyra](https://github.com/kyranet), and [everyone else at Dirigeants](https://github.com/dirigeants): All of the contributors, whether they be part of the core team or the community, have done an awesome job making these frameworks and tools.
-
-* [Amish Shah](https://github.com/hydrabolt), [and the rest of the team behind discord.js](https://github.com/discordjs): These ladies and gentlemen have poured countless hours into making one of the best interfaces around.
-
-* [MokkaQuill](http://mokkaquillart.tumblr.com/): Thanks to MokkaQuill for providing us with our logo.
-
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
@@ -82,3 +61,5 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+
+Thanks to [MokkaQuill](http://mokkaquillart.tumblr.com/) for providing us with our logo.
