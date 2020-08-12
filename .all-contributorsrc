@@ -48,6 +48,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "jankcat",
+      "name": "Tim Watkins",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/7744158?v=4",
+      "profile": "https://jankcat.com",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
