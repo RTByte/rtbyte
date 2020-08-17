@@ -113,7 +113,7 @@ module.exports = class extends Command {
 		if (setting === 'dismiss' && !['channel', 'message'].includes(subsetting)) return msg.reject(msg.language.get('COMMAND_GREETINGS_NOSUBSETTING_DISMISS'));
 
 		// If a subsetting hasn't been specified, stop process and inform user. Set specified subsetting to lowercase.
-		if (!subsetting) msg.reject(msg.language.get('COMMAND_GREETINGS_NOSETTING'));
+		if (!subsetting) return msg.reject(msg.language.get('COMMAND_GREETINGS_NOSETTING'));
 		subsetting = subsetting.toLowerCase();
 
 		// If specified subsetting is set but a value hasn't been specified, stop process and inform user.
@@ -156,7 +156,7 @@ module.exports = class extends Command {
 		if (setting === 'dismiss' && !['channel', 'message'].includes(subsetting)) return msg.reject(msg.language.get('COMMAND_GREETINGS_NOSUBSETTING_DISMISS'));
 
 		// If a subsetting hasn't been specified, stop process and inform user. Set specified subsetting to lowercase.
-		if (!subsetting) msg.reject(msg.language.get('COMMAND_GREETINGS_NOSETTING'));
+		if (!subsetting) return msg.reject(msg.language.get('COMMAND_GREETINGS_NOSETTING'));
 		subsetting = subsetting.toLowerCase();
 
 		// Fetch relevant guild settings.
