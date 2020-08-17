@@ -39,21 +39,27 @@ For support, changelogs, and a link to add RTByte to your server, please join ou
 
 * Create custom commands for your users with full integration into RTByte's logging system.
 
-## Shout-Outs
+## Contributors ✨
 
-#### Our Team
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
-* [Rasmus Gerdin](https://github.com/rasmusgerdin)
-* [Michael Cumbers](https://github.com/mcumbers)
-* [Killian Higgins](https://github.com/Uzui2012)
-* [Justin Shull](https://github.com/JShull97)
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="http://rasmusgerdin.com/"><img src="https://avatars0.githubusercontent.com/u/11445945?v=4" width="100px;" alt=""/><br /><sub><b>Rasmus Gerdin</b></sub></a><br /><a href="https://github.com/RTByte/rtbyte/commits?author=rasmusgerdin" title="Code">💻</a> <a href="#content-rasmusgerdin" title="Content">🖋</a> <a href="https://github.com/RTByte/rtbyte/commits?author=rasmusgerdin" title="Documentation">📖</a> <a href="#design-rasmusgerdin" title="Design">🎨</a> <a href="#ideas-rasmusgerdin" title="Ideas, Planning, & Feedback">🤔</a> <a href="#infra-rasmusgerdin" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#projectManagement-rasmusgerdin" title="Project Management">📆</a></td>
+    <td align="center"><a href="https://michaelcumbers.ca/"><img src="https://avatars0.githubusercontent.com/u/16696023?v=4" width="100px;" alt=""/><br /><sub><b>Michael Cumbers</b></sub></a><br /><a href="https://github.com/RTByte/rtbyte/commits?author=mcumbers" title="Code">💻</a> <a href="https://github.com/RTByte/rtbyte/commits?author=mcumbers" title="Documentation">📖</a> <a href="#ideas-mcumbers" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="https://github.com/Uzui2012"><img src="https://avatars3.githubusercontent.com/u/22256520?v=4" width="100px;" alt=""/><br /><sub><b>Killian Higgins</b></sub></a><br /><a href="https://github.com/RTByte/rtbyte/commits?author=Uzui2012" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/JShull97"><img src="https://avatars3.githubusercontent.com/u/38473222?v=4" width="100px;" alt=""/><br /><sub><b>JShull97</b></sub></a><br /><a href="https://github.com/RTByte/rtbyte/commits?author=JShull97" title="Code">💻</a></td>
+    <td align="center"><a href="https://jankcat.com"><img src="https://avatars1.githubusercontent.com/u/7744158?v=4" width="100px;" alt=""/><br /><sub><b>Tim Watkins</b></sub></a><br /><a href="https://github.com/RTByte/rtbyte/commits?author=jankcat" title="Documentation">📖</a></td>
+  </tr>
+</table>
 
-#### People Who Made It Possible
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 
-* [Évelyne Lachance](https://github.com/eslachance): Evie made the original [Komada](https://github.com/dirigeants/komada) framework and has done incredible amounts of work to help the [discord.js](https://github.com/discordjs/discord.js) community.
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
 
-* [AoDude](https://github.com/bdistin), [Kyra](https://github.com/kyranet), and [everyone else at Dirigeants](https://github.com/dirigeants): All of the contributors, whether they be part of the core team or the community, have done an awesome job making these frameworks and tools.
-
-* [Amish Shah](https://github.com/hydrabolt), [and the rest of the team behind discord.js](https://github.com/discordjs): These ladies and gentlemen have poured countless hours into making one of the best interfaces around.
-
-* [MokkaQuill](http://mokkaquillart.tumblr.com/): Thanks to MokkaQuill for providing us with our logo.
+Thanks to [MokkaQuill](http://mokkaquillart.tumblr.com/) for providing us with our logo.

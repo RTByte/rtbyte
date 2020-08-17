@@ -1,0 +1,68 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "rasmusgerdin",
+      "name": "Rasmus Gerdin",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/11445945?v=4",
+      "profile": "http://rasmusgerdin.com/",
+      "contributions": [
+        "code",
+        "content",
+        "doc",
+        "design",
+        "ideas",
+        "infra",
+        "projectManagement"
+      ]
+    },
+    {
+      "login": "mcumbers",
+      "name": "Michael Cumbers",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/16696023?v=4",
+      "profile": "https://michaelcumbers.ca/",
+      "contributions": [
+        "code",
+        "doc",
+        "ideas"
+      ]
+    },
+    {
+      "login": "Uzui2012",
+      "name": "Killian Higgins",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/22256520?v=4",
+      "profile": "https://github.com/Uzui2012",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "JShull97",
+      "name": "JShull97",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/38473222?v=4",
+      "profile": "https://github.com/JShull97",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "jankcat",
+      "name": "Tim Watkins",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/7744158?v=4",
+      "profile": "https://jankcat.com",
+      "contributions": [
+        "doc"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "rtbyte",
+  "projectOwner": "RTByte",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
