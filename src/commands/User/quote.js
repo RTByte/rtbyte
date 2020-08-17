@@ -1,6 +1,7 @@
 const { Command } = require('klasa');
 const { MessageEmbed } = require('discord.js');
 const moment = require('moment-timezone');
+const { truncate } = require('../../lib/util/Util');
 
 module.exports = class extends Command {
 
@@ -31,7 +32,7 @@ module.exports = class extends Command {
 			// eslint-disable-next-line max-len
 			.setFooter(`${moment.tz(qmsg.createdTimestamp, msg.guild ? msg.guild.settings.get('timezone') : 'Etc/Greenwich').format('Do MMMM YYYY, h:mmA zz')} ${msg.guild ? msg.language.get('COMMAND_QUOTE_CHANNEL', qmsg) : msg.language.get('COMMAND_QUOTE_DMS')}`);
 
-		if (qmsg.content) await embed.addField(msg.guild.language.get('MESSAGE'), qmsg.content);
+		if (qmsg.content) await embed.addField(msg.guild.language.get('MESSAGE'), truncate(qmsg.content));
 		if (qmsg.embeds.length) await embed.addField('‎', msg.language.get('MESSAGE_EMBED', qmsg.url));
 
 		// Message attachment checks.

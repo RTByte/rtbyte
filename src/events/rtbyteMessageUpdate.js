@@ -1,5 +1,6 @@
 const { Event } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { truncate } = require('../lib/util/Util');
 
 module.exports = class extends Event {
 
@@ -27,8 +28,8 @@ module.exports = class extends Event {
 			.setAuthor(msg.author.tag, msg.author.displayAvatarURL())
 			.setColor(this.client.settings.get('colors.blue'))
 			.setDescription(`${msg.channel}\n[${msg.language.get('CLICK_TO_VIEW')}](${msg.url})`)
-			.addField(msg.language.get('GUILD_LOG_BEFORE'), `${old.content}`)
-			.addField(msg.language.get('GUILD_LOG_AFTER'), `${msg.content}`)
+			.addField(msg.language.get('GUILD_LOG_BEFORE'), truncate(old.content))
+			.addField(msg.language.get('GUILD_LOG_AFTER'), truncate(msg.content))
 			.setTimestamp()
 			.setFooter(msg.language.get('GUILD_LOG_MESSAGEUPDATE'));
 

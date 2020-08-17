@@ -48,3 +48,10 @@ exports.timezoneWithDate = (prop, guild) => {
 	const { capitalize } = require('./Util');
 	return `${capitalize(moment.tz(prop, guild.settings.get('timezone')).fromNow())} (${moment.tz(prop, guild.settings.get('timezone')).format('MMMM Do, YYYY')})`;
 };
+
+exports.truncate = (str) => {
+	if (typeof str !== 'string') return '';
+	if (str.length <= 1021) return str;
+
+	return `${str.substr(0, str.lastIndexOf(' ', 1021))}...`;
+};

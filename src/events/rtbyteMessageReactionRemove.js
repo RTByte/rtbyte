@@ -1,5 +1,6 @@
 const { Event } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { truncate } = require('../lib/util/Util');
 
 module.exports = class extends Event {
 
@@ -29,7 +30,7 @@ module.exports = class extends Event {
 			.setTimestamp(msg.createdTimestamp)
 			.setFooter(`🌟 ${reaction.count}`);
 
-		if (msg.content) await embed.addField(msg.guild.language.get('MESSAGE'), msg.content);
+		if (msg.content) await embed.addField(msg.guild.language.get('MESSAGE'), truncate(msg.content));
 		if (msg.embeds.length) await embed.addField('‎', msg.language.get('MESSAGE_EMBED', msg.url));
 
 		// Message attachment checks.
