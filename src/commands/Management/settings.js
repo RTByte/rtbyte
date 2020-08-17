@@ -179,7 +179,7 @@ module.exports = class extends Command {
 		if (setting !== 'roles') return msg.reject(msg.language.get('COMMAND_SETTINGS_REMOVE_NOSETTING'));
 		if (setting === 'roles' && subsetting !== 'joinable') return msg.reject(msg.language.get('COMMAND_SETTINGS_REMOVE_NOSETTING'));
 
-		if (!subsetting) msg.reject(msg.language.get('COMMAND_SETTINGS_REMOVE_NOSETTING'));
+		if (!subsetting) return msg.reject(msg.language.get('COMMAND_SETTINGS_REMOVE_NOSETTING'));
 		subsetting = subsetting.toLowerCase();
 
 		if (!value) return msg.reject(msg.language.get('COMMAND_SETTINGS_NOVALUE_ROLES'));
@@ -202,7 +202,7 @@ module.exports = class extends Command {
 		if (['prefix', 'language', 'units', 'timezone'].includes(setting) && subsetting) return msg.reject(msg.language.get('COMMAND_SETTINGS_NOSUBSETTINGALLOWED'));
 		if (setting === 'roles' && !rolesArr.includes(subsetting)) return msg.reject(msg.language.get('COMMAND_SETTINGS_NOTROLESUBSETTING'));
 
-		if (setting === 'roles' && !subsetting) msg.reject(msg.language.get('COMMAND_SETTINGS_SET_NOTROLESUBSETTING'));
+		if (setting === 'roles' && !subsetting) return msg.reject(msg.language.get('COMMAND_SETTINGS_SET_NOTROLESUBSETTING'));
 		if (subsetting) subsetting = subsetting.toLowerCase();
 
 		const measurementUnits = msg.guild.settings.get('measurementUnits');

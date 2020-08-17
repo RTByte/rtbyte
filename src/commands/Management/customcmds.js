@@ -70,8 +70,8 @@ module.exports = class extends Command {
 		const customCommands = msg.guild.settings.get('commands.customCommands');
 
 		// If a command name or command response haven't been provided, stop process and inform user.
-		if (!name) msg.reject(msg.language.get('COMMAND_CUSTOMCMDS_CREATE_NONAME'));
-		if (!content) msg.reject(msg.language.get('COMMAND_CUSTOMCMDS_CREATE_NOCONTENT'));
+		if (!name) return msg.reject(msg.language.get('COMMAND_CUSTOMCMDS_CREATE_NONAME'));
+		if (!content) return msg.reject(msg.language.get('COMMAND_CUSTOMCMDS_CREATE_NOCONTENT'));
 
 		// Update the provided custom command name to be all lowercase.
 		name = name.toLowerCase();
@@ -97,7 +97,7 @@ module.exports = class extends Command {
 		const customCommands = msg.guild.settings.get('commands.customCommands');
 
 		// If a command name hasn't been provided, stop process and inform user.
-		if (!name) msg.reject(msg.language.get('COMMAND_CUSTOMCMDS_DELETE_NONAME'));
+		if (!name) return msg.reject(msg.language.get('COMMAND_CUSTOMCMDS_DELETE_NONAME'));
 
 		// Update the provided custom command name to be all lowercase.
 		name = name.toLowerCase();
@@ -120,8 +120,8 @@ module.exports = class extends Command {
 		const customCommands = msg.guild.settings.get('commands.customCommands');
 
 		// If a command name or command response haven't been provided, stop process and inform user.
-		if (!name) msg.reject(msg.language.get('COMMAND_CUSTOMCMDS_UPDATE_NONAME'));
-		if (!content) msg.reject(msg.language.get('COMMAND_CUSTOMCMDS_UPDATE_NOCONTENT'));
+		if (!name) return msg.reject(msg.language.get('COMMAND_CUSTOMCMDS_UPDATE_NONAME'));
+		if (!content) return msg.reject(msg.language.get('COMMAND_CUSTOMCMDS_UPDATE_NOCONTENT'));
 
 		// Update the provided custom command name to be all lowercase.
 		name = name.toLowerCase();
