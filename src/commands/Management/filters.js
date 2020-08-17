@@ -164,7 +164,7 @@ module.exports = class extends Command {
 		if (setting === 'mentionspam' && !['punishment', 'threshold'].includes(subsetting)) return msg.reject(msg.language.get('COMMAND_FILTERS_NOSUBSETTING_MENTIONSPAM'));
 
 		// If a subsetting hasn't been specified, stop process and inform user. Set specified subsetting to lowercase.
-		if (!subsetting) msg.reject(msg.language.get('COMMAND_FILTERS_NOSETTING'));
+		if (!subsetting) return msg.reject(msg.language.get('COMMAND_FILTERS_NOSETTING'));
 		subsetting = subsetting.toLowerCase();
 
 		// If specified subsetting is set but a value hasn't been specified, stop process and inform user.
@@ -219,7 +219,7 @@ module.exports = class extends Command {
 		if (setting === 'antiinvite' && subsetting !== 'whitelist') return msg.reject(msg.language.get('COMMAND_FILTERS_NOVALUE_WHITELIST'));
 
 		// If a subsetting hasn't been specified, stop process and inform user. Set specified subsetting to lowercase.
-		if (!subsetting) msg.reject(msg.language.get('COMMAND_FILTERS_REMOVE_NOSETTING'));
+		if (!subsetting) return msg.reject(msg.language.get('COMMAND_FILTERS_REMOVE_NOSETTING'));
 		subsetting = subsetting.toLowerCase();
 
 		// Fetch relevant guild settings.
@@ -253,7 +253,7 @@ module.exports = class extends Command {
 		if (setting === 'mentionspam' && !['punishment', 'threshold'].includes(subsetting)) return msg.reject(msg.language.get('COMMAND_FILTERS_NOSUBSETTING_MENTIONSPAM'));
 
 		// If a subsetting hasn't been specified, stop process and inform user. Set specified subsetting to lowercase.
-		if (!subsetting) msg.reject(msg.language.get('COMMAND_FILTERS_NOSETTING'));
+		if (!subsetting) return msg.reject(msg.language.get('COMMAND_FILTERS_NOSETTING'));
 		subsetting = subsetting.toLowerCase();
 
 		// Fetch relevant guild settings.
@@ -275,10 +275,10 @@ module.exports = class extends Command {
 		// If specified config option hasn't been set, stop process and inform user.
 		if (subsetting === 'wordBlacklistPunishment' && !wordBlacklistPunishment) return msg.reject(msg.language.get('COMMAND_FILTERS_RESET_BLACKLIST_PUNISHMENT'));
 		if (subsetting === 'antiInvitePunishment' && !antiInvitePunishment) return msg.reject(msg.language.get('COMMAND_FILTERS_RESET_ANTIINVITE_PUNISHMENT'));
-		if (subsetting === 'mentionSpamPunishment' && !mentionSpamPunishment) msg.reject(msg.language.get('COMMAND_FILTERS_RESET_MENTIONSPAM_PUNISHMENT'));
-		if (subsetting === 'words' && !words.length) msg.reject(msg.language.get('COMMAND_FILTERS_RESET_BLACKLIST_WORDS'));
-		if (subsetting === 'inviteWhitelist' && !inviteWhitelist.length) msg.reject(msg.language.get('COMMAND_FILTERS_RESET_ANTIINVITE_WHITELIST'));
-		if (subsetting === 'mentionSpamThreshold' && mentionSpamThreshold === 12) msg.reject(msg.language.get('COMMAND_FILTERS_RESET_MENTIONSPAM_THRESHOLD'));
+		if (subsetting === 'mentionSpamPunishment' && !mentionSpamPunishment) return msg.reject(msg.language.get('COMMAND_FILTERS_RESET_MENTIONSPAM_PUNISHMENT'));
+		if (subsetting === 'words' && !words.length) return msg.reject(msg.language.get('COMMAND_FILTERS_RESET_BLACKLIST_WORDS'));
+		if (subsetting === 'inviteWhitelist' && !inviteWhitelist.length) return msg.reject(msg.language.get('COMMAND_FILTERS_RESET_ANTIINVITE_WHITELIST'));
+		if (subsetting === 'mentionSpamThreshold' && mentionSpamThreshold === 12) return msg.reject(msg.language.get('COMMAND_FILTERS_RESET_MENTIONSPAM_THRESHOLD'));
 
 		// Reset specified config option.
 		await msg.guild.settings.reset(`filters.${subsetting}`);
