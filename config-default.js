@@ -29,5 +29,8 @@ exports.apis = {
 	twitchSecret: ''
 };
 
+// Sentry.io ingestion URL
+exports.sentryIngestURL = '';
+
 // The token for this bot to login with
 exports.token = '';
