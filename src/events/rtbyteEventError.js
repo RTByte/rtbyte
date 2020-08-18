@@ -1,5 +1,6 @@
 const { Event } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const Sentry = require('@sentry/node');
 const errorEvents = ['rtbyteCommandError', 'rtbyteEventError', 'rtbyteFinalizerError', 'rtbyteMonitorError', 'rtbyteTaskError'];
 
 module.exports = class extends Event {
@@ -9,6 +10,13 @@ module.exports = class extends Event {
 	}
 
 	async run(event, args, error) {
+		Sentry.withScope(scope => {
+			scope.setTag('error-type', 'event');
+			scope.setLevel(this.client.options.production ? 'error' : 'debug');
+
+			Sentry.captureException(error);
+		});
+
 		const guild = args[0].guild ? args[0].guild : args[0].message ? args[0].message.guild : args[0];
 		if (this.client.settings.get('logs.eventError') && !errorEvents.includes(event.name)) await this.eventErrorLog(event, args, error, guild);
 	}

@@ -1,5 +1,6 @@
 const { Event } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const Sentry = require('@sentry/node');
 
 module.exports = class extends Event {
 
@@ -8,6 +9,14 @@ module.exports = class extends Event {
 	}
 
 	async run(scheduledTask, task, error) {
+		Sentry.withScope(scope => {
+			scope.setTag('error-type', 'task');
+			scope.setLevel(this.client.options.production ? 'error' : 'debug');
+			scope.setContext(scheduledTask);
+
+			Sentry.captureException(error);
+		});
+
 		if (this.client.settings.get('logs.taskError')) await this.eventErrorLog(scheduledTask, task, error);
 	}
 
