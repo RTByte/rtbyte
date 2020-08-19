@@ -12,7 +12,6 @@ module.exports = class extends Event {
 	async run(event, args, error) {
 		Sentry.withScope(scope => {
 			scope.setTag('error-type', 'event');
-			scope.setLevel(this.client.options.production ? 'error' : 'debug');
 
 			Sentry.captureException(error);
 		});
