@@ -16,7 +16,6 @@ Sentry.configureScope(scope => {
 		'klasa-version': klasaVersion,
 		'd.js-version': discordVersion
 	});
-	scope.setLevel(this.client.options.production ? 'error' : 'debug');
 });
 
 if (sentryIngestURL) console.log('Sentry.io error reporting is active.');
