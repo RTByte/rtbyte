@@ -3,6 +3,7 @@ const { version: discordVersion } = require('discord.js');
 const { sentryIngestURL } = require('../config');
 const Sentry = require('@sentry/node');
 const os = require('os');
+const chalk = require('chalk');
 
 Sentry.init({
 	dsn: sentryIngestURL,
@@ -18,4 +19,4 @@ Sentry.configureScope(scope => {
 	});
 });
 
-if (sentryIngestURL) console.log('Sentry.io error reporting is active.');
+if (sentryIngestURL) console.log(chalk.black.bgWhite('Sentry error reporting is active.\n'));
