@@ -57,10 +57,10 @@
   color: 7765c6
 - name: 'Status: Help wanted'
   description: Issues that need assistance from volunteers or PRs that need help to proceed.
-  color: 037772
+  color: "037772"
 - name: 'Status: Needs testing'
   description: PRs that need testing from the author or volunteers.
-  color: 037772
+  color: "037772"
 - name: 'Status: Ready for review'
   description: PRs that are ready for codeowner review.
   color: 0eea00
