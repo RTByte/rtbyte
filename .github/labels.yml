@@ -1,0 +1,96 @@
+- name: 'Bug: Fixed'
+  description: Issues that report bugs and have been fixed.
+  color: 0e8a16
+- name: 'Bug: Cannot reproduce'
+  description: Issues that report bugs that cannot be reproduced.
+  color: d73a4a
+- name: 'Bug: Confirmed'
+  description: Issues that report confirmed bugs.
+  color: d73a4a
+- name: 'Bug: Unverified'
+  description: Issues that report unverified bugs. Pending inspection.
+  color: d73a4a
+- name: 'Meta: Bugfix'
+  description: PRs that fix bugs or issues.
+  color: ace209
+- name: 'Meta: Cleanup'
+  description: Issues and PRs related to code cleanup.
+  color: ffff00
+- name: 'Meta: Dependencies'
+  description: Issues and PRs related dependencies.
+  color: ffff00
+- name: 'Meta: Documentation'
+  description: Issues and PRs related to documentation.
+  color: ffff00
+- name: 'Meta: Feature'
+  description: Issues and PRs related to new features.
+  color: ffff00
+- name: 'Meta: GitHub'
+  description: Issues and PRs related to GitHub.
+  color: ffff00
+- name: 'Meta: Refactor'
+  description: Issues and PRs related to refactors.
+  color: ffff00
+- name: 'Meta: Unhelpful'
+  description: Issues and PRs that nit-pick. Basically, don't be a twat.
+  color: 93174b
+- name: 'Priority: Critical'
+  description: Issues that must be fixed or PRs that must be finished and merged with critical priority.
+  color: b60205
+- name: 'Priority: High'
+  description: Issues that must be fixed or PRs that must be finished and merged with high priority.
+  color: d93f0b
+- name: 'Priority: Medium'
+  description: Issues that must be fixed or PRs that must be finished and merged with medium priority.
+  color: fbca04
+- name: 'Priority: Low'
+  description: Issues that must be fixed or PRs that must be finished and merged with low priority.
+  color: 0e8a16
+- name: 'Status: Blocked'
+  description: PRs that are blocked by other issues/PRs.
+  color: b60205
+- name: 'Status: Denied'
+  description: PRs that are blocked by other issues/PRs.
+  color: b60205
+- name: 'Status: Duplicate'
+  description: Issues and PRs that are duplicated.
+  color: 7765c6
+- name: 'Status: Help wanted'
+  description: Issues that need assistance from volunteers or PRs that need help to proceed.
+  color: 037772
+- name: 'Status: Needs testing'
+  description: PRs that need testing from the author or volunteers.
+  color: 037772
+- name: 'Status: Ready for review'
+  description: PRs that are ready for codeowner review.
+  color: 0eea00
+- name: 'Status: Ready to merge'
+  description: PRs that are ready to merge.
+  color: 0eea00
+- name: 'Status: Stalled'
+  description: Issues and PRs that are being set aside for now or on hold.
+  color: fbca04
+- name: 'Status: WIP'
+  description: Issues and PRs that are still a work in progress.
+  color: b21a1a
+- name: 'Type: Consistency'
+  description: Issues and PRs related to code consistency.
+  color: 0075c1
+- name: 'Type: Dependencies'
+  description: PRs that update a dependency file.
+  color: 0025ff
+- name: 'Type: Enhancement'
+  description: Issues and PRs related to feature enhancement.
+  color: 0075c1
+- name: 'Type: Maintenance'
+  description: Issues and PRs related to the maintenance of a feature or function.
+  color: 0075c1
+- name: 'Type: Proposal'
+  description: Issues that request a new feature or a change to the bot.
+  color: ffffff
+- name: 'Type: Question'
+  description: Issues that do not belong in the issue tracker and should be asked in https://rtbyte.xyz/discord.
+  color: f28ef0
+- name: 'Type: Security'
+  description: Pull requests that address a security vulnerability.
+  color: ee0701
