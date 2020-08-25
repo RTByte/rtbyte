@@ -58,6 +58,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "ArtsyDiego",
+      "name": "Artsy",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/70177258?v=4",
+      "profile": "https://github.com/ArtsyDiego",
+      "contributions": [
+        "design"
+      ]
     }
   ],
   "contributorsPerLine": 7,
