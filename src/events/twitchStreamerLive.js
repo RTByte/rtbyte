@@ -17,7 +17,7 @@ module.exports = class extends Event {
 
 	async announceStream(guild, streamer, streamerPic, streamTitle, streamThumbnail, streamViewers, startedAt) {
 		const embed = new MessageEmbed()
-			.setAuthor(streamer, 'https://rtbyte.xyz/src/img/assets/liveIcon.png')
+			.setAuthor(streamer, 'https://rtbyte.xyz/img/liveIcon.png')
 			.setColor(this.client.settings.get('colors.purple'))
 			.setTitle(streamTitle)
 			.setDescription(guild.language.get('NOTIFICATION_TWITCH_LINK', streamer))
