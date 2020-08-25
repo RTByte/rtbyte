@@ -266,8 +266,9 @@ module.exports = class extends Command {
 
 	async set(msg, [setting, value]) {
 		if (!setting) return msg.reject(msg.language.get('COMMAND_LOGS_NOSETTING'));
-
 		setting = setting.toLowerCase();
+
+		if (setting !== 'channel') return msg.reject(msg.language.get('COMMAND_LOGS_NOSETTING'));
 		if (!value && (setting === 'channel')) return msg.reject(msg.language.get('COMMAND_LOGS_NOVALUE'));
 
 		const logChannel = msg.guild.settings.get('channels.log');

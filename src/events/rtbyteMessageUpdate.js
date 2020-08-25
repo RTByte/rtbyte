@@ -28,11 +28,11 @@ module.exports = class extends Event {
 			.setAuthor(msg.author.tag, msg.author.displayAvatarURL())
 			.setColor(this.client.settings.get('colors.blue'))
 			.setDescription(`${msg.channel}\n[${msg.language.get('CLICK_TO_VIEW')}](${msg.url})`)
-			.addField(msg.language.get('GUILD_LOG_BEFORE'), truncate(old.content))
-			.addField(msg.language.get('GUILD_LOG_AFTER'), truncate(msg.content))
 			.setTimestamp()
 			.setFooter(msg.language.get('GUILD_LOG_MESSAGEUPDATE'));
 
+		if (old.content) embed.addField(msg.language.get('GUILD_LOG_BEFORE'), truncate(old.content));
+		if (msg.content) embed.addField(msg.language.get('GUILD_LOG_AFTER'), truncate(msg.content));
 		const logChannel = await this.client.channels.cache.get(msg.guild.settings.get('channels.log'));
 		if (logChannel) await logChannel.send('', { disableEveryone: true, embed: embed });
 
