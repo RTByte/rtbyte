@@ -53,6 +53,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/Uzui2012"><img src="https://avatars3.githubusercontent.com/u/22256520?v=4" width="100px;" alt=""/><br /><sub><b>Killian Higgins</b></sub></a><br /><a href="https://github.com/RTByte/rtbyte/commits?author=Uzui2012" title="Code">💻</a> <a href="#maintenance-Uzui2012" title="Maintenance">🚧</a> <a href="https://github.com/RTByte/rtbyte/pulls?q=is%3Apr+reviewed-by%3AUzui2012" title="Reviewed Pull Requests">👀</a></td>
     <td align="center"><a href="https://github.com/JShull97"><img src="https://avatars3.githubusercontent.com/u/38473222?v=4" width="100px;" alt=""/><br /><sub><b>JShull97</b></sub></a><br /><a href="https://github.com/RTByte/rtbyte/commits?author=JShull97" title="Code">💻</a></td>
     <td align="center"><a href="https://jankcat.com"><img src="https://avatars1.githubusercontent.com/u/7744158?v=4" width="100px;" alt=""/><br /><sub><b>Tim Watkins</b></sub></a><br /><a href="https://github.com/RTByte/rtbyte/commits?author=jankcat" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/ArtsyDiego"><img src="https://avatars2.githubusercontent.com/u/70177258?v=4" width="100px;" alt=""/><br /><sub><b>Artsy</b></sub></a><br /><a href="#design-ArtsyDiego" title="Design">🎨</a></td>
   </tr>
 </table>
 
