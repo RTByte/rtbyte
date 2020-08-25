@@ -33,6 +33,28 @@ module.exports = class extends Event {
 
 		if (old.content) embed.addField(msg.language.get('GUILD_LOG_BEFORE'), truncate(old.content));
 		if (msg.content) embed.addField(msg.language.get('GUILD_LOG_AFTER'), truncate(msg.content));
+
+		// Message attachment checks.
+		let attachment;
+		if (msg.attachments) {
+			const atchs = msg.attachments.map(atch => atch.proxyURL);
+			const atchSize = msg.attachments.map(atch => atch.size)[0] < 8388119;
+			if (atchs.filter(pURL => pURL.endsWith('.mp4')).length || atchs.filter(pURL => pURL.endsWith('.webm')).length || atchs.filter(pURL => pURL.endsWith('.mov')).length) {
+				if (atchSize) {
+					await embed.attachFiles(atchs[0]);
+				} else {
+					await embed.addField('‎', msg.language.get('GUILD_LOG_MESSAGEDELETE_TOOBIG', msg.url));
+				}
+			} else if (msg.attachments.size > 1) {
+				[attachment] = [atchs[0]];
+				await embed.addField('‎', msg.language.get('GUILD_LOG_MESSAGEDELETE_MULTIPLE_ATCH'));
+				await embed.setImage(attachment);
+			} else {
+				[attachment] = [atchs[0]];
+				await embed.setImage(attachment);
+			}
+		}
+
 		const logChannel = await this.client.channels.cache.get(msg.guild.settings.get('channels.log'));
 		if (logChannel) await logChannel.send('', { disableEveryone: true, embed: embed });
 
