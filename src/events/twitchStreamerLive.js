@@ -25,7 +25,7 @@ module.exports = class extends Event {
 			.addField(guild.language.get('NOTIFICATION_TWITCH_VIEWERS'), streamViewers)
 			.setImage(streamThumbnail)
 			.setTimestamp(startedAt)
-			.setFooter('twitch.tv', 'https://rtbyte.xyz/src/img/assets/twitchLogo.png');
+			.setFooter('twitch.tv', 'https://rtbyte.xyz/img/twitchLogo.png');
 
 		// Unused for now
 		/* const role = await guild.roles.get(guild.settings.get('twitch.twitchNotifsRole')); */
