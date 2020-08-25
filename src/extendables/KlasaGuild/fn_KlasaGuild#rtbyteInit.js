@@ -15,68 +15,42 @@ module.exports = class extends Extendable {
 		await this.client.emit('verbose', `Initializing guild: ${this.name} (${this.id})`);
 
 		if (clientMember.hasPermission('MANAGE_ROLES')) {
-			// Creating necessary roles on new guild
-			const adminRole = await this.roles.create({ data: { name: 'Admin' }, reason: `${this.client.user.username} initialization: admin role` });
-			const modRole = await this.roles.create({ data: { name: 'Moderator' }, reason: `${this.client.user.username} initialization: moderator role` });
+			if (!this.settings.get('roles.administrator') && !this.settings.get('roles.moderator')) {
+				// Creating necessary roles on new guild
+				const adminRole = await this.roles.create({ data: { name: 'Admin' }, reason: `${this.client.user.username} initialization: admin role` });
+				const modRole = await this.roles.create({ data: { name: 'Moderator' }, reason: `${this.client.user.username} initialization: moderator role` });
 
-			await this.settings.update('roles.administrator', adminRole, this);
-			await this.settings.update('roles.moderator', modRole, this);
+				await this.settings.update('roles.administrator', adminRole, this);
+				await this.settings.update('roles.moderator', modRole, this);
 
-			await this.settings.sync(true);
+				await this.settings.sync(true);
+			}
 		} else {
 			rolesSkipped = true;
 		}
 
 		if (clientMember.hasPermission('MANAGE_CHANNELS')) {
-			const adminRole = await this.roles.cache.get(this.settings.get('roles.administrator'));
-			const modRole = await this.roles.cache.get(this.settings.get('roles.moderator'));
+			if (!this.settings.get('channels.log')) {
+				const adminRole = await this.roles.cache.get(this.settings.get('roles.administrator'));
+				const modRole = await this.roles.cache.get(this.settings.get('roles.moderator'));
 
-			// Creating log channel
-			const logChannel = await this.channels.create('server-log', {
-				topic: `Activity log for ${this.client.user.username}.`,
-				reason: `${this.client.user.username} initialization: log channel`
-			});
-			// Adding log channel into guild settings
-			await this.settings.update('channels.log', logChannel, this);
-
-			// Check if role setup failed and adjust perms if not
-			if (!rolesSkipped) {
-				// Removing respective permissions for server log channels
-				await logChannel.updateOverwrite(this.client.user, {
-					VIEW_CHANNEL: true,
-					READ_MESSAGE_HISTORY: true
-				}, `${this.client.user.username} initialization: adjusting log channel permissions for bot`);
-
-				await logChannel.updateOverwrite(this.id, {
-					VIEW_CHANNEL: false,
-					READ_MESSAGE_HISTORY: false
-				}, `${this.client.user.username} initialization: adjusting log channel permissions for @everyone`);
-
-				await logChannel.updateOverwrite(adminRole, {
-					VIEW_CHANNEL: true,
-					READ_MESSAGE_HISTORY: true
-				}, `${this.client.user.username} initialization: adjusting log channel permissions for administrator role`);
-
-				await logChannel.updateOverwrite(modRole, {
-					VIEW_CHANNEL: true,
-					READ_MESSAGE_HISTORY: true
-				}, `${this.client.user.username} initialization: adjusting log channel permissions for moderator role`);
-			}
-
-			if (type === 'control') {
-				const globalLogChannel = await this.channels.create('global-log', {
-					topic: `Global activity log for ${this.client.user.username}.`,
-					reason: `${this.client.user.username} initialization: global log channel`
+				// Creating log channel
+				const logChannel = await this.channels.create('server-log', {
+					topic: `Activity log for ${this.client.user.username}.`,
+					reason: `${this.client.user.username} initialization: log channel`
 				});
+				// Adding log channel into guild settings
+				await this.settings.update('channels.log', logChannel, this);
 
 				// Check if role setup failed and adjust perms if not
 				if (!rolesSkipped) {
-					await globalLogChannel.updateOverwrite(this.client.user, {
+					// Removing respective permissions for server log channels
+					await logChannel.updateOverwrite(this.client.user, {
 						VIEW_CHANNEL: true,
 						READ_MESSAGE_HISTORY: true
 					}, `${this.client.user.username} initialization: adjusting log channel permissions for bot`);
 
-					await globalLogChannel.updateOverwrite(this.id, {
+					await logChannel.updateOverwrite(this.id, {
 						VIEW_CHANNEL: false,
 						READ_MESSAGE_HISTORY: false
 					}, `${this.client.user.username} initialization: adjusting log channel permissions for @everyone`);
@@ -92,46 +66,76 @@ module.exports = class extends Extendable {
 					}, `${this.client.user.username} initialization: adjusting log channel permissions for moderator role`);
 				}
 
-				// Setting control guild and global log channel in clientStorage
-				await this.client.settings.update('guilds.controlGuild', this.id, this);
-				await this.client.settings.update('channels.globalLog', globalLogChannel.id, this);
+				if (type === 'control') {
+					const globalLogChannel = await this.channels.create('global-log', {
+						topic: `Global activity log for ${this.client.user.username}.`,
+						reason: `${this.client.user.username} initialization: global log channel`
+					});
 
-				// Adding and initializing the emojis for the bot to use
-				const affirmEmoji = await this.emojis.create('./assets/img/emoji/affirm.png', 'affirm', { reason: `${this.client.user.username} initialization: creating affirm emoji` });
-				const rejectEmoji = await this.emojis.create('./assets/img/emoji/reject.png', 'reject', { reason: `${this.client.user.username} initialization: creating reject emoji` });
-				const arrowLeftEmoji = await this.emojis.create('./assets/img/emoji/arrowLeft.png', 'arrow_left', { reason: `${this.client.user.username} initialization: creating arrowLeft emoji` });
-				// eslint-disable-next-line max-len
-				const arrowToLeftEmoji = await this.emojis.create('./assets/img/emoji/arrowToLeft.png', 'arrow_to_left', { reason: `${this.client.user.username} initialization: creating arrowToLeft emoji` });
-				const arrowRightEmoji = await this.emojis.create('./assets/img/emoji/arrowRight.png', 'arrow_right', { reason: `${this.client.user.username} initialization: creating arrowRight emoji` });
-				// eslint-disable-next-line max-len
-				const arrowToRightEmoji = await this.emojis.create('./assets/img/emoji/arrowToRight.png', 'arrow_to_right', { reason: `${this.client.user.username} initialization: creating arrowToRight emoji` });
-				const infoEmoji = await this.emojis.create('./assets/img/emoji/info.png', 'info', { reason: `${this.client.user.username} initialization: creating info emoji` });
-				const listEmoji = await this.emojis.create('./assets/img/emoji/list.png', 'list', { reason: `${this.client.user.username} initialization: creating list emoji` });
-				const onlineEmoji = await this.emojis.create('./assets/img/emoji/online.png', 'online', { reason: `${this.client.user.username} initialization: creating online emoji` });
-				const idleEmoji = await this.emojis.create('./assets/img/emoji/idle.png', 'idle', { reason: `${this.client.user.username} initialization: creating idle emoji` });
-				const dndEmoji = await this.emojis.create('./assets/img/emoji/dnd.png', 'dnd', { reason: `${this.client.user.username} initialization: creating dnd emoji` });
-				const offlineEmoji = await this.emojis.create('./assets/img/emoji/offline.png', 'offline', { reason: `${this.client.user.username} initialization: creating offline emoji` });
-				const botBadgeEmoji = await this.emojis.create('./assets/img/emoji/botBadge.png', 'bot_badge', { reason: `${this.client.user.username} initialization: creating bot badge emoji` });
-				// eslint-disable-next-line max-len
-				const partnerEmoji = await this.emojis.create('./assets/img/emoji/partner.png', 'discord_partner', { reason: `${this.client.user.username} initialization: creating Discord partner emoji` });
-				// eslint-disable-next-line max-len
-				const verifiedEmoji = await this.emojis.create('./assets/img/emoji/verified.png', 'discord_verified', { reason: `${this.client.user.username} initialization: creating Discord verified emoji` });
-				await this.client.settings.update('emoji.affirm', affirmEmoji.id, this);
-				await this.client.settings.update('emoji.reject', rejectEmoji.id, this);
-				await this.client.settings.update('emoji.arrowLeft', arrowLeftEmoji.id, this);
-				await this.client.settings.update('emoji.arrowToLeft', arrowToLeftEmoji.id, this);
-				await this.client.settings.update('emoji.arrowRight', arrowRightEmoji.id, this);
-				await this.client.settings.update('emoji.arrowToRight', arrowToRightEmoji.id, this);
-				await this.client.settings.update('emoji.info', infoEmoji.id, this);
-				await this.client.settings.update('emoji.list', listEmoji.id, this);
-				await this.client.settings.update('emoji.online', onlineEmoji.id, this);
-				await this.client.settings.update('emoji.idle', idleEmoji.id, this);
-				await this.client.settings.update('emoji.dnd', dndEmoji.id, this);
-				await this.client.settings.update('emoji.offline', offlineEmoji.id, this);
-				await this.client.settings.update('emoji.botBadge', botBadgeEmoji.id, this);
-				await this.client.settings.update('emoji.discordPartner', partnerEmoji.id, this);
-				await this.client.settings.update('emoji.discordVerified', verifiedEmoji.id, this);
-				await this.client.settings.sync(true);
+					// Check if role setup failed and adjust perms if not
+					if (!rolesSkipped) {
+						await globalLogChannel.updateOverwrite(this.client.user, {
+							VIEW_CHANNEL: true,
+							READ_MESSAGE_HISTORY: true
+						}, `${this.client.user.username} initialization: adjusting log channel permissions for bot`);
+
+						await globalLogChannel.updateOverwrite(this.id, {
+							VIEW_CHANNEL: false,
+							READ_MESSAGE_HISTORY: false
+						}, `${this.client.user.username} initialization: adjusting log channel permissions for @everyone`);
+
+						await logChannel.updateOverwrite(adminRole, {
+							VIEW_CHANNEL: true,
+							READ_MESSAGE_HISTORY: true
+						}, `${this.client.user.username} initialization: adjusting log channel permissions for administrator role`);
+
+						await logChannel.updateOverwrite(modRole, {
+							VIEW_CHANNEL: true,
+							READ_MESSAGE_HISTORY: true
+						}, `${this.client.user.username} initialization: adjusting log channel permissions for moderator role`);
+					}
+
+					// Setting control guild and global log channel in clientStorage
+					await this.client.settings.update('guilds.controlGuild', this.id, this);
+					await this.client.settings.update('channels.globalLog', globalLogChannel.id, this);
+
+					// Adding and initializing the emojis for the bot to use
+					const affirmEmoji = await this.emojis.create('./assets/img/emoji/affirm.png', 'affirm', { reason: `${this.client.user.username} initialization: creating affirm emoji` });
+					const rejectEmoji = await this.emojis.create('./assets/img/emoji/reject.png', 'reject', { reason: `${this.client.user.username} initialization: creating reject emoji` });
+					const arrowLeftEmoji = await this.emojis.create('./assets/img/emoji/arrowLeft.png', 'arrow_left', { reason: `${this.client.user.username} initialization: creating arrowLeft emoji` });
+					// eslint-disable-next-line max-len
+					const arrowToLeftEmoji = await this.emojis.create('./assets/img/emoji/arrowToLeft.png', 'arrow_to_left', { reason: `${this.client.user.username} initialization: creating arrowToLeft emoji` });
+					const arrowRightEmoji = await this.emojis.create('./assets/img/emoji/arrowRight.png', 'arrow_right', { reason: `${this.client.user.username} initialization: creating arrowRight emoji` });
+					// eslint-disable-next-line max-len
+					const arrowToRightEmoji = await this.emojis.create('./assets/img/emoji/arrowToRight.png', 'arrow_to_right', { reason: `${this.client.user.username} initialization: creating arrowToRight emoji` });
+					const infoEmoji = await this.emojis.create('./assets/img/emoji/info.png', 'info', { reason: `${this.client.user.username} initialization: creating info emoji` });
+					const listEmoji = await this.emojis.create('./assets/img/emoji/list.png', 'list', { reason: `${this.client.user.username} initialization: creating list emoji` });
+					const onlineEmoji = await this.emojis.create('./assets/img/emoji/online.png', 'online', { reason: `${this.client.user.username} initialization: creating online emoji` });
+					const idleEmoji = await this.emojis.create('./assets/img/emoji/idle.png', 'idle', { reason: `${this.client.user.username} initialization: creating idle emoji` });
+					const dndEmoji = await this.emojis.create('./assets/img/emoji/dnd.png', 'dnd', { reason: `${this.client.user.username} initialization: creating dnd emoji` });
+					const offlineEmoji = await this.emojis.create('./assets/img/emoji/offline.png', 'offline', { reason: `${this.client.user.username} initialization: creating offline emoji` });
+					const botBadgeEmoji = await this.emojis.create('./assets/img/emoji/botBadge.png', 'bot_badge', { reason: `${this.client.user.username} initialization: creating bot badge emoji` });
+					// eslint-disable-next-line max-len
+					const partnerEmoji = await this.emojis.create('./assets/img/emoji/partner.png', 'discord_partner', { reason: `${this.client.user.username} initialization: creating Discord partner emoji` });
+					// eslint-disable-next-line max-len
+					const verifiedEmoji = await this.emojis.create('./assets/img/emoji/verified.png', 'discord_verified', { reason: `${this.client.user.username} initialization: creating Discord verified emoji` });
+					await this.client.settings.update('emoji.affirm', affirmEmoji.id, this);
+					await this.client.settings.update('emoji.reject', rejectEmoji.id, this);
+					await this.client.settings.update('emoji.arrowLeft', arrowLeftEmoji.id, this);
+					await this.client.settings.update('emoji.arrowToLeft', arrowToLeftEmoji.id, this);
+					await this.client.settings.update('emoji.arrowRight', arrowRightEmoji.id, this);
+					await this.client.settings.update('emoji.arrowToRight', arrowToRightEmoji.id, this);
+					await this.client.settings.update('emoji.info', infoEmoji.id, this);
+					await this.client.settings.update('emoji.list', listEmoji.id, this);
+					await this.client.settings.update('emoji.online', onlineEmoji.id, this);
+					await this.client.settings.update('emoji.idle', idleEmoji.id, this);
+					await this.client.settings.update('emoji.dnd', dndEmoji.id, this);
+					await this.client.settings.update('emoji.offline', offlineEmoji.id, this);
+					await this.client.settings.update('emoji.botBadge', botBadgeEmoji.id, this);
+					await this.client.settings.update('emoji.discordPartner', partnerEmoji.id, this);
+					await this.client.settings.update('emoji.discordVerified', verifiedEmoji.id, this);
+					await this.client.settings.sync(true);
+				}
 			}
 		} else {
 			channelsSkipped = true;
