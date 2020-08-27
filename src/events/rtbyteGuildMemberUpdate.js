@@ -33,7 +33,7 @@ module.exports = class extends Event {
 			const auditLog = await member.guild.fetchAuditLogs();
 			const logEntry = await auditLog.entries.first();
 
-			if (logEntry.action === 'MEMBER_UPDATE') executor = logEntry ? logEntry.executor === member.user ? undefined : logEntry.executor : undefined;
+			if (logEntry.action && logEntry.action === 'MEMBER_UPDATE') executor = logEntry ? logEntry.executor === member.user ? undefined : logEntry.executor : undefined;
 		}
 
 		if (member.guild.settings.get('channels.log') && member.guild.settings.get('logs.events.guildMemberUpdate')) await this.serverLog(oldMember, member, executor);
