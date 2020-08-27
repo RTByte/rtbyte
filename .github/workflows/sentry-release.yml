@@ -19,4 +19,3 @@ jobs:
                 SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
               with:
                 environment: production
-                version: ${{ $(node -p "require('./package.json').version") }}
