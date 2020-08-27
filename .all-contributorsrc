@@ -67,6 +67,15 @@
       "contributions": [
         "design"
       ]
+    },
+    {
+      "login": "PixelPoncho",
+      "name": "Ines",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/33527005?v=4",
+      "profile": "https://github.com/PixelPoncho",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
