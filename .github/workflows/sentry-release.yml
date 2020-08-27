@@ -4,6 +4,9 @@ on:
     push:
         branches:
             - master
+ 
+env:
+  GITHUB_TOKEN: ${{ github.token }}
 
 jobs:
     sentry-release:
