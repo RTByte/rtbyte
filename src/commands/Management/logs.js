@@ -7,6 +7,7 @@ const enableDisableArr = ['cmdrun', 'msgdelete', 'msgedit', 'serverupdate',
 	'channelupdate', 'rolecreate', 'roledelete', 'roleupdate', 'emojicreate',
 	'emojidelete', 'emojiupdate', 'webhookcreate', 'webhookdelete',
 	'webhookupdate', 'customcmdcreate', 'customcmddelete', 'customcmdupdate',
+	'autoresponsecreate', 'autoresponsedelete', 'autoresponseupdate',
 	'memberjoin', 'botadd', 'memberleave', 'memberupdate', 'nitroadd',
 	'nitroremove', 'nitrolvlupdate'];
 const logsArr = ['commandRun', 'messageDelete',
@@ -14,6 +15,7 @@ const logsArr = ['commandRun', 'messageDelete',
 	'channelDelete', 'channelUpdate', 'roleCreate', 'roleDelete', 'roleUpdate',
 	'emojiCreate', 'emojiDelete', 'emojiUpdate', 'webhookCreate', 'webhookDelete',
 	'webhookUpdate', 'customCmdCreate', 'customCmdDelete', 'customCmdUpdate',
+	'autoResponseCreate', 'autoResponseDelete', 'autoResponseUpdate',
 	'guildMemberAdd', 'guildBotAdd', 'guildMemberRemove', 'guildMemberUpdate',
 	'guildBoostAdd', 'guildBoostRemove', 'guildBoostTierUpdate'];
 const timeout = 1000 * 60 * 3;
@@ -67,6 +69,9 @@ module.exports = class extends Command {
 		const customCmdCreate = msg.guild.settings.get('logs.events.customCmdCreate');
 		const customCmdDelete = msg.guild.settings.get('logs.events.customCmdDelete');
 		const customCmdUpdate = msg.guild.settings.get('logs.events.customCmdUpdate');
+		const autoResponseCreate = msg.guild.settings.get('logs.events.autoResponseCreate');
+		const autoResponseDelete = msg.guild.settings.get('logs.events.autoResponseDelete');
+		const autoResponseUpdate = msg.guild.settings.get('logs.events.autoResponseUpdate');
 		const emojiCreate = msg.guild.settings.get('logs.events.emojiCreate');
 		const emojiDelete = msg.guild.settings.get('logs.events.emojiDelete');
 		const emojiUpdate = msg.guild.settings.get('logs.events.emojiUpdate');
@@ -110,6 +115,9 @@ module.exports = class extends Command {
 		if (setting === 'customcmdcreate' && customCmdCreate) return msg.reject(msg.language.get('COMMAND_LOGS_ENABLE_ALREADYENABLED', setting));
 		if (setting === 'customcmddelete' && customCmdDelete) return msg.reject(msg.language.get('COMMAND_LOGS_ENABLE_ALREADYENABLED', setting));
 		if (setting === 'customcmdupdate' && customCmdUpdate) return msg.reject(msg.language.get('COMMAND_LOGS_ENABLE_ALREADYENABLED', setting));
+		if (setting === 'autoresponsecreate' && autoResponseCreate) return msg.reject(msg.language.get('COMMAND_LOGS_ENABLE_ALREADYENABLED', setting));
+		if (setting === 'autoresponsedelete' && autoResponseDelete) return msg.reject(msg.language.get('COMMAND_LOGS_ENABLE_ALREADYENABLED', setting));
+		if (setting === 'autoresponseupdate' && autoResponseUpdate) return msg.reject(msg.language.get('COMMAND_LOGS_ENABLE_ALREADYENABLED', setting));
 		if (setting === 'memberjoin' && guildMemberAdd) return msg.reject(msg.language.get('COMMAND_LOGS_ENABLE_ALREADYENABLED', setting));
 		if (setting === 'botadd' && guildBotAdd) return msg.reject(msg.language.get('COMMAND_LOGS_ENABLE_ALREADYENABLED', setting));
 		if (setting === 'memberleave' && guildMemberRemove) return msg.reject(msg.language.get('COMMAND_LOGS_ENABLE_ALREADYENABLED', setting));
@@ -139,6 +147,9 @@ module.exports = class extends Command {
 		if (setting === 'customcmdcreate') setting = 'customCmdCreate';
 		if (setting === 'customcmddelete') setting = 'customCmdDelete';
 		if (setting === 'customcmdupdate') setting = 'customCmdUpdate';
+		if (setting === 'autoresponsecreate') setting = 'autoResponseCreate';
+		if (setting === 'autoresponsedelete') setting = 'autoResponseDelete';
+		if (setting === 'autoresponseupdate') setting = 'autoResponseUpdate';
 		if (setting === 'memberjoin') setting = 'guildMemberAdd';
 		if (setting === 'botadd') setting = 'guildBotAdd';
 		if (setting === 'memberleave') setting = 'guildMemberRemove';
@@ -172,6 +183,9 @@ module.exports = class extends Command {
 		const customCmdCreate = msg.guild.settings.get('logs.events.customCmdCreate');
 		const customCmdDelete = msg.guild.settings.get('logs.events.customCmdDelete');
 		const customCmdUpdate = msg.guild.settings.get('logs.events.customCmdUpdate');
+		const autoResponseCreate = msg.guild.settings.get('logs.events.autoResponseCreate');
+		const autoResponseDelete = msg.guild.settings.get('logs.events.autoResponseDelete');
+		const autoResponseUpdate = msg.guild.settings.get('logs.events.autoResponseUpdate');
 		const emojiCreate = msg.guild.settings.get('logs.events.emojiCreate');
 		const emojiDelete = msg.guild.settings.get('logs.events.emojiDelete');
 		const emojiUpdate = msg.guild.settings.get('logs.events.emojiUpdate');
@@ -215,6 +229,9 @@ module.exports = class extends Command {
 		if (setting === 'customcmdcreate' && !customCmdCreate) return msg.reject(msg.language.get('COMMAND_LOGS_DISABLE_ALREADYDISABLED', setting));
 		if (setting === 'customcmddelete' && !customCmdDelete) return msg.reject(msg.language.get('COMMAND_LOGS_DISABLE_ALREADYDISABLED', setting));
 		if (setting === 'customcmdupdate' && !customCmdUpdate) return msg.reject(msg.language.get('COMMAND_LOGS_DISABLE_ALREADYDISABLED', setting));
+		if (setting === 'autoresponsecreate' && !autoResponseCreate) return msg.reject(msg.language.get('COMMAND_LOGS_DISABLE_ALREADYDISABLED', setting));
+		if (setting === 'autoresponsedelete' && !autoResponseDelete) return msg.reject(msg.language.get('COMMAND_LOGS_DISABLE_ALREADYDISABLED', setting));
+		if (setting === 'autoresponseupdate' && !autoResponseUpdate) return msg.reject(msg.language.get('COMMAND_LOGS_DISABLE_ALREADYDISABLED', setting));
 		if (setting === 'memberjoin' && !guildMemberAdd) return msg.reject(msg.language.get('COMMAND_LOGS_DISABLE_ALREADYDISABLED', setting));
 		if (setting === 'botadd' && !guildBotAdd) return msg.reject(msg.language.get('COMMAND_LOGS_DISABLE_ALREADYDISABLED', setting));
 		if (setting === 'memberleave' && !guildMemberRemove) return msg.reject(msg.language.get('COMMAND_LOGS_DISABLE_ALREADYDISABLED', setting));
@@ -244,6 +261,9 @@ module.exports = class extends Command {
 		if (setting === 'customcmdcreate') setting = 'customCmdCreate';
 		if (setting === 'customcmddelete') setting = 'customCmdDelete';
 		if (setting === 'customcmdupdate') setting = 'customCmdUpdate';
+		if (setting === 'autoresponsecreate') setting = 'autoResponseCreate';
+		if (setting === 'autoresponsedelete') setting = 'autoResponseDelete';
+		if (setting === 'autoresponseupdate') setting = 'autoResponseUpdate';
 		if (setting === 'memberjoin') setting = 'guildMemberAdd';
 		if (setting === 'botadd') setting = 'guildBotAdd';
 		if (setting === 'memberleave') setting = 'guildMemberRemove';
@@ -315,6 +335,9 @@ module.exports = class extends Command {
 		const customCmdCreate = status[msg.guild.settings.get('logs.events.customCmdCreate')];
 		const customCmdDelete = status[msg.guild.settings.get('logs.events.customCmdDelete')];
 		const customCmdUpdate = status[msg.guild.settings.get('logs.events.customCmdUpdate')];
+		const autoResponseCreate = status[msg.guild.settings.get('logs.events.customCmdCreate')];
+		const autoResponseDelete = status[msg.guild.settings.get('logs.events.customCmdDelete')];
+		const autoResponseUpdate = status[msg.guild.settings.get('logs.events.customCmdUpdate')];
 		const emojiCreate = status[msg.guild.settings.get('logs.events.emojiCreate')];
 		const emojiDelete = status[msg.guild.settings.get('logs.events.emojiDelete')];
 		const emojiUpdate = status[msg.guild.settings.get('logs.events.emojiUpdate')];
@@ -371,6 +394,9 @@ module.exports = class extends Command {
 			.addField(msg.language.get('COMMAND_LOGS_SHOW_CUSTOMCMDCREATE'), customCmdCreate, true)
 			.addField(msg.language.get('COMMAND_LOGS_SHOW_CUSTOMCMDDELETE'), customCmdDelete, true)
 			.addField(msg.language.get('COMMAND_LOGS_SHOW_CUSTOMCMDUPDATE'), customCmdUpdate, true)
+			.addField(msg.language.get('COMMAND_LOGS_SHOW_AUTORESPONSECREATE'), autoResponseCreate, true)
+			.addField(msg.language.get('COMMAND_LOGS_SHOW_AUTORESPONSEDELETE'), autoResponseDelete, true)
+			.addField(msg.language.get('COMMAND_LOGS_SHOW_AUTORESPONSEUPDATE'), autoResponseUpdate, true)
 			.addField(msg.language.get('COMMAND_LOGS_SHOW_GUILDMEMBERADD'), guildMemberAdd, true)
 			.addField(msg.language.get('COMMAND_LOGS_SHOW_GUILDBOTADD'), guildBotAdd, true)
 			.addField(msg.language.get('COMMAND_LOGS_SHOW_GUILDMEMBERREMOVE'), guildMemberRemove, true)
