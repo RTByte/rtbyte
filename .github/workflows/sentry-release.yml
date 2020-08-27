@@ -11,6 +11,11 @@ jobs:
         steps:
             - name: Checkout
               uses: actions/checkout@v2
+  
+            - name: Get release
+              id: get_release
+              uses: bruceadams/get-release@v1.2.0
+ 
             - name: Create Sentry release
               uses: getsentry/action-release@v1
               env:
@@ -19,3 +24,4 @@ jobs:
                 SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
               with:
                 environment: production
+                version: ${{ steps.get_release.outputs.tag_name }} 
