@@ -10,6 +10,7 @@ module.exports = class extends Command {
 			extendedHelp: language => language.get('COMMAND_AUTORESPONDER_EXTENDEDHELP', this.client.options.prefix),
 			runIn: ['text'],
 			subcommands: true,
+			quotedStringSupport: true,
 			usage: '<enable|disable|create|delete|update|show:default> [name:str] [content:...str]',
 			usageDelim: ' '
 		});
