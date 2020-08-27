@@ -28,6 +28,9 @@ module.exports = KlasaClient.defaultGuildSchema
 			.add('customCmdCreate', 'boolean', { default: false })
 			.add('customCmdDelete', 'boolean', { default: false })
 			.add('customCmdUpdate', 'boolean', { default: false })
+			.add('autoResponseCreate', 'boolean', { default: false })
+			.add('autoResponseDelete', 'boolean', { default: false })
+			.add('autoResponseUpdate', 'boolean', { default: false })
 			.add('emojiCreate', 'boolean', { default: false })
 			.add('emojiDelete', 'boolean', { default: false })
 			.add('emojiUpdate', 'boolean', { default: false })
@@ -118,6 +121,10 @@ module.exports = KlasaClient.defaultGuildSchema
 		.add('twitchNotifsChannel', 'textchannel')
 		.add('twitchNotifsRole', 'role')
 		.add('streamers', 'any', { array: true, configurable: false }))
+	// Managed by -autoresponder
+	.add('autoResponder', folder => folder
+		.add('autoResponderEnabled', 'boolean', { default: false })
+		.add('autoResponses', 'any', { array: true, configurable: false }))
 	// Managed by -settings
 	.add('measurementUnits', 'string', { default: 'metric' })
 	.add('timezone', 'string', { default: 'Europe/London' });
