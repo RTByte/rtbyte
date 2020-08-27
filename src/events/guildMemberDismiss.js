@@ -13,7 +13,8 @@ module.exports = class extends Event {
 		let goodbyeMsg = member.guild.settings.get('greetings.dismissMessage');
 
 		if (member.guild.settings.get('greetings.dismissMessage')) {
-			goodbyeMsg = goodbyeMsg.replace('%user%', `${member.user.tag}`);
+			goodbyeMsg = goodbyeMsg.replace('{user}', `${member.user.tag}`)
+				.replace('{server}', `${member.guild.name}`);
 			if (dismissChannel) await dismissChannel.send(goodbyeMsg);
 		}
 	}

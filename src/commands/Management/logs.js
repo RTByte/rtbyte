@@ -148,10 +148,10 @@ module.exports = class extends Command {
 		if (setting === 'nitrolvlupdate') setting = 'guildBoostTierUpdate';
 
 		if (setting === 'all') {
-			logsArr.forEach(async (sett) => {
+			for (const stng of logsArr.values()) {
 				await msg.guild.settings.sync();
-				await msg.guild.settings.update(`logs.events.${sett}`, true);
-			});
+				await msg.guild.settings.update(`logs.events.${stng}`, true);
+			}
 		} else {
 			await msg.guild.settings.update(`logs.events.${setting}`, true);
 		}
@@ -253,10 +253,10 @@ module.exports = class extends Command {
 		if (setting === 'nitrolvlupdate') setting = 'guildBoostTierUpdate';
 
 		if (setting === 'all') {
-			logsArr.forEach(async (sett) => {
+			for (const stng of logsArr.values()) {
 				await msg.guild.settings.sync();
-				await msg.guild.settings.update(`logs.events.${sett}`, false);
-			});
+				await msg.guild.settings.update(`logs.events.${stng}`, false);
+			}
 		} else {
 			await msg.guild.settings.update(`logs.events.${setting}`, false);
 		}

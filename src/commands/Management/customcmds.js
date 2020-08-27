@@ -138,7 +138,7 @@ module.exports = class extends Command {
 			const add = await msg.guild.settings.update('commands.customCommands', { name: cmd.name, content: content }, { action: 'add' });
 
 			// If an error occurs during the removal or creation, stop process and inform user.
-			if (add.errors.length || remove.errors.length) return msg.reject(msg.language.get('COMMAND_UPDATECMD_ERROR', name));
+			if (add.errors.length || remove.errors.length) return msg.reject(msg.language.get('COMMAND_CUSTOMCMDS_UPDATE_ERROR', name));
 
 			// Emit custom command update event, which shows up in a guild's log channel if the option is enabled.
 			this.client.emit('customCmdUpdate', msg, name, content, cmd);
