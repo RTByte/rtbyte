@@ -17,7 +17,6 @@ jobs:
                 SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
                 SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
                 SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
-                VERSION: $(node -p "require('./package.json').version") 
               with:
                 environment: production
-                version: $VERSION
+                version: ${{ node -p "require('./package.json').version" }}
