@@ -154,7 +154,7 @@ module.exports = class extends Extendable {
 			await this.client.emit('verbose', `Partially initialized guild: ${this.name} (${this.id}) - role setup skipped, missing permissions`);
 			// eslint-disable-next-line max-len
 			embed.setDescription(this.language.get('INIT_PARTIAL_R', this));
-			if (!this.settings.get('initialization.ownerInformed')) await owner.send('', { disableEveryone: true, embed: embed });
+			if (owner && !this.settings.get('initialization.ownerInformed')) await owner.send('', { disableMentions: 'everyone', embed: embed });
 			await this.settings.update('initialization.ownerInformed', true);
 
 			return;
@@ -164,7 +164,7 @@ module.exports = class extends Extendable {
 			await this.client.emit('verbose', `Partially initialized guild: ${this.name} (${this.id}) - channel setup skipped, missing permissions`);
 			// eslint-disable-next-line max-len
 			embed.setDescription(this.language.get('INIT_PARTIAL_C', this));
-			if (!this.settings.get('initialization.ownerInformed')) await owner.send('', { disableEveryone: true, embed: embed });
+			if (owner && !this.settings.get('initialization.ownerInformed')) await owner.send('', { disableMentions: 'everyone', embed: embed });
 			await this.settings.update('initialization.ownerInformed', true);
 
 			return;
@@ -174,7 +174,7 @@ module.exports = class extends Extendable {
 			await this.client.emit('verbose', `Partially initialized guild: ${this.name} (${this.id}) - channel and role setup skipped, missing permissions`);
 			// eslint-disable-next-line max-len
 			embed.setDescription(this.language.get('INIT_FAIL', this));
-			if (!this.settings.get('initialization.ownerInformed')) await owner.send('', { disableEveryone: true, embed: embed });
+			if (owner && !this.settings.get('initialization.ownerInformed')) await owner.send('', { disableMentions: 'everyone', embed: embed });
 			await this.settings.update('initialization.ownerInformed', true);
 
 			return;
@@ -186,7 +186,7 @@ module.exports = class extends Extendable {
 		await this.settings.update('initialization.serverInitialized', true);
 
 		// eslint-disable-next-line max-len
-		if (!this.settings.get('initialization.ownerInformed')) await owner.send('', { disableEveryone: true, embed: embed });
+		if (owner && !this.settings.get('initialization.ownerInformed')) await owner.send('', { disableMentions: 'everyone', embed: embed });
 		await this.settings.update('initialization.ownerInformed', true);
 
 		return;
