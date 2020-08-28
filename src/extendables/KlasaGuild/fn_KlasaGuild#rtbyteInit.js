@@ -156,7 +156,7 @@ module.exports = class extends Extendable {
 			// eslint-disable-next-line max-len
 			embed.setDescription(this.language.get('INIT_PARTIAL_R', this));
 			if (owner && !this.settings.get('initialization.ownerInformed')) {
-				await owner.createDM().then((dm) => dm.send('', { disableMentions: 'everyone', embed: embed })).catch(err => console.log(err));
+				await owner.createDM().then((dm) => dm.send('', { disableMentions: 'everyone', embed: embed })).catch(err => err);
 			}
 			await this.settings.update('initialization.ownerInformed', true);
 
@@ -168,7 +168,7 @@ module.exports = class extends Extendable {
 			// eslint-disable-next-line max-len
 			embed.setDescription(this.language.get('INIT_PARTIAL_C', this));
 			if (owner && !this.settings.get('initialization.ownerInformed')) {
-				await owner.createDM().then((dm) => dm.send('', { disableMentions: 'everyone', embed: embed })).catch(err => console.log(err));
+				await owner.createDM().then((dm) => dm.send('', { disableMentions: 'everyone', embed: embed })).catch(err => err);
 			}
 			await this.settings.update('initialization.ownerInformed', true);
 
@@ -180,7 +180,7 @@ module.exports = class extends Extendable {
 			// eslint-disable-next-line max-len
 			embed.setDescription(this.language.get('INIT_FAIL', this));
 			if (owner && !this.settings.get('initialization.ownerInformed')) {
-				await owner.createDM().then((dm) => dm.send('', { disableMentions: 'everyone', embed: embed })).catch(err => console.log(err));
+				await owner.createDM().then((dm) => dm.send('', { disableMentions: 'everyone', embed: embed })).catch(err => err);
 			}
 			await this.settings.update('initialization.ownerInformed', true);
 
@@ -194,7 +194,7 @@ module.exports = class extends Extendable {
 
 		// eslint-disable-next-line max-len
 		if (owner && !this.settings.get('initialization.ownerInformed')) {
-			await owner.createDM().then((dm) => dm.send('', { disableMentions: 'everyone', embed: embed })).catch(err => console.log(err));
+			await owner.createDM().then((dm) => dm.send('', { disableMentions: 'everyone', embed: embed })).catch(err => err);
 		}
 		await this.settings.update('initialization.ownerInformed', true);
 
