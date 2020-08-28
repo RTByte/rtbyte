@@ -56,6 +56,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/ArtsyDiego"><img src="https://avatars2.githubusercontent.com/u/70177258?v=4" width="100px;" alt=""/><br /><sub><b>Artsy</b></sub></a><br /><a href="#design-ArtsyDiego" title="Design">🎨</a></td>
     <td align="center"><a href="https://github.com/PixelPoncho"><img src="https://avatars2.githubusercontent.com/u/33527005?v=4" width="100px;" alt=""/><br /><sub><b>Ines</b></sub></a><br /><a href="https://github.com/RTByte/rtbyte/commits?author=PixelPoncho" title="Code">💻</a></td>
   </tr>
+  <tr>
+    <td align="center"><a href="https://mchang.name"><img src="https://avatars0.githubusercontent.com/u/15132783?v=4" width="100px;" alt=""/><br /><sub><b>Michael M. Chang</b></sub></a><br /><a href="https://github.com/RTByte/rtbyte/commits?author=mchangrh" title="Code">💻</a></td>
+  </tr>
 </table>
 
 <!-- markdownlint-enable -->
