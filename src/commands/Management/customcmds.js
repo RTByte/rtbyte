@@ -104,7 +104,7 @@ module.exports = class extends Command {
 
 		// If the provided custom command name can't be found in any existing custom commands, stop process and inform user.
 		const cmd = customCommands.find(command => command.name.toLowerCase() === name);
-		if (!cmd) return msg.reject(msg.language.get('COMMAND_CUSTOMCMDS_DELETE_NOTEXIST', name));
+		if (!cmd) return msg.reject(msg.language.get('COMMAND_CUSTOMCMDS_NOTEXIST', name));
 
 		// Update the guild's custom commands array and remove the specified custom command.
 		await msg.guild.settings.update('commands.customCommands', cmd, { action: 'remove' });

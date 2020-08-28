@@ -102,7 +102,7 @@ module.exports = class extends Command {
 
 		// If the provided autoresponder phrase or word can't be found in any existing autoresponses, stop process and inform user.
 		const rspns = autoResponses.find(response => response.name.toLowerCase() === name);
-		if (!rspns) return msg.reject(msg.language.get('COMMAND_AUTORESPONDER_DELETE_NOTEXIST', name));
+		if (!rspns) return msg.reject(msg.language.get('COMMAND_AUTORESPONDER_NOTEXIST', name));
 
 		// Update the guild's autoresponses array and remove the specified autoresponse.
 		await msg.guild.settings.update('autoResponder.autoResponses', rspns, { action: 'remove' });
