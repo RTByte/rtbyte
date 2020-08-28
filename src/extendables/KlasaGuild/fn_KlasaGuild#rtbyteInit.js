@@ -142,7 +142,7 @@ module.exports = class extends Extendable {
 		}
 
 		// Get owner member and log channel
-		const owner = await this.client.users.cache.get(this.ownerID);
+		const owner = await this.client.users.fetch(this.ownerID);
 		// Building server owner message embed
 		const embed = new MessageEmbed()
 			.setAuthor(this.language.get('INIT_TITLE'), this.client.user.displayAvatarURL())
