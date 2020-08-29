@@ -30,7 +30,7 @@ module.exports = class extends Event {
 		// Unused for now
 		/* const role = await guild.roles.get(guild.settings.get('twitch.twitchNotifsRole')); */
 		const twitchNotifsChannel = await this.client.channels.cache.get(guild.settings.get('twitch.twitchNotifsChannel'));
-		if (twitchNotifsChannel) await twitchNotifsChannel.send('@everyone', { embed: embed });
+		if (twitchNotifsChannel) await twitchNotifsChannel.send('@everyone', { disableMentions: 'none', embed: embed });
 
 		return;
 	}
