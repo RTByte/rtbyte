@@ -34,7 +34,7 @@ module.exports = class extends Event {
 			.setFooter(emoji.guild.language.get('GUILD_LOG_EMOJIUPDATE', executor), executor ? executor.displayAvatarURL() : undefined);
 
 		const logChannel = await this.client.channels.cache.get(emoji.guild.settings.get('channels.log'));
-		if (logChannel) await logChannel.send('', { disableEveryone: true, embed: embed });
+		if (logChannel) await logChannel.send('', { embed: embed });
 
 		return;
 	}

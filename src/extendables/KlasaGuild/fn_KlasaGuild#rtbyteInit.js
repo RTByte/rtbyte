@@ -13,7 +13,7 @@ module.exports = class extends Extendable {
 		if (!this.available) return;
 		const clientMember = await this.members.fetch(this.client.user.id).catch(() => null);
 
-		await this.client.emit('verbose', `Initializing guild: ${this.name} (${this.id})`);
+		this.client.emit('verbose', `Initializing guild: ${this.name} (${this.id})`);
 
 		if (clientMember.hasPermission('MANAGE_ROLES')) {
 			if (!this.settings.get('roles.administrator') && !this.settings.get('roles.moderator')) {
@@ -148,15 +148,15 @@ module.exports = class extends Extendable {
 		const embed = new MessageEmbed()
 			.setAuthor(this.language.get('INIT_TITLE'), this.client.user.displayAvatarURL())
 			.setColor(this.client.settings.get('colors.white'))
-			.setImage('https://rtbyte.xyz/src/img/og-img.jpg')
+			.setImage('https://rtbyte.xyz/img/og-img.jpg')
 			.setTimestamp();
 
 		if (rolesSkipped && !channelsSkipped) {
-			await this.client.emit('verbose', `Partially initialized guild: ${this.name} (${this.id}) - role setup skipped, missing permissions`);
+			this.client.emit('verbose', `Partially initialized guild: ${this.name} (${this.id}) - role setup skipped, missing permissions`);
 			// eslint-disable-next-line max-len
 			embed.setDescription(this.language.get('INIT_PARTIAL_R', this));
 			if (owner && !this.settings.get('initialization.ownerInformed')) {
-				await owner.createDM().then((dm) => dm.send('', { disableMentions: 'everyone', embed: embed })).catch(err => err);
+				await owner.createDM().then((dm) => dm.send('', { embed: embed })).catch(err => err);
 			}
 			await this.settings.update('initialization.ownerInformed', true);
 
@@ -164,11 +164,11 @@ module.exports = class extends Extendable {
 		}
 
 		if (channelsSkipped && !rolesSkipped) {
-			await this.client.emit('verbose', `Partially initialized guild: ${this.name} (${this.id}) - channel setup skipped, missing permissions`);
+			this.client.emit('verbose', `Partially initialized guild: ${this.name} (${this.id}) - channel setup skipped, missing permissions`);
 			// eslint-disable-next-line max-len
 			embed.setDescription(this.language.get('INIT_PARTIAL_C', this));
 			if (owner && !this.settings.get('initialization.ownerInformed')) {
-				await owner.createDM().then((dm) => dm.send('', { disableMentions: 'everyone', embed: embed })).catch(err => err);
+				await owner.createDM().then((dm) => dm.send('', { embed: embed })).catch(err => err);
 			}
 			await this.settings.update('initialization.ownerInformed', true);
 
@@ -176,25 +176,25 @@ module.exports = class extends Extendable {
 		}
 
 		if (rolesSkipped && channelsSkipped) {
-			await this.client.emit('verbose', `Partially initialized guild: ${this.name} (${this.id}) - channel and role setup skipped, missing permissions`);
+			this.client.emit('verbose', `Partially initialized guild: ${this.name} (${this.id}) - channel and role setup skipped, missing permissions`);
 			// eslint-disable-next-line max-len
 			embed.setDescription(this.language.get('INIT_FAIL', this));
 			if (owner && !this.settings.get('initialization.ownerInformed')) {
-				await owner.createDM().then((dm) => dm.send('', { disableMentions: 'everyone', embed: embed })).catch(err => err);
+				await owner.createDM().then((dm) => dm.send('', { embed: embed })).catch(err => err);
 			}
 			await this.settings.update('initialization.ownerInformed', true);
 
 			return;
 		}
 
-		await this.client.emit('verbose', `Initialized guild: ${this.name} (${this.id})`);
+		this.client.emit('verbose', `Initialized guild: ${this.name} (${this.id})`);
 		embed.setDescription(this.language.get('INIT_SUCCESS', this));
 
 		await this.settings.update('initialization.serverInitialized', true);
 
 		// eslint-disable-next-line max-len
 		if (owner && !this.settings.get('initialization.ownerInformed')) {
-			await owner.createDM().then((dm) => dm.send('', { disableMentions: 'everyone', embed: embed })).catch(err => err);
+			await owner.createDM().then((dm) => dm.send('', { embed: embed })).catch(err => err);
 		}
 		await this.settings.update('initialization.ownerInformed', true);
 

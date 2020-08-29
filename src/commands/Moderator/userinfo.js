@@ -64,7 +64,7 @@ module.exports = class extends Command {
 
 		if (roles.length) await embedSplitter(msg.guild.language.get('ROLES'), roles, embed);
 
-		await msg.send('', { disableEveryone: true, embed: embed });
+		await msg.send('', { embed: embed });
 		return;
 	}
 

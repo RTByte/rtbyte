@@ -61,7 +61,7 @@ module.exports = class extends Command {
 			.setThumbnail(songPic)
 			.setTimestamp()
 			.setFooter(msg.language.get('COMMAND_REQUESTED_BY', msg), msg.author.displayAvatarURL());
-		return msg.send('', { disableEveryone: true, embed: embed });
+		return msg.send('', { embed: embed });
 	}
 
 };

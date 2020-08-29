@@ -175,7 +175,8 @@ module.exports = class extends Event {
 		if (oldGuild.premiumSubscriptionCount !== guild.premiumSubscriptionCount) return;
 
 		const logChannel = await this.client.channels.cache.get(guild.settings.get('channels.log'));
-		if (logChannel) await logChannel.send('', { disableEveryone: true, embed: embed });
+		console.log(guild);
+		if (logChannel) await logChannel.send('', { embed: embed });
 
 		return;
 	}
@@ -199,7 +200,7 @@ module.exports = class extends Event {
 
 		if (oldGuild.name !== guild.name || oldGuild.iconURL() !== guild.iconURL()) {
 			const globalLogChannel = await this.client.channels.cache.get(this.client.settings.get('channels.globalLog'));
-			if (globalLogChannel) await globalLogChannel.send('', { disableEveryone: true, embed: embed });
+			if (globalLogChannel) await globalLogChannel.send('', { embed: embed });
 
 			return;
 		}

@@ -48,7 +48,7 @@ module.exports = class extends Command {
 		}
 
 		embed.addField(msg.guild.language.get('CREATED'), timezoneWithDate(channelname.createdTimestamp, msg.guild));
-		await msg.send('', { disableEveryone: true, embed: embed });
+		await msg.send('', { embed: embed });
 		return;
 	}
 

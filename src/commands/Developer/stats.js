@@ -36,7 +36,7 @@ module.exports = class extends Command {
 			.setTimestamp()
 			.setFooter(msg.language.get('COMMAND_REQUESTED_BY', msg), msg.author.displayAvatarURL());
 
-		await msg.send('', { disableEveryone: true, embed: embed });
+		await msg.send('', { embed: embed });
 	}
 
 };

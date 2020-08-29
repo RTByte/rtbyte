@@ -26,7 +26,7 @@ module.exports = class extends Event {
 			.setFooter(msg.guild.language.get('GUILD_LOG_CUSTOMCMDUPDATE', executor), executor.displayAvatarURL());
 
 		const logChannel = await this.client.channels.cache.get(msg.guild.settings.get('channels.log'));
-		if (logChannel) await logChannel.send('', { disableEveryone: true, embed: embed });
+		if (logChannel) await logChannel.send('', { embed: embed });
 
 		return;
 	}

@@ -59,7 +59,7 @@ class ModEmbed extends MessageEmbed {
 	async send() {
 		if (this.modCase.guild.settings.get(`logs.moderation.${[this.modCase.type]}`)) {
 			const logChannel = this.modCase.guild.channels.cache.get(this.modCase.guild.settings.get('channels.log'));
-			if (logChannel) await logChannel.send('', { disableEveryone: true, embed: this });
+			if (logChannel) await logChannel.send('', { embed: this });
 		}
 
 		if (!this.modCase.guild.settings.get('moderation.notifyUser')) return null;
@@ -70,7 +70,7 @@ class ModEmbed extends MessageEmbed {
 		if (this.modCase.user.bot || this.modCase.user.system) return null;
 		this.modCase.user.createDM().then((dm) => dm.send(this.modCase.moderator ? this.modCase.moderator.id === this.client.user.id ?
 			this.modCase.guild.language.get('MODERATION_LOG_BOILERPLATE_AUTO', this.modCase.guild) :
-			this.modCase.guild.language.get('MODERATION_LOG_BOILERPLATE', this.modCase.guild) : '', { disableEveryone: true, embed: this }).catch((err) => err));
+			this.modCase.guild.language.get('MODERATION_LOG_BOILERPLATE', this.modCase.guild) : '', { embed: this }).catch((err) => err));
 
 		return true;
 	}

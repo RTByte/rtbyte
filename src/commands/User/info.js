@@ -23,7 +23,7 @@ module.exports = class extends Command {
 			.setImage('https://rtbyte.xyz/img/og-img.jpg')
 			.setTimestamp()
 			.setFooter(msg.language.get('COMMAND_REQUESTED_BY', msg), msg.author.displayAvatarURL());
-		return msg.send('', { disableEveryone: true, embed: embed });
+		return msg.send('', { embed: embed });
 	}
 
 };

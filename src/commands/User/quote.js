@@ -56,7 +56,7 @@ module.exports = class extends Command {
 			}
 		}
 
-		return msg.send('', { disableEveryone: true, embed: embed });
+		return msg.send('', { embed: embed });
 	}
 
 };

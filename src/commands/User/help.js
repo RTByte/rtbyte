@@ -37,7 +37,7 @@ module.exports = class extends Command {
 				.setTimestamp()
 				.setFooter(msg.language.get('COMMAND_REQUESTED_BY', msg), msg.author.displayAvatarURL());
 
-			return msg.send('', { disableEveryone: true, embed: embed });
+			return msg.send('', { embed: embed });
 		}
 
 		if (!('all' in msg.flags) && msg.guild && msg.channel.permissionsFor(this.client.user).has(PERMISSIONS_RICHDISPLAY)) {
@@ -52,7 +52,7 @@ module.exports = class extends Command {
 				.setThumbnail(this.client.user.displayAvatarURL(), 50, 50)
 				.setTimestamp();
 
-			const handler = await (await this.buildDisplay(msg)).run(await msg.send('', { disableEveryone: true, embed: loadingEmbed }), {
+			const handler = await (await this.buildDisplay(msg)).run(await msg.send('', { embed: loadingEmbed }), {
 				filter: (reaction, user) => user.id === msg.author.id,
 				time
 			});

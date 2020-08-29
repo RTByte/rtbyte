@@ -34,7 +34,7 @@ module.exports = class extends Command {
 		}
 		embed.setDescription(rolesList);
 
-		return msg.send('', { disableEveryone: true, embed: embed });
+		return msg.send('', { embed: embed });
 	}
 
 	async add(msg, [target = msg.member, ...roleName]) {

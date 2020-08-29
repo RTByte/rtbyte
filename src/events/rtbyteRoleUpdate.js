@@ -92,7 +92,7 @@ module.exports = class extends Event {
 		if (!embed.fields.length) return;
 
 		const logChannel = await this.client.channels.cache.get(role.guild.settings.get('channels.log'));
-		if (logChannel) await logChannel.send('', { disableEveryone: true, embed: embed });
+		if (logChannel) await logChannel.send('', { embed: embed });
 
 		return;
 	}

@@ -61,13 +61,13 @@ module.exports = class extends Command {
 			embed.addField(msg.guild.language.get('COMMAND_SERVERINFO_NITROAMOUNT'), msg.guild.premiumSubscriptionCount, true);
 		}
 
-		if (!msg.guild.settings.get('commands.serverinfoExtendedOutput')) return msg.channel.send('', { disableEveryone: true, embed: embed });
+		if (!msg.guild.settings.get('commands.serverinfoExtendedOutput')) return msg.channel.send('', { embed: embed });
 
 		if (roles.length) await embedSplitter(msg.guild.language.get('ROLES'), roles, embed);
 		if (textChannels.length) await embedSplitter(msg.guild.language.get('COMMAND_SERVERINFO_TEXTCHANNELS'), textChannels, embed);
 		if (emojis.length) await embedSplitter(msg.guild.language.get('EMOJIS'), emojis, embed);
 
-		return msg.channel.send('', { disableEveryone: true, embed: embed });
+		return msg.channel.send('', { embed: embed });
 	}
 
 };

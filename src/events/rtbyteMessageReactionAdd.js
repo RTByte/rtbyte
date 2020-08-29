@@ -58,7 +58,7 @@ module.exports = class extends Event {
 		const starred = msg.guild.settings.get('boards.starboard.starred').find(star => star.msgID === msg.id);
 
 		if (!starred) {
-			const message = await starboardChannel.send('', { disableEveryone: true, embed: embed });
+			const message = await starboardChannel.send('', { embed: embed });
 
 			starboardMsgID = message.id;
 

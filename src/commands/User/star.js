@@ -62,7 +62,7 @@ module.exports = class extends Command {
 			}
 		}
 
-		return msg.send('', { disableEveryone: true, embed: embed });
+		return msg.send('', { embed: embed });
 	}
 
 	async top(msg, [member]) {
@@ -117,7 +117,7 @@ module.exports = class extends Command {
 			}
 		}
 
-		return msg.send('', { disableEveryone: true, embed: embed });
+		return msg.send('', { embed: embed });
 	}
 
 };

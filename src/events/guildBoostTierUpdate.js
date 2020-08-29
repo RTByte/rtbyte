@@ -22,7 +22,7 @@ module.exports = class extends Event {
 			.setFooter(guild.language.get('GUILD_LOG_BOOSTTIER'));
 
 		const logChannel = await this.client.channels.cache.get(guild.settings.get('channels.log'));
-		if (logChannel) await logChannel.send('', { disableEveryone: true, embed: nitroEmbed });
+		if (logChannel) await logChannel.send('', { embed: nitroEmbed });
 
 		return;
 	}

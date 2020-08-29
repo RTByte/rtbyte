@@ -78,7 +78,7 @@ module.exports = class extends Command {
 							.addField(msg.language.get('COMMAND_WEATHER_HUMIDITY'), `${humidity}%`, true)
 							.setTimestamp()
 							.setFooter(msg.language.get('COMMAND_REQUESTED_BY', msg), msg.author.displayAvatarURL());
-						return msg.send('', { disableEveryone: true, embed: embed });
+						return msg.send('', { embed: embed });
 					});
 
 				return true;

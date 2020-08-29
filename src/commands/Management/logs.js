@@ -46,7 +46,7 @@ module.exports = class extends Command {
 			.setThumbnail(msg.guild.iconURL(), 50, 50)
 			.setTimestamp();
 
-		const handler = await (await this.buildDisplay(msg)).run(await msg.send('', { disableEveryone: true, embed: loadingEmbed }), {
+		const handler = await (await this.buildDisplay(msg)).run(await msg.send('', { embed: loadingEmbed }), {
 			filter: (reaction, user) => user.id === msg.author.id,
 			timeout
 		});

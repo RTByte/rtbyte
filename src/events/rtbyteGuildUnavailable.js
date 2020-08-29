@@ -21,7 +21,7 @@ module.exports = class extends Event {
 			.setFooter(guild.language.get('GLOBAL_LOG_GUILDUNAVAILABLE'));
 
 		const globalLogChannel = await this.client.channels.cache.get(this.client.settings.get('channels.globalLog'));
-		if (globalLogChannel) await globalLogChannel.send('', { disableEveryone: true, embed: embed });
+		if (globalLogChannel) await globalLogChannel.send('', { embed: embed });
 
 		return;
 	}

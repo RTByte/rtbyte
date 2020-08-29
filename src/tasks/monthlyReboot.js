@@ -17,7 +17,7 @@ module.exports = class extends Task {
 			.setFooter('Performing monthly reboot...');
 
 		const globalLog = await this.client.channels.cache.get(this.client.settings.get('channels.globalLog'));
-		if (globalLog) await globalLog.send('', { disableEveryone: true, embed: embed }).catch(err => this.client.emit('error', err));
+		if (globalLog) await globalLog.send('', { embed: embed }).catch(err => this.client.emit('error', err));
 	}
 
 };
