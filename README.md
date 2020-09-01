@@ -1,5 +1,5 @@
 # RTByte
-[![Discord](https://img.shields.io/discord/450163430373064704.svg?colorB=7289da&label=discord&logo=Discord&logoColor=fff&style=flat)](https://discord.gg/eRauWP4)
+[![Discord](https://img.shields.io/discord/450163430373064704.svg?colorB=7289da&label=discord&logo=Discord&logoColor=fff&style=flat)](https://rtbyte.xyz/discord)
 [![Open Issues](https://img.shields.io/github/issues/RTByte/RTByte.svg)](https://github.com/RTByte/RTByte/issues)
 [![Open PRS](https://img.shields.io/github/issues-pr/RTByte/RTByte.svg)](https://github.com/RTByte/RTByte/pulls)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/RTByte/RTByte.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/RTByte/RTByte/context:javascript)
@@ -10,7 +10,7 @@ RTByte is a fully modular multipurpose Discord bot built on the incredible [Klas
 
 We aim to provide the most consistent and easy-to-use Discord mod bot solution available, with our key focus areas being modularity, performance, consistency, and choice.
 
-For support, changelogs, and a link to add RTByte to your server, please join our [support Discord](https://discord.gg/eRauWP4).
+For support, changelogs, and a link to add RTByte to your server, please join our [support Discord](https://rtbyte.xyz/discord).
 
 ## Notable features
 
@@ -66,5 +66,3 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
-
-Thanks to [MokkaQuill](http://mokkaquillart.tumblr.com/) for providing us with our logo.
