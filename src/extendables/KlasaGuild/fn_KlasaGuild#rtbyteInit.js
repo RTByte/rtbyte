@@ -161,9 +161,7 @@ module.exports = class extends Extendable {
 			await this.settings.update('initialization.ownerInformed', true);
 
 			return;
-		}
-
-		if (channelsSkipped && !rolesSkipped) {
+		} else if (channelsSkipped && !rolesSkipped) {
 			this.client.emit('verbose', `Partially initialized guild: ${this.name} (${this.id}) - channel setup skipped, missing permissions`);
 			// eslint-disable-next-line max-len
 			embed.setDescription(this.language.get('INIT_PARTIAL_C', this));
@@ -173,9 +171,7 @@ module.exports = class extends Extendable {
 			await this.settings.update('initialization.ownerInformed', true);
 
 			return;
-		}
-
-		if (rolesSkipped && channelsSkipped) {
+		} else if (rolesSkipped && channelsSkipped) {
 			this.client.emit('verbose', `Partially initialized guild: ${this.name} (${this.id}) - channel and role setup skipped, missing permissions`);
 			// eslint-disable-next-line max-len
 			embed.setDescription(this.language.get('INIT_FAIL', this));
@@ -185,20 +181,20 @@ module.exports = class extends Extendable {
 			await this.settings.update('initialization.ownerInformed', true);
 
 			return;
+		} else {
+			this.client.emit('verbose', `Initialized guild: ${this.name} (${this.id})`);
+			embed.setDescription(this.language.get('INIT_SUCCESS', this));
+
+			await this.settings.update('initialization.serverInitialized', true);
+
+			// eslint-disable-next-line max-len
+			if (owner && !this.settings.get('initialization.ownerInformed')) {
+				await owner.createDM().then((dm) => dm.send('', { embed: embed })).catch(err => err);
+			}
+			await this.settings.update('initialization.ownerInformed', true);
+
+			return;
 		}
-
-		this.client.emit('verbose', `Initialized guild: ${this.name} (${this.id})`);
-		embed.setDescription(this.language.get('INIT_SUCCESS', this));
-
-		await this.settings.update('initialization.serverInitialized', true);
-
-		// eslint-disable-next-line max-len
-		if (owner && !this.settings.get('initialization.ownerInformed')) {
-			await owner.createDM().then((dm) => dm.send('', { embed: embed })).catch(err => err);
-		}
-		await this.settings.update('initialization.ownerInformed', true);
-
-		return;
 	}
 
 };
