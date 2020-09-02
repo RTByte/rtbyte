@@ -4,23 +4,23 @@ const { MessageEmbed } = require('discord.js');
 module.exports = class extends Event {
 
 	constructor(...args) {
-		super(...args, { event: 'autoResponseCreate' });
+		super(...args, { event: 'autoresponseCreate' });
 	}
 
-	async run(msg, autoResponseKeyword, autoResponseContent) {
+	async run(msg, autoresponseKeyword, autoresponseContent) {
 		if (!msg.guild) return;
 
 		const executor = msg.author;
-		if (msg.guild.settings.get('channels.log') && msg.guild.settings.get('logs.events.autoResponseCreate')) await this.serverLog(msg, autoResponseKeyword, autoResponseContent, executor);
+		if (msg.guild.settings.get('channels.log') && msg.guild.settings.get('logs.events.autoresponseCreate')) await this.serverLog(msg, autoresponseKeyword, autoresponseContent, executor);
 
 		return;
 	}
 
-	async serverLog(msg, autoResponseKeyword, autoResponseContent, executor) {
+	async serverLog(msg, autoresponseKeyword, autoresponseContent, executor) {
 		const embed = new MessageEmbed()
-			.setAuthor(autoResponseKeyword, msg.guild.iconURL())
+			.setAuthor(autoresponseKeyword, msg.guild.iconURL())
 			.setColor(this.client.settings.get('colors.green'))
-			.addField(msg.language.get('GUILD_LOG_AUTORESPONSECREATE_RESPONSE'), autoResponseContent)
+			.addField(msg.language.get('GUILD_LOG_AUTORESPONSECREATE_RESPONSE'), autoresponseContent)
 			.setTimestamp()
 			.setFooter(msg.guild.language.get('GUILD_LOG_AUTORESPONSECREATE', executor), executor.displayAvatarURL());
 
