@@ -32,7 +32,7 @@ module.exports = class extends Event {
 
 			if (logEntry.action === 'WEBHOOK_CREATE') this.client.emit('webhookCreate', channel, executor, webhook);
 			if (logEntry.action === 'WEBHOOK_DELETE') this.client.emit('webhookDelete', channel, executor, oldWebhook);
-			if (logEntry.action === 'WEBHOOK_UPDATE' && channel.guild.settings.get('channels.log') && channel.guild.settings.get('logs.events.webhookCreate')) {
+			if (logEntry.action === 'WEBHOOK_UPDATE' && channel.guild.settings.get('channels.log') && channel.guild.settings.get('logs.events.webhookUpdate')) {
 				await this.serverLog(channel, executor, oldWebhook, webhook);
 			}
 		}

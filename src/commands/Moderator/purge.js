@@ -32,7 +32,7 @@ module.exports = class extends Command {
 		}
 
 		const modCase = new ModCase(msg.guild)
-			.setUser(membername ? this.client.users.get(membername.id) : this.client.user)
+			.setUser(membername ? this.client.users.cache.get(membername.id) : this.client.user)
 			.setType('purge')
 			.setModerator(msg.author)
 			.setSilent(silent)
