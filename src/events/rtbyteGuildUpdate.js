@@ -1,7 +1,7 @@
 /* eslint-disable complexity */
 const { Event } = require('klasa');
 const { MessageEmbed } = require('discord.js');
-const { momentThreshold } = require('../lib/util/Util');
+const { momentThreshold } = require('../lib/util/util');
 const moment = require('moment');
 
 momentThreshold(moment);

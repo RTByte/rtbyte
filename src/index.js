@@ -4,5 +4,5 @@ module.exports = {
 	SentryClient: require('./lib/SentryClient'),
 	ModCase: require('./lib/structures/ModCase'),
 	ModEmbed: require('./lib/structures/ModEmbed'),
-	Util: require('./lib/util/Util')
+	Util: require('./lib/util/util')
 };

@@ -1,7 +1,7 @@
 const { Command } = require('klasa');
 const { MessageEmbed } = require('discord.js');
 const fetch = require('node-fetch');
-const { momentThreshold, timezone } = require('../../lib/util/Util');
+const { momentThreshold, timezone } = require('../../lib/util/util');
 const moment = require('moment-timezone');
 
 momentThreshold(moment);

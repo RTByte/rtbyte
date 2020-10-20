@@ -1,5 +1,5 @@
 const { Language, util } = require('klasa');
-const { momentThreshold } = require('../lib/util/Util');
+const { momentThreshold } = require('../lib/util/util');
 const moment = require('moment');
 
 momentThreshold(moment);

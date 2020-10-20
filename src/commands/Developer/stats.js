@@ -1,7 +1,7 @@
 const { Command, version: klasaVersion } = require('klasa');
 const { MessageEmbed } = require('discord.js');
 const { version: discordVersion } = require('discord.js');
-const { capitalize, momentThreshold } = require('../../lib/util/Util');
+const { capitalize, momentThreshold } = require('../../lib/util/util');
 const moment = require('moment');
 const os = require('os');
 

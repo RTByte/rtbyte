@@ -1,6 +1,6 @@
 const { Command } = require('klasa');
 const { MessageEmbed } = require('discord.js');
-const { embedSplitter, momentThreshold, timezoneWithDate } = require('../../lib/util/Util');
+const { embedSplitter, momentThreshold, timezoneWithDate } = require('../../lib/util/util');
 const moment = require('moment-timezone');
 
 momentThreshold(moment);

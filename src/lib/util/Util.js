@@ -41,11 +41,11 @@ exports.momentThreshold = () => {
 };
 
 exports.timezone = (prop, guild) => {
-	const { capitalize } = require('./Util');
+	const { capitalize } = require('./util');
 	return capitalize(moment.tz(prop, guild.settings.get('timezone')).fromNow());
 };
 exports.timezoneWithDate = (prop, guild) => {
-	const { capitalize } = require('./Util');
+	const { capitalize } = require('./util');
 	return `${capitalize(moment.tz(prop, guild.settings.get('timezone')).fromNow())} (${moment.tz(prop, guild.settings.get('timezone')).format('MMMM Do, YYYY')})`;
 };
 
