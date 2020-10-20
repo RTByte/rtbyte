@@ -1,7 +1,7 @@
 /* eslint-disable complexity */
 const { Event } = require('klasa');
 const { MessageEmbed } = require('discord.js');
-const { truncate } = require('../lib/util/Util');
+const { truncate } = require('../lib/util/util');
 
 module.exports = class extends Event {
 

@@ -1,6 +1,6 @@
 const { Event } = require('klasa');
 const { MessageEmbed } = require('discord.js');
-const { momentThreshold, timezone } = require('../lib/util/Util');
+const { momentThreshold, timezone } = require('../lib/util/util');
 const moment = require('moment-timezone');
 
 momentThreshold(moment);

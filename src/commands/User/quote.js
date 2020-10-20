@@ -1,7 +1,7 @@
 const { Command } = require('klasa');
 const { MessageEmbed } = require('discord.js');
 const moment = require('moment-timezone');
-const { truncate } = require('../../lib/util/Util');
+const { truncate } = require('../../lib/util/util');
 
 module.exports = class extends Command {
 
