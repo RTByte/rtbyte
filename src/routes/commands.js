@@ -24,7 +24,7 @@ module.exports = class extends Route {
 			usage: cmd.usageString
 		}));
 
-		return response.json(serializedCommands);
+		return response.end(JSON.stringify(serializedCommands));
 	}
 
 };
