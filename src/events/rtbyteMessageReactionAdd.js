@@ -1,6 +1,7 @@
 /* eslint-disable complexity */
 const { Event } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { Colors } = require('../lib/util/constants');
 const { truncate } = require('../lib/util/util');
 
 module.exports = class extends Event {
@@ -22,7 +23,7 @@ module.exports = class extends Event {
 
 		const embed = new MessageEmbed()
 			.setAuthor(msg.language.get('STARBOARD_STARRED'), msg.guild.iconURL())
-			.setColor(this.client.settings.get('colors.gold'))
+			.setColor(Colors.gold)
 			.setDescription(`[${msg.language.get('CLICK_TO_VIEW')}](${msg.url})`)
 			.addField(msg.language.get('BOARD_AUTHOR'), msg.author, true)
 			.addField(msg.language.get('CHANNEL'), msg.channel, true)

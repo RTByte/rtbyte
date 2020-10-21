@@ -1,5 +1,6 @@
 const { Event } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { Colors, Emojis } = require('../lib/util/constants');
 
 module.exports = class extends Event {
 
@@ -57,9 +58,9 @@ module.exports = class extends Event {
 	}
 
 	async serverLog(oldRole, role, executor, perms) {
-		const affirmEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.affirm'));
-		const rejectEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.reject'));
-		const arrowRightEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.arrowRight'));
+		const affirmEmoji = this.client.emojis.cache.get(Emojis.affirm);
+		const rejectEmoji = this.client.emojis.cache.get(Emojis.reject);
+		const arrowRightEmoji = this.client.emojis.cache.get(Emojis.arrowRight);
 		const oldPermissions = Object.entries(oldRole.permissions.serialize()).filter(perm => perm[1]).map(([perm]) => perms[perm]).join(', ');
 		const newPermissions = Object.entries(role.permissions.serialize()).filter(perm => perm[1]).map(([perm]) => perms[perm]).join(', ');
 		const status = {
@@ -69,7 +70,7 @@ module.exports = class extends Event {
 
 		const embed = new MessageEmbed()
 			.setAuthor(`${role.name}`, role.guild.iconURL())
-			.setColor(this.client.settings.get('colors.blue'))
+			.setColor(Colors.blue)
 			.setTimestamp()
 			.setFooter(role.guild.language.get('GUILD_LOG_ROLEUPDATE', executor), executor ? executor.displayAvatarURL() : undefined);
 

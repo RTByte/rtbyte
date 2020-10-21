@@ -1,6 +1,7 @@
 /* eslint-disable complexity */
 const { Command } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { Colors, Emojis } = require('../../lib/util/constants');
 
 const enableDisableArr = ['notify', 'purge', 'warn', 'mute', 'unmute',
 	'kick', 'softban', 'ban', 'unban', 'vckick', 'vcban', 'vcunban',
@@ -20,8 +21,8 @@ module.exports = class extends Command {
 	}
 
 	async show(msg) {
-		const affirmEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.affirm'));
-		const rejectEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.reject'));
+		const affirmEmoji = this.client.emojis.cache.get(Emojis.affirm);
+		const rejectEmoji = this.client.emojis.cache.get(Emojis.reject);
 		const status = {
 			true: affirmEmoji,
 			false: rejectEmoji
@@ -47,7 +48,7 @@ module.exports = class extends Command {
 		const embed = new MessageEmbed()
 			.setAuthor(msg.language.get('COMMAND_MODERATION_SHOW_TITLE'), this.client.user.displayAvatarURL())
 			.setDescription(msg.language.get('COMMAND_MANAGEMENT_SHOW_DESCRIPTION'))
-			.setColor(this.client.settings.get('colors.white'))
+			.setColor(Colors.white)
 			.addField(msg.language.get('COMMAND_MODERATION_SHOW_NOTIFYUSER'), notifyUser)
 			.addField(msg.language.get('COMMAND_MODERATION_SHOW_PURGE'), purge, true)
 			.addField(msg.language.get('COMMAND_MODERATION_SHOW_WARN'), warn, true)

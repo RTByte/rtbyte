@@ -3,6 +3,5 @@ module.exports = {
 	RTByteClient: require('./lib/RTByteClient'),
 	SentryClient: require('./lib/SentryClient'),
 	ModCase: require('./lib/structures/ModCase'),
-	ModEmbed: require('./lib/structures/ModEmbed'),
-	Util: require('./lib/util/util')
+	ModEmbed: require('./lib/structures/ModEmbed')
 };

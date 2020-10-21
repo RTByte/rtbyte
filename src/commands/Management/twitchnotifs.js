@@ -1,5 +1,6 @@
 const { Command } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { Colors, Emojis } = require('../../lib/util/constants');
 
 module.exports = class extends Command {
 
@@ -16,8 +17,8 @@ module.exports = class extends Command {
 	}
 
 	async show(msg) {
-		const affirmEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.affirm'));
-		const rejectEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.reject'));
+		const affirmEmoji = this.client.emojis.cache.get(Emojis.affirm);
+		const rejectEmoji = this.client.emojis.cache.get(Emojis.reject);
 		const status = {
 			true: affirmEmoji,
 			false: rejectEmoji
@@ -31,7 +32,7 @@ module.exports = class extends Command {
 
 		const embed = new MessageEmbed()
 			.setAuthor(msg.language.get('COMMAND_TWITCHNOTIFS_SHOW_TITLE'), this.client.user.displayAvatarURL())
-			.setColor(this.client.settings.get('colors.white'))
+			.setColor(Colors.white)
 			.addField(msg.language.get('ENABLED'), twitchNotifsEnabled)
 			.addField(msg.language.get('COMMAND_TWITCHNOTIFS_SHOW_CHANNEL'), twitchNotifsChannel, true)
 			.addField(msg.language.get('COMMAND_TWITCHNOTIFS_SHOW_STREAMERS'), streamers)

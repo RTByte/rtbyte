@@ -1,5 +1,6 @@
 const { Event } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { Colors } = require('../lib/util/constants');
 
 module.exports = class extends Event {
 
@@ -16,7 +17,7 @@ module.exports = class extends Event {
 	async globalLog(guild) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${guild.name} (${guild.id})`, guild.iconURL())
-			.setColor(this.client.settings.get('colors.yellow'))
+			.setColor(Colors.yellow)
 			.setTimestamp()
 			.setFooter(guild.language.get('GLOBAL_LOG_GUILDUNAVAILABLE'));
 

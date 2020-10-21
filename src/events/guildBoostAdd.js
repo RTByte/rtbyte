@@ -1,5 +1,6 @@
 const { Event } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { Colors } = require('../lib/util/constants');
 
 module.exports = class extends Event {
 
@@ -16,7 +17,7 @@ module.exports = class extends Event {
 	async serverLog(member) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${member.displayName} (${member.user.tag}) `, member.user.displayAvatarURL())
-			.setColor(this.client.settings.get('colors.pink'))
+			.setColor(Colors.pink)
 			.setTimestamp()
 			.setFooter(member.guild.language.get('GUILD_LOG_BOOSTADD'));
 

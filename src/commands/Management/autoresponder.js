@@ -1,5 +1,6 @@
 const { Command } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { Colors, Emojis } = require('../../lib/util/constants');
 
 module.exports = class extends Command {
 
@@ -18,8 +19,8 @@ module.exports = class extends Command {
 
 	async show(msg) {
 		// Fetch required emojis and assiociate true or false with the corresponding one.
-		const affirmEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.affirm'));
-		const rejectEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.reject'));
+		const affirmEmoji = this.client.emojis.cache.get(Emojis.affirm);
+		const rejectEmoji = this.client.emojis.cache.get(Emojis.reject);
 		const status = {
 			true: affirmEmoji,
 			false: rejectEmoji
@@ -35,7 +36,7 @@ module.exports = class extends Command {
 		// Build embed before sending.
 		const embed = new MessageEmbed()
 			.setAuthor(msg.language.get('COMMAND_AUTORESPONDER_SHOW_TITLE'), this.client.user.displayAvatarURL())
-			.setColor(this.client.settings.get('colors.white'))
+			.setColor(Colors.white)
 			.addField(msg.language.get('ENABLED'), autoresponderEnabled, true)
 			.addField(msg.language.get('COMMAND_AUTORESPONDER_SHOW_RESPONSES'), autoresponses)
 			.addField(msg.language.get('COMMAND_MANAGEMENT_SHOW_IGNORED'), autoresponderIgnoredChannels)

@@ -1,5 +1,6 @@
 const { Event } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { Colors } = require('../lib/util/constants');
 const { truncate } = require('../lib/util/util');
 
 module.exports = class extends Event {
@@ -20,7 +21,7 @@ module.exports = class extends Event {
 		const embed = new MessageEmbed()
 			.setAuthor(msg.author.tag, msg.author.displayAvatarURL())
 			.setDescription(msg.channel)
-			.setColor(this.client.settings.get('colors.blue'))
+			.setColor(Colors.blue)
 			.setTimestamp()
 			.setFooter(msg.language.get('GUILD_LOG_MESSAGEDELETE'));
 

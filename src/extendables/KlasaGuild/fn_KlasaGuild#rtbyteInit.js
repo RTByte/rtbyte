@@ -1,6 +1,7 @@
 /* eslint-disable complexity */
 const { Extendable, KlasaGuild } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { Colors } = require('../../lib/util/constants');
 
 module.exports = class extends Extendable {
 
@@ -100,41 +101,6 @@ module.exports = class extends Extendable {
 					await this.client.settings.update('guilds.controlGuild', this.id, this);
 					await this.client.settings.update('channels.globalLog', globalLogChannel.id, this);
 
-					// Adding and initializing the emojis for the bot to use
-					const affirmEmoji = await this.emojis.create('./assets/img/emoji/affirm.png', 'affirm', { reason: `${this.client.user.username} initialization: creating affirm emoji` });
-					const rejectEmoji = await this.emojis.create('./assets/img/emoji/reject.png', 'reject', { reason: `${this.client.user.username} initialization: creating reject emoji` });
-					const arrowLeftEmoji = await this.emojis.create('./assets/img/emoji/arrowLeft.png', 'arrow_left', { reason: `${this.client.user.username} initialization: creating arrowLeft emoji` });
-					// eslint-disable-next-line max-len
-					const arrowToLeftEmoji = await this.emojis.create('./assets/img/emoji/arrowToLeft.png', 'arrow_to_left', { reason: `${this.client.user.username} initialization: creating arrowToLeft emoji` });
-					const arrowRightEmoji = await this.emojis.create('./assets/img/emoji/arrowRight.png', 'arrow_right', { reason: `${this.client.user.username} initialization: creating arrowRight emoji` });
-					// eslint-disable-next-line max-len
-					const arrowToRightEmoji = await this.emojis.create('./assets/img/emoji/arrowToRight.png', 'arrow_to_right', { reason: `${this.client.user.username} initialization: creating arrowToRight emoji` });
-					const infoEmoji = await this.emojis.create('./assets/img/emoji/info.png', 'info', { reason: `${this.client.user.username} initialization: creating info emoji` });
-					const listEmoji = await this.emojis.create('./assets/img/emoji/list.png', 'list', { reason: `${this.client.user.username} initialization: creating list emoji` });
-					const onlineEmoji = await this.emojis.create('./assets/img/emoji/online.png', 'online', { reason: `${this.client.user.username} initialization: creating online emoji` });
-					const idleEmoji = await this.emojis.create('./assets/img/emoji/idle.png', 'idle', { reason: `${this.client.user.username} initialization: creating idle emoji` });
-					const dndEmoji = await this.emojis.create('./assets/img/emoji/dnd.png', 'dnd', { reason: `${this.client.user.username} initialization: creating dnd emoji` });
-					const offlineEmoji = await this.emojis.create('./assets/img/emoji/offline.png', 'offline', { reason: `${this.client.user.username} initialization: creating offline emoji` });
-					const botBadgeEmoji = await this.emojis.create('./assets/img/emoji/botBadge.png', 'bot_badge', { reason: `${this.client.user.username} initialization: creating bot badge emoji` });
-					// eslint-disable-next-line max-len
-					const partnerEmoji = await this.emojis.create('./assets/img/emoji/partner.png', 'discord_partner', { reason: `${this.client.user.username} initialization: creating Discord partner emoji` });
-					// eslint-disable-next-line max-len
-					const verifiedEmoji = await this.emojis.create('./assets/img/emoji/verified.png', 'discord_verified', { reason: `${this.client.user.username} initialization: creating Discord verified emoji` });
-					await this.client.settings.update('emoji.affirm', affirmEmoji.id, this);
-					await this.client.settings.update('emoji.reject', rejectEmoji.id, this);
-					await this.client.settings.update('emoji.arrowLeft', arrowLeftEmoji.id, this);
-					await this.client.settings.update('emoji.arrowToLeft', arrowToLeftEmoji.id, this);
-					await this.client.settings.update('emoji.arrowRight', arrowRightEmoji.id, this);
-					await this.client.settings.update('emoji.arrowToRight', arrowToRightEmoji.id, this);
-					await this.client.settings.update('emoji.info', infoEmoji.id, this);
-					await this.client.settings.update('emoji.list', listEmoji.id, this);
-					await this.client.settings.update('emoji.online', onlineEmoji.id, this);
-					await this.client.settings.update('emoji.idle', idleEmoji.id, this);
-					await this.client.settings.update('emoji.dnd', dndEmoji.id, this);
-					await this.client.settings.update('emoji.offline', offlineEmoji.id, this);
-					await this.client.settings.update('emoji.botBadge', botBadgeEmoji.id, this);
-					await this.client.settings.update('emoji.discordPartner', partnerEmoji.id, this);
-					await this.client.settings.update('emoji.discordVerified', verifiedEmoji.id, this);
 					await this.client.settings.sync(true);
 				}
 			}
@@ -147,7 +113,7 @@ module.exports = class extends Extendable {
 		// Building server owner message embed
 		const embed = new MessageEmbed()
 			.setAuthor(this.language.get('INIT_TITLE'), this.client.user.displayAvatarURL())
-			.setColor(this.client.settings.get('colors.white'))
+			.setColor(Colors.white)
 			.setImage('https://rtbyte.xyz/img/og-img.jpg')
 			.setTimestamp();
 

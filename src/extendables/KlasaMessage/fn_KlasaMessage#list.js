@@ -1,4 +1,5 @@
 const { Extendable, KlasaMessage } = require('klasa');
+const { Emojis } = require('../../lib/util/constants');
 
 module.exports = class extends Extendable {
 
@@ -7,7 +8,7 @@ module.exports = class extends Extendable {
 	}
 
 	async list(message = null, messageOptions = {}) {
-		const listEmoji = await this.client.emojis.cache.get(this.client.settings.get('emoji.list'));
+		const listEmoji = await this.client.emojis.cache.get(Emojis.list);
 		await this.react(listEmoji);
 		return message ? this.sendMessage(`${this.author}\n${listEmoji} ${message}`, messageOptions) : this;
 	}

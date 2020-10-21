@@ -1,5 +1,6 @@
 const { Command } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { Colors, Emojis } = require('../../lib/util/constants');
 const { embedSplitter, momentThreshold, timezoneWithDate } = require('../../lib/util/util');
 const moment = require('moment-timezone');
 
@@ -19,8 +20,8 @@ module.exports = class extends Command {
 	}
 
 	async run(msg) {
-		const partnerEmoji = await this.client.emojis.cache.get(this.client.settings.get('emoji.discordPartner'));
-		const verifiedEmoji = await this.client.emojis.cache.get(this.client.settings.get('emoji.discordVerified'));
+		const partnerEmoji = await this.client.emojis.cache.get(Emojis.discordPartner);
+		const verifiedEmoji = await this.client.emojis.cache.get(Emojis.discordVerified);
 
 		const roles = await msg.guild.roles.cache.filter(role => role.name !== '@everyone').sort().array();
 		const textVoiceChannels = await msg.guild.channels.cache.filter(channel => channel.type === 'text' || channel.type === 'news' || channel.type === 'voice').array();
@@ -34,7 +35,7 @@ module.exports = class extends Command {
 
 		const embed = new MessageEmbed()
 			.setAuthor(msg.guild.name, msg.guild.iconURL())
-			.setColor(this.client.settings.get('colors.white'))
+			.setColor(Colors.white)
 			.addField(msg.guild.language.get('NAME'), `${msg.guild.partnered ? `${partnerEmoji} ` : msg.guild.verified ? `${verifiedEmoji} ` : ''}${msg.guild.name}`, true)
 			.addField(msg.guild.language.get('ID'), msg.guild.id, true)
 			.addField(msg.guild.language.get('OWNER'), msg.guild.owner, true)

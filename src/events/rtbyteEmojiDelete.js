@@ -1,5 +1,6 @@
 const { Event } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { Colors } = require('../lib/util/constants');
 
 module.exports = class extends Event {
 
@@ -26,7 +27,7 @@ module.exports = class extends Event {
 	async serverLog(emoji, executor) {
 		const embed = new MessageEmbed()
 			.setAuthor(`:${emoji.name}:`, `https://cdn.discordapp.com/emojis/${emoji.id}.${emoji.animated ? 'gif' : 'png'}`)
-			.setColor(this.client.settings.get('colors.red'))
+			.setColor(Colors.red)
 			.setTimestamp()
 			.setFooter(emoji.guild.language.get('GUILD_LOG_EMOJIDELETE', executor), executor ? executor.displayAvatarURL() : undefined);
 

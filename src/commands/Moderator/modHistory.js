@@ -2,6 +2,7 @@
 const { Command, RichDisplay } = require('klasa');
 const { MessageEmbed } = require('discord.js');
 const { ModCase } = require('../../index');
+const { Colors, Emojis } = require('../../lib/util/constants');
 
 const timeout = 1000 * 60 * 3;
 
@@ -44,7 +45,7 @@ module.exports = class extends Command {
 
 			const loadingEmbed = new MessageEmbed()
 				.setTitle(msg.language.get('COMMAND_MODHISTORY_LOADING'))
-				.setColor(this.client.settings.get('colors.white'))
+				.setColor(Colors.white)
 				.setThumbnail(target.user.displayAvatarURL(), 50, 50)
 				.setTimestamp();
 
@@ -65,7 +66,7 @@ module.exports = class extends Command {
 
 			const loadingEmbed = new MessageEmbed()
 				.setTitle(msg.language.get('COMMAND_MODHISTORY_LOADING'))
-				.setColor(this.client.settings.get('colors.white'))
+				.setColor(Colors.white)
 				.setThumbnail(msg.guild.iconURL(), 50, 50)
 				.setTimestamp();
 
@@ -94,12 +95,12 @@ module.exports = class extends Command {
 	}
 
 	async buildDisplay(caseEmbedArray) {
-		const arrowToLeftEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.arrowToLeft'));
-		const arrowLeftEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.arrowLeft'));
-		const arrowRightEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.arrowRight'));
-		const arrowToRightEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.arrowToRight'));
-		const rejectEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.reject'));
-		const listEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.list'));
+		const arrowToLeftEmoji = this.client.emojis.cache.get(Emojis.arrowToLeft);
+		const arrowLeftEmoji = this.client.emojis.cache.get(Emojis.arrowLeft);
+		const arrowRightEmoji = this.client.emojis.cache.get(Emojis.arrowRight);
+		const arrowToRightEmoji = this.client.emojis.cache.get(Emojis.arrowToRight);
+		const rejectEmoji = this.client.emojis.cache.get(Emojis.reject);
+		const listEmoji = this.client.emojis.cache.get(Emojis.list);
 		const display = new RichDisplay()
 			.setEmojis({
 				first: arrowToLeftEmoji.id,

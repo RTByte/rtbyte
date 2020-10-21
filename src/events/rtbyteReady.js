@@ -1,5 +1,6 @@
 const { Event } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { Colors } = require('../lib/util/constants');
 
 module.exports = class extends Event {
 
@@ -50,7 +51,7 @@ module.exports = class extends Event {
 	async botReadyLog() {
 		const embed = new MessageEmbed()
 			.setAuthor(this.client.user.username, this.client.user.displayAvatarURL())
-			.setColor(this.client.settings.get('colors.yellow'))
+			.setColor(Colors.yellow)
 			.setTimestamp()
 			.setFooter('Bot restarted');
 

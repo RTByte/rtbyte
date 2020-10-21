@@ -1,6 +1,7 @@
 /* eslint-disable complexity */
 const { Event } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { Colors, Emojis } = require('../lib/util/constants');
 const { momentThreshold } = require('../lib/util/util');
 const moment = require('moment');
 
@@ -29,9 +30,9 @@ module.exports = class extends Event {
 	}
 
 	async serverLog(oldChannel, channel, executor) {
-		const affirmEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.affirm'));
-		const rejectEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.reject'));
-		const arrowRightEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.arrowRight'));
+		const affirmEmoji = this.client.emojis.cache.get(Emojis.affirm);
+		const rejectEmoji = this.client.emojis.cache.get(Emojis.reject);
+		const arrowRightEmoji = this.client.emojis.cache.get(Emojis.arrowRight);
 		const status = {
 			true: affirmEmoji,
 			false: rejectEmoji
@@ -39,7 +40,7 @@ module.exports = class extends Event {
 
 		const embed = new MessageEmbed()
 			.setAuthor(`#${channel.name}`, channel.guild.iconURL())
-			.setColor(this.client.settings.get('colors.blue'))
+			.setColor(Colors.blue)
 			.setTimestamp()
 			.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELUPDATE', executor), executor ? executor.displayAvatarURL() : undefined);
 

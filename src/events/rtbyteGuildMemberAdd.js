@@ -1,5 +1,6 @@
 const { Event } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { Colors } = require('../lib/util/constants');
 const { momentThreshold, timezone } = require('../lib/util/util');
 const moment = require('moment-timezone');
 
@@ -33,7 +34,7 @@ module.exports = class extends Event {
 	async serverLog(member) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${member.user.tag} (${member.id})`, member.user.displayAvatarURL())
-			.setColor(this.client.settings.get('colors.green'))
+			.setColor(Colors.green)
 			.addField(member.guild.language.get('REGISTERED'), timezone(member.user.createdTimestamp, member.guild))
 			.setTimestamp()
 			.setFooter(member.guild.language.get('GUILD_LOG_GUILDMEMBERADD'));

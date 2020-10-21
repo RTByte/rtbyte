@@ -1,5 +1,6 @@
 const { Command } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { Colors, Emojis } = require('../../lib/util/constants');
 const { momentThreshold, timezoneWithDate } = require('../../lib/util/util');
 const moment = require('moment-timezone');
 
@@ -52,15 +53,15 @@ module.exports = class extends Command {
 			STREAM: msg.language.get('PERMISSIONS_STREAM')
 		};
 		const permissions = Object.entries(rolename.permissions.serialize()).filter(perm => perm[1]).map(([perm]) => perms[perm]).join(', ');
-		const affirmEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.affirm'));
-		const rejectEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.reject'));
+		const affirmEmoji = this.client.emojis.cache.get(Emojis.affirm);
+		const rejectEmoji = this.client.emojis.cache.get(Emojis.reject);
 		const status = {
 			true: affirmEmoji,
 			false: rejectEmoji
 		};
 
 		const embed = new MessageEmbed()
-			.setColor(this.client.settings.get('colors.white'))
+			.setColor(Colors.white)
 			.addField(msg.guild.language.get('NAME'), rolename, true)
 			.addField(msg.guild.language.get('ID'), rolename.id, true)
 			.addField(msg.guild.language.get('MEMBERS'), rolename.members.size, true)

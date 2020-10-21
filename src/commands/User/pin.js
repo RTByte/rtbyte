@@ -1,5 +1,6 @@
 const { Command } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { Colors } = require('../../lib/util/constants');
 
 module.exports = class extends Command {
 
@@ -29,7 +30,7 @@ module.exports = class extends Command {
 
 		const embed = new MessageEmbed()
 			.setAuthor(msg.language.get('COMMAND_PIN_PINNED'), msg.guild.iconURL())
-			.setColor(fetchedPin.member.highestRole ? fetchedPin.member.highestRole.color : this.client.settings.get('colors.white'))
+			.setColor(fetchedPin.member.highestRole ? fetchedPin.member.highestRole.color : Colors.white)
 			.setDescription(`[${msg.guild.language.get('CLICK_TO_VIEW')}](${fetchedPin.url})`)
 			.addField(msg.language.get('BOARD_AUTHOR'), fetchedPin.author, true)
 			.addField(msg.language.get('CHANNEL'), channel, true)

@@ -1,6 +1,8 @@
 /* eslint-disable complexity */
 const { Event } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { Emojis } = require('../lib/util/constants');
+const { Colors } = require('../lib/util/constants');
 const { momentThreshold } = require('../lib/util/util');
 const moment = require('moment');
 
@@ -32,9 +34,9 @@ module.exports = class extends Event {
 	}
 
 	async serverLog(oldGuild, guild, executor) {
-		const affirmEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.affirm'));
-		const rejectEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.reject'));
-		const arrowRightEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.arrowRight'));
+		const affirmEmoji = this.client.emojis.cache.get(Emojis.affirm);
+		const rejectEmoji = this.client.emojis.cache.get(Emojis.reject);
+		const arrowRightEmoji = this.client.emojis.cache.get(Emojis.arrowRight);
 		const arrayStatus = [
 			rejectEmoji,
 			affirmEmoji
@@ -49,7 +51,7 @@ module.exports = class extends Event {
 		// Base embed
 		const embed = new MessageEmbed()
 			.setAuthor(guild.name, guild.iconURL())
-			.setColor(this.client.settings.get('colors.blue'))
+			.setColor(Colors.blue)
 			.setTimestamp()
 			.setFooter(guild.language.get('GUILD_LOG_GUILDUPDATE', executor), executor ? executor.displayAvatarURL() : undefined);
 
@@ -184,7 +186,7 @@ module.exports = class extends Event {
 	async globalLog(oldGuild, guild) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${guild.name} (${guild.id})`, guild.iconURL())
-			.setColor(this.client.settings.get('colors.blue'))
+			.setColor(Colors.blue)
 			.setTimestamp();
 
 		// Name changed
