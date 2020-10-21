@@ -1,6 +1,7 @@
 const { Event } = require('klasa');
 const { MessageEmbed } = require('discord.js');
 const { ModCase } = require('../index');
+const { Colors, Emojis } = require('../lib/util/constants');
 
 const alternateNames = [
 	'Not having any of this',
@@ -46,7 +47,7 @@ module.exports = class extends Event {
 	}
 
 	async serverLog(oldMember, member, executor) {
-		const arrowRightEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.arrowRight'));
+		const arrowRightEmoji = this.client.emojis.cache.get(Emojis.arrowRight);
 
 		// Filter the user's roles and remove the @everyone role
 		const oldRoleCollection = oldMember.roles.cache.reduce((userRoles, roles) => {
@@ -69,7 +70,7 @@ module.exports = class extends Event {
 		// Base embed
 		const embed = new MessageEmbed()
 			.setAuthor(`${member.displayName} (${member.user.tag}) `, member.user.displayAvatarURL())
-			.setColor(this.client.settings.get('colors.blue'))
+			.setColor(Colors.blue)
 			.setTimestamp()
 			.setFooter(member.guild.language.get('GUILD_LOG_MEMBERUPDATE', executor), executor ? executor.displayAvatarURL() : undefined);
 

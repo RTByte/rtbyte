@@ -4,6 +4,7 @@ const { MessageEmbed } = require('discord.js');
 const cheerio = require('cheerio');
 const fetch = require('node-fetch');
 const key = apis.genius;
+const { Colors } = require('../../lib/util/constants');
 
 module.exports = class extends Command {
 
@@ -54,7 +55,7 @@ module.exports = class extends Command {
 		// Build and send the embed
 		const embed = new MessageEmbed()
 			.setAuthor(artist, artistPic)
-			.setColor(this.client.settings.get('colors.white'))
+			.setColor(Colors.white)
 			.setTitle(songTitle)
 			.setDescription(`[${msg.language.get('COMMAND_LYRICS_LINK')}](${geniusLink})`)
 			.addField(msg.language.get('COMMAND_LYRICS_LYRICS'), lyricsBody)

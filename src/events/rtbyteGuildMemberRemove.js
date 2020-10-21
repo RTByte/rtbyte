@@ -1,5 +1,7 @@
 const { Event } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { Emojis } = require('../lib/util/constants');
+const { Colors } = require('../lib/util/constants');
 const { momentThreshold, timezone } = require('../lib/util/util');
 const moment = require('moment-timezone');
 
@@ -31,11 +33,11 @@ module.exports = class extends Event {
 	}
 
 	async serverLog(member) {
-		const botBadgeEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.botBadge'));
+		const botBadgeEmoji = this.client.emojis.cache.get(Emojis.botBadge);
 
 		const embed = new MessageEmbed()
 			.setAuthor(`${member.user.tag} (${member.id})`, member.user.displayAvatarURL())
-			.setColor(this.client.settings.get('colors.red'))
+			.setColor(Colors.red)
 			.addField(member.guild.language.get('JOINED'), timezone(member.joinedTimestamp, member.guild))
 			.setTimestamp()
 			.setFooter(member.guild.language.get('GUILD_LOG_GUILDMEMBERREMOVE', member));

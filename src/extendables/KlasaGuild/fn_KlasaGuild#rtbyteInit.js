@@ -1,6 +1,7 @@
 /* eslint-disable complexity */
 const { Extendable, KlasaGuild } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { Colors } = require('../../lib/util/constants');
 
 module.exports = class extends Extendable {
 
@@ -147,7 +148,7 @@ module.exports = class extends Extendable {
 		// Building server owner message embed
 		const embed = new MessageEmbed()
 			.setAuthor(this.language.get('INIT_TITLE'), this.client.user.displayAvatarURL())
-			.setColor(this.client.settings.get('colors.white'))
+			.setColor(Colors.white)
 			.setImage('https://rtbyte.xyz/img/og-img.jpg')
 			.setTimestamp();
 

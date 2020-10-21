@@ -1,6 +1,7 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license. Modified by Rasmus Gerdin for use in RTByte.
 const { Command, RichDisplay, util: { isFunction } } = require('klasa');
 const { MessageEmbed, Permissions } = require('discord.js');
+const { Colors, Emojis } = require('../../lib/util/constants');
 
 const PERMISSIONS_RICHDISPLAY = new Permissions([Permissions.FLAGS.MANAGE_MESSAGES, Permissions.FLAGS.ADD_REACTIONS]);
 const time = 1000 * 60 * 3;
@@ -32,7 +33,7 @@ module.exports = class extends Command {
 				.setDescription(isFunction(command.description) ? command.description(msg.language) : command.description)
 				.addField(msg.language.get('COMMAND_HELP_USAGE'), command.usage.fullUsage(msg))
 				.addField(msg.language.get('COMMAND_HELP_EXTENDED'), isFunction(command.extendedHelp) ? command.extendedHelp(msg.language) : command.extendedHelp)
-				.setColor(this.client.settings.get('colors.white'))
+				.setColor(Colors.white)
 				.setThumbnail(this.client.user.displayAvatarURL(), 50, 50)
 				.setTimestamp()
 				.setFooter(msg.language.get('COMMAND_REQUESTED_BY', msg), msg.author.displayAvatarURL());
@@ -48,7 +49,7 @@ module.exports = class extends Command {
 			const loadingEmbed = new MessageEmbed()
 				.setAuthor(msg.language.get('COMMAND_HELP_EMBEDTITLE'), this.client.user.displayAvatarURL())
 				.setDescription(msg.language.get('COMMAND_HELP_LOADING'))
-				.setColor(this.client.settings.get('colors.white'))
+				.setColor(Colors.white)
 				.setThumbnail(this.client.user.displayAvatarURL(), 50, 50)
 				.setTimestamp();
 
@@ -79,12 +80,12 @@ module.exports = class extends Command {
 	}
 
 	async buildDisplay(msg) {
-		const arrowToLeftEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.arrowToLeft'));
-		const arrowLeftEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.arrowLeft'));
-		const arrowRightEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.arrowRight'));
-		const arrowToRightEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.arrowToRight'));
-		const rejectEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.reject'));
-		const listEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.list'));
+		const arrowToLeftEmoji = this.client.emojis.cache.get(Emojis.arrowToLeft);
+		const arrowLeftEmoji = this.client.emojis.cache.get(Emojis.arrowLeft);
+		const arrowRightEmoji = this.client.emojis.cache.get(Emojis.arrowRight);
+		const arrowToRightEmoji = this.client.emojis.cache.get(Emojis.arrowToRight);
+		const rejectEmoji = this.client.emojis.cache.get(Emojis.reject);
+		const listEmoji = this.client.emojis.cache.get(Emojis.list);
 		const commands = await this._fetchCommands(msg);
 		const prefix = msg.guild ? msg.guild.settings.get('prefix') : this.client.options.prefix;
 		const display = new RichDisplay()
@@ -102,7 +103,7 @@ module.exports = class extends Command {
 			display.addPage(new MessageEmbed()
 				.setAuthor(msg.language.get('COMMAND_HELP_EMBEDTITLE'), this.client.user.displayAvatarURL())
 				.setTitle(`${category} ${msg.language.get('COMMAND_HELP_COMMANDS')}`)
-				.setColor(this.client.settings.get('colors.white'))
+				.setColor(Colors.white)
 				.setThumbnail(this.client.user.displayAvatarURL(), 50, 50)
 				.setTimestamp()
 				.setDescription(list.map(this.formatCommand.bind(this, msg, prefix, true)).join('\n'))
@@ -115,7 +116,7 @@ module.exports = class extends Command {
 		display.addPage(new MessageEmbed()
 			.setAuthor(msg.language.get('COMMAND_HELP_EMBEDTITLE'), this.client.user.displayAvatarURL())
 			.setTitle(msg.language.get('CUSTOM_COMMANDS'))
-			.setColor(this.client.settings.get('colors.white'))
+			.setColor(Colors.white)
 			.setThumbnail(this.client.user.displayAvatarURL(), 50, 50)
 			.setTimestamp()
 			.setDescription(names.map(name => `• **${name}**`))

@@ -1,6 +1,7 @@
 /* eslint-disable complexity */
 const { Command, RichDisplay } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { Colors, Emojis } = require('../../lib/util/constants');
 
 const enableDisableArr = ['cmdrun', 'msgdelete', 'msgedit', 'serverupdate',
 	'invitecreate', 'invitedelete', 'channelcreate', 'channeldelete',
@@ -42,7 +43,7 @@ module.exports = class extends Command {
 
 		const loadingEmbed = new MessageEmbed()
 			.setTitle(msg.language.get('COMMAND_LOGS_SHOW_LOADING'))
-			.setColor(this.client.settings.get('colors.white'))
+			.setColor(Colors.white)
 			.setThumbnail(msg.guild.iconURL(), 50, 50)
 			.setTimestamp();
 
@@ -315,13 +316,13 @@ module.exports = class extends Command {
 	}
 
 	async buildDisplay(msg) {
-		const affirmEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.affirm'));
-		const rejectEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.reject'));
-		const arrowToLeftEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.arrowToLeft'));
-		const arrowLeftEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.arrowLeft'));
-		const arrowRightEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.arrowRight'));
-		const arrowToRightEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.arrowToRight'));
-		const listEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.list'));
+		const affirmEmoji = this.client.emojis.cache.get(Emojis.affirm);
+		const rejectEmoji = this.client.emojis.cache.get(Emojis.reject);
+		const arrowToLeftEmoji = this.client.emojis.cache.get(Emojis.arrowToLeft);
+		const arrowLeftEmoji = this.client.emojis.cache.get(Emojis.arrowLeft);
+		const arrowRightEmoji = this.client.emojis.cache.get(Emojis.arrowRight);
+		const arrowToRightEmoji = this.client.emojis.cache.get(Emojis.arrowToRight);
+		const listEmoji = this.client.emojis.cache.get(Emojis.list);
 		const status = {
 			true: affirmEmoji,
 			false: rejectEmoji
@@ -363,7 +364,7 @@ module.exports = class extends Command {
 		const page1 = new MessageEmbed()
 			.setAuthor(msg.language.get('COMMAND_LOGS_SHOW_TITLE'), this.client.user.displayAvatarURL())
 			.setDescription(msg.language.get('COMMAND_MANAGEMENT_SHOW_DESCRIPTION'))
-			.setColor(this.client.settings.get('colors.white'))
+			.setColor(Colors.white)
 			.addField(msg.language.get('CHANNEL'), logChannel)
 			.addField(msg.language.get('COMMAND_LOGS_SHOW_COMMANDRUN'), commandRun, true)
 			.addField(msg.language.get('COMMAND_LOGS_SHOW_MESSAGEDELETE'), messageDelete, true)
@@ -387,7 +388,7 @@ module.exports = class extends Command {
 		const page2 = new MessageEmbed()
 			.setAuthor(msg.language.get('COMMAND_LOGS_SHOW_TITLE'), this.client.user.displayAvatarURL())
 			.setDescription(msg.language.get('COMMAND_MANAGEMENT_SHOW_DESCRIPTION'))
-			.setColor(this.client.settings.get('colors.white'))
+			.setColor(Colors.white)
 			.addField(msg.language.get('COMMAND_LOGS_SHOW_WEBHOOKCREATE'), webhookCreate, true)
 			.addField(msg.language.get('COMMAND_LOGS_SHOW_WEBHOOKDELETE'), webhookDelete, true)
 			.addField(msg.language.get('COMMAND_LOGS_SHOW_WEBHOOKUPDATE'), webhookUpdate, true)

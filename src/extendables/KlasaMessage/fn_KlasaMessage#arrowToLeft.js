@@ -1,4 +1,5 @@
 const { Extendable, KlasaMessage } = require('klasa');
+const { Emojis } = require('../../lib/util/constants');
 
 module.exports = class extends Extendable {
 
@@ -7,7 +8,7 @@ module.exports = class extends Extendable {
 	}
 
 	async arrowToLeft(message = null, messageOptions = {}) {
-		const arrowToLeftEmoji = await this.client.emojis.cache.get(this.client.settings.get('emoji.arrowToLeft'));
+		const arrowToLeftEmoji = await this.client.emojis.cache.get(Emojis.arrowToLeft);
 		await this.react(arrowToLeftEmoji);
 		return message ? this.sendMessage(`${this.author}\n${arrowToLeftEmoji} ${message}`, messageOptions) : this;
 	}

@@ -1,5 +1,6 @@
 const { Command } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { Emojis, Colors } = require('../../lib/util/constants');
 const { embedSplitter, momentThreshold, timezoneWithDate } = require('../../lib/util/util');
 const moment = require('moment-timezone');
 
@@ -19,10 +20,10 @@ module.exports = class extends Command {
 	}
 
 	async run(msg, [membername = msg.member]) {
-		const onlineEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.online'));
-		const idleEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.idle'));
-		const dndEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.dnd'));
-		const offlineEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.offline'));
+		const onlineEmoji = this.client.emojis.cache.get(Emojis.online);
+		const idleEmoji = this.client.emojis.cache.get(Emojis.idle);
+		const dndEmoji = this.client.emojis.cache.get(Emojis.dnd);
+		const offlineEmoji = this.client.emojis.cache.get(Emojis.offline);
 		const statuses = {
 			online: `${onlineEmoji} ${msg.guild.language.get('ONLINE')}`,
 			idle: `${idleEmoji} ${msg.guild.language.get('IDLE')}`,
@@ -37,7 +38,7 @@ module.exports = class extends Command {
 		const position = joinPosition.indexOf(membername) + 1;
 
 		const embed = new MessageEmbed()
-			.setColor(!membername.premiumSince ? this.client.settings.get('colors.white') : this.client.settings.get('colors.pink'))
+			.setColor(!membername.premiumSince ? Colors.white : Colors.pink)
 			.addField(msg.guild.language.get('NAME'), `${membername} (${membername.user.tag})`, true)
 			.addField(msg.guild.language.get('ID'), membername.id, true)
 			.addField(msg.language.get('JOIN_POS'), position)

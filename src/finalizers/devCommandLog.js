@@ -1,5 +1,6 @@
 const { Finalizer } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { Colors } = require('../lib/util/constants');
 
 module.exports = class extends Finalizer {
 
@@ -22,7 +23,7 @@ module.exports = class extends Finalizer {
 	async commandRunLog(message, runTime, logChannel) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${message.guild.name} (#${message.channel.name})`, message.guild.iconURL())
-			.setColor(this.client.settings.get('colors.white'))
+			.setColor(Colors.white)
 			.setTitle(message.guild.language.get('GLOBAL_LOG_COMMANDRUN'))
 			.setDescription(`[${message.guild.language.get('CLICK_TO_VIEW')}](${message.url})`)
 			.addField('Message', message.content)
@@ -39,7 +40,7 @@ module.exports = class extends Finalizer {
 	async dmCommandLog(message, runTime, logChannel) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${message.author.tag} (${message.author.id})`, message.author.displayAvatarURL())
-			.setColor(this.client.settings.get('colors.white'))
+			.setColor(Colors.white)
 			.setTitle(message.language.get('GLOBAL_LOG_COMMANDRUN_DM'))
 			.addField('Message', message.content)
 			.addField('Runtime', runTime)

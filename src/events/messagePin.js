@@ -1,5 +1,6 @@
 const { Event } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { Colors } = require('../lib/util/constants');
 const { truncate } = require('../lib/util/util');
 
 module.exports = class extends Event {
@@ -17,7 +18,7 @@ module.exports = class extends Event {
 
 		const embed = new MessageEmbed()
 			.setAuthor(msg.language.get('PINBOARD_PINNED'), msg.guild.iconURL())
-			.setColor(msg.member.highestRole ? msg.member.highestRole.color : this.client.settings.get('colors.white'))
+			.setColor(msg.member.highestRole ? msg.member.highestRole.color : Colors.white)
 			.setDescription(`[${msg.guild.language.get('CLICK_TO_VIEW')}](${msg.url})`)
 			.addField(msg.language.get('BOARD_AUTHOR'), msg.author, true)
 			.addField(msg.language.get('CHANNEL'), msg.channel, true)

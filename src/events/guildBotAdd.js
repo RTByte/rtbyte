@@ -1,5 +1,6 @@
 const { Event } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { Colors, Emojis } = require('../lib/util/constants');
 
 module.exports = class extends Event {
 
@@ -14,11 +15,11 @@ module.exports = class extends Event {
 	}
 
 	async serverLog(member, executor) {
-		const botBadgeEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.botBadge'));
+		const botBadgeEmoji = this.client.emojis.cache.get(Emojis.botBadge);
 
 		const embed = new MessageEmbed()
 			.setAuthor(`${member.user.tag} (${member.id})`, member.user.displayAvatarURL())
-			.setColor(this.client.settings.get('colors.green'))
+			.setColor(Colors.green)
 			.setDescription(botBadgeEmoji)
 			.setTimestamp()
 			.setFooter(member.guild.language.get('GUILD_LOG_GUILDBOTADD', executor), executor.displayAvatarURL());

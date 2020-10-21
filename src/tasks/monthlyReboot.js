@@ -1,5 +1,6 @@
 const { Task } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { Colors } = require('../lib/util/constants');
 
 module.exports = class extends Task {
 
@@ -12,7 +13,7 @@ module.exports = class extends Task {
 	async weeklyRebootLog() {
 		const embed = new MessageEmbed()
 			.setAuthor(this.client.user.username, this.client.user.displayAvatarURL())
-			.setColor(this.client.settings.get('colors.yellow'))
+			.setColor(Colors.yellow)
 			.setTimestamp()
 			.setFooter('Performing monthly reboot...');
 

@@ -1,5 +1,6 @@
 const { Event } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { Colors } = require('../lib/util/constants');
 
 module.exports = class extends Event {
 
@@ -16,7 +17,7 @@ module.exports = class extends Event {
 	async serverLog(guild) {
 		const nitroEmbed = new MessageEmbed()
 			.setAuthor(guild.name, guild.iconURL())
-			.setColor(this.client.settings.get('colors.pink'))
+			.setColor(Colors.pink)
 			.addField(guild.language.get('GUILD_LOG_BOOSTTIER_TITLES', guild), guild.language.get('GUILD_LOG_BOOSTTIER_DETAILS', guild))
 			.setTimestamp()
 			.setFooter(guild.language.get('GUILD_LOG_BOOSTTIER'));

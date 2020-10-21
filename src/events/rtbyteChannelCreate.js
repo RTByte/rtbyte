@@ -1,5 +1,6 @@
 const { Event } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { Colors } = require('../lib/util/constants');
 
 module.exports = class extends Event {
 
@@ -26,7 +27,7 @@ module.exports = class extends Event {
 	async serverLog(channel, executor) {
 		const embed = new MessageEmbed()
 			.setAuthor(`#${channel.name}`, channel.guild.iconURL())
-			.setColor(this.client.settings.get('colors.green'))
+			.setColor(Colors.green)
 			.addField(channel.guild.language.get('ID'), channel.id)
 			.setTimestamp()
 			.setFooter(channel.guild.language.get('GUILD_LOG_CHANNELCREATE', executor), executor ? executor.displayAvatarURL() : undefined);

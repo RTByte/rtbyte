@@ -1,6 +1,7 @@
 /* eslint-disable complexity */
 const { Command } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { Colors, Emojis } = require('../../lib/util/constants');
 
 const enableDisableArr = ['blacklist', 'antiinvite', 'mentionspam', 'modbypass', 'deletion', 'blistchecknames'];
 const punishmentArr = ['mute', 'kick', 'softban', 'ban'];
@@ -22,8 +23,8 @@ module.exports = class extends Command {
 
 	async show(msg) {
 		// Fetch required emojis and assiociate true or false with the corresponding one.
-		const affirmEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.affirm'));
-		const rejectEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.reject'));
+		const affirmEmoji = this.client.emojis.cache.get(Emojis.affirm);
+		const rejectEmoji = this.client.emojis.cache.get(Emojis.reject);
 		const status = {
 			true: affirmEmoji,
 			false: rejectEmoji
@@ -55,7 +56,7 @@ module.exports = class extends Command {
 		// Build embed before sending.
 		const embed = new MessageEmbed()
 			.setAuthor(msg.language.get('COMMAND_FILTERS_SHOW_TITLE'), this.client.user.displayAvatarURL())
-			.setColor(this.client.settings.get('colors.white'))
+			.setColor(Colors.white)
 			.addField(msg.language.get('COMMAND_FILTERS_SHOW_MODBYPASS'), modBypass, true)
 			.addField(msg.language.get('COMMAND_FILTERS_SHOW_DELETION'), deletion, true)
 			.addField(msg.language.get('COMMAND_FILTERS_SHOW_WORDBLACKLIST'), wordBlacklistEnabled, true)

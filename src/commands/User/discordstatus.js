@@ -1,6 +1,7 @@
 const { Command } = require('klasa');
 const { MessageEmbed } = require('discord.js');
 const fetch = require('node-fetch');
+const { Colors } = require('../../lib/util/constants');
 const { momentThreshold, timezone } = require('../../lib/util/util');
 const moment = require('moment-timezone');
 
@@ -28,7 +29,7 @@ module.exports = class extends Command {
 
 				if (json.incidents.length === 0) {
 					embed.setTitle(msg.language.get('COMMAND_DISCORDSTATUS_ALLOK'))
-						.setColor(this.client.settings.get('colors.green'))
+						.setColor(Colors.green)
 						.setThumbnail('https://cdn.discordapp.com/embed/avatars/2.png')
 						.addField(msg.language.get('COMMAND_DISCORDSTATUS_LASTUPDATE'), timezone(json.page.updated_at, msg.guild));
 				}
@@ -37,7 +38,7 @@ module.exports = class extends Command {
 				if (incident) {
 					embed.setTitle(msg.language.get('COMMAND_DISCORDSTATUS_INCIDENT'))
 						.setDescription(`[${msg.language.get('COMMAND_DISCORDSTATUS_INCIDENT_LINK')}](https://status.discordapp.com/incidents/${incident.incident_id}/)`)
-						.setColor(this.client.settings.get('colors.yellow'))
+						.setColor(Colors.yellow)
 						.setThumbnail('https://cdn.discordapp.com/embed/avatars/3.png')
 						.addField(msg.language.get('COMMAND_DISCORDSTATUS_INCIDENT_TSTAMP'), timezone(incident.created_at, msg.guild))
 						.addField(msg.language.get('COMMAND_DISCORDSTATUS_INCIDENT_UPDATES'), incident.incident_updates[0].body);

@@ -1,5 +1,6 @@
 const { Event } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { Colors, Emojis } = require('../lib/util/constants');
 const { momentThreshold, timezone } = require('../lib/util/util');
 const moment = require('moment-timezone');
 
@@ -20,12 +21,12 @@ module.exports = class extends Event {
 	}
 
 	async serverLog(invite) {
-		const affirmEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.affirm'));
+		const affirmEmoji = this.client.emojis.cache.get(Emojis.affirm);
 
 		const embed = new MessageEmbed()
 			.setAuthor(`discord.gg/${invite.code}`, invite.guild.iconURL())
 			.setDescription(invite.url)
-			.setColor(this.client.settings.get('colors.green'))
+			.setColor(Colors.green)
 			.addField(invite.channel.type === 'text' ? invite.guild.language.get('CHANNEL') : invite.guild.language.get('VOICE_CHANNEL'),
 				invite.channel.type === 'text' ? invite.channel : `${invite.channel.name}`, true)
 			.setTimestamp()

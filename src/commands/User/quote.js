@@ -1,6 +1,7 @@
 const { Command } = require('klasa');
 const { MessageEmbed } = require('discord.js');
 const moment = require('moment-timezone');
+const { Colors } = require('../../lib/util/constants');
 const { truncate } = require('../../lib/util/util');
 
 module.exports = class extends Command {
@@ -27,7 +28,7 @@ module.exports = class extends Command {
 	async sendQuote(msg, qmsg) {
 		const embed = new MessageEmbed()
 			.setAuthor(qmsg.author.tag, qmsg.author.displayAvatarURL())
-			.setColor(this.client.settings.get('colors.white'))
+			.setColor(Colors.white)
 			.setDescription(`[${msg.language.get('CLICK_TO_VIEW')}](${qmsg.url})`)
 			// eslint-disable-next-line max-len
 			.setFooter(`${moment.tz(qmsg.createdTimestamp, msg.guild ? msg.guild.settings.get('timezone') : 'Etc/Greenwich').format('Do MMMM YYYY, h:mmA zz')} ${msg.guild ? msg.language.get('COMMAND_QUOTE_CHANNEL', qmsg) : msg.language.get('COMMAND_QUOTE_DMS')}`);

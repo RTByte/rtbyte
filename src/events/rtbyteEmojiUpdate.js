@@ -1,5 +1,6 @@
 const { Event } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { Colors, Emojis } = require('../lib/util/constants');
 
 module.exports = class extends Event {
 
@@ -24,11 +25,11 @@ module.exports = class extends Event {
 	}
 
 	async serverLog(oldEmoji, emoji, executor) {
-		const arrowRightEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.arrowRight'));
+		const arrowRightEmoji = this.client.emojis.cache.get(Emojis.arrowRight);
 
 		const embed = new MessageEmbed()
 			.setAuthor(`:${emoji.name}:`, `https://cdn.discordapp.com/emojis/${emoji.id}.${emoji.animated ? 'gif' : 'png'}`)
-			.setColor(this.client.settings.get('colors.blue'))
+			.setColor(Colors.blue)
 			.addField(emoji.guild.language.get('NAME_CHANGED'), `${oldEmoji.name} ${arrowRightEmoji} ${emoji.name}`)
 			.setTimestamp()
 			.setFooter(emoji.guild.language.get('GUILD_LOG_EMOJIUPDATE', executor), executor ? executor.displayAvatarURL() : undefined);

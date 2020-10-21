@@ -1,5 +1,6 @@
 const { Event } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { Colors } = require('../lib/util/constants');
 
 module.exports = class extends Event {
 
@@ -30,7 +31,7 @@ module.exports = class extends Event {
 		const embed = new MessageEmbed()
 			.setAuthor(`discord.gg/${invite.code}`, invite.guild.iconURL())
 			.setDescription(invite.url)
-			.setColor(this.client.settings.get('colors.red'))
+			.setColor(Colors.red)
 			.addField(invite.channel.type === 'text' ? invite.guild.language.get('CHANNEL') : invite.guild.language.get('VOICE_CHANNEL'),
 				invite.channel.type === 'text' ? invite.channel : `${invite.channel.name}`, true)
 			.setTimestamp()

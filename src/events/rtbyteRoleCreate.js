@@ -1,5 +1,6 @@
 const { Event } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { Colors } = require('../lib/util/constants');
 
 module.exports = class extends Event {
 
@@ -26,7 +27,7 @@ module.exports = class extends Event {
 	async serverLog(role, executor) {
 		const embed = new MessageEmbed()
 			.setAuthor(`${role.name}`, role.guild.iconURL())
-			.setColor(this.client.settings.get('colors.green'))
+			.setColor(Colors.green)
 			.addField(role.guild.language.get('ID'), role.id)
 			.addField(role.guild.language.get('GUILD_LOG_ROLECREATE_V_TAG'), role)
 			.setTimestamp()

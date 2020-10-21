@@ -2,6 +2,7 @@ const { Command } = require('klasa');
 const { MessageEmbed } = require('discord.js');
 const fetch = require('node-fetch');
 const { apis } = require('../../config');
+const { Colors } = require('../../lib/util/constants');
 
 module.exports = class extends Command {
 
@@ -68,7 +69,7 @@ module.exports = class extends Command {
 
 						const embed = new MessageEmbed()
 							.setAuthor(geocodeLocation, countryCode ? `https://www.countryflags.io/${countryCode}/flat/64.png` : null)
-							.setColor(this.client.settings.get('colors.white'))
+							.setColor(Colors.white)
 							.setDescription(msg.language.get('COMMAND_WEATHER_LINK', mapsLink, darkskyLink))
 							.addField(msg.language.get('COMMAND_WEATHER_CONDITION'), condition, true)
 							.addField(msg.language.get('COMMAND_WEATHER_TEMPERATURE'), temp, true)

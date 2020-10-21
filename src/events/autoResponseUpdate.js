@@ -1,5 +1,6 @@
 const { Event } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { Colors } = require('../lib/util/constants');
 
 module.exports = class extends Event {
 
@@ -19,7 +20,7 @@ module.exports = class extends Event {
 	async serverLog(msg, autoresponseKeyword, autoresponseContent, oldContent, executor) {
 		const embed = new MessageEmbed()
 			.setAuthor(autoresponseKeyword, msg.guild.iconURL())
-			.setColor(this.client.settings.get('colors.blue'))
+			.setColor(Colors.blue)
 			.addField(msg.language.get('GUILD_LOG_BEFORE'), oldContent.content)
 			.addField(msg.language.get('GUILD_LOG_AFTER'), autoresponseContent)
 			.setTimestamp()

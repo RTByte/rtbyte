@@ -1,5 +1,6 @@
 const { Command } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { Colors } = require('../../lib/util/constants');
 
 module.exports = class extends Command {
 
@@ -30,7 +31,7 @@ module.exports = class extends Command {
 
 		const embed = new MessageEmbed()
 			.setAuthor(msg.language.get('COMMAND_STAR_STARRED'), msg.guild.iconURL())
-			.setColor(this.client.settings.get('colors.gold'))
+			.setColor(Colors.gold)
 			.setDescription(`[${msg.guild.language.get('CLICK_TO_VIEW')}](${fetchedStar.url})`)
 			.addField(msg.language.get('BOARD_AUTHOR'), fetchedStar.author, true)
 			.addField(msg.language.get('CHANNEL'), fetchedStar.channel, true)
@@ -85,7 +86,7 @@ module.exports = class extends Command {
 
 		const embed = new MessageEmbed()
 			.setAuthor(msg.language.get('COMMAND_STAR_STARRED'), msg.guild.iconURL())
-			.setColor(this.client.settings.get('colors.gold'))
+			.setColor(Colors.gold)
 			.setDescription(`[${msg.guild.language.get('CLICK_TO_VIEW')}](${fetchedStar.url})`)
 			.addField(msg.language.get('BOARD_AUTHOR'), fetchedStar.author, true)
 			.addField(msg.language.get('CHANNEL'), fetchedStar.channel, true)

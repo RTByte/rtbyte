@@ -1,6 +1,7 @@
 /* eslint-disable id-length */
 const { Event } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { Colors, Emojis } = require('../lib/util/constants');
 
 module.exports = class extends Event {
 
@@ -41,11 +42,11 @@ module.exports = class extends Event {
 	}
 
 	async serverLog(channel, executor, oldWebhook, webhook) {
-		const arrowRightEmoji = this.client.emojis.cache.get(this.client.settings.get('emoji.arrowRight'));
+		const arrowRightEmoji = this.client.emojis.cache.get(Emojis.arrowRight);
 
 		const embed = new MessageEmbed()
 			.setAuthor(webhook.name, webhook.avatar)
-			.setColor(this.client.settings.get('colors.blue'))
+			.setColor(Colors.blue)
 			.setTimestamp()
 			.setFooter(channel.guild.language.get('GUILD_LOG_WEBHOOKUPDATE', executor), executor ? executor.displayAvatarURL() : undefined);
 

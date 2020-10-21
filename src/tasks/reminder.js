@@ -1,5 +1,6 @@
 const { Task } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { Colors } = require('../lib/util/constants');
 
 module.exports = class extends Task {
 
@@ -10,7 +11,7 @@ module.exports = class extends Task {
 
 		const embed = new MessageEmbed()
 			.setAuthor(guild ? member.user.tag : member.tag, guild ? member.user.displayAvatarURL() : member.displayAvatarURL())
-			.setColor(this.client.settings.get('colors.white'))
+			.setColor(Colors.white)
 			.setDescription(reminderMsg)
 			.setTimestamp(timestamp)
 			.setFooter(`Reminder set in ${guild ? channel.name : 'DMs'}${guild ? ` on the ${guild.name} Discord` : ''}`);

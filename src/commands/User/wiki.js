@@ -2,6 +2,7 @@ const { Command } = require('klasa');
 const { MessageEmbed } = require('discord.js');
 const fetch = require('node-fetch');
 const nsfw = require('naughty-words/en.json');
+const { Colors } = require('../../lib/util/constants');
 
 module.exports = class extends Command {
 
@@ -24,7 +25,7 @@ module.exports = class extends Command {
 				if (json.type === 'https://mediawiki.org/wiki/HyperSwitch/errors/not_found') return msg.language.get('COMMAND_WIKI_NOTFOUND');
 				const embed = new MessageEmbed()
 					.setAuthor(msg.language.get('COMMAND_WIKI_WIKIPEDIA'), 'https://www.wikipedia.org/portal/wikipedia.org/assets/img/Wikipedia-logo-v2.png')
-					.setColor(this.client.settings.get('colors.white'))
+					.setColor(Colors.white)
 					.setTitle(json.title)
 					.setDescription(`[${msg.language.get('COMMAND_WIKI_LINK')}](${json.content_urls.desktop.page})`)
 					.addField(msg.language.get('COMMAND_WIKI_EMBED_DESC'), `${json.description}.`)
