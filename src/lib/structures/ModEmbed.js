@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const { Colors } = require('../util/constants');
-const { embedSplitter } = require('../util/Util');
+const { embedSplitter } = require('../util/util');
 
 class ModEmbed extends MessageEmbed {
 
