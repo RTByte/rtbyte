@@ -1,5 +1,8 @@
 {
-	"editor.formatOnPaste": true,
+	"eslint.validate": ["typescript"],
+	"editor.tabSize": 4,
+	"editor.useTabStops": true,
+	"editor.insertSpaces": false,
 	"editor.detectIndentation": false,
-	"editor.insertSpaces": false
+	"files.eol": "\n"
 }

@@ -1,0 +1,9 @@
+{
+	"extends": "@quantumly/eslint-config",
+	"compilerOptions": {
+		"useDefineForClassFields": true,
+		"declaration": true,
+		"declarationMap": true,
+		"removeComments": false
+	}
+}

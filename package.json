@@ -1,58 +1,86 @@
 {
-    "name": "rtbyte",
-    "version": "1.2.0",
-    "description": "An open-source modular multipurpose Discord bot built on the incredible Klasa framework for discord.js",
-    "homepage": "https://github.com/RTByte/rtbyte/",
-    "main": "src/index.js",
-    "scripts": {
-        "pm2:start": "pm2 start src/app.js --name rtbyte",
-        "pm2:restart": "pm2 restart rtbyte",
-        "pm2:logs": "pm2 logs rtbyte --lines=200",
-        "pm2:stop": "pm2 stop rtbyte",
-        "pm2:delete": "pm2 delete rtbyte",
-        "start": "node src/app.js",
-        "lint": "eslint --ext js src --fix",
-        "test": "eslint --ext js src"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/RTByte/rtbyte.git"
-    },
-    "keywords": [
-        "discord.js",
-        "klasa",
-        "bot"
-    ],
-    "contributors": [
-        "Rasmus Gerdin <rasmus@rtbyte.xyz> (https://rasmusgerdin.com)",
-        "Michael Cumbers <michael@rtbyte.xyz> (https://michaelcumbers.ca)",
-        "Killian Higgins <killian@rtbyte.xyz> (https://github.com/Uzui2012)",
-        "Justin Shull <justin@rtbyte.xyz> (https://github.com/JShull97)"
-    ],
-    "private": true,
-    "author": "The RTByte Team <developers@rtbyte.xyz> (https://rtbyte.xyz)",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/RTByte/rtbyte/issues",
-        "email": "developers@rtbyte.xyz"
-    },
-    "dependencies": {
-        "@sentry/node": "^5.27.2",
-        "cheerio": "^1.0.0-rc.3",
-        "discord.js": "github:discordjs/discord.js#master",
-        "erlpack": "github:discordapp/erlpack",
-        "fs-nextra": "^0.5.1",
-        "klasa": "^0.5.0",
-        "klasa-dashboard-hooks": "github:Helper-Discord-Bot/klasa-dashboard-hooks",
-        "moment": "^2.29.0",
-        "moment-timezone": "^0.5.31",
-        "naughty-words": "^1.2.0",
-        "node-fetch": "^2.6.1"
-    },
-    "devDependencies": {
-        "eslint": "^7.12.1"
-    },
-    "engines": {
-        "node": ">=10.15.3"
-    }
+	"name": "rtbyte",
+	"description": "An open-source modular multipurpose Discord bot built on the incredible Klasa framework for discord.js",
+	"version": "2.0.0",
+	"main": "dist/RTByte.js",
+	"private": true,
+	"author": "The RTByte Team <developers@rtbyte.xyz> (https://rtbyte.xyz)",
+	"contributors": [
+		"Rasmus Gerdin <rasmus@rtbyte.xyz> (https://rasmusgerdin.com)",
+		"Killian Higgins <killian@rtbyte.xyz> (https://github.com/Uzui2012)",
+		"Ines Rosito <ines@rtbyte.xyz> (https://github.com/PixelPoncho)",
+		"Michael Cumbers <michael@rtbyte.xyz> (https://michaelcumbers.ca)",
+		"Justin Shull <justin@rtbyte.xyz> (https://github.com/JShull97)"
+	],
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/rtbyte/rtbyte.git"
+	},
+	"scripts": {
+		"lint": "eslint src --ext ts --fix",
+		"update": "yarn upgrade-interactive --latest",
+		"start": "node dist/index.js",
+		"build": "tsc -b src",
+		"build:clean": "tsc -b src --clean",
+		"dev": "yarn build && yarn start",
+		"sversion": "yarn standard-version"
+	},
+	"dependencies": {
+		"@sapphire/decorators": "^1.0.0",
+		"@sapphire/framework": "sapphire-project/framework#build",
+		"@sapphire/pieces": "sapphire-project/pieces#build",
+		"@sapphire/utilities": "^1.0.1",
+		"@scp/in17n": "^1.0.1",
+		"@sentry/integrations": "^5.27.2",
+		"@sentry/node": "^5.27.2",
+		"@types/humanize-duration": "^3.18.1",
+		"@types/node-fetch": "^2.5.7",
+		"colorette": "^1.2.1",
+		"discord.js": "^12.4.1",
+		"firebase-admin": "^9.3.0",
+		"humanize-duration": "^3.24.0",
+		"i18next": "^19.8.1",
+		"module-alias": "^2.2.2",
+		"node-fetch": "^2.6.1",
+		"reflect-metadata": "^0.1.13"
+	},
+	"devDependencies": {
+		"@commitlint/cli": "^11.0.0",
+		"@commitlint/config-conventional": "^11.0.0",
+		"@quantumly/eslint-config": "^1.1.0",
+		"@types/module-alias": "^2.0.0",
+		"@types/node": "^14.11.2",
+		"@types/ws": "^7.2.7",
+		"@typescript-eslint/eslint-plugin": "^4.3.0",
+		"@typescript-eslint/parser": "^4.3.0",
+		"cz-conventional-changelog": "^3.3.0",
+		"eslint": "^7.12.1",
+		"standard-version": "^9.0.0",
+		"typescript": "^4.0.3"
+	},
+	"engines": {
+		"node": ">=14",
+		"npm": ">=6"
+	},
+	"commitlint": {
+		"extends": [
+			"@commitlint/config-conventional"
+		]
+	},
+	"lint-staged": {
+		"*.ts": [
+			"eslint --fix --ext ts"
+		]
+	},
+	"config": {
+		"commitizen": {
+			"path": "./node_modules/cz-conventional-changelog"
+		}
+	},
+	"_moduleAliases": {
+		"@util": "dist/lib/util",
+		"@lib": "dist/lib",
+		"@root": "dist"
+	}
 }
