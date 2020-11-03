@@ -13,6 +13,7 @@
 		"Justin Shull <justin@rtbyte.xyz> (https://github.com/JShull97)"
 	],
 	"license": "MIT",
+	"homepage": "https://github.com/RTByte/rtbyte/",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/rtbyte/rtbyte.git"

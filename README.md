@@ -49,11 +49,11 @@ Like many other open-source Discord bots, RTByte hasn't been built with the idea
 - RTByte uses [`Firebase`] from Google, a BaaS (Backend-as-a-Service). Most notably, we use Cloud Firestore to store persistent data.
 - RTByte uses [`Sentry`] to track and monitor errors. Sentry is a paid service for which we've been granted an open-source license.
 
-You can add RTByte to your server by visiting [rtbyte.xyz].
+You can add RTByte to your server by visiting [rtbyte.xyz/invite].
 
 ## Contributors ✨
 
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+Thanks goes to these wonderful people ([emoji key]):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -92,3 +92,5 @@ This project follows the [all-contributors](https://github.com/all-contributors/
 [`Genius`]:                  https://genius.com/developers
 [`Google Maps`]:    https://cloud.google.com/maps-platform
 [`Twitch`]:                          https://dev.twitch.tv
+[rtbyte.xyz/invite]:             https://rtbyte.xyz/invite
+[emoji key]: https://allcontributors.org/docs/en/emoji-key
