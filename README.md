@@ -4,17 +4,19 @@
 
 # RTByte
 
-![GitHub package.json version](https://img.shields.io/github/package-json/v/rtbyte/rtbyte)
+[![GitHub package.json version](https://img.shields.io/github/package-json/v/rtbyte/rtbyte)](https://github.com/RTByte/rtbyte/releases)
 [![GitHub](https://img.shields.io/github/license/rtbyte/rtbyte)](https://github.com/rtbyte/rtbyte/blob/main/LICENSE.md)
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/RTByte/RTByte.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/RTByte/RTByte/alerts/)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/RTByte/RTByte.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/RTByte/RTByte/alerts)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/RTByte/RTByte.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/RTByte/RTByte/context:javascript)
 [![David](https://img.shields.io/david/RTByte/RTByte.svg?maxAge=3600)](https://david-dm.org/RTByte/RTByte)
 
 [![Open Issues](https://img.shields.io/github/issues/RTByte/RTByte.svg)](https://github.com/RTByte/RTByte/issues)
 [![Open PRS](https://img.shields.io/github/issues-pr/RTByte/RTByte.svg)](https://github.com/RTByte/RTByte/pulls)
-![Github All Contributors](https://img.shields.io/github/all-contributors/rtbyte/rtbyte)
+[![Github All Contributors](https://img.shields.io/github/all-contributors/rtbyte/rtbyte)](https://github.com/RTByte/rtbyte#contributors-)
+[![Crowdin](https://badges.crowdin.net/rtbyte/localized.svg)](https://translate.rtbyte.xyz)
 
 [![Discord](https://img.shields.io/discord/450163430373064704.svg?colorB=7289da&label=discord&logo=Discord&logoColor=fff&style=flat)](https://rtbyte.xyz/discord)
+[![Twitter](https://badgen.net/twitter/follow/rtbyte/?icon=twitter&label=@rtbyte)](https://twitter.com/rtbyte)
 ======
 </div>
 
