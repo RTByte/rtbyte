@@ -10,9 +10,9 @@ import fetch from 'node-fetch';
 export class RTByteCommand extends Command {
 
 	public async run(msg: Message, args: Args) {
-		const question = await args.pickResult('string');
+		const input = await args.pickResult('string');
 
-		if (!question.success) return msg.reply(`\n🎱 ${await msg.fetchLanguageKey('commands/user:8ball.responses.noQuestion')}`);
+		if (!input.success) return msg.reply(`\n🎱 ${await msg.fetchLanguageKey('commands/user:8ball.responses.noQuestion')}`);
 
 		const chance = Math.random() * 100;
 		const answers = await msg.fetchLanguageKey('commands/user:8ball.responses.answers');

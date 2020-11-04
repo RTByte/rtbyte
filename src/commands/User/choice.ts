@@ -9,12 +9,12 @@ import { ApplyOptions } from '@sapphire/decorators';
 export class RTByteCommand extends Command {
 
 	public async run(msg: Message, args: Args) {
-		const choices = await args.repeatResult('string');
+		const input = await args.repeatResult('string');
 
-		if (!choices.success) return msg.reply(await msg.fetchLanguageKey('commands/user:choice.responses.tooFew'));
-		if (choices.value.length < 2) return msg.reply(await msg.fetchLanguageKey('commands/user:choice.responses.tooFew'));
+		if (!input.success) return msg.reply(await msg.fetchLanguageKey('commands/user:choice.responses.tooFew'));
+		if (input.value.length < 2) return msg.reply(await msg.fetchLanguageKey('commands/user:choice.responses.tooFew'));
 
-		return msg.reply(`\n🤔 ${choices.value[Math.floor(Math.random() * choices.value.length)]}`);
+		return msg.reply(`\n🤔 ${input.value[Math.floor(Math.random() * input.value.length)]}`);
 	}
 
 }
