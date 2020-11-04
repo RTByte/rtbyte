@@ -11,7 +11,9 @@ export class RTByteCommand extends Command {
 	public async run(msg: Message) {
 		const prefix = await this.client.firestore.get(FirestoreCollections.Guilds, msg.guild!.id).then(data => data.prefix);
 
-		return msg.channel.send(await msg.fetchLanguageKey('commands/user:prefix.response', { prefix }));
+		if (prefix.length > 1) return msg.channel.send(await msg.fetchLanguageKey('commands/user:prefix.responses.multiple', { prefixes: prefix.map((prfx: any) => prfx).join('`, `') }));
+
+		return msg.channel.send(await msg.fetchLanguageKey('commands/user:prefix.responses.one', { prefix }));
 	}
 
 }

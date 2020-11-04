@@ -204,8 +204,8 @@
 	"prefix": {
 		"description": "Returns the prefix(es) for the current server.",
 		"responses": {
-			"one": "The prefix in this server is set to: `{{prefix}}`.",
-			"multiple": "The prefixes in this server are set to: `{{prefixes}}`"
+			"one": "{{rInfo}} The prefix in this server is set to: `{{prefix}}`.",
+			"multiple": "{{rInfo}} The prefixes in this server are set to: `{{prefixes}}`"
 		}
 	}
 }
