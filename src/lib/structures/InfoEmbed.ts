@@ -11,12 +11,12 @@ export class InfoEmbed extends MessageEmbed {
 		this.client = msg.client;
 	}
 
-	public async boilerplate(msg: Message, title: string, description?: string) {
-		const embed = this.setTitle(await msg.fetchLanguageKey(title))
-						  .setColor(Colors.white)
+	public async boilerplate(msg: Message, title?: string, description?: string) {
+		const embed = this.setColor(Colors.white)
 						  .setThumbnail(this.client.user!.displayAvatarURL())
 						  .setTimestamp()
 						  .setFooter(await msg.fetchLanguageKey('global:embeds.requestedBy', { requester: msg.author.tag }), msg.author.displayAvatarURL());
+		if (title) embed.setTitle(await msg.fetchLanguageKey(title));
 		if (description) embed.setDescription(await msg.fetchLanguageKey(description));
 
 		return embed;
