@@ -5,6 +5,15 @@ import { isThenable } from '@sapphire/utilities';
 
 export const duration = (ms: number) => humanizeDuration(ms, { largest: 2, round: true });
 
+export const urlEncodeString = (str: string) => str.replace(/[ ]/g, '%20')
+	   .replace(/["]/g, '%22')
+	   .replace(/[+]/g, '%2B')
+	   .replace(/[,]/g, '%2C')
+	   .replace(/[<]/g, '%3C')
+	   .replace(/[>]/g, '%3E')
+	   .replace(/[#]/g, '%23')
+	   .replace(/[|]/g, '%7C');
+
 /**
  * @copyright 2019-2020 Antonio Román
  * @license Apache-2.0
