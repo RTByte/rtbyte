@@ -36,9 +36,9 @@ For more information about the project, and a link to add the bot to your server
 ### Optionals
 
 - [`Sentry`]: Error monitoring & tracking.
-- [`Dark Sky`]: Weather API.
 - [`Genius`]: Lyrics API.
-- [`Google Maps`]: Geocoding API.
+- [`Mapbox`]: Geocoding API.
+- [`OpenWeather`]: Weather API.
 - [`Twitch`]: Twitch API.
 
 ### A note regarding self-hosting RTByte
@@ -90,9 +90,9 @@ This project follows the [all-contributors](https://github.com/all-contributors/
 [`Node.js`]:                            https://nodejs.org
 [`Firebase`]:                  https://firebase.google.com
 [`Sentry`]:                              https://sentry.io
-[`Dark Sky`]:                          https://darksky.net
 [`Genius`]:                  https://genius.com/developers
-[`Google Maps`]:    https://cloud.google.com/maps-platform
+[`Mapbox`]:                         https://www.mapbox.com
+[`OpenWeather`]:                https://openweathermap.org
 [`Twitch`]:                          https://dev.twitch.tv
 [rtbyte.xyz/invite]:             https://rtbyte.xyz/invite
 [emoji key]: https://allcontributors.org/docs/en/emoji-key
