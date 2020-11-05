@@ -9,9 +9,9 @@ export const PREFIX = '-';
 export const CLIENT_OPTIONS: ClientOptions = { };
 
 export const API_KEYS = {
-	DAKRSKY: '',
 	GENIUS: '',
-	GOOGLE_MAPS: '',
+	MAPBOX: '',
+	OPENWEATHER: '',
 	TWITCH: '',
 	TWITCH_SECRET: ''
 };

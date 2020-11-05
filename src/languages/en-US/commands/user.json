@@ -207,5 +207,21 @@
 			"one": "{{rInfo}} The prefix in this server is set to: `{{prefix}}`.",
 			"multiple": "{{rInfo}} The prefixes in this server are set to: `{{prefixes}}`"
 		}
+	},
+	"weather": {
+		"description": "Fetch the current weather for a specified location.",
+		"embed": {
+			"description": "[View area on Google Maps]({{mapLink}})",
+			"fields": {
+				"localTime": "Local time",
+				"temperature": {
+					"title": "Temperature",
+					"content": "{{temp}}° {{unit}} (feels like {{feelsLike}}°)"
+				},
+				"weather": "Weather",
+				"windSpeed": "Wind speed",
+				"humidity": "Humidity"
+			}
+		}
 	}
 }
