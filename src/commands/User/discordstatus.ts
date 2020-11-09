@@ -4,7 +4,8 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { InfoEmbed } from '@lib/structures/InfoEmbed';
 import { Colors } from '@util/constants';
 import fetch from 'node-fetch';
-
+import { DateTime } from 'luxon';
+import { FirestoreCollections } from '@lib/types/Types';
 
 @ApplyOptions<CommandOptions>({
 	aliases: ['dstatus'],
@@ -23,7 +24,7 @@ export class RTByteCommand extends Command {
 			embed.setTitle(await msg.fetchLanguageKey('commands/user:discordStatus.embed.states.ok.title'))
 				 .setColor(Colors.green)
 				 .setThumbnail('https://cdn.discordapp.com/embed/avatars/2.png')
-				 .addField(await msg.fetchLanguageKey('commands/user:discordStatus.embed.states.ok.fields.lastUpdated'), status.page.updated_at);
+				 .addField(await msg.fetchLanguageKey('commands/user:discordStatus.embed.states.ok.fields.lastUpdated'), DateTime.fromISO(status.page.updated_at).toRelative({ locale: await this.client.firestore.get(FirestoreCollections.Guilds, msg.guild!.id).then(data => data.lang) }));
 		}
 
 		if (status.incidents.length > 0) {
@@ -31,7 +32,7 @@ export class RTByteCommand extends Command {
 				 .setDescription(await msg.fetchLanguageKey('commands/user:discordStatus.embed.states.notOk.description', { link: `https://discordstatus.com/incidents/${status.incidents[0].incident_id}` }))
 				 .setColor(Colors.yellow)
 				 .setThumbnail('https://cdn.discordapp.com/embed/avatars/3.png')
-				 .addField(await msg.fetchLanguageKey('commands/user:discordStatus.embed.states.notOk.fields.incidentTimestamp'), status.incidents[0].created_at)
+				 .addField(await msg.fetchLanguageKey('commands/user:discordStatus.embed.states.notOk.fields.incidentTimestamp'), DateTime.fromISO(status.incidents[0].created_at).toRelative({ locale: await this.client.firestore.get(FirestoreCollections.Guilds, msg.guild!.id).then(data => data.lang) }))
 				 .addField(await msg.fetchLanguageKey('commands/user:discordStatus.embed.states.notOk.fields.incidentUpdates'), status.incidents[0].incident_updated[0].body);
 		}
 
