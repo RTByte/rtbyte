@@ -1,12 +1,16 @@
 /* eslint-disable @typescript-eslint/naming-convention */
+import { LogLevel } from '@sapphire/framework';
 import type { ClientOptions } from 'discord.js';
 
 export const DEV = 'DEV' in process.env ? process.env.DEV === 'true' : !('PM2_HOME' in process.env);
 
-export const OWNERS: string[] = ['106061111605878784'];
-export const PREFIX = '-';
+export const OWNERS: string[] = [''];
+export const PREFIX: string[] = [''];
+export const VERSION = '';
 
-export const CLIENT_OPTIONS: ClientOptions = { };
+export const CLIENT_OPTIONS: ClientOptions = {
+	logger: { level: LogLevel.Info }
+};
 
 export const API_KEYS = {
 	GENIUS: '',
