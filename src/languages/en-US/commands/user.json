@@ -154,6 +154,19 @@
 			"noneSpecified": "{{rCross}} Please specify a custom emoji you'd like to enlarge."
 		}
 	},
+	"help": {
+		"description": "Display help for a command.",
+		"embed": {
+			"title": "RTByte Help",
+			"fields": {
+				"details": "Details"
+			}
+		},
+		"responses": {
+			"noneSpecified": "{{rInfo}} https://rtbyte.xyz/commands/",
+			"notFound": "{{rCross}} Unable to find a command called `{{cmd}}`. Check https://rtbyte.xyz/commands/ for a full list of commands."
+		}
+	},
 	"info": {
 		"description": "Displays information about RTByte.",
 		"embed": {
