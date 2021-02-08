@@ -45,7 +45,7 @@
         "klasa": "^0.5.0",
         "klasa-dashboard-hooks": "github:Helper-Discord-Bot/klasa-dashboard-hooks",
         "moment": "^2.29.0",
-        "moment-timezone": "^0.5.31",
+        "moment-timezone": "^0.5.33",
         "naughty-words": "^1.2.0",
         "node-fetch": "^2.6.1"
     },
