@@ -37,7 +37,7 @@
         "email": "developers@rtbyte.xyz"
     },
     "dependencies": {
-        "@sentry/node": "^5.27.2",
+        "@sentry/node": "^6.8.0",
         "cheerio": "^1.0.0-rc.3",
         "discord.js": "github:discordjs/discord.js#master",
         "erlpack": "github:discordapp/erlpack",
