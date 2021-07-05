@@ -50,7 +50,7 @@
         "node-fetch": "^2.6.1"
     },
     "devDependencies": {
-        "eslint": "^7.12.1"
+        "eslint": "^7.30.0"
     },
     "engines": {
         "node": ">=10.15.3"
