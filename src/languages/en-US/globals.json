@@ -1,0 +1,21 @@
+{
+	"default": "`{{key}}` has not been localized for English yet.",
+	"defaultLanguage": "Default language",
+	"no": "No",
+	"none": "None",
+	"unknown": "Unknown",
+	"yes": "Yes",
+	"ordinalValue": "{{value, ordinal}}",
+	"durationValue": "{{value, duration}}",
+	"numberValue": "{{value, number}}",
+	"numberCompactValue": "{{value, numberCompact}}",
+	"dateValue": "{{value, date}}",
+	"dateTimeValue": "{{value, dateTime}}",
+	"andListValue": "{{value, andList}}",
+	"orListValue": "{{value, orList}}",
+	"dateFormat": "MM/DD/YYYY",
+	"dateFormatExplanation": "Month/Day/Year",
+	"embeds": {
+		"requestedBy": "Requested by {{requester}}"
+	  }
+}
