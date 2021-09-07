@@ -1,8 +1,0 @@
-{
-	"missingKey": "`{{key}}` has not been localized for en-US yet.",
-	"and": "and",
-	"or": "or",
-	"embeds": {
-		"requestedBy": "Requested by {{requester}}"
-	}
-}
