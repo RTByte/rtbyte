@@ -31,7 +31,8 @@ For more information about the project, and a link to add the bot to your server
 ### Requirements
 
 - [`Node.js`]: Node.js is required to run RTByte.
-- [`Firebase`]: We use Firebase's Firestore database to store persistent data.
+- [`PostgreSQL`]: Open-source relational database.
+- [`Prisma`]: TypeScript ORM.
 
 ### Optionals
 
@@ -48,7 +49,7 @@ While RTByte is, and always will be, open-source, we're not very supportive of t
 Like many other open-source Discord bots, RTByte hasn't been built with the idea of self-hosting in mind. We use many different services to ensure we're able to deliver the best solution available.
 
 - RTByte uses several external APIs. You'd need to create API keys in these for these to be able to fully use any features that may need them.
-- RTByte uses [`Firebase`] from Google, a BaaS (Backend-as-a-Service). Most notably, we use Cloud Firestore to store persistent data.
+- RTByte uses [`PostgreSQL`], an open-source relational database, to store persistent data. [`Prisma`], a TypeScript ORM, is used to interface with said database.
 - RTByte uses [`Sentry`] to track and monitor errors. Sentry is a paid service for which we've been granted an open-source license.
 
 You can add RTByte to your server by visiting [rtbyte.xyz/invite].
@@ -88,7 +89,8 @@ This project follows the [all-contributors](https://github.com/all-contributors/
 [rtbyte.xyz]:                           https://rtbyte.xyz
 [Discord]:                      https://rtbyte.xyz/discord
 [`Node.js`]:                            https://nodejs.org
-[`Firebase`]:                  https://firebase.google.com
+[`PostgreSQL`]:                 https://www.postgresql.org
+[`Prisma`]:                          https://www.prisma.io
 [`Sentry`]:                              https://sentry.io
 [`Genius`]:                  https://genius.com/developers
 [`Mapbox`]:                         https://www.mapbox.com

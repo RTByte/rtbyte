@@ -1,0 +1,110 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Client {
+	@@map("client")
+
+	clientID		String	 @id @map("client_id")
+
+	// Blacklists
+	userBlacklist	String[] @map("user_blacklist")
+	guildBlacklist	String[] @map("guild_blacklist")
+}
+
+model Guild {
+	@@map("guild")
+
+	// Basics
+	guildID          String  @id @map("guild_id")
+	prefix           String? @default("-")
+	language         String  @default("en-US")
+	measurementUnits String  @default("metric") @map("measurement_units")
+	timezone         String  @default("Europe/London")
+
+	// Roles
+	modRole       String?  @map("moderator_role")
+	adminRole     String?  @map("administrator_role")
+	mutedRole     String?  @map("muted_role")
+	vcBannedRole  String?  @map("vc_banned_role")
+	joinableRoles String[] @map("joinable_roles")
+
+	// Channels
+	logChannel String? @map("log_channel")
+
+	// Message filters
+	blacklist             Boolean  @default(false) @map("filters_blacklist")
+	antiInvite            Boolean  @default(false) @map("filters_anti_invite")
+	mentionSpam           Boolean  @default(false) @map("filters_mention_spam")
+	blacklistPunishment   String?  @map("filters_blacklist_punishment")
+	antiInvitePunishment  String?  @map("filters_anti_invite_punishment")
+	mentionSpamPunishment String?  @map("filters_mention_spam_punishment")
+	modBypass             Boolean  @default(true) @map("filters_mod_bypass")
+	deleteOffending       Boolean  @default(true) @map("filters_delete_offending")
+	checkDisplayNames     Boolean  @default(true) @map("filters_check_display_names")
+	wordBlacklist         String[] @map("filters_word_blacklist")
+	inviteWhitelist       String[] @map("filters_invite_whitelist")
+	mentionSpamThreshold  Int      @default(12) @map("filters_mention_spam_threshold")
+
+	// Greetings
+	welcomeUsers   Boolean @default(false) @map("greetings_welcome_users")
+	welcomeChannel String? @map("greetings_welcome_channel")
+	welcomeMessage String? @map("greetings_welcome_message")
+	dismissUsers   Boolean @default(false) @map("greetings_dismiss_users")
+	dismissChannel String? @map("greetings_dismiss_channel")
+	dismissMessage String? @map("greetings_dismiss_message")
+
+	// Log events - Discord native
+	channelCreate       Boolean @default(false) @map("log_channel_create")
+	channelDelete       Boolean @default(false) @map("log_channel_delete")
+	channelUpdate       Boolean @default(false) @map("log_channel_update")
+	emojiCreate         Boolean @default(false) @map("log_emoji_create")
+	emojiDelete         Boolean @default(false) @map("log_emoji_delete")
+	emojiUpdate         Boolean @default(false) @map("log_emoji_update")
+	guildMemberAdd      Boolean @default(true) @map("log_guild_member_join")
+	guildMemberRemove   Boolean @default(true) @map("log_guild_member_leave")
+	guildMemberUpdate   Boolean @default(true) @map("log_guild_member_update")
+	guildUpdate         Boolean @default(true) @map("log_guild_update")
+	inviteCreate        Boolean @default(false) @map("log_invite_create")
+	inviteDelete        Boolean @default(false) @map("log_invite_delete")
+	messageDelete       Boolean @default(false) @map("log_message_delete")
+	messageUpdate       Boolean @default(false) @map("log_message_update")
+	roleCreate          Boolean @default(false) @map("log_role_create")
+	roleDelete          Boolean @default(false) @map("log_role_delete")
+	roleUpdate          Boolean @default(false) @map("log_role_update")
+	stickerCreate       Boolean @default(false) @map("log_sticker_create")
+	stickerDelete       Boolean @default(false) @map("log_sticker_delete")
+	stickerUpdate       Boolean @default(false) @map("log_sticker_update")
+	threadCreate        Boolean @default(false) @map("log_thread_create")
+	threadDelete        Boolean @default(false) @map("log_thread_delete")
+	threadMembersUpdate Boolean @default(false) @map("log_thread_members_update")
+	threadUpdate        Boolean @default(false) @map("log_thread_update")
+	webhookUpdate       Boolean @default(false) @map("log_webhook_update")
+
+	// Log events - custom
+
+	// Moderation & moderation log
+	notifyUser         Boolean @default(true) @map("moderation_notify_user")
+	banLog             Boolean @default(true) @map("mod_log_ban")
+	unbanLog           Boolean @default(true) @map("mod_log_unban")
+	kickLog            Boolean @default(true) @map("mod_log_kick")
+	muteLog            Boolean @default(true) @map("mod_log_mute")
+	unmuteLog          Boolean @default(true) @map("mod_log_unmute")
+	purgeLog           Boolean @default(true) @map("mod_log_purge")
+	softbanLog         Boolean @default(true) @map("mod_log_softban")
+	vcBanLog           Boolean @default(true) @map("mod_log_vc_ban")
+	vcUnbanLog         Boolean @default(true) @map("mod_log_vc_unban")
+	vcKickLog          Boolean @default(true) @map("mod_log_vc_kick")
+	antiInviteLog      Boolean @default(true) @map("mod_log_anti_invite")
+	mentionSpamLog     Boolean @default(true) @map("mod_log_mention_spam")
+	blacklistedWordLog Boolean @default(true) @map("mod_log_blacklisted_word")
+	blacklistedNameLog Boolean @default(true) @map("mod_log_blacklisted_name")
+	warnLog            Boolean @default(true) @map("mod_log_warn")
+}
+
+// TODO: Starboard, pinboard, custom commands, autoresponder. Twitch?
