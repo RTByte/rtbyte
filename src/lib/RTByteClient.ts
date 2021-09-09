@@ -37,8 +37,6 @@ export class RTByteClient extends SapphireClient {
 		// Fetch guild settings
 		const guildSettings = await this.prisma.guild.findFirst({ where: { guildID: message.guild?.id } });
 
-		console.log(guildSettings?.language);
-
 		return guildSettings?.language;
 	};
 
