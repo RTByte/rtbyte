@@ -11,7 +11,7 @@ import { CustomGet } from '#lib/types';
 import { PermissionLevels } from '#lib/types/Enums';
 import { OWNERS } from '#root/config';
 import { seconds } from '#utils/common';
-import { CommandContext, PieceContext, PreconditionContainerArray } from '@sapphire/framework';
+import { CommandContext, PieceContext, PreconditionContainerArray, UserError } from '@sapphire/framework';
 import { fetchT } from '@sapphire/plugin-i18next';
 import { SubCommandPluginCommand } from '@sapphire/plugin-subcommands';
 import type { Message } from 'discord.js';
@@ -39,6 +39,10 @@ export abstract class RTByteCommand extends SubCommandPluginCommand<RTByteComman
 		const parser = new Lexure.Parser(this.lexer.setInput(parameters).lex()).setUnorderedStrategy(this.strategy);
 		const args = new Lexure.Args(parser.parse());
 		return new RTByteArgs(message, this, args, context, await fetchT(message));
+	}
+
+	protected error(identifier: string | UserError, context?: unknown): never {
+		throw typeof identifier === 'string' ? new UserError({ identifier, context }) : identifier;
 	}
 
 	protected parseConstructorPreConditions(options: RTByteCommand.Options): void {

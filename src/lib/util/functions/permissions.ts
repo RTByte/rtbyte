@@ -18,9 +18,9 @@ export function isGuildOwner(member: GuildMember) {
 }
 
 function checkModerator(member: GuildMember, settings: Guild | null) {
-	return settings?.modRole ? member.roles.cache.has(String(settings?.modRole)) : member.permissions.has(Permissions.FLAGS.BAN_MEMBERS);
+	return settings?.modRole ? member.roles.cache.has(String(settings?.modRole)) || member.permissions.has(Permissions.FLAGS.BAN_MEMBERS) : member.permissions.has(Permissions.FLAGS.BAN_MEMBERS);
 }
 
 function checkAdministrator(member: GuildMember, settings: Guild | null) {
-	return settings?.adminRole ? member.roles.cache.has(String(settings?.adminRole)) : member.permissions.has(Permissions.FLAGS.MANAGE_GUILD);
+	return settings?.adminRole ? member.roles.cache.has(String(settings?.adminRole)) || member.permissions.has(Permissions.FLAGS.MANAGE_GUILD) : member.permissions.has(Permissions.FLAGS.MANAGE_GUILD);
 }
