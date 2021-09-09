@@ -3,7 +3,7 @@ import { RTByteCommand } from '#lib/structures';
 import { pickRandom } from '#root/lib/util/util';
 import { ApplyOptions } from '@sapphire/decorators';
 import { fetch, FetchResultTypes } from '@sapphire/fetch';
-// import { send } from '@sapphire/plugin-editable-commands';
+import { reply } from '@sapphire/plugin-editable-commands';
 import type { Message } from 'discord.js';
 
 @ApplyOptions<RTByteCommand.Options>({
@@ -14,7 +14,7 @@ export class UserCommand extends RTByteCommand {
 	public async run(message: Message, args: RTByteCommand.Args) {
 		const input = await args.pickResult('string');
 
-		if (!input.success) return message.reply(args.t(LanguageKeys.Commands.User.EightballNoQuestion));
+		if (!input.success) return reply(message, args.t(LanguageKeys.Commands.User.EightballNoQuestion));
 
 		const chance = Math.random();
 		const answers:readonly string[] = args.t(LanguageKeys.Commands.User.EightballAnswers);
@@ -23,10 +23,10 @@ export class UserCommand extends RTByteCommand {
 			const { image } = await fetch<YesNoResultOk>('https://yesno.wtf/api', FetchResultTypes.JSON);
 			const attachment = image;
 
-			return message.reply({ content: '🎱', files: [attachment] })
+			return reply(message, { content: '🎱', files: [attachment] })
 		}
 
-		return message.reply(`🎱 ${pickRandom(answers)}`)
+		return reply(message, `🎱 ${pickRandom(answers)}`)
 
 	}
 }

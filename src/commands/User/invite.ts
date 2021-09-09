@@ -2,6 +2,7 @@ import { LanguageKeys } from '#lib/i18n/languageKeys';
 import { RTByteCommand } from '#lib/structures';
 import { Colors } from '#utils/constants';
 import { ApplyOptions } from '@sapphire/decorators';
+import { reply } from '@sapphire/plugin-editable-commands';
 import { Message, MessageEmbed } from 'discord.js';
 
 @ApplyOptions<RTByteCommand.Options>({
@@ -18,6 +19,6 @@ export class UserCommand extends RTByteCommand {
 			.setAuthor(args.t(LanguageKeys.Commands.User.InviteEmbedTitle))
 			.setDescription(args.t(LanguageKeys.Commands.User.InviteEmbedDescription))
 
-		return message.reply({ embeds: [embed] })
+		return reply(message, { embeds: [embed] })
 	}
 }

@@ -3,6 +3,7 @@ import { RTByteCommand } from '#lib/structures';
 import { VERSION } from '#root/config';
 import { Colors } from '#utils/constants';
 import { ApplyOptions } from '@sapphire/decorators';
+import { reply } from '@sapphire/plugin-editable-commands';
 import { Message, MessageEmbed } from 'discord.js';
 
 @ApplyOptions<RTByteCommand.Options>({
@@ -22,6 +23,6 @@ export class UserCommand extends RTByteCommand {
 			.addField(args.t(LanguageKeys.Commands.User.InfoEmbedVersion), VERSION, true)
 			.addField(args.t(LanguageKeys.Commands.User.InfoEmbedLinksTitle), args.t(LanguageKeys.Commands.User.InfoEmbedLinksContent))
 
-		return message.reply({ embeds: [embed] })
+		return reply(message, { embeds: [embed] })
 	}
 }
