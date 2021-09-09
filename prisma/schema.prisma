@@ -21,11 +21,12 @@ model Guild {
 	@@map("guild")
 
 	// Basics
-	guildID          String  @id @map("guild_id")
-	prefix           String? @default("-")
-	language         String  @default("en-US")
-	measurementUnits String  @default("metric") @map("measurement_units")
-	timezone         String  @default("Europe/London")
+	guildID          String   @id @map("guild_id")
+	prefix           String?  @default("-")
+	language         String   @default("en-US")
+	measurementUnits String   @default("metric") @map("measurement_units")
+	timezone         String   @default("Europe/London")
+	disabledCommands String[] @map("disabled_commands")
 
 	// Roles
 	modRole       String?  @map("moderator_role")
