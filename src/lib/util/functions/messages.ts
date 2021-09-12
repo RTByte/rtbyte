@@ -1,4 +1,4 @@
-import { floatPromise, resolveOnErrorCodes, seconds } from "#utils/common";
+import { floatPromise, minutes, resolveOnErrorCodes, seconds } from "#utils/common";
 import { RESTJSONErrorCodes } from 'discord-api-types/v9';
 import { Message, MessageOptions } from "discord.js";
 import { setTimeout as sleep } from 'timers/promises';
@@ -44,4 +44,12 @@ export async function sendTemporaryMessage(message: Message, options: string | M
 	const response = (await message.reply(options)) as Message;
 	floatPromise(deleteMessage(response, timer));
 	return response;
+}
+
+export async function promptForMessage(message: Message, sendOptions: string | MessageOptions, time = minutes(1)): Promise<string | null> {
+	const response = await message.channel.send(sendOptions);
+	const responses = await message.channel.awaitMessages({ filter: (msg) => msg.author === message.author, time, max: 1 });
+	floatPromise(deleteMessage(response));
+
+	return responses.size === 0 ? null : responses.first()!.content;
 }
