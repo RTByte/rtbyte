@@ -157,5 +157,11 @@
 			"ping": "Ping?",
 			"pong": "{{CHECK}} Pong! `Bot: {{diff}}ms` `API: {{ping}}ms`"
 		}
+	},
+	"quote": {
+		"description": "Quotes a message by ID. Make sure you #mention the channel prior to the message ID if the message you want to quote is not in the same channel you're currently sending the command in.",
+		"embed": {
+			"footer": "Sent in {{channel}}"
+		}
 	}
 }

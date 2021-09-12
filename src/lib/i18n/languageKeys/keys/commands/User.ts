@@ -24,3 +24,5 @@ export const InviteEmbedDescription = T<string>('commands/user:invite.embed.desc
 export const PingDescription = T<string>('commands/user:ping.description');
 export const Ping = T<string>('commands/user:ping.responses.ping');
 export const PingPong = FT<{ diff: number; ping: number }, string>('commands/user:ping.responses.pong');
+export const QuoteDescription = T<string>('commands/user:quote.description');
+export const QuoteEmbedFooter = FT<{ channel: string }, string>('commands/user:quote.embed.footer');

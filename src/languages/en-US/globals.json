@@ -8,8 +8,10 @@
 	"defaultLanguage": "Default language",
 	"durationValue": "{{value, duration}}",
 	"embeds": {
+		"clickToView": "Click to view",
 		"requestedBy": "Requested by {{requester}}"
 	},
+	"message": "Message",
 	"no": "No",
 	"none": "None",
 	"numberCompactValue": "{{value, numberCompact}}",
