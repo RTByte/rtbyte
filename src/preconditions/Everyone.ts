@@ -5,9 +5,3 @@ export class UserPrecondition extends Precondition {
 		return this.ok();
 	}
 }
-
-declare module '@sapphire/framework' {
-	interface Preconditions {
-		Everyone: never;
-	}
-}

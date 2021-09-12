@@ -8,9 +8,3 @@ export class UserPrecondition extends Precondition {
 		return (await isAdmin(message.member as GuildMember)) ? this.ok() : this.error({ identifier: LanguageKeys.Preconditions.Administrator });
 	}
 }
-
-declare module '@sapphire/framework' {
-	interface Preconditions {
-		Administrator: never;
-	}
-}

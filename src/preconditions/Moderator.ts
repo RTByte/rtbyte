@@ -8,9 +8,3 @@ export class UserPrecondition extends Precondition {
 		return (await isModerator(message.member as GuildMember)) ? this.ok() : this.error({ identifier: LanguageKeys.Preconditions.Moderator });
 	}
 }
-
-declare module '@sapphire/framework' {
-	interface Preconditions {
-		Moderator: never;
-	}
-}

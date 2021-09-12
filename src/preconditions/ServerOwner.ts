@@ -7,9 +7,3 @@ export class UserPrecondition extends Precondition {
 		return message.author.id === message.guild!.ownerId ? this.ok() : this.error({ identifier: LanguageKeys.Preconditions.ServerOwner });
 	}
 }
-
-declare module '@sapphire/framework' {
-	interface Preconditions {
-		ServerOwner: never;
-	}
-}
