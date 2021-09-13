@@ -180,5 +180,25 @@
 		"embed": {
 			"footer": "Sent in {{channel}}"
 		}
+	},
+	"weather": {
+		"description": "Fetch the current weather for a specified location.",
+		"embed": {
+			"description": "[View area on Google Maps]({{link}})",
+			"fields": {
+				"weather": "Weather",
+				"temperature": {
+					"title": "Temperature",
+					"content": "{{temp}}° {{unit}} (feels like {{feelsLike}}°)"
+				},
+				"uvIndex": "UV index",
+				"windSpeed": "Wind speed",
+				"humidity": "Humidity"
+			}
+		},
+		"responses": {
+			"noneSpecified":"{{X}} Please specify a location.",
+			"invalidInput":"{{X}} `{{input}}` could not be resolved to a location."
+		}
 	}
 }

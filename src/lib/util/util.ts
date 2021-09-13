@@ -143,6 +143,20 @@ export function sendLoadingMessage(message: Message): Promise<typeof message> {
 }
 
 /**
+ * Encodes a string for usage in a URL
+ * @param string The string to encode as a URL
+ * @returns URL-encoded string
+ */
+export const urlEncodeString = (string: string) => string.replace(/[ ]/g, '%20')
+	   .replace(/["]/g, '%22')
+	   .replace(/[+]/g, '%2B')
+	   .replace(/[,]/g, '%2C')
+	   .replace(/[<]/g, '%3C')
+	   .replace(/[>]/g, '%3E')
+	   .replace(/[#]/g, '%23')
+	   .replace(/[|]/g, '%7C');
+
+/**
  * Validates that a user has VIEW_CHANNEL permissions to a channel
  * @param channel The TextChannel to check
  * @param user The user for which to check permission
