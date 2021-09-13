@@ -25,7 +25,6 @@ model Guild {
 	prefix           String?  @default("-")
 	language         String   @default("en-US")
 	measurementUnits String   @default("metric") @map("measurement_units")
-	timezone         String   @default("Europe/London")
 	disabledCommands String[] @map("disabled_commands")
 
 	// Roles
