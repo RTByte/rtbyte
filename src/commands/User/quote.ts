@@ -25,7 +25,7 @@ export class UserCommand extends RTByteCommand {
 			.setFooter(args.t(LanguageKeys.Commands.User.QuoteEmbedFooter, { channel: `#${fetchedChannel?.name}`}))
 
 		const content = getContent(remoteMessage);
-		if (content) embed.addField(args.t(LanguageKeys.Globals.Message), cutText(content, 1024));
+		if (content) embed.addField(args.t(LanguageKeys.Miscellaneous.Message), cutText(content, 1024));
 
 		return reply(message, { embeds: [embed] })
 	}

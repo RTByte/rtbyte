@@ -8,7 +8,6 @@ export const DateTimeValue = FT<{ value: number }, string>('globals:dateTimeValu
 export const DurationValue = FT<{ value: number }, string>('globals:durationValue');
 export const EmbedClickToView = T<string>('globals:embeds.clickToView');
 export const EmbedRequestedBy = FT<{ requester: string}, string>('globals:embeds.requestedBy');
-export const Message = T<string>('globals:message');
 export const No = T<string>('globals:no');
 export const None = T<string>('globals:none');
 export const NumberCompactValue = FT<{ value: number }, string>('globals:numberCompactValue');
