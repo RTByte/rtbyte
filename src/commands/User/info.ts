@@ -3,10 +3,11 @@ import { RTByteCommand, RTByteEmbed } from '#lib/structures';
 import { VERSION } from '#root/config';
 import { ApplyOptions } from '@sapphire/decorators';
 import { reply } from '@sapphire/plugin-editable-commands';
-import { Message } from 'discord.js';
+import { Message, Permissions } from 'discord.js';
 
 @ApplyOptions<RTByteCommand.Options>({
-	description: LanguageKeys.Commands.User.InfoDescription
+	description: LanguageKeys.Commands.User.InfoDescription,
+	requiredClientPermissions: [Permissions.FLAGS.EMBED_LINKS]
 })
 export class UserCommand extends RTByteCommand {
 	public async run(message: Message, args: RTByteCommand.Args) {

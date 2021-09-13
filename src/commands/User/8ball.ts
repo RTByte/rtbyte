@@ -4,11 +4,12 @@ import { pickRandom } from '#root/lib/util/util';
 import { ApplyOptions } from '@sapphire/decorators';
 import { fetch, FetchResultTypes } from '@sapphire/fetch';
 import { reply } from '@sapphire/plugin-editable-commands';
-import type { Message } from 'discord.js';
+import { Message, Permissions } from 'discord.js';
 
 @ApplyOptions<RTByteCommand.Options>({
 	aliases: ['magicconch'],
-	description: LanguageKeys.Commands.User.EightballDescription
+	description: LanguageKeys.Commands.User.EightballDescription,
+	requiredClientPermissions: [Permissions.FLAGS.ATTACH_FILES]
 })
 export class UserCommand extends RTByteCommand {
 	public async run(message: Message, args: RTByteCommand.Args) {

@@ -5,9 +5,11 @@ import { getContent, getImage } from '#utils/util';
 import { ApplyOptions } from '@sapphire/decorators';
 import { reply } from '@sapphire/plugin-editable-commands';
 import { cutText } from '@sapphire/utilities';
+import { Permissions } from 'discord.js';
 
 @ApplyOptions<RTByteCommand.Options>({
-	description: LanguageKeys.Commands.User.QuoteDescription
+	description: LanguageKeys.Commands.User.QuoteDescription,
+	requiredClientPermissions: [Permissions.FLAGS.EMBED_LINKS]
 })
 export class UserCommand extends RTByteCommand {
 	public async run(message: GuildMessage, args: RTByteCommand.Args) {

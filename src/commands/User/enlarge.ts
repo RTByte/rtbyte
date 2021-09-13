@@ -3,12 +3,14 @@ import { RTByteCommand } from '#lib/structures';
 import { REGEX } from '#utils/constants';
 import { ApplyOptions } from '@sapphire/decorators';
 import { reply } from '@sapphire/plugin-editable-commands';
-import { Message, MessageAttachment } from 'discord.js';
+import { Message, MessageAttachment, Permissions } from 'discord.js';
 import { parse as parseEmoji } from 'twemoji-parser';
 
 @ApplyOptions<RTByteCommand.Options>({
 	aliases: ['bigemoji'],
-	description: LanguageKeys.Commands.User.EnlargeDescription
+	description: LanguageKeys.Commands.User.EnlargeDescription,
+	requiredClientPermissions: [Permissions.FLAGS.ATTACH_FILES]
+
 })
 export class UserCommand extends RTByteCommand {
 	public async run(message: Message, args: RTByteCommand.Args) {
