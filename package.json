@@ -11,6 +11,7 @@
 	"homepage": "https://github.com/RTByte/rtbyte/",
 	"imports": {
 		"#root/*": "./dist/*.js",
+		"#languages": "./dist/languages/index.js",
 		"#lib/*": "./dist/lib/*.js",
 		"#lib/i18n/languageKeys": "./dist/lib/i18n/languageKeys/index.js",
 		"#lib/structures": "./dist/lib/structures/index.js",

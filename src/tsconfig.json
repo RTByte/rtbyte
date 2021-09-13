@@ -10,6 +10,7 @@
 		"moduleResolution": "node",
 		"paths": {
 			"#root/*": ["*"],
+			"#languages": ["languages/index"],
 			"#lib/*": ["lib/*"],
 			"#utils/*": ["lib/util/*"]
 		},
