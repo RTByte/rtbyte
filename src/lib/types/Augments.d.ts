@@ -1,9 +1,10 @@
-import { GuildChannel, TextChannel } from "discord.js";
+import { GuildChannel, TextChannel, User } from "discord.js";
 
 declare module '@sapphire/framework' {
 	interface ArgType {
 		channelName: GuildChannel;
 		textChannelName: TextChannel;
+		userName: User;
 	}
 
 	interface Preconditions {

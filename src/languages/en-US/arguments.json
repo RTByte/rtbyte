@@ -1,4 +1,5 @@
 {
 	"guildChannelError": "{{X}} `{{parameter}}` could not be resolved to a channel in this server. Did you type its name its name or ID correctly?",
 	"guildChannelMissingGuildError": "{{X}} `{{parameter}}` could not be resolved because this argument requires to be ran in a server.",
+	"userError": "{{X}} `{{parameter}}` could not be resolved to a user. Please make sure you typed their name or ID correctly, or provide an @mention!"
 }
