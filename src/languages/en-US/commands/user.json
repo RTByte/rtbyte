@@ -123,7 +123,8 @@
 	"enlarge": {
 		"description": "Enlarges a specified emoji.",
 		"responses": {
-			"noneSpecified": "{{X}} Please specify an emoji you'd like to enlarge."
+			"noneSpecified": "{{X}} Please specify an emoji you'd like to enlarge.",
+			"invalidInput": "{{X}} `{{input}}` could not be resolved to a valid emoji (e.g. 🗣️ or {{CHECK}})."
 		}
 	},
 	"info": {

@@ -25,7 +25,7 @@ export class UserCommand extends RTByteCommand {
 		const customEmoji = customEmojiRegex ? customEmojiRegex[1] : null;
 
 		// Return if neither emoji type can be parsed
-		if (!emoji && !customEmoji) return reply(message, args.t(LanguageKeys.Commands.User.EnlargeNoneSpecified))
+		if (!emoji && !customEmoji) return reply(message, args.t(LanguageKeys.Commands.User.EnlargeInvalidInput, { input: input.value }))
 
 		const emojiAttachment = new MessageAttachment(emoji
 			? emoji.url

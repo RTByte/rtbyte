@@ -10,6 +10,7 @@ export const EightballNoQuestion = T<string>('commands/user:8ball.responses.noQu
 export const EightballAnswers = T<readonly string[]>('commands/user:8ball.responses.answers');
 export const EnlargeDescription = T<string>('commands/user:enlarge.description');
 export const EnlargeNoneSpecified = T<string>('commands/user:enlarge.responses.noneSpecified');
+export const EnlargeInvalidInput = FT<{ input: string }>('commands/user:enlarge.responses.invalidInput');
 export const InfoDescription = T<string>('commands/user:info.description');
 export const InfoEmbedTitle = T<string>('commands/user:info.embed.title');
 export const InfoEmbedDescription = T<string>('commands/user:info.embed.description');
