@@ -152,6 +152,22 @@
 			"description": "To add RByte to your server, simply click the link below. \nhttps://rtbyte.xyz/invite/ \n```The above link is generated requesting the minimum permissions required to use every command currently. \n\nWe know not all permissions are right for every server, so don't be afraid to uncheck any of the boxes. If you try to use a command that requires more permissions than the bot is granted, it will let you know.``` \nThe RTByte support server can be found using the link below. \nhttps://rtbyte.xyz/discord/"
 		}
 	},
+	"joindate": {
+		"description": "",
+		"embed": {
+			"fields": {
+				"joinPosition": {
+					"title": "Join position",
+					"content": "{{position, ordinal}}"
+				},
+				"joined": "{{joinedTimestampOffset, duration}} ago (`{{joinedAt, dateFull}}`)",
+				"created": "{{createdTimestampOffset, duration}} ago (`{{createdAt, dateFull}}`)"
+			}
+		},
+		"responses": {
+			"notMember": "{{X}} `{{input}}` could not be resolved to a member of this server. Please make sure you typed their name or ID correctly, or provide an `@mention`!"
+		}
+	},
 	"ping": {
 		"description": "Runs a connection test.",
 		"responses": {
