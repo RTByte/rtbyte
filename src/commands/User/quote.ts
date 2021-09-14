@@ -1,11 +1,12 @@
 import { LanguageKeys } from '#lib/i18n/languageKeys';
 import { RTByteCommand, RTByteEmbed } from '#lib/structures';
 import { GuildMessage } from '#lib/types';
+import { Colors } from '#root/lib/util/constants';
 import { getContent, getImage } from '#utils/util';
 import { ApplyOptions } from '@sapphire/decorators';
 import { reply } from '@sapphire/plugin-editable-commands';
 import { cutText } from '@sapphire/utilities';
-import { Permissions } from 'discord.js';
+import { ColorResolvable, Permissions } from 'discord.js';
 
 @ApplyOptions<RTByteCommand.Options>({
 	description: LanguageKeys.Commands.User.QuoteDescription,
@@ -20,6 +21,7 @@ export class UserCommand extends RTByteCommand {
 		const embed = new RTByteEmbed(message)
 			.setAuthor(remoteMessage.author.tag, remoteMessage.author.displayAvatarURL())
 			.setDescription(`[${args.t(LanguageKeys.Globals.EmbedClickToView)}](${remoteMessage.url})`)
+			.setColor(remoteMessage.member?.displayColor as ColorResolvable ?? Colors.White)
 			.setImage(getImage(remoteMessage)!)
 			.setThumbnail('')
 			.setFooter(args.t(LanguageKeys.Commands.User.QuoteEmbedFooter, { channel: `#${fetchedChannel?.name}`}))
