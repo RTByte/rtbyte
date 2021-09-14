@@ -7,10 +7,6 @@
 	"default": "`{{key}}` has not been localized for English yet.",
 	"defaultLanguage": "Default language",
 	"durationValue": "{{value, duration}}",
-	"embeds": {
-		"clickToView": "Click to view",
-		"requestedBy": "Requested by {{requester}}"
-	},
 	"no": "No",
 	"none": "None",
 	"numberCompactValue": "{{value, numberCompact}}",

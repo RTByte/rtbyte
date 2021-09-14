@@ -2,16 +2,18 @@ import { join } from 'path';
 
 export const rootFolder = join(__dirname, '..', '..', '..');
 
+export const ZeroWidthSpace = '\u200B';
+
 export const enum Colors {
-	accent = '#FE3132',
-	white = '#FEFEFE',
-	red = '#FF4B4B',
-	green = '#4BFF4B',
-	yellow = '#FFFF4B',
-	blue = '#4B4BFF',
-	pink = '#F47FFF',
-	gold = '#DAA520',
-	purple = '#9046FF'
+	Accent = '#FE3132',
+	White = '#FEFEFE',
+	Red = '#FF4B4B',
+	Green = '#4BFF4B',
+	Yellow = '#FFFF4B',
+	Blue = '#4B4BFF',
+	Pink = '#F47FFF',
+	Gold = '#DAA520',
+	Purple = '#9046FF'
 }
 
 export const enum Emojis {

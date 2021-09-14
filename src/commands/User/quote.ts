@@ -20,7 +20,7 @@ export class UserCommand extends RTByteCommand {
 
 		const embed = new RTByteEmbed(message)
 			.setAuthor(remoteMessage.author.tag, remoteMessage.author.displayAvatarURL())
-			.setDescription(`[${args.t(LanguageKeys.Globals.EmbedClickToView)}](${remoteMessage.url})`)
+			.setDescription(`[${args.t(LanguageKeys.System.ClickToView)}](${remoteMessage.url})`)
 			.setColor(remoteMessage.member?.displayColor as ColorResolvable ?? Colors.White)
 			.setImage(getImage(remoteMessage)!)
 			.setThumbnail('')

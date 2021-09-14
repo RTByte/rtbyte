@@ -1,0 +1,5 @@
+{
+	"clickToView": "Click to view",
+	"discordAbortError": "An error occured when communicating with Discord, please try running this command again.",
+	"requestedBy": "Requested by {{requester}}"
+}
