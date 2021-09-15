@@ -38,7 +38,7 @@ For more information about the project, and a link to add the bot to your server
 
 - [`Sentry`]: Error monitoring & tracking.
 - [`Genius`]: Lyrics API.
-- [`Mapbox`]: Geocoding API.
+- [`Google Maps Platform`]: Geocoding API.
 - [`OpenWeather`]: Weather API.
 - [`Twitch`]: Twitch API.
 
@@ -84,17 +84,17 @@ This project follows the [all-contributors](https://github.com/all-contributors/
 
 <!------------------------ LINKS ------------------------>
 
-[Sapphire]:  https://github.com/sapphire-project/framework
-[discord.js]:                          https://discord.com
-[rtbyte.xyz]:                           https://rtbyte.xyz
-[Discord]:                      https://rtbyte.xyz/discord
-[`Node.js`]:                            https://nodejs.org
-[`PostgreSQL`]:                 https://www.postgresql.org
-[`Prisma`]:                          https://www.prisma.io
-[`Sentry`]:                              https://sentry.io
-[`Genius`]:                  https://genius.com/developers
-[`Mapbox`]:                         https://www.mapbox.com
-[`OpenWeather`]:                https://openweathermap.org
-[`Twitch`]:                          https://dev.twitch.tv
-[rtbyte.xyz/invite]:             https://rtbyte.xyz/invite
-[emoji key]: https://allcontributors.org/docs/en/emoji-key
+[Sapphire]:         https://github.com/sapphire-project/framework
+[discord.js]:                                 https://discord.com
+[rtbyte.xyz]:                                  https://rtbyte.xyz
+[Discord]:                             https://rtbyte.xyz/discord
+[`Node.js`]:                                   https://nodejs.org
+[`PostgreSQL`]:                        https://www.postgresql.org
+[`Prisma`]:                                 https://www.prisma.io
+[`Sentry`]:                                     https://sentry.io
+[`Genius`]:                         https://genius.com/developers
+[`Google Maps Platform`]: https://cloud.google.com/maps-platform/
+[`OpenWeather`]:                       https://openweathermap.org
+[`Twitch`]:                                 https://dev.twitch.tv
+[rtbyte.xyz/invite]:                    https://rtbyte.xyz/invite
+[emoji key]:        https://allcontributors.org/docs/en/emoji-key

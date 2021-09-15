@@ -22,21 +22,22 @@ export class UserCommand extends RTByteCommand {
 		if (!input.success) return sendTemporaryMessage(message, args.t(LanguageKeys.Commands.User.WeatherNoneSpecified));
 
 		const encodedLocation = urlEncodeString(input.value.join(' '));
-
-		// Geocode location using Mapbox
-		const mapbox = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodedLocation}.json?limit=1&fuzzyMatch=true&types=country,region,postcode,district,locality,neighborhood,address&access_token=${API_KEYS.MAPBOX}`;
-		const { features } = await fetch<MapboxResultOk>(mapbox, FetchResultTypes.JSON);
-
-		if (!features.length) return sendTemporaryMessage(message, args.t(LanguageKeys.Commands.User.WeatherInvalidInput, { input: input.value }));
-
 		const units = message.guild ? guildSettings?.measurementUnits : 'metric';
 		const lang = guildSettings?.language.slice(0, 2)
-		const loc = features[0];
+
+		// Geocode location using Google Maps
+		const googleMaps = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodedLocation}&key=${API_KEYS.GOOGLE_MAPS}`
+		const { results } = await fetch<GoogleMapsResultOk>(googleMaps, FetchResultTypes.JSON);
+
+		if (!results.length) return sendTemporaryMessage(message, args.t(LanguageKeys.Commands.User.WeatherInvalidInput, { input: input.value }));
+
+		const loc = results[0];
+
 		const location = {
-			long: loc.geometry.coordinates[0],
-			lat: loc.geometry.coordinates[1],
-			name: loc.text,
-			country: loc.context ? loc.context.find(entry => entry.id.includes('country.'))?.short_code : loc.properties.short_code
+			lat: loc.geometry.location.lat,
+			long: loc.geometry.location.lng,
+			name: loc.formatted_address,
+			country: loc.address_components.find(entry => entry.types.includes('country'))?.short_name
 		};
 
 		const openweather = `https://api.openweathermap.org/data/2.5/onecall?lat=${location.lat}&lon=${location.long}&units=${units}&lang=${lang}&appid=${API_KEYS.OPENWEATHER}`;
@@ -54,7 +55,7 @@ export class UserCommand extends RTByteCommand {
 		};
 
 		const embed = new RTByteEmbed(message)
-			.setAuthor(location.name, location.country ? `https://www.countryflags.io/${location.country}/flat/64.png` : undefined)
+			.setAuthor(location.name as string, location.country ? `https://www.countryflags.io/${location.country}/flat/64.png` : undefined)
 			.setDescription(args.t(LanguageKeys.Commands.User.WeatherEmbedDescription, { link: `https://www.google.com/maps/@${location.lat},${location.long},14z` }))
 			.setThumbnail('')
 			.addField(args.t(LanguageKeys.Commands.User.WeatherEmbedWeather), weather.weather)
@@ -67,26 +68,25 @@ export class UserCommand extends RTByteCommand {
 	}
 }
 
-export interface MapboxResultOk {
-	type: string,
-	features: [
+export interface GoogleMapsResultOk {
+	results: [
 		{
-			properties: {
-				short_code: string
-			},
-			text: string,
-			geometry: {
-				coordinates: string[]
-			},
-			context: [
+			address_components: [
 				{
-					id: string,
-					short_code: string
+					long_name: string,
+					short_name: string,
+					types: string[]
 				}
 			]
+			formatted_address: string,
+			geometry: {
+				location: {
+					lat: number,
+					lng: number
+				}
+			}
 		}
-	],
-	attribution: string
+	]
 }
 
 export interface OpenweatherResultOk {
