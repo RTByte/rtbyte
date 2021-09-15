@@ -55,7 +55,7 @@ export class UserCommand extends RTByteCommand {
 		};
 
 		const embed = new RTByteEmbed(message)
-			.setAuthor(location.name as string, location.country ? `https://www.countryflags.io/${location.country}/flat/64.png` : undefined)
+			.setAuthor(location.name, location.country ? `https://www.countryflags.io/${location.country}/flat/64.png` : undefined)
 			.setDescription(args.t(LanguageKeys.Commands.User.WeatherEmbedDescription, { link: `https://www.google.com/maps/@${location.lat},${location.long},14z` }))
 			.setThumbnail('')
 			.addField(args.t(LanguageKeys.Commands.User.WeatherEmbedWeather), weather.weather)
