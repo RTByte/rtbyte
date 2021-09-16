@@ -64,7 +64,7 @@
 		"dev": "npm run build && npm run start",
 		"watch": "tsc -b src -w",
 		"watch:start": "tsc-watch -b src --onSuccess \"npm run start\"",
-		"start": "node dist/RTByte.js",
+		"start": "node --enable-source-maps dist/RTByte.js",
 		"lint": "eslint --fix --ext ts src tests",
 		"format": "prettier --write --loglevel=warn \"{src,tests}/**/*.{js,ts,json}\""
 	},
