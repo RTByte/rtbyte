@@ -1,6 +1,20 @@
 {
+	"directions": [
+		"north",
+		"northeast",
+		"east",
+		"southeast",
+		"south",
+		"southwest",
+		"west",
+		"northwest"
+	],
 	"joined": "Joined",
 	"message": "Message",
 	"registered": "Registered",
-	"serverCreator": "Server creator"
+	"serverCreator": "Server creator",
+	"speedUnits": [
+		"m/s",
+		"mph"
+	]
 }

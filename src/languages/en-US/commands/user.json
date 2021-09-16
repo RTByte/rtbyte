@@ -186,13 +186,17 @@
 		"embed": {
 			"description": "[View area on Google Maps]({{link}})",
 			"fields": {
+				"localTime": "Local time",
 				"weather": "Weather",
 				"temperature": {
 					"title": "Temperature",
 					"content": "{{temp}}° {{unit}} (feels like {{feelsLike}}°)"
 				},
 				"uvIndex": "UV index",
-				"windSpeed": "Wind speed",
+				"wind": {
+					"title": "Wind",
+					"content": "{{windSpeed}} {{direction}}"
+				},
 				"humidity": "Humidity"
 			}
 		},

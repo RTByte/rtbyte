@@ -2,7 +2,6 @@ import { LanguageKeys } from '#lib/i18n/languageKeys';
 import { RTByteCommand, RTByteEmbed } from '#lib/structures';
 import { API_KEYS } from '#root/config';
 import { sendTemporaryMessage } from '#utils/functions';
-import { urlEncodeString } from '#utils/util';
 import { ApplyOptions } from '@sapphire/decorators';
 import { fetch, FetchResultTypes } from '@sapphire/fetch';
 import { reply } from '@sapphire/plugin-editable-commands';
@@ -21,8 +20,10 @@ export class UserCommand extends RTByteCommand {
 
 		if (!input.success) return sendTemporaryMessage(message, args.t(LanguageKeys.Commands.User.WeatherNoneSpecified));
 
-		const encodedLocation = urlEncodeString(input.value.join(' '));
+		const encodedLocation = encodeURI(input.value.join(' '));
 		const units = message.guild ? guildSettings?.measurementUnits : 'metric';
+		const speedUnits = await args.t(LanguageKeys.Miscellaneous.SpeedUnits) as readonly string[];
+		const directions = await args.t(LanguageKeys.Miscellaneous.Directions) as readonly string[];
 		const lang = guildSettings?.language.slice(0, 2)
 
 		// Geocode location using Google Maps
@@ -41,27 +42,31 @@ export class UserCommand extends RTByteCommand {
 		};
 
 		const openweather = `https://api.openweathermap.org/data/2.5/onecall?lat=${location.lat}&lon=${location.long}&units=${units}&lang=${lang}&appid=${API_KEYS.OPENWEATHER}`;
-		const { current } = await fetch<OpenweatherResultOk>(openweather, FetchResultTypes.JSON);
+		const { timezone, current } = await fetch<OpenweatherResultOk>(openweather, FetchResultTypes.JSON);
 
 		if (!current.temp) return sendTemporaryMessage(message, args.t(LanguageKeys.Commands.User.WeatherInvalidInput, { input }));
 
 		const weather = {
+			localTime: new Date(current.dt * 1000).toLocaleString(guildSettings?.language, { timeZone: timezone, hour: 'numeric', minute: 'numeric', hour12: true }),
 			temperature: current.temp,
 			feelsLike: current.feels_like,
 			humidity: `${current.humidity}%`,
 			uvIndex: current.uvi,
-			windSpeed: units === 'metric' ? `${current.wind_speed} m/s` : `${current.wind_speed} mph`,
-			weather: current.weather[0].description.charAt(0).toUpperCase() + current.weather[0].description.slice(1)
+			windDirection: directions[Math.round(((current.wind_deg %= 360) < 0 ? current.wind_deg + 360 : current.wind_deg) / 45) % 8],
+			windSpeed: units === 'metric' ? `${current.wind_speed} ${speedUnits[0]}` : `${current.wind_speed} ${speedUnits[1]}`,
+			weather: current.weather[0].description.charAt(0).toUpperCase() + current.weather[0].description.slice(1),
+			icon: current.weather[0].icon
 		};
 
 		const embed = new RTByteEmbed(message)
 			.setAuthor(location.name, location.country ? `https://www.countryflags.io/${location.country}/flat/64.png` : undefined)
 			.setDescription(args.t(LanguageKeys.Commands.User.WeatherEmbedDescription, { link: `https://www.google.com/maps/@${location.lat},${location.long},14z` }))
-			.setThumbnail('')
-			.addField(args.t(LanguageKeys.Commands.User.WeatherEmbedWeather), weather.weather)
-			.addField(args.t(LanguageKeys.Commands.User.WeatherEmbedTemperatureTitle), args.t(LanguageKeys.Commands.User.WeatherEmbedTemperatureContent, { temp: Math.round(weather.temperature), unit: units === 'metric' ? 'C' : 'F', feelsLike: Math.round(weather.feelsLike) }))
+			.setThumbnail(`http://openweathermap.org/img/wn/${weather.icon}@4x.png`)
+			.addField(args.t(LanguageKeys.Commands.User.WeatherEmbedLocalTime), weather.localTime, true)
+			.addField(args.t(LanguageKeys.Commands.User.WeatherEmbedWeather), weather.weather, true)
+			.addField(args.t(LanguageKeys.Commands.User.WeatherEmbedTemperatureTitle), args.t(LanguageKeys.Commands.User.WeatherEmbedTemperatureContent, { temp: Math.round(weather.temperature), unit: units === 'metric' ? 'C' : 'F', feelsLike: Math.round(weather.feelsLike) }), true)
 			.addField(args.t(LanguageKeys.Commands.User.WeatherEmbedUVIndex), String(weather.uvIndex), true)
-			.addField(args.t(LanguageKeys.Commands.User.WeatherEmbedWindSpeed), weather.windSpeed, true)
+			.addField(args.t(LanguageKeys.Commands.User.WeatherEmbedWindTitle), args.t(LanguageKeys.Commands.User.WeatherEmbedWindContent, { windSpeed: weather.windSpeed, direction: weather.windDirection}), true)
 			.addField(args.t(LanguageKeys.Commands.User.WeatherEmbedHumidity), weather.humidity, true);
 
 		return reply(message, { embeds: [embed] });
@@ -90,15 +95,19 @@ export interface GoogleMapsResultOk {
 }
 
 export interface OpenweatherResultOk {
+	timezone: string,
 	current: {
+		dt: number
 		temp: number,
 		feels_like: number,
 		humidity: number,
 		uvi: number,
 		wind_speed: number,
+		wind_deg: number
 		weather: [
 			{
-				description: string
+				description: string,
+				icon: string
 			}
 		]
 	}
