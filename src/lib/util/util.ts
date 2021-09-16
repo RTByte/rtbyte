@@ -37,6 +37,10 @@ import { GuildChannel, Message, MessageEmbed, Permissions, ThreadChannel, UserRe
   */
 export const MEDIA_EXTENSION = /\.(bmp|jpe?g|png|gifv?|web[pm]|wav|mp[34]|ogg)$/i;
 
+export function cast<T>(value: unknown): T {
+	return value as T;
+}
+
 /**
  * Get the content from a message.
  * @param message The Message instance to get the content from

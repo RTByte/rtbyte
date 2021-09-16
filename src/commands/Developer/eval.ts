@@ -1,75 +1,131 @@
+/*
+The code in this file is licensed under the Apache License,
+Version 2.0 (the "License"); with the original authors being part of the
+Skyra Project (https://github.com/skyra-project/skyra) team.
+*/
+
+import { LanguageKeys } from '#lib/i18n/languageKeys';
+import { RTByteCommand } from '#lib/structures';
+import { PermissionLevels } from '#lib/types/Enums';
+import { EvalExtraData, handleMessage } from '#utils/Parsers/ExceededLength';
+import { clean } from '#utils/Sanitizer/clean';
+import { cast } from '#utils/util';
 import { ApplyOptions } from '@sapphire/decorators';
-import { Args, Command, CommandOptions } from '@sapphire/framework';
-import { send } from '@sapphire/plugin-editable-commands';
+import { Stopwatch } from '@sapphire/stopwatch';
 import { Type } from '@sapphire/type';
 import { codeBlock, isThenable } from '@sapphire/utilities';
 import type { Message } from 'discord.js';
+import { setTimeout as sleep } from 'timers/promises';
 import { inspect } from 'util';
 
-@ApplyOptions<CommandOptions>({
+@ApplyOptions<RTByteCommand.Options>({
 	aliases: ['ev'],
-	description: 'Evals any JavaScript code',
-	quotes: [],
-	preconditions: ['Developer'],
-	flags: ['async', 'hidden', 'showHidden', 'silent', 's'],
-	options: ['depth']
+	description: LanguageKeys.Commands.Developer.EvalDescription,
+	flags: ['async', 'no-timeout', 'json', 'silent', 'log', 'showHidden', 'hidden'],
+	options: ['wait', 'lang', 'language', 'output', 'output-to', 'depth'],
+	permissionLevel: PermissionLevels.Developer,
+	quotes: []
 })
-export class UserCommand extends Command {
-	public async run(message: Message, args: Args) {
+export class UserCommand extends RTByteCommand {
+	private readonly kTimeout = 60000;
+
+	public async run(message: Message, args: RTByteCommand.Args) {
 		const code = await args.rest('string');
 
-		const { result, success, type } = await this.eval(message, code, {
-			async: args.getFlags('async'),
-			depth: Number(args.getOption('depth')) ?? 0,
-			showHidden: args.getFlags('hidden', 'showHidden')
-		});
+		const wait = args.getOption('wait');
+		const flagTime = args.getFlags('no-timeout') ? (wait === null ? this.kTimeout : Number(wait)) : Infinity;
+		const language = args.getOption('lang', 'language') ?? (args.getFlags('json') ? 'json' : 'js');
+		const { success, result, time, type } = await this.timedEval(message, args, code, flagTime);
 
-		const output = success ? codeBlock('js', result) : `**ERROR**: ${codeBlock('bash', result)}`;
-		if (args.getFlags('silent', 's')) return null;
-
-		const typeFooter = `**Type**: ${codeBlock('typescript', type)}`;
-
-		if (output.length > 2000) {
-			return send(message, {
-				content: `Output was too long... sent the result as a file.\n\n${typeFooter}`,
-				files: [{ attachment: Buffer.from(output), name: 'output.txt' }]
-			});
+		if (args.getFlags('silent')) {
+			if (!success && result && cast<Error>(result).stack) this.container.logger.fatal(cast<Error>(result).stack);
+			return null;
 		}
 
-		return send(message, `${output}\n${typeFooter}`);
+		const footer = codeBlock('ts', type);
+		const sendAs = args.getOption('output', 'output-to') ?? (args.getFlags('log') ? 'log' : null);
+
+		return handleMessage<Partial<EvalExtraData>>(message, {
+			sendAs,
+			url: null,
+			canLogToConsole: true,
+			success,
+			result,
+			time,
+			footer,
+			language
+		});
 	}
 
-	private async eval(message: Message, code: string, flags: { async: boolean; depth: number; showHidden: boolean }) {
-		if (flags.async) code = `(async () => {\n${code}\n})();`;
+	private async timedEval(message: Message, args: RTByteCommand.Args, code: string, flagTime: number) {
+		if (flagTime === Infinity || flagTime === 0) return this.eval(message, args, code);
+		return Promise.race([
+			sleep(flagTime).then(() => ({
+				result: args.t(LanguageKeys.Commands.Developer.EvalTimeout, { seconds: flagTime / 1000 }),
+				success: false,
+				time: '⏱ ...',
+				type: 'EvalTimeoutError'
+			})),
+			this.eval(message, args, code)
+		]);
+	}
 
-		// @ts-expect-error value is never read, this is so `msg` is possible as an alias when sending the eval.
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		const msg = message;
-
-		let success = true;
-		let result = null;
+	// Eval the input
+	private async eval(message: Message, args: RTByteCommand.Args, code: string) {
+		const stopwatch = new Stopwatch();
+		let success: boolean;
+		let syncTime = '';
+		let asyncTime = '';
+		let result: unknown;
+		let thenable = false;
+		let type: Type;
 
 		try {
+			if (args.getFlags('async')) code = `(async () => {\n${code}\n})();`;
+
+			// @ts-expect-error value is never read, this is so `msg` is possible as an alias when sending the eval.
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
+			const msg = message;
 			// eslint-disable-next-line no-eval
 			result = eval(code);
-		} catch (error: any) {
-			if (error && error.stack) {
-				this.container.client.logger.error(error);
+			syncTime = stopwatch.toString();
+			type = new Type(result);
+			if (isThenable(result)) {
+				thenable = true;
+				stopwatch.restart();
+				result = await result;
+				asyncTime = stopwatch.toString();
 			}
+			success = true;
+		} catch (error) {
+			if (!syncTime.length) syncTime = stopwatch.toString();
+			if (thenable && !asyncTime.length) asyncTime = stopwatch.toString();
+			if (!type!) type = new Type(error);
 			result = error;
 			success = false;
 		}
 
-		const type = new Type(result).toString();
-		if (isThenable(result)) result = await result;
-
+		stopwatch.stop();
 		if (typeof result !== 'string') {
-			result = inspect(result, {
-				depth: flags.depth,
-				showHidden: flags.showHidden
-			});
+			result =
+				result instanceof Error
+					? result.stack
+					: args.getFlags('json')
+					? JSON.stringify(result, null, 4)
+					: inspect(result, {
+							depth: Number(args.getOption('depth') ?? 0) || 0,
+							showHidden: args.getFlags('showHidden', 'hidden')
+					  });
 		}
+		return {
+			success,
+			type: type!,
+			time: this.formatTime(syncTime, asyncTime ?? ''),
+			result: clean(result as string)
+		};
+	}
 
-		return { result, success, type };
+	private formatTime(syncTime: string, asyncTime?: string) {
+		return asyncTime ? `⏱ ${asyncTime}<${syncTime}>` : `⏱ ${syncTime}`;
 	}
 }
