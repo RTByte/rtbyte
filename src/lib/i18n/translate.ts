@@ -4,6 +4,10 @@ import { LanguageKeys } from "./languageKeys";
 
 export function translate(identifier: string): string {
 	switch (identifier) {
+		case Identifiers.ArgumentMessageError:
+			return `arguments:${identifier}`;
+		case Identifiers.ArgsMissing:
+			return LanguageKeys.Arguments.Missing;
 		case Identifiers.PreconditionClientPermissions:
 			return LanguageKeys.Preconditions.ClientPermissions;
 		case Identifiers.PreconditionCooldown:
