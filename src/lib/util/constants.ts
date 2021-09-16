@@ -56,6 +56,9 @@ export const enum LanguageFormatters {
 	PermissionsAndList = 'permissionsAndList'
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
+export type O = object;
+
 export const REGEX = {
 	emoji: /^(?:<a?:\w{2,32}:)?(\d{17,19})>?$/,
 	emojiAnimated: /^<a:(?:\w{2,32}:)?(\d{17,19})>?$/

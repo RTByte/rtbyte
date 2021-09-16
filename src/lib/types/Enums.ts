@@ -1,3 +1,7 @@
+export const enum Events {
+	Error = 'error',
+}
+
 export const enum PermissionLevels {
 	Everyone = 0,
 	Moderator = 5,
