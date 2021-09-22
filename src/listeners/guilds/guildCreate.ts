@@ -15,7 +15,7 @@ export class UserEvent extends Listener<'guildCreate'> {
 		const { client, logger } = this.container;
 
 		// Fetch client settings
-		const clientSettings = await client.prisma.client.findFirst()
+		const clientSettings = await client.prisma.clientSettings.findFirst()
 
 		// Check if guilds are on the guild blacklist
 		if (clientSettings?.guildBlacklist.includes(guild.id)) {
@@ -23,12 +23,12 @@ export class UserEvent extends Listener<'guildCreate'> {
 			return logger.info(`Guild ${bold(guild.name)} (${guild.id}) is on the guild blacklist, leaving...`);
 		}
 
-		const guildSettings = await client.prisma.guild.findFirst({ where: { guildID: guild.id } });
+		const guildSettings = await client.prisma.guildSettings.findFirst({ where: { guildID: guild.id } });
 
 		if (!guildSettings) {
 			logger.info(`Initializing guild ${bold(guild.name)} (${guild.id})...`)
 
-			await client.prisma.guild.create({
+			await client.prisma.guildSettings.create({
 				data: {
 					guildID: guild.id
 				}

@@ -21,7 +21,7 @@ export class RTByteClient extends SapphireClient {
 		if (!isGuildMessage(message)) return [PREFIX, ''];
 
 		// Fetch guild settings
-		const guildSettings = await this.prisma.guild.findFirst({ where: { guildID: message.guild.id } });
+		const guildSettings = await this.prisma.guildSettings.findFirst({ where: { guildID: message.guild.id } });
 
 		// Return custom guild prefix or default
 		return guildSettings?.prefix ?? PREFIX;
@@ -35,7 +35,7 @@ export class RTByteClient extends SapphireClient {
 		if (!message.guild) return 'en-US';
 
 		// Fetch guild settings
-		const guildSettings = await this.prisma.guild.findFirst({ where: { guildID: message.guild?.id } });
+		const guildSettings = await this.prisma.guildSettings.findFirst({ where: { guildID: message.guild?.id } });
 
 		return guildSettings?.language;
 	};

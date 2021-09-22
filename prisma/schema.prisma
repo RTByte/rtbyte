@@ -7,7 +7,7 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Client {
+model ClientSettings {
 	@@map("client")
 
 	clientID		String	 @id @map("client_id")
@@ -17,7 +17,7 @@ model Client {
 	guildBlacklist	String[] @map("guild_blacklist")
 }
 
-model Guild {
+model GuildSettings {
 	@@map("guild")
 
 	// Basics
@@ -60,31 +60,31 @@ model Guild {
 	dismissMessage String? @map("greetings_dismiss_message")
 
 	// Log events - Discord native
-	channelCreate       Boolean @default(false) @map("log_channel_create")
-	channelDelete       Boolean @default(false) @map("log_channel_delete")
-	channelUpdate       Boolean @default(false) @map("log_channel_update")
-	emojiCreate         Boolean @default(false) @map("log_emoji_create")
-	emojiDelete         Boolean @default(false) @map("log_emoji_delete")
-	emojiUpdate         Boolean @default(false) @map("log_emoji_update")
-	guildMemberAdd      Boolean @default(true) @map("log_guild_member_join")
-	guildMemberRemove   Boolean @default(true) @map("log_guild_member_leave")
-	guildMemberUpdate   Boolean @default(true) @map("log_guild_member_update")
-	guildUpdate         Boolean @default(true) @map("log_guild_update")
-	inviteCreate        Boolean @default(false) @map("log_invite_create")
-	inviteDelete        Boolean @default(false) @map("log_invite_delete")
-	messageDelete       Boolean @default(false) @map("log_message_delete")
-	messageUpdate       Boolean @default(false) @map("log_message_update")
-	roleCreate          Boolean @default(false) @map("log_role_create")
-	roleDelete          Boolean @default(false) @map("log_role_delete")
-	roleUpdate          Boolean @default(false) @map("log_role_update")
-	stickerCreate       Boolean @default(false) @map("log_sticker_create")
-	stickerDelete       Boolean @default(false) @map("log_sticker_delete")
-	stickerUpdate       Boolean @default(false) @map("log_sticker_update")
-	threadCreate        Boolean @default(false) @map("log_thread_create")
-	threadDelete        Boolean @default(false) @map("log_thread_delete")
-	threadMembersUpdate Boolean @default(false) @map("log_thread_members_update")
-	threadUpdate        Boolean @default(false) @map("log_thread_update")
-	webhookUpdate       Boolean @default(false) @map("log_webhook_update")
+	channelCreateLog       Boolean @default(false) @map("log_channel_create")
+	channelDeleteLog       Boolean @default(false) @map("log_channel_delete")
+	channelUpdateLog       Boolean @default(false) @map("log_channel_update")
+	emojiCreateLog         Boolean @default(false) @map("log_emoji_create")
+	emojiDeleteLog         Boolean @default(false) @map("log_emoji_delete")
+	emojiUpdateLog         Boolean @default(false) @map("log_emoji_update")
+	guildMemberAddLog      Boolean @default(true) @map("log_guild_member_join")
+	guildMemberRemoveLog   Boolean @default(true) @map("log_guild_member_leave")
+	guildMemberUpdateLog   Boolean @default(true) @map("log_guild_member_update")
+	guildUpdateLog         Boolean @default(true) @map("log_guild_update")
+	inviteCreateLog        Boolean @default(false) @map("log_invite_create")
+	inviteDeleteLog        Boolean @default(false) @map("log_invite_delete")
+	messageDeleteLog       Boolean @default(false) @map("log_message_delete")
+	messageUpdateLog       Boolean @default(false) @map("log_message_update")
+	roleCreateLog          Boolean @default(false) @map("log_role_create")
+	roleDeleteLog          Boolean @default(false) @map("log_role_delete")
+	roleUpdateLog          Boolean @default(false) @map("log_role_update")
+	stickerCreateLog       Boolean @default(false) @map("log_sticker_create")
+	stickerDeleteLog       Boolean @default(false) @map("log_sticker_delete")
+	stickerUpdateLog       Boolean @default(false) @map("log_sticker_update")
+	threadCreateLog        Boolean @default(false) @map("log_thread_create")
+	threadDeleteLog        Boolean @default(false) @map("log_thread_delete")
+	threadMembersUpdateLog Boolean @default(false) @map("log_thread_members_update")
+	threadUpdateLog        Boolean @default(false) @map("log_thread_update")
+	webhookUpdateLog       Boolean @default(false) @map("log_webhook_update")
 
 	// Log events - custom
 

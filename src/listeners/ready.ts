@@ -73,11 +73,11 @@ ${line09} ${pad}[${success}] Gateway ${connectionPad}[${success}] Prisma ${conne
 		const { client } = this.container;
 
 		// Fetch client settings
-		const clientSettings = await client.prisma.client.findFirst()
+		const clientSettings = await client.prisma.clientSettings.findFirst()
 
 		// Validate client settings and ensure configuration exists
 		if (clientSettings?.clientID !== client.id) {
-			await client.prisma.client.create({
+			await client.prisma.clientSettings.create({
 				data: {
 					clientID: String(client.id)
 				}
@@ -89,7 +89,7 @@ ${line09} ${pad}[${success}] Gateway ${connectionPad}[${success}] Prisma ${conne
 		const { client, logger } = this.container;
 
 		// Fetch client settings
-		const clientSettings = await client.prisma.client.findFirst()
+		const clientSettings = await client.prisma.clientSettings.findFirst()
 
 		logger.info('Starting guild validation...');
 
@@ -103,11 +103,11 @@ ${line09} ${pad}[${success}] Gateway ${connectionPad}[${success}] Prisma ${conne
 			}
 
 			// Check if configuration exists for guild. If not, create it
-			const guildSettings = await client.prisma.guild.findFirst({ where: { guildID: guild.id } });
+			const guildSettings = await client.prisma.guildSettings.findFirst({ where: { guildID: guild.id } });
 			if (!guildSettings) {
 				logger.info(`Initializing guild ${bold(guild.name)} (${guild.id})...`)
 
-				await client.prisma.guild.create({
+				await client.prisma.guildSettings.create({
 					data: {
 						guildID: guild.id
 					}

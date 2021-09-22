@@ -24,7 +24,7 @@ export class UserPrecondition extends Precondition {
 	}
 
 	private async runGuild(message: GuildMessage, command: Command, context: Precondition.Context): Precondition.AsyncResult {
-		const guildSettings = await this.container.client.prisma.guild.findFirst({ where: { guildID: message.guild.id } });
+		const guildSettings = await this.container.client.prisma.guildSettings.findFirst({ where: { guildID: message.guild.id } });
 		const disabled = guildSettings?.disabledCommands.includes(command.name);
 
 		if (disabled) {
