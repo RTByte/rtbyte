@@ -26,6 +26,7 @@ export class UserListener extends Listener<typeof SapphireEvents.ChannelDelete> 
 
 	private serverLog(channel: GuildBasedChannel, executor: User | null | undefined, t: TFunction) {
 		const embed = new GuildLogEmbed()
+			.setAuthor(`#${channel.name}`, channel.guild.iconURL() as string)
 			.setDescription(t(LanguageKeys.Miscellaneous.DisplayID, { id: channel.id }))
 			.setType(Events.ChannelDelete)
 
@@ -65,7 +66,6 @@ export class UserListener extends Listener<typeof SapphireEvents.ChannelDelete> 
 				}), executor?.displayAvatarURL() ?? undefined);
 				break;
 			default:
-				embed.setAuthor(`#${channel.name}`, channel.guild.iconURL() as string)
 				embed.setFooter(t(LanguageKeys.Events.Guilds.Logs.ChannelDeleted, {
 					by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined
 				}), executor?.displayAvatarURL() ?? undefined);
