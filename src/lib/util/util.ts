@@ -1,6 +1,6 @@
 import { RandomLoadingMessage } from '#utils/constants';
 import { send } from '@sapphire/plugin-editable-commands';
-import { GuildChannel, Message, MessageEmbed, Permissions, ThreadChannel, UserResolvable } from 'discord.js';
+import { Guild, GuildAuditLogsAction, GuildChannel, Message, MessageEmbed, Permissions, ThreadChannel, UserResolvable } from 'discord.js';
 
 /**
  * Image extensions:
@@ -39,6 +39,18 @@ export const MEDIA_EXTENSION = /\.(bmp|jpe?g|png|gifv?|web[pm]|wav|mp[34]|ogg)$/
 
 export function cast<T>(value: unknown): T {
 	return value as T;
+}
+
+/**
+ * Get the executor user from the last audit log entry of specific type
+ * @param action The audit log type to fetch
+ * @param guild The Guild object to get audit logs for
+ * @returns Executor User object from the last audit log entry of specific type.
+ */
+export async function getAuditLogExecutor(action: GuildAuditLogsAction, guild: Guild) {
+	if (!guild.me?.permissions.has('VIEW_AUDIT_LOG')) return;
+
+	return (await guild.fetchAuditLogs({ type: action })).entries.first()?.executor;
 }
 
 /**
