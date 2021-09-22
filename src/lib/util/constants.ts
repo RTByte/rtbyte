@@ -6,14 +6,15 @@ export const ZeroWidthSpace = '\u200B';
 
 export const enum Colors {
 	Accent = '#FE3132',
-	White = '#FEFEFE',
-	Red = '#FF4B4B',
-	Green = '#4BFF4B',
-	Yellow = '#FFFF4B',
-	Blue = '#4B4BFF',
-	Pink = '#F47FFF',
+	Blue = '#4B64FF',
 	Gold = '#DAA520',
-	Purple = '#9046FF'
+	Green = '#4BFF4B',
+	LightBlue = '#4BC3FF',
+	Pink = '#F47FFF',
+	Purple = '#9046FF',
+	Red = '#FF4B4B',
+	White = '#FEFEFE',
+	Yellow = '#FFFF4B'
 }
 
 export const enum Emojis {
@@ -22,7 +23,7 @@ export const enum Emojis {
 	ArrowToLeft = '<:rtbyte_arrow_to_left:801918098571395133>',
 	ArrowToRight = '<:rtbyte_arrow_to_right:801918207077777409>',
 	BotBadge = '<:rtbyte_bot_badge:801919189664399391>',
-	Check = '<:check:801916142338834492>',
+	Check = '<:rtbyte_check:801917144237211669>',
 	Dnd = '<:rtbyte_dnd:801918926417559552>',
 	Idle = '<:rtbyte_idle:801918753679212544>',
 	Info = '<:rtbyte_info:801918407023919124>',
@@ -31,7 +32,7 @@ export const enum Emojis {
 	Online = '<:rtbyte_online:801918663233241099>',
 	PartnerBadge = '<:rtbyte_partnered_badge:801919416429838366>',
 	VerifiedBadge = '<:rtbyte_verified_badge:801919582696505364>',
-	X = '<:cross:801916142327169114>',
+	X = '<:rtbyte_x:801917320728543275>',
 }
 
 export const enum LanguageFormatters {
