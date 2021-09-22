@@ -48,13 +48,15 @@ export const enum LanguageFormatters {
 	JsCodeBlock = 'jsCodeBlock',
 	Ordinal = 'ordinal',
 	OrList = 'orList',
+	ChannelTypes = 'channelTypes',
 	Permissions = 'permissions',
 	Random = 'random',
 	Date = 'date',
 	DateFull = 'dateFull',
 	DateTime = 'dateTime',
 	ToTitleCase = 'toTitleCase',
-	PermissionsAndList = 'permissionsAndList'
+	PermissionsAndList = 'permissionsAndList',
+	DiscordRegions = 'discordRegions'
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types

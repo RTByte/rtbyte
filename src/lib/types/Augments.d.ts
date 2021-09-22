@@ -1,4 +1,6 @@
-import { GuildChannel, TextChannel, User } from "discord.js";
+import { GuildLogEmbed } from "#lib/structures";
+import { Nullish } from "@sapphire/utilities";
+import { Guild, GuildChannel, TextChannel, User } from "discord.js";
 import { Events } from "./Enums";
 
 declare module '@sapphire/framework' {
@@ -18,6 +20,7 @@ declare module '@sapphire/framework' {
 
 	interface SapphireClient {
 		emit(event: Events.Error, error: Error): boolean;
+		emit(event: Events.GuildMessageLog, guild: Guild, channelID: string | Nullish, eventType: string, guildLogEmbed: GuildLogEmbed | undefined): boolean;
 		emit(event: string | symbol, ...args: any[]): boolean;
 	}
 }

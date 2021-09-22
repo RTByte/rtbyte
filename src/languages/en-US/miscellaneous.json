@@ -1,4 +1,7 @@
 {
+	"automatic": "Automatic",
+	"by": "by {{user}}",
+	"category": "Category",
 	"directions": [
 		"north",
 		"northeast",
@@ -9,6 +12,7 @@
 		"west",
 		"northwest"
 	],
+	"id": "ID: `{{id}}`",
 	"joined": "Joined",
 	"message": "Message",
 	"registered": "Registered",
@@ -16,5 +20,6 @@
 	"speedUnits": [
 		"m/s",
 		"mph"
-	]
+	],
+	"unlimited": "Unlimited"
 }

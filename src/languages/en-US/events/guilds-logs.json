@@ -1,0 +1,40 @@
+{
+	"channels": {
+		"bitrateChanged": "Bitrate changed",
+		"categoryCreated": "Category created {{by}}",
+		"categoryDeleted": "Category deleted {{by}}",
+		"categoryUpdated": "Category updated {{by}}",
+		"channelCreated": "Channel created {{by}}",
+		"channelDeleted": "Channel deleted {{by}}",
+		"channelUpdated": "Channel updated {{by}}",
+		"defaultAutoArchiveThreadDuration": "Automatic thread archival duration changed",
+		"newsChannelCreated": "Announcement channel created {{by}}",
+		"newsChannelDeleted": "Announcement channel deleted {{by}}",
+		"newsChannelUpdated": "Announcement channel updated {{by}}",
+		"nsfwToggled": "NSFW toggled",
+		"parentChanged": "Moved to category",
+		"regionOverrideChanged": "Region override changed",
+		"regionOverrideFormatted": "{{before, discordRegions}} {{ARROW_RIGHT}} {{after, discordRegions}}",
+		"slowmodeChanged": "Slowmode interval changed",
+		"stageChannelCreated": "Stage channel created {{by}}",
+		"stageChannelDeleted": "Stage channel deleted {{by}}",
+		"stageChannelUpdated": "Stage channel updated {{by}}",
+		"storeChannelCreated": "Store channel created {{by}}",
+		"storeChannelDeleted": "Store channel deleted {{by}}",
+		"storeChannelUpdated": "Store channel updated {{by}}",
+		"topicChanged": "Topic changed",
+		"typeChanged": "Channel type changed",
+		"typeFormatted": "`{{before, channelTypes}}` {{ARROW_RIGHT}} `{{after, channelTypes}}`",
+		"userLimitChanged": "User limit changed",
+		"userLimitFormatted": "{{users}} users",
+		"voiceChannelCreated": "Voice channel created {{by}}",
+		"voiceChannelDeleted": "Voice channel deleted {{by}}",
+		"voiceChannelUpdated": "Voice channel updated {{by}}"
+	},
+	"shared": {
+		"nameChanged": "Name changed",
+		"changeLongText": "**Before:** ```{{before}}```\n**After:** ```{{after}}```",
+		"changeShortObject": "{{before}} {{ARROW_RIGHT}} {{after}}",
+		"changeShortText": "`{{before}}` {{ARROW_RIGHT}} `{{after}}`"
+	}
+}
