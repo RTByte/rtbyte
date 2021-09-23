@@ -44,6 +44,11 @@
 		"maxUses": "Max uses",
 		"temporary": "Grants temporary membership"
 	},
+	"messages": {
+		"messageDeleted": "Message deleted",
+		"messageUpdated": "Message edited",
+		"noContentBeforeEdit": "`Message had no content before being edited`"
+	},
 	"roles": {
 		"colorChanged": "Color changed",
 		"hoistToggled": "Hoist toggled",

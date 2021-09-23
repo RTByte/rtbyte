@@ -1,6 +1,7 @@
 {
+	"after": "After",
 	"automatic": "Automatic",
-	"newsChannel": "Announcement channel",
+	"before": "Before",
 	"by": "by {{user}}",
 	"category": "Category",
 	"channel": "Channel",
@@ -19,6 +20,7 @@
 	"joined": "Joined",
 	"link": "Link",
 	"message": "Message",
+	"newsChannel": "Announcement channel",
 	"registered": "Registered",
 	"serverCreator": "Server creator",
 	"speedUnits": [
