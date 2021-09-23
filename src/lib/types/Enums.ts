@@ -33,7 +33,6 @@ export const enum Events {
 	StickerUpdate = 'stickerUpdate',
 	ThreadCreate = 'threadCreate',
 	ThreadDelete = 'threadDelete',
-	ThreadMembersUpdate = 'threadMembersUpdate',
 	ThreadUpdate = 'threadUpdate',
 	WebhookUpdate = 'webhookUpdate'
 }

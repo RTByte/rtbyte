@@ -82,7 +82,6 @@ model GuildSettings {
 	stickerUpdateLog       Boolean @default(false) @map("log_sticker_update")
 	threadCreateLog        Boolean @default(false) @map("log_thread_create")
 	threadDeleteLog        Boolean @default(false) @map("log_thread_delete")
-	threadMembersUpdateLog Boolean @default(false) @map("log_thread_members_update")
 	threadUpdateLog        Boolean @default(false) @map("log_thread_update")
 	webhookUpdateLog       Boolean @default(false) @map("log_webhook_update")
 

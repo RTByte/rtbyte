@@ -34,7 +34,6 @@ export class GuildLogEmbed extends MessageEmbed {
 			case Events.GuildUpdate:
 			case Events.RoleUpdate:
 			case Events.StickerUpdate:
-			case Events.ThreadMembersUpdate:
 			case Events.ThreadUpdate:
 			case Events.WebhookUpdate:
 				this.setColor(Colors.Blue);
