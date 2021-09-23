@@ -1,7 +1,7 @@
 import { LanguageKeys } from "#lib/i18n/languageKeys";
 import { GuildLogEmbed } from "#lib/structures";
 import { Events } from "#lib/types/Enums";
-import { Emojis } from "#root/lib/util/constants";
+import { Emojis } from "#utils/constants";
 import { getAuditLogExecutor } from "#utils/util";
 import { ApplyOptions } from "@sapphire/decorators";
 import { Events as SapphireEvents, Listener, ListenerOptions } from "@sapphire/framework";

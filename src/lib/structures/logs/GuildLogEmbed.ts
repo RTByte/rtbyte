@@ -1,5 +1,5 @@
 import { Events } from '#lib/types/Enums';
-import { Colors } from '#root/lib/util/constants';
+import { Colors } from '#utils/constants';
 import { MessageEmbed } from 'discord.js';
 
 export class GuildLogEmbed extends MessageEmbed {

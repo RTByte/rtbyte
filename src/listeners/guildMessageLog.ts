@@ -1,9 +1,12 @@
 import { GuildLogEmbed } from "#lib/structures";
+import { Events } from "#lib/types/Enums";
+import { ApplyOptions } from "@sapphire/decorators";
 import { canSendEmbeds } from "@sapphire/discord.js-utilities";
-import { Listener } from "@sapphire/framework";
+import { Listener, ListenerOptions } from "@sapphire/framework";
 import { isNullish, Nullish } from "@sapphire/utilities";
 import { DiscordAPIError, Guild, HTTPError, TextChannel } from "discord.js";
 
+@ApplyOptions<ListenerOptions>({ event: Events.GuildMessageLog })
 export class UserListener extends Listener {
 	public async run(guild: Guild, logChannelID: string | Nullish, event: string, logMessage: GuildLogEmbed | undefined) {
 		if (isNullish(logChannelID)) return;

@@ -1,6 +1,6 @@
 import { LanguageKeys } from '#lib/i18n/languageKeys';
 import { RTByteCommand } from '#lib/structures';
-import { pickRandom } from '#root/lib/util/util';
+import { pickRandom } from '#utils/util';
 import { ApplyOptions } from '@sapphire/decorators';
 import { fetch, FetchResultTypes } from '@sapphire/fetch';
 import { reply } from '@sapphire/plugin-editable-commands';
