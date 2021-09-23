@@ -67,5 +67,14 @@
 		"stickerCreated": "Sticker created {{by}}",
 		"stickerDeleted": "Sticker deleted {{by}}",
 		"stickerUpdated": "Sticker updated {{by}}"
+	},
+	"threads": {
+		"anyoneCanUnarchive": "Anyone can unarchive toggled",
+		"autoArchiveDuration": "Automatic archival duration",
+		"threadArchived": "Thread archived {{by}}",
+		"threadCreated": "Thread created {{by}}",
+		"threadDeleted": "Thread deleted {{by}}",
+		"threadUnarchived": "Thread unarchived {{by}}",
+		"threadUpdated": "Thread updated {{by}}"
 	}
 }

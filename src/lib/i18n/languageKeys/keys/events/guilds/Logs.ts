@@ -1,5 +1,7 @@
 import { FT, T } from "#lib/types";
 
+export const AnyoneCanUnarchive = T<string>('events/guilds-logs:threads.anyoneCanUnarchive');
+export const AutoArchiveDuration = T<string>('events/guilds-logs:threads.autoArchiveDuration');
 export const BitrateChanged = T<string>('events/guilds-logs:channels.bitrateChanged');
 export const CategoryCreated = FT<{ by: string }, string>('events/guilds-logs:channels.categoryCreated');
 export const CategoryDeleted = FT<{ by: string }, string>('events/guilds-logs:channels.categoryDeleted');
@@ -49,6 +51,11 @@ export const StoreChannelCreated = FT<{ by: string }, string>('events/guilds-log
 export const StoreChannelDeleted = FT<{ by: string }, string>('events/guilds-logs:channels.storeChannelDeleted');
 export const StoreChannelUpdated = FT<{ by: string }, string>('events/guilds-logs:channels.storeChannelUpdated');
 export const Temporary = T<string>('events/guilds-logs:invites.temporary');
+export const ThreadArchived = FT<{ by: string }, string>('events/guilds-logs:threads.threadArchived');
+export const ThreadCreated = FT<{ by: string }, string>('events/guilds-logs:threads.threadCreated');
+export const ThreadDeleted = FT<{ by: string }, string>('events/guilds-logs:threads.threadDeleted');
+export const ThreadUnarchived = FT<{ by: string }, string>('events/guilds-logs:threads.threadUnarchived');
+export const ThreadUpdated = FT<{ by: string }, string>('events/guilds-logs:threads.threadUpdated');
 export const TopicChanged = T<string>('events/guilds-logs:channels.topicChanged');
 export const TypeChanged = T<string>('events/guilds-logs:channels.typeChanged');
 export const TypeFormatted = FT<{ before: string, after: string}, string>('events/guilds-logs:channels.typeFormatted');
