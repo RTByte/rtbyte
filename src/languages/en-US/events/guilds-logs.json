@@ -44,6 +44,16 @@
 		"maxUses": "Max uses",
 		"temporary": "Grants temporary membership"
 	},
+	"roles": {
+		"colorChanged": "Color changed",
+		"hoistToggled": "Hoist toggled",
+		"mentionableToggled": "Mentionable toggled",
+		"permissionsChanged": "Permissions changed",
+		"permissionsFormatted": "**Before:** \n```\n{{before, permissionsAndList}}\n```\n**After:** \n```\n{{after, permissionsAndList}}\n```",
+		"roleCreated": "Role created {{by}}",
+		"roleDeleted": "Role deleted {{by}}",
+		"roleUpdated": "Role updated {{by}}"
+	},
 	"shared": {
 		"nameChanged": "Name changed",
 		"changeLongText": "**Before:** ```\n{{before}}\n```\n**After:** ```\n{{after}}\n```",

@@ -1,6 +1,6 @@
 import { FT, T } from "#lib/types";
 
-export const Automatic = <string>('miscellaneous:automatic');
+export const Automatic = T<string>('miscellaneous:automatic');
 export const NewsChannel = T<string>('miscellaneous:newsChannel');
 export const By = FT<{ user: string}, string>('miscellaneous:by');
 export const Category = T<string>('miscellaneous:category');
