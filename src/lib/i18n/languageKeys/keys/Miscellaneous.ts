@@ -5,6 +5,7 @@ export const NewsChannel = T<string>('miscellaneous:newsChannel');
 export const By = FT<{ user: string}, string>('miscellaneous:by');
 export const Category = T<string>('miscellaneous:category');
 export const Channel = T<string>('miscellaneous:channel');
+export const Description = T<string>('miscellaneous:description');
 export const Directions = T<readonly string[]>('miscellaneous:directions');
 export const DisplayID = FT<{ id: string }, string>('miscellaneous:id');
 export const Joined = T<string>('miscellaneous:joined');

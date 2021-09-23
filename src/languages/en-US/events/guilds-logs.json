@@ -55,9 +55,17 @@
 		"roleUpdated": "Role updated {{by}}"
 	},
 	"shared": {
+		"descriptionChanged": "Description changed",
 		"nameChanged": "Name changed",
 		"changeLongText": "**Before:** ```\n{{before}}\n```\n**After:** ```\n{{after}}\n```",
 		"changeShortObject": "{{before}} {{ARROW_RIGHT}} {{after}}",
 		"changeShortText": "`{{before}}` {{ARROW_RIGHT}} `{{after}}`"
+	},
+	"stickers": {
+		"relatedEmoji": "Related emoji",
+		"relatedEmojiChanged": "Related emoji changed",
+		"stickerCreated": "Sticker created {{by}}",
+		"stickerDeleted": "Sticker deleted {{by}}",
+		"stickerUpdated": "Sticker updated {{by}}"
 	}
 }

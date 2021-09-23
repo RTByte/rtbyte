@@ -4,6 +4,7 @@
 	"by": "by {{user}}",
 	"category": "Category",
 	"channel": "Channel",
+	"description": "Description",
 	"directions": [
 		"north",
 		"northeast",
