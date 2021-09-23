@@ -36,6 +36,14 @@
 		"emojiDeleted": "Emoji deleted {{by}}",
 		"emojiUpdated": "Emoji updated {{by}}"
 	},
+	"invites": {
+		"inviteCreated": "Invite created {{by}}",
+		"inviteDeleted": "Invite deleted {{by}}",
+		"expiry": "Expiry",
+		"expiresIn": "In {{expiryOffset, duration}}",
+		"maxUses": "Max uses",
+		"temporary": "Grants temporary membership"
+	},
 	"shared": {
 		"nameChanged": "Name changed",
 		"changeLongText": "**Before:** ```\n{{before}}\n```\n**After:** ```\n{{after}}\n```",
