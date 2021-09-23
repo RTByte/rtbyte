@@ -28,7 +28,7 @@ export class UserListener extends Listener<typeof SapphireEvents.ChannelDelete> 
 		const embed = new GuildLogEmbed()
 			.setAuthor(`#${channel.name}`, channel.guild.iconURL() as string)
 			.setDescription(t(LanguageKeys.Miscellaneous.DisplayID, { id: channel.id }))
-			.setType(Events.ChannelDelete)
+			.setType(Events.ChannelDelete);
 
 		// Add category field if channel is in a category
 		if (channel.parent) {

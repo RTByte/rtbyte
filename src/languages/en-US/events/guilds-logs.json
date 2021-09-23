@@ -33,7 +33,7 @@
 	},
 	"shared": {
 		"nameChanged": "Name changed",
-		"changeLongText": "**Before:** ```{{before}}```\n**After:** ```{{after}}```",
+		"changeLongText": "**Before:** ```\n{{before}}\n```\n**After:** ```\n{{after}}\n```",
 		"changeShortObject": "{{before}} {{ARROW_RIGHT}} {{after}}",
 		"changeShortText": "`{{before}}` {{ARROW_RIGHT}} `{{after}}`"
 	}

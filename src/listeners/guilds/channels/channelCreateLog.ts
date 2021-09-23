@@ -28,7 +28,7 @@ export class UserListener extends Listener<typeof SapphireEvents.ChannelCreate> 
 		const embed = new GuildLogEmbed()
 			.setAuthor(`#${channel.name}`, channel.guild.iconURL() as string)
 			.setDescription(t(LanguageKeys.Miscellaneous.DisplayID, { id: channel.id }))
-			.setType(Events.ChannelCreate)
+			.setType(Events.ChannelCreate);
 
 		// Add category field if channel is in a category
 		if (channel.parent) {

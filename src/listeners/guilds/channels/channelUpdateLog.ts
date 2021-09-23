@@ -30,7 +30,7 @@ export class UserListener extends Listener<typeof SapphireEvents.ChannelUpdate> 
 		const embed = new GuildLogEmbed()
 			.setAuthor(`#${channel.name}`, channel.guild.iconURL() as string)
 			.setDescription(t(LanguageKeys.Miscellaneous.DisplayID, { id: channel.id }))
-			.setType(Events.ChannelUpdate)
+			.setType(Events.ChannelUpdate);
 
 		// Name changed
 		if (oldChannel.name !== channel.name) {
@@ -42,7 +42,7 @@ export class UserListener extends Listener<typeof SapphireEvents.ChannelUpdate> 
 		// Moved to different category
 		if (oldChannel.parent !== channel.parent) {
 			embed.addField(t(LanguageKeys.Events.Guilds.Logs.ParentChanged), t(LanguageKeys.Events.Guilds.Logs.ChangeShortObject, {
-				before: `<#${oldChannel.parentId}>`, after: `<#${channel.parentId}>`
+				before: oldChannel.parent ? `<#${oldChannel.parentId}>` : `\`${t(LanguageKeys.Globals.None)}\``, after: channel.parent ? `<#${channel.parentId}>` : `\`${t(LanguageKeys.Globals.None)}\``
 			}));
 		}
 
@@ -71,7 +71,7 @@ export class UserListener extends Listener<typeof SapphireEvents.ChannelUpdate> 
 					(oldChannel.topic?.length as number < 64 && channel.topic?.length as number < 64) ?
 						t(LanguageKeys.Events.Guilds.Logs.ChangeShortText, { before: oldChannel.topic, after: channel.topic }) :
 						t(LanguageKeys.Events.Guilds.Logs.ChangeLongText, { before: cutText(oldChannel.topic as string, 496), after: cutText(channel.topic as string, 496) })
-				)
+				);
 			}
 			// Automatic thread archival duration changed
 			if (oldChannel.defaultAutoArchiveDuration !== channel.defaultAutoArchiveDuration) {
