@@ -92,7 +92,7 @@ export interface ImageAttachment {
 }
 
 /**
- * Get a image attachment from a message.
+ * Get an image attachment from a message.
  * @param message The Message instance to get the image url from
  */
  export function getAttachment(message: Message): ImageAttachment | null {
@@ -131,12 +131,28 @@ export interface ImageAttachment {
 }
 
 /**
+ * Get a sticker image url from a message.
+ * @param message The Message instance to get the sticker image url from
+ */
+ export function getStickerImage(message: Message): string | null {
+	if (message.stickers.size) {
+		const sticker = message.stickers.find((stckr) => IMAGE_EXTENSION.test(stckr.url));
+		if (sticker) {
+			return sticker.url
+		}
+	}
+
+	return null;
+}
+
+/**
  * Get the image url from a message.
  * @param message The Message instance to get the image url from
  */
 export function getImage(message: Message): string | null {
 	const attachment = getAttachment(message);
-	return attachment ? attachment.proxyURL || attachment.url : null;
+	const sticker = getStickerImage(message);
+	return attachment ? attachment.proxyURL || attachment.url : sticker ?? null;
 }
 
 /**
