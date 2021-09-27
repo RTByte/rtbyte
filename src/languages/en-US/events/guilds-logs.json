@@ -81,5 +81,12 @@
 		"threadDeleted": "Thread deleted {{by}}",
 		"threadUnarchived": "Thread unarchived {{by}}",
 		"threadUpdated": "Thread updated {{by}}"
+	},
+	"webhooks": {
+		"avatarChanged": "Avatar changed",
+		"channelChanged": "Channel changed",
+		"webhookCreated": "Webhook created {{by}}",
+		"webhookDeleted": "Webhook deleted {{by}}",
+		"webhookUpdated": "Webhook updated {{by}}"
 	}
 }

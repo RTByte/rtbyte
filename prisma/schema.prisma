@@ -83,9 +83,11 @@ model GuildSettings {
 	threadCreateLog        Boolean @default(false) @map("log_thread_create")
 	threadDeleteLog        Boolean @default(false) @map("log_thread_delete")
 	threadUpdateLog        Boolean @default(false) @map("log_thread_update")
-	webhookUpdateLog       Boolean @default(false) @map("log_webhook_update")
 
 	// Log events - custom
+	webhookCreateLog 	   Boolean @default(false) @map("log_webhook_create")
+	webhookDeleteLog 	   Boolean @default(false) @map("log_webhook_delete")
+	webhookUpdateLog       Boolean @default(false) @map("log_webhook_update")
 
 	// Moderation & moderation log
 	notifyUser         Boolean @default(true) @map("moderation_notify_user")

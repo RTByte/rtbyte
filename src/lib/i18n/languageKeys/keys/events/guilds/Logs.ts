@@ -2,6 +2,7 @@ import { FT, T } from "#lib/types";
 
 export const AnyoneCanUnarchive = T<string>('events/guilds-logs:threads.anyoneCanUnarchive');
 export const AutoArchiveDuration = T<string>('events/guilds-logs:threads.autoArchiveDuration');
+export const AvatarChanged = T<string>('events/guilds-logs:webhooks.avatarChanged');
 export const BitrateChanged = T<string>('events/guilds-logs:channels.bitrateChanged');
 export const CategoryCreated = FT<{ by: string }, string>('events/guilds-logs:channels.categoryCreated');
 export const CategoryDeleted = FT<{ by: string }, string>('events/guilds-logs:channels.categoryDeleted');
@@ -9,6 +10,7 @@ export const CategoryUpdated = FT<{ by: string }, string>('events/guilds-logs:ch
 export const ChangeLongText = FT<{ before: string, after: string }, string>('events/guilds-logs:shared.changeLongText');
 export const ChangeShortObject = FT<{ before: string, after: string }, string>('events/guilds-logs:shared.changeShortObject');
 export const ChangeShortText = FT<{ before: string, after: string }, string>('events/guilds-logs:shared.changeShortText');
+export const ChannelChanged = T<string>('events/guilds-logs:webhooks.channelChanged');
 export const ChannelCreated = FT<{ by: string }, string>('events/guilds-logs:channels.channelCreated');
 export const ChannelDeleted = FT<{ by: string }, string>('events/guilds-logs:channels.channelDeleted');
 export const ChannelUpdated = FT<{ by: string }, string>('events/guilds-logs:channels.channelUpdated');
@@ -67,3 +69,6 @@ export const UserLimitFormatted = FT<{ users: number }, string>('events/guilds-l
 export const VoiceChannelCreated = FT<{ by: string }, string>('events/guilds-logs:channels.voiceChannelCreated');
 export const VoiceChannelDeleted = FT<{ by: string }, string>('events/guilds-logs:channels.voiceChannelDeleted');
 export const VoiceChannelUpdated = FT<{ by: string }, string>('events/guilds-logs:channels.voiceChannelUpdated');
+export const WebhookCreated = FT<{ by: string }, string>('events/guilds-logs:webhooks.webhookCreated');
+export const WebhookDeleted = FT<{ by: string }, string>('events/guilds-logs:webhooks.webhookDeleted');
+export const WebhookUpdated = FT<{ by: string }, string>('events/guilds-logs:webhooks.webhookUpdated');

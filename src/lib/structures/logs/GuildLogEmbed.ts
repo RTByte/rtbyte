@@ -17,6 +17,7 @@ export class GuildLogEmbed extends MessageEmbed {
 			case Events.RoleCreate:
 			case Events.StickerCreate:
 			case Events.ThreadCreate:
+			case Events.GuildWebhookCreate:
 				this.setColor(Colors.Green);
 				break;
 			case Events.ChannelDelete:
@@ -26,6 +27,7 @@ export class GuildLogEmbed extends MessageEmbed {
 			case Events.RoleDelete:
 			case Events.StickerDelete:
 			case Events.ThreadDelete:
+			case Events.GuildWebhookDelete:
 				this.setColor(Colors.Red);
 				break;
 			case Events.ChannelUpdate:
@@ -35,7 +37,7 @@ export class GuildLogEmbed extends MessageEmbed {
 			case Events.RoleUpdate:
 			case Events.StickerUpdate:
 			case Events.ThreadUpdate:
-			case Events.WebhookUpdate:
+			case Events.GuildWebhookUpdate:
 				this.setColor(Colors.Blue);
 				break;
 			case Events.MessageDelete:
