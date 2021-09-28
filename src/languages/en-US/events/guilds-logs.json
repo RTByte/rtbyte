@@ -22,7 +22,6 @@
 		"storeChannelCreated": "Store channel created {{by}}",
 		"storeChannelDeleted": "Store channel deleted {{by}}",
 		"storeChannelUpdated": "Store channel updated {{by}}",
-		"topicChanged": "Topic changed",
 		"typeChanged": "Channel type changed",
 		"typeFormatted": "`{{before, channelTypes}}` {{ARROW_RIGHT}} `{{after, channelTypes}}`",
 		"userLimitChanged": "User limit changed",
@@ -60,11 +59,21 @@
 		"roleUpdated": "Role updated {{by}}"
 	},
 	"shared": {
-		"descriptionChanged": "Description changed",
-		"nameChanged": "Name changed",
 		"changeLongText": "**Before:** ```\n{{before}}\n```\n**After:** ```\n{{after}}\n```",
 		"changeShortObject": "{{before}} {{ARROW_RIGHT}} {{after}}",
-		"changeShortText": "`{{before}}` {{ARROW_RIGHT}} `{{after}}`"
+		"changeShortText": "`{{before}}` {{ARROW_RIGHT}} `{{after}}`",
+		"descriptionChanged": "Description changed",
+		"nameChanged": "Name changed",
+		"topicChanged": "Topic changed"
+	},
+	"stages": {
+		"membersOnly": "Members only",
+		"privacy": "Privacy",
+		"privacyChanged": "Privacy changed",
+		"public": "Public",
+		"stageInstanceCreated": "Stage started {{by}}",
+		"stageInstanceDeleted": "Stage ended {{by}}",
+		"stageInstanceUpdated": "Stage edited {{by}}"
 	},
 	"stickers": {
 		"relatedEmoji": "Related emoji",
