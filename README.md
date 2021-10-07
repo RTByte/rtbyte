@@ -1,47 +1,62 @@
+<div align="center">
+
+![RTByte logo](https://rtbyte.xyz/android-chrome-192x192.png)
+
 # RTByte
-[![Discord](https://img.shields.io/discord/450163430373064704.svg?colorB=7289da&label=discord&logo=Discord&logoColor=fff&style=flat)](https://rtbyte.xyz/discord)
-[![Open Issues](https://img.shields.io/github/issues/RTByte/RTByte.svg)](https://github.com/RTByte/RTByte/issues)
-[![Open PRS](https://img.shields.io/github/issues-pr/RTByte/RTByte.svg)](https://github.com/RTByte/RTByte/pulls)
+
+[![GitHub package.json version](https://img.shields.io/github/package-json/v/rtbyte/rtbyte)](https://github.com/RTByte/rtbyte/releases)
+[![GitHub](https://img.shields.io/github/license/rtbyte/rtbyte)](https://github.com/rtbyte/rtbyte/blob/main/LICENSE.md)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/RTByte/RTByte.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/RTByte/RTByte/alerts)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/RTByte/RTByte.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/RTByte/RTByte/context:javascript)
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/RTByte/RTByte.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/RTByte/RTByte/alerts/)
 [![David](https://img.shields.io/david/RTByte/RTByte.svg?maxAge=3600)](https://david-dm.org/RTByte/RTByte)
 
-RTByte is a fully modular multipurpose Discord bot built on the incredible [Klasa](https://klasa.js.org/) framework for [discord.js](https://discord.js.org/). It brings a ton of features to help you run and manage your server, and is fully integrated into Discord's audit log system.
+[![Open Issues](https://img.shields.io/github/issues/RTByte/RTByte.svg)](https://github.com/RTByte/RTByte/issues)
+[![Open PRS](https://img.shields.io/github/issues-pr/RTByte/RTByte.svg)](https://github.com/RTByte/RTByte/pulls)
+[![Github All Contributors](https://img.shields.io/github/all-contributors/rtbyte/rtbyte)](https://github.com/RTByte/rtbyte#contributors-)
+[![Crowdin](https://badges.crowdin.net/rtbyte/localized.svg)](https://translate.rtbyte.xyz)
 
-We aim to provide the most consistent and easy-to-use Discord mod bot solution available, with our key focus areas being modularity, performance, consistency, and choice.
+[![Discord](https://img.shields.io/discord/450163430373064704.svg?colorB=7289da&label=discord&logo=Discord&logoColor=fff&style=flat)](https://rtbyte.xyz/discord)
+[![Twitter](https://badgen.net/twitter/follow/rtbyte/?icon=twitter&label=@rtbyte)](https://twitter.com/rtbyte)
+======
+</div>
 
-For support, changelogs, and a link to add RTByte to your server, please join our [support Discord](https://rtbyte.xyz/discord).
+## Description
 
-## Notable features
+RTByte is an open-source modular multipurpose Discord bot built on the incredible [Sapphire] framework for [discord.js]. It brings a ton of features to help you run and manage your server. With an easy setup, you'll be up and running within minutes.
 
+For more information about the project, and a link to add the bot to your server, please visit [rtbyte.xyz]. For support, please join our [Discord] server.
 
-✅ Easy setup
+## Development
 
-* Fully automated setup. All channels and necessary roles are created and configured, including channel permissions.
+### Requirements
 
-✅ Extensive logging
+- [`Node.js`]: Node.js is required to run RTByte.
+- [`PostgreSQL`]: Open-source relational database.
+- [`Prisma`]: TypeScript ORM.
 
-* Fully configurable logs for your server. Choose what you want included in your server log, and where you want the logs posted.
+### Optionals
 
-✅ Server moderation
+- [`Sentry`]: Error monitoring & tracking.
+- [`Genius`]: Lyrics API.
+- [`Google Maps Platform`]: Geocoding API.
+- [`OpenWeather`]: Weather API.
+- [`Twitch`]: Twitch API.
 
-* Efficient moderation actions that properly log reasons to your server's audit logs (if applicable). All moderation commands obey the role hierarchy, so moderators can't act on other moderators or admins and the like.
+### A note regarding self-hosting RTByte
 
-✅ Blacklisting
+While RTByte is, and always will be, open-source, we're not very supportive of the idea of others self-hosting the bot. While you're completely free to host RTByte yourself, *you will not receive any support from us* in doing so.
 
-* Server-configurable blacklists that can optionally scan usernames and nicknames, issue automated warnings, mutes, kicks, or bans, as well as delete messages or change nicknames.
+Like many other open-source Discord bots, RTByte hasn't been built with the idea of self-hosting in mind. We use many different services to ensure we're able to deliver the best solution available.
 
-✅ Joinable roles
+- RTByte uses several external APIs. You'd need to create API keys in these for these to be able to fully use any features that may need them.
+- RTByte uses [`PostgreSQL`], an open-source relational database, to store persistent data. [`Prisma`], a TypeScript ORM, is used to interface with said database.
+- RTByte uses [`Sentry`] to track and monitor errors. Sentry is a paid service for which we've been granted an open-source license.
 
-* Allow users to join specified roles on your server. Command can list available roles and how many people have that role.
-
-✅ Custom commands
-
-* Create custom commands for your users with full integration into RTByte's logging system.
+You can add RTByte to your server by visiting [rtbyte.xyz/invite].
 
 ## Contributors ✨
 
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+Thanks goes to these wonderful people ([emoji key]):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -66,3 +81,20 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+
+<!------------------------ LINKS ------------------------>
+
+[Sapphire]:         https://github.com/sapphire-project/framework
+[discord.js]:                                 https://discord.com
+[rtbyte.xyz]:                                  https://rtbyte.xyz
+[Discord]:                             https://rtbyte.xyz/discord
+[`Node.js`]:                                   https://nodejs.org
+[`PostgreSQL`]:                        https://www.postgresql.org
+[`Prisma`]:                                 https://www.prisma.io
+[`Sentry`]:                                     https://sentry.io
+[`Genius`]:                         https://genius.com/developers
+[`Google Maps Platform`]: https://cloud.google.com/maps-platform/
+[`OpenWeather`]:                       https://openweathermap.org
+[`Twitch`]:                                 https://dev.twitch.tv
+[rtbyte.xyz/invite]:                    https://rtbyte.xyz/invite
+[emoji key]:        https://allcontributors.org/docs/en/emoji-key

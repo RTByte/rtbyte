@@ -1,5 +1,24 @@
 {
-	"editor.formatOnPaste": true,
+	"eslint.validate": ["typescript"],
+	"editor.tabSize": 4,
+	"editor.useTabStops": true,
+	"editor.insertSpaces": false,
 	"editor.detectIndentation": false,
-	"editor.insertSpaces": false
+	"files.eol": "\n",
+	"search.exclude": {
+		"**/node_modules": true,
+		"**/bower_components": true,
+		"**/*.code-search": true,
+		"**/.yarn": true,
+		"**/dist/": true,
+		"**/.git/": true
+	},
+  "editor.codeActionsOnSave": {
+		"source.fixAll": true,
+		"source.fixAll.eslint": true,
+		"source.organizeImports": true
+	},
+  "[prisma]": {
+		"editor.defaultFormatter": "Prisma.prisma"
+	},
 }
