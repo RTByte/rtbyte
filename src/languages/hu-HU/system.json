@@ -1,0 +1,13 @@
+{
+	"clickToView": "Click to view",
+	"discordAbortError": "An error occured when communicating with Discord, please try running this command again.",
+	"exceededLength": {
+		"chooseOutput": "Choose one of the following options: {{output, orList}}",
+		"output": "**Output**:{{output}}",
+		"outputConsole": "Sent the result to console.",
+		"outputFile": "Sent the result as a file.",
+		"outputTime": "{{time}}",
+		"outputType": "**Type**:{{type}}"
+	},
+	"requestedBy": "Requested by {{requester}}"
+}

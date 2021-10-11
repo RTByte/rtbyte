@@ -2,22 +2,22 @@
 	"8ball": {
 		"description": "Magic 8-ball. Does exactly what the toy does, memes included.",
 		"responses": {
-			"noQuestion": "{{X}} You didn't ask me anything.",
+			"noQuestion": "{{X}} Du frågade mig inte någonting.",
 			"answers": [
-				"Maybe.",
-				"Certainly not.",
-				"I hope so.",
-				"Not in your wildest dreams.",
-				"There is a good chance.",
-				"Quite likely.",
-				"I think so.",
-				"I hope not.",
-				"I hope so.",
-				"Never!",
+				"Kanske.",
+				"Verkligen inte.",
+				"Hoppas så.",
+				"Inte ens i dina vildaste drömmar.",
+				"Det finns en god chans.",
+				"Ganska sannolikt.",
+				"Jag tror det.",
+				"Förhoppningsvis inte.",
+				"Hoppas så.",
+				"Aldrig!",
 				"Pfft.",
 				"Sorry, bucko.",
-				"Hell yes.",
-				"Hell no.",
+				"Ja för fan.",
+				"Nej för fan.",
 				"The future is bleak.",
 				"The future is uncertain.",
 				"I would rather not say.",
@@ -188,23 +188,23 @@
 		"embed": {
 			"description": "[View area on Google Maps]({{link}})",
 			"fields": {
-				"localTime": "Local time",
-				"weather": "Weather",
+				"localTime": "Lokaltid",
+				"weather": "Väder",
 				"temperature": {
-					"title": "Temperature",
-					"content": "{{temp}}° {{unit}} (feels like {{feelsLike}}°)"
+					"title": "Temperatur",
+					"content": "{{temp}}° {{unit}} (känns som {{feelsLike}}°)"
 				},
-				"uvIndex": "UV index",
+				"uvIndex": "UV-index",
 				"wind": {
-					"title": "Wind",
+					"title": "Vind",
 					"content": "{{windSpeed}} {{direction}}"
 				},
-				"humidity": "Humidity"
+				"humidity": "Luftfuktighet"
 			}
 		},
 		"responses": {
-			"noneSpecified": "{{X}} Please specify a location.",
-			"invalidInput": "{{X}} `{{input}}` could not be resolved to a location."
+			"noneSpecified": "{{X}} Vänligen ange en plats.",
+			"invalidInput": "{{X}} `{{input}}` kunde inte lösas till en plats."
 		}
 	}
 }
