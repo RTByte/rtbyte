@@ -20,7 +20,6 @@ export const DescriptionChanged = T<string>('events/guilds-logs:shared.descripti
 export const EmojiCreated = FT<{ by: string }, string>('events/guilds-logs:emojis.emojiCreated');
 export const EmojiDeleted = FT<{ by: string }, string>('events/guilds-logs:emojis.emojiDeleted');
 export const EmojiUpdated = FT<{ by: string }, string>('events/guilds-logs:emojis.emojiUpdated');
-export const ExpiresIn = FT<{ expiryOffset: number }, string>('events/guilds-logs:invites.expiresIn');
 export const Expiry = T<string>('events/guilds-logs:invites.expiry');
 export const HoistToggled = T<string>('events/guilds-logs:roles.hoistToggled');
 export const InviteCreated = FT<{ by: string }, string>('events/guilds-logs:invites.inviteCreated');

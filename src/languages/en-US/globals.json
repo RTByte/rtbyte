@@ -7,6 +7,8 @@
 	"default": "`{{key}}` has not been localized for English yet.",
 	"defaultLanguage": "Default language",
 	"durationValue": "{{value, duration}}",
+	"durationValueFuture": "In {{value, duration}}",
+	"durationValuePast": "{{value, duration}} ago",
 	"no": "No",
 	"none": "None",
 	"numberCompactValue": "{{value, numberCompact}}",
