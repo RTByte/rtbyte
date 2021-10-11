@@ -44,6 +44,9 @@
 		"temporary": "Grants temporary membership"
 	},
 	"members": {
+		"botAdded": "Bot added {{by}}",
+		"botLeft": "Bot left",
+		"botUpdated": "Bot updated {{by}}",
 		"displayNameChanged": "Display name changed",
 		"userJoined": "User joined",
 		"userLeft": "User left",
