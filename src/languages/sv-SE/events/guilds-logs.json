@@ -2,7 +2,7 @@
 	"channels": {
 		"bitrateChanged": "Bithastighet ändrad",
 		"categoryCreated": "Kategori skapad {{by}}",
-		"categoryDeleted": "Kategory borttagen {{by}}",
+		"categoryDeleted": "Kategori borttagen {{by}}",
 		"categoryUpdated": "Kategori uppdaterad {{by}}",
 		"channelCreated": "Kanal skapad {{by}}",
 		"channelDeleted": "Kanal borttagen {{by}}",
@@ -46,12 +46,12 @@
 	"messages": {
 		"messageDeleted": "Meddelande borttaget",
 		"messageUpdated": "Meddelande redigerat",
-		"noContentBeforeEdit": "`Message had no content before being edited`"
+		"noContentBeforeEdit": "`Meddelandet hade inget innehåll innan det redigerades`"
 	},
 	"roles": {
 		"colorChanged": "Färg ändrad",
-		"hoistToggled": "Hoist toggled",
-		"mentionableToggled": "Mentionable toggled",
+		"hoistToggled": "Separat visning av rollen ändrad",
+		"mentionableToggled": "Omnämningsmöjlighet av rollen ändrad",
 		"permissionsChanged": "Behörigheter ändrade",
 		"permissionsFormatted": "**Före:** \n```\n{{before, permissionsAndList}}\n```\n**Efter:** \n```\n{{after, permissionsAndList}}\n```",
 		"roleCreated": "Roll skapad {{by}}",
@@ -83,19 +83,19 @@
 		"stickerUpdated": "Dekal uppdaterad {{by}}"
 	},
 	"threads": {
-		"anyoneCanUnarchive": "Anyone can unarchive toggled",
+		"anyoneCanUnarchive": "Vem som helst kan återöppna ändrad",
 		"autoArchiveDuration": "Automatisk arkiveringstid",
 		"threadArchived": "Tråd arkiverad {{by}}",
 		"threadCreated": "Tråd skapad {{by}}",
 		"threadDeleted": "Tråd borttagen {{by}}",
-		"threadUnarchived": "Tråd avarkiverad {{by}}",
+		"threadUnarchived": "Tråd återöppnad {{by}}",
 		"threadUpdated": "Tråd uppdaterad {{by}}"
 	},
 	"webhooks": {
-		"avatarChanged": "Avatar changed",
+		"avatarChanged": "Avatar ändrad",
 		"channelChanged": "Kanal ändrad",
-		"webhookCreated": "Webhook created {{by}}",
-		"webhookDeleted": "Webhook deleted {{by}}",
-		"webhookUpdated": "Webhook updated {{by}}"
+		"webhookCreated": "Webhook skapad {{by}}",
+		"webhookDeleted": "Webhook borttagen {{by}}",
+		"webhookUpdated": "Webhook uppdaterad {{by}}"
 	}
 }
