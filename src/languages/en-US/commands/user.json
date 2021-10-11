@@ -1,6 +1,6 @@
 {
 	"8ball": {
-		"description": "Magic 8-ball, does exactly what the toy does, memes included.",
+		"description": "Magic 8-ball. Does exactly what the toy does, memes included.",
 		"responses": {
 			"noQuestion": "{{X}} You didn't ask me anything.",
 			"answers": [
