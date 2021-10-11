@@ -2,5 +2,5 @@
 	"aborted": "Successfully aborted the prompt.",
 	"invalidIndex": "That number was out of range, aborting prompt.",
 	"invalidNumber": "A (single digit) number was expected from you, got a potato.",
-	"matches": "Multiple matches were found. **Please select a number within 0 and {{matches}}**:\n{{codeblock}}\nWrite **ABORT** if you want to exit the prompt."
+	"matches": "Flera träffar hittades. **Välj ett nummer mellan 0 och {{matches}}**:\n{{codeblock}}\nSkriv **ABORT** om du vill avsluta prompten."
 }
