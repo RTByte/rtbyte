@@ -1,0 +1,7 @@
+{
+	"guildChannelError": "{{X}} {{parameter}} could not be resolved to a channel in this server. Did you type its name or ID correctly?",
+	"guildChannelMissingGuildError": "{{X}} {{parameter}} could not be resolved because this argument requires to be ran in a server.",
+	"messageError": "{{X}} `{{parameter}}` could not be resolved to a message in <#{{channel}}>. Is the message in another channel, and am I able to access it? Did you provide the right message ID or link?",
+	"missing": "You need to provide another parameter. For more info about how this command works, run `{{commandContext.commandPrefix}}help {{command.name}}`.",
+	"userError": "{{X}} `{{parameter}}` could not be resolved to a user. Please make sure you typed their name or ID correctly, or provide an @mention!"
+}
