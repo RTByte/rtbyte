@@ -203,8 +203,8 @@
 			}
 		},
 		"responses": {
-			"noneSpecified":"{{X}} Please specify a location.",
-			"invalidInput":"{{X}} `{{input}}` could not be resolved to a location."
+			"noneSpecified": "{{X}} Please specify a location.",
+			"invalidInput": "{{X}} `{{input}}` could not be resolved to a location."
 		}
 	}
 }

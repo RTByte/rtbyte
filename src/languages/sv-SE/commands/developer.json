@@ -1,0 +1,9 @@
+{
+	"eval": {
+		"description": "",
+		"responses": {
+			"error": "**Fel**:{{output}}\n**Typ**:{{type}}\n{{time}}",
+			"timeout": "TIMEOUT: Tog längre tid än {{seconds}} sekunder."
+		}
+	}
+}
