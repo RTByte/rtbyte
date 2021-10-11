@@ -14,5 +14,5 @@
 	"nsfw": "{{X}} This command can only be ran in NSFW channels.",
 	"serverOwner": "{{X}} Only the server owner can run the `{{command.name}}` command.",
 	"threadOnly": "{{X}} This command can only be ran in threads.",
-	"userPermissions": "{{X}} This command requires you to have the following permissions: `{{missing, permissionsAndList}}`."
+	"userPermissions": "{{X}} Detta kommando kräver att du har följande behörigheter: `{{missing, permissionsAndList}}`."
 }
