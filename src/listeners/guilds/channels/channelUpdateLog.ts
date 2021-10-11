@@ -6,7 +6,7 @@ import { Emojis } from "#utils/constants";
 import { getAuditLogExecutor } from "#utils/util";
 import { ApplyOptions } from "@sapphire/decorators";
 import { Events as SapphireEvents, Listener, ListenerOptions } from "@sapphire/framework";
-import { cutText, isNullish } from "@sapphire/utilities";
+import { cutText, inlineCodeBlock, isNullish } from "@sapphire/utilities";
 import { CategoryChannel, NewsChannel, StageChannel, StoreChannel, TextChannel, User, VoiceChannel } from "discord.js";
 import type { TFunction } from 'i18next';
 
@@ -42,7 +42,7 @@ export class UserListener extends Listener<typeof SapphireEvents.ChannelUpdate> 
 		// Moved to different category
 		if (oldChannel.parent !== channel.parent) {
 			embed.addField(t(LanguageKeys.Events.Guilds.Logs.ParentChanged), t(LanguageKeys.Events.Guilds.Logs.ChangeShortObject, {
-				before: oldChannel.parent ? `<#${oldChannel.parentId}>` : `\`${t(LanguageKeys.Globals.None)}\``, after: channel.parent ? `<#${channel.parentId}>` : `\`${t(LanguageKeys.Globals.None)}\``
+				before: oldChannel.parent ? `<#${oldChannel.parentId}>` : inlineCodeBlock(t(LanguageKeys.Globals.None)), after: channel.parent ? `<#${channel.parentId}>` : inlineCodeBlock(t(LanguageKeys.Globals.None))
 			}));
 		}
 
@@ -114,7 +114,7 @@ export class UserListener extends Listener<typeof SapphireEvents.ChannelUpdate> 
 			// Region override changed
 			if (oldChannel.rtcRegion !== channel.rtcRegion) {
 				embed.addField(t(LanguageKeys.Events.Guilds.Logs.RegionOverrideChanged), t(LanguageKeys.Events.Guilds.Logs.RegionOverrideFormatted, {
-					before: isNullish(oldChannel.rtcRegion) ? `\`${t(LanguageKeys.Miscellaneous.Automatic)}\`` : oldChannel.rtcRegion, after: isNullish(channel.rtcRegion) ? `\`${t(LanguageKeys.Miscellaneous.Automatic)}\`` : channel.rtcRegion
+					before: isNullish(oldChannel.rtcRegion) ? inlineCodeBlock(t(LanguageKeys.Miscellaneous.Automatic)) : oldChannel.rtcRegion, after: isNullish(channel.rtcRegion) ? inlineCodeBlock(t(LanguageKeys.Miscellaneous.Automatic)) : channel.rtcRegion
 				}));
 			}
 		}

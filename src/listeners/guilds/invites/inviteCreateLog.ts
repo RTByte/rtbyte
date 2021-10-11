@@ -4,7 +4,7 @@ import { Events } from "#lib/types/Enums";
 import { Emojis } from "#utils/constants";
 import { ApplyOptions } from "@sapphire/decorators";
 import { Events as SapphireEvents, Listener, ListenerOptions } from "@sapphire/framework";
-import { isNullish } from "@sapphire/utilities";
+import { inlineCodeBlock, isNullish } from "@sapphire/utilities";
 import { Invite, User } from "discord.js";
 import type { TFunction } from 'i18next';
 
@@ -54,12 +54,12 @@ export class UserListener extends Listener<typeof SapphireEvents.InviteCreate> {
 		// Set non-guaranteed expiry field
 		if (invite.expiresTimestamp) {
 			const expiryOffset = Date.now() - invite.expiresTimestamp;
-			embed.addField(t(LanguageKeys.Events.Guilds.Logs.Expiry), t(LanguageKeys.Events.Guilds.Logs.ExpiresIn, { expiryOffset }).replace('-', ''), true);
+			embed.addField(t(LanguageKeys.Events.Guilds.Logs.Expiry), inlineCodeBlock(t(LanguageKeys.Globals.DurationValueFuture, { value: expiryOffset }).replace('-', '')), true);
 		}
 
 		// Set non-guaranteed max-use field
 		if (invite.maxUses) {
-			embed.addField(t(LanguageKeys.Events.Guilds.Logs.MaxUses), String(invite.maxUses), true);
+			embed.addField(t(LanguageKeys.Events.Guilds.Logs.MaxUses), inlineCodeBlock(String(invite.maxUses)), true);
 		}
 
 		// Set non-guaranteed temporary membership field

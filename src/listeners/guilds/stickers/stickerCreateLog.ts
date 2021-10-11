@@ -4,7 +4,7 @@ import { Events } from "#lib/types/Enums";
 import { getAuditLogExecutor } from "#utils/util";
 import { ApplyOptions } from "@sapphire/decorators";
 import { Listener, ListenerOptions } from "@sapphire/framework";
-import { isNullish } from "@sapphire/utilities";
+import { inlineCodeBlock, isNullish } from "@sapphire/utilities";
 import { Guild, Sticker, User } from "discord.js";
 import { TFunction } from "i18next";
 
@@ -35,7 +35,7 @@ export class UserListener extends Listener {
 
 		// Set optional description field
 		if (sticker.description) {
-			embed.addField(t(LanguageKeys.Miscellaneous.Description), `\`${sticker.description}\``);
+			embed.addField(t(LanguageKeys.Miscellaneous.Description), inlineCodeBlock(sticker.description));
 		}
 
 		return embed;

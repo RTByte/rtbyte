@@ -4,7 +4,7 @@ import { Events } from "#lib/types/Enums";
 import { getAuditLogExecutor } from "#utils/util";
 import { ApplyOptions } from "@sapphire/decorators";
 import { Listener, ListenerOptions } from "@sapphire/framework";
-import { cutText, isNullish } from "@sapphire/utilities";
+import { cutText, inlineCodeBlock, isNullish } from "@sapphire/utilities";
 import { Guild, StageInstance, User } from "discord.js";
 import type { TFunction } from 'i18next';
 
@@ -26,7 +26,7 @@ export class UserListener extends Listener {
 		const embed = new GuildLogEmbed()
 			.setAuthor(cutText(stage.topic, 256), stage.guild?.iconURL() as string)
 			.setDescription(`${t(LanguageKeys.Miscellaneous.DisplayID, { id: stage.id })}\n<#${stage.channel?.id}>`)
-			.addField(t(LanguageKeys.Events.Guilds.Logs.Privacy), stage.privacyLevel === 'GUILD_ONLY' ? t(LanguageKeys.Events.Guilds.Logs.MembersOnly) : t(LanguageKeys.Events.Guilds.Logs.Public))
+			.addField(t(LanguageKeys.Events.Guilds.Logs.Privacy), stage.privacyLevel === 'GUILD_ONLY' ? inlineCodeBlock(t(LanguageKeys.Events.Guilds.Logs.MembersOnly)) : inlineCodeBlock(t(LanguageKeys.Events.Guilds.Logs.Public)))
 			.setFooter(t(LanguageKeys.Events.Guilds.Logs.StageInstanceCreated, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }), executor?.displayAvatarURL() ?? undefined)
 			.setType(Events.StageInstanceCreate);
 

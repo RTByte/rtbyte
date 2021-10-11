@@ -5,7 +5,7 @@ import { minutes } from "#utils/common";
 import { getAuditLogExecutor } from "#utils/util";
 import { ApplyOptions } from "@sapphire/decorators";
 import { Listener, ListenerOptions } from "@sapphire/framework";
-import { isNullish } from "@sapphire/utilities";
+import { inlineCodeBlock, isNullish } from "@sapphire/utilities";
 import { ThreadChannel, User } from "discord.js";
 import type { TFunction } from 'i18next';
 
@@ -39,7 +39,7 @@ export class UserListener extends Listener {
 				embed.addField(t(LanguageKeys.Miscellaneous.Channel), `<#${thread.parent?.id}>`, true);
 		}
 
-		embed.addField(t(LanguageKeys.Events.Guilds.Logs.AutoArchiveDuration), t(LanguageKeys.Globals.DurationValue, { value: minutes(thread.autoArchiveDuration as number) }), true)
+		embed.addField(t(LanguageKeys.Events.Guilds.Logs.AutoArchiveDuration), inlineCodeBlock(t(LanguageKeys.Globals.DurationValue, { value: minutes(thread.autoArchiveDuration as number) })), true)
 
 		return embed;
 	}
