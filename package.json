@@ -28,7 +28,7 @@
 		"@discordjs/collection": "^0.2.1",
 		"@prisma/client": "^2.30.3",
 		"@sapphire/decorators": "next",
-		"@sapphire/discord-utilities": "^2.1.5",
+		"@sapphire/discord-utilities": "^2.2.0",
 		"@sapphire/discord.js-utilities": "next",
 		"@sapphire/fetch": "next",
 		"@sapphire/framework": "next",
