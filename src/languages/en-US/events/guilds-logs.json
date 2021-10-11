@@ -43,6 +43,12 @@
 		"maxUses": "Max uses",
 		"temporary": "Grants temporary membership"
 	},
+	"members": {
+		"displayNameChanged": "Display name changed",
+		"userJoined": "User joined",
+		"userLeft": "User left",
+		"userUpdated": "User updated {{by}}"
+	},
 	"messages": {
 		"messageDeleted": "Message deleted",
 		"messageUpdated": "Message edited",
