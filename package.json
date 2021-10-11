@@ -9,6 +9,10 @@
 	],
 	"license": "MIT",
 	"homepage": "https://github.com/RTByte/rtbyte/",
+	"repository": {
+        "type": "git",
+        "url": "https://github.com/RTByte/rtbyte.git"
+    },
 	"imports": {
 		"#root/*": "./dist/*.js",
 		"#languages": "./dist/languages/index.js",
@@ -69,10 +73,5 @@
 		"start": "node --enable-source-maps dist/RTByte.js",
 		"lint": "eslint --fix --ext ts src tests",
 		"format": "prettier --write --loglevel=warn \"{src,tests}/**/*.{js,ts,json}\""
-	},
-	"_moduleAliases": {
-		"@util": "dist/lib/util",
-		"@lib": "dist/lib",
-		"@root": "dist"
 	}
 }
