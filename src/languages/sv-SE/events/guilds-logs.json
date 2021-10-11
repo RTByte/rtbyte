@@ -11,9 +11,9 @@
 		"newsChannelCreated": "Meddelandekanal skapad {{by}}",
 		"newsChannelDeleted": "Meddelandekanal raderad {{by}}",
 		"newsChannelUpdated": "Meddelandekanal uppdaterad {{by}}",
-		"nsfwToggled": "NSFW toggled",
+		"nsfwToggled": "Vuxenkanalsinställning ändrad",
 		"parentChanged": "Flyttad till kategori",
-		"regionOverrideChanged": "Region override changed",
+		"regionOverrideChanged": "Regionsåsidosättning ändrad",
 		"regionOverrideFormatted": "{{before, discordRegions}} {{ARROW_RIGHT}} {{after, discordRegions}}",
 		"slowmodeChanged": "Slowmode-intervall ändrad",
 		"stageChannelCreated": "Podiekanal skapad {{by}}",
@@ -40,7 +40,7 @@
 		"inviteDeleted": "Inbjudan borttagen {{by}}",
 		"expiry": "Förfallning",
 		"expiresIn": "Om {{expiryOffset, duration}}",
-		"maxUses": "Max uses",
+		"maxUses": "Användningsgräns",
 		"temporary": "Ger tillfälligt medlemsskap"
 	},
 	"messages": {
