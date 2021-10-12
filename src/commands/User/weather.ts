@@ -27,7 +27,7 @@ export class UserCommand extends RTByteCommand {
 		const lang = guildSettings?.language.slice(0, 2)
 
 		// Geocode location using Google Maps
-		const googleMaps = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodedLocation}&key=${API_KEYS.GOOGLE_MAPS}`
+		const googleMaps = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodedLocation}&language=${lang}&key=${API_KEYS.GOOGLE_MAPS}`;
 		const { results } = await fetch<GoogleMapsResultOk>(googleMaps, FetchResultTypes.JSON);
 
 		if (!results.length) return sendTemporaryMessage(message, args.t(LanguageKeys.Commands.User.WeatherInvalidInput, { input: input.value }));
@@ -47,7 +47,7 @@ export class UserCommand extends RTByteCommand {
 		if (!current.temp) return sendTemporaryMessage(message, args.t(LanguageKeys.Commands.User.WeatherInvalidInput, { input }));
 
 		const weather = {
-			localTime: new Date(current.dt * 1000).toLocaleString(guildSettings?.language, { timeZone: timezone, hour: 'numeric', minute: 'numeric', hour12: true }),
+			localTime: new Date(current.dt * 1000).toLocaleString(guildSettings?.language, { timeZone: timezone, hour: 'numeric', minute: 'numeric' }),
 			temperature: current.temp,
 			feelsLike: current.feels_like,
 			humidity: `${current.humidity}%`,
