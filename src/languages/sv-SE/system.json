@@ -1,13 +1,13 @@
 {
-	"clickToView": "Click to view",
-	"discordAbortError": "An error occured when communicating with Discord, please try running this command again.",
+	"clickToView": "Klicka för att se",
+	"discordAbortError": "Ett fel uppstod under kommunikation med Discord, vänligen försök igen.",
 	"exceededLength": {
 		"chooseOutput": "Välj ett av följande alternativ: {{output, orList}}",
 		"output": "**Output**:{{output}}",
 		"outputConsole": "Skickade resultatet till konsolen.",
 		"outputFile": "Skickade resultatet som en fil.",
 		"outputTime": "{{time}}",
-		"outputType": "**Type**:{{type}}"
+		"outputType": "**Typ**:{{type}}"
 	},
 	"requestedBy": "Begärt av {{requester}}"
 }

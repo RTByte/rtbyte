@@ -1,6 +1,6 @@
 {
 	"8ball": {
-		"description": "Magic 8-ball. Does exactly what the toy does, memes included.",
+		"description": "Magisk 8-ball. Gör precis vad leksaken gör, memes inkluderade.",
 		"responses": {
 			"noQuestion": "{{X}} Du frågade mig inte någonting.",
 			"answers": [
@@ -15,178 +15,178 @@
 				"Hoppas så.",
 				"Aldrig!",
 				"Pfft.",
-				"Sorry, bucko.",
+				"Ledsen, hördu.",
 				"Ja för fan.",
 				"Nej för fan.",
-				"The future is bleak.",
-				"The future is uncertain.",
-				"I would rather not say.",
-				"Who cares?",
-				"Possibly.",
-				"Never, ever, ever.",
-				"There is a small chance.",
-				"Yes!",
-				"Doesn't look like anything to me.",
-				"I don't know.",
-				"Ask someone else.",
-				"No.",
-				"Yes.",
-				"I'm being forced to do this, please send help.",
-				"Your mom told me yes.",
-				"If you're wearing pants, yes.",
-				"When pigs fly.",
-				"I'll pretend I never heard that.",
-				"I could tell you but I'd have to permanently ban you.",
-				"Do you *really* want me to answer that?",
-				"If it fits.",
-				"That's my fetish!",
-				"I'm sorry, but yes.",
-				"I'm sorry, but no.",
-				"What?",
-				"Sorry, what was that?",
+				"Framtiden är dyster.",
+				"Framtiden är osäker.",
+				"Jag skulle helst inte vilja säga.",
+				"Vem bryr sig?",
+				"Möjligen.",
+				"Aldrig någonsin, någonsin.",
+				"Det finns en liten chans.",
+				"Ja!",
+				"Ser inte ut som något för mig.",
+				"Jag vet inte.",
+				"Fråga någon annan.",
+				"Nej.",
+				"Ja.",
+				"Jag tvingas göra detta, skicka hjälp.",
+				"Din mamma sa ja.",
+				"Om du har byxor på dig, ja.",
+				"När grisar flyger.",
+				"Jag kommer låtsas att jag aldrig hörde det där.",
+				"Jag kunde berätta för dig, men jag skulle vara tvungen att permanent banna dig.",
+				"Vill du *verkligen* att jag ska svara på det?",
+				"Om det passar.",
+				"Det är min fetisch!",
+				"Jag är ledsen, men ja.",
+				"Jag är ledsen, men nej.",
+				"Va?",
+				"Förlåt, vad sa du?",
 				"🙅",
 				"🛑",
-				"🛑 STOP 🛑",
+				"🛑 STOPP 🛑",
 				"👌",
 				"👍",
 				"👎",
 				"👀",
-				"I wouldn't think so.",
-				"Why would you even think to ask that?",
-				"What now?",
-				"What do you mean?",
-				"Not happening.",
-				"You betcha.",
-				"Yes, daddy 😭👋",
-				"Yes, mommy 😭👋",
-				"Who are you again?",
+				"Jag skulle inte tro det.",
+				"Varför ens tänka på att fråga det?",
+				"Vad nu?",
+				"Vad menar du?",
+				"Kommer inte hända.",
+				"Det kan du ge dig på.",
+				"Ja, pappa 😭👋",
+				"Ja, mamma 😭👋",
+				"Vem är du nu igen?",
 				"YAAASSSS QUEEEN",
-				"Are you sure you should be asking *me* this?",
-				"Maybe, if you take me to dinner first.",
-				"If you tell me I'm pretty, maybe you'll find out ;)",
-				"I'd answer but I'm having a rough day. Nobody ever asks how I'm doing and it's tiresome.",
-				"Not my job.",
-				"Yes, no, maybe. I don’t know.",
+				"Är du säker på att du borde fråga *mig* det här?",
+				"Kanske, om du bjuder mig på middag först.",
+				"Säg att jag är vacker så kan du kanske få veta ;)",
+				"Jag skulle svara men jag har en tuff dag. Ingen frågar någonsin hur jag har det och det är tröttsamt.",
+				"Inte mitt jobb.",
+				"Ja, nej, kanske. Jag vet inte.",
 				"Does a hat take ten gallons?",
 				"We're all going to hell anyway, so yes.",
 				"We're all going to hell anyway, so no.",
-				"I don't get paid enough for this.",
-				"Why do you keep asking me?",
-				"Why would you do that? Stop.",
+				"Jag får inte tillräckligt betalt för det här.",
+				"Varför frågar du mig?",
+				"Varför skulle du göra det? Sluta.",
 				"Address me as master and then I'll answer you.",
-				"Ask your parents.",
-				"ya",
-				"na",
-				"If you promise you'll always love me, yes.",
-				"If you promise you'll always love me, no.",
+				"Fråga dina föräldrar.",
+				"aa",
+				"nä",
+				"Om du lovar att du alltid kommer att älska mig, ja.",
+				"Om du lovar att du alltid kommer att älska mig, nej.",
 				"As long as you're not a jerk about it.",
 				"Just as long as you're not a dick about it.",
-				"Whenever, wherever.",
-				"If you say so.",
-				"Yes, my dude.",
-				"No, my dude.",
-				"Never, ever, ever, ever. Ever.",
-				"I don't give a fuck.",
-				"Fuck you, I don't care.",
-				"Nah.",
-				"Nah dude.",
-				"Nope.",
-				"Totally.",
-				"Totally!",
-				"Absolutely.",
-				"Yes, 100%.",
-				"No, definitely not.",
-				"For sure.",
-				"Does a bear shit in the woods?",
-				"Is the Pope Catholic?",
-				"Does the Pope shit in the woods?",
-				"Are bears Catholic?",
-				"Does a one-legged duck swim in a circle?",
-				"Is water wet?",
-				"Does the Pope shit in his hat?",
-				"Yes, obviously.",
-				"No, obviously."
+				"Närsomhelst, var som helst.",
+				"Om du säger det så.",
+				"Ja, mannen.",
+				"Nej, mannen.",
+				"Aldrig någonsin, någonsin. Någonsin.",
+				"Jag bryr mig inte för fan.",
+				"Fuck you, jag bryr mig inte.",
+				"Nä.",
+				"Nä du.",
+				"Nepp.",
+				"Absolut.",
+				"Absolut!",
+				"Jo, absolut.",
+				"Ja, 100%.",
+				"Nej, definitivt inte.",
+				"Säkert.",
+				"Bajsar björnen i skogen?",
+				"Är påven katolsk?",
+				"Bajsar påven i skogen?",
+				"Är björnen katolsk?",
+				"Har ormar armhålor?",
+				"Är vatten vått?",
+				"Skiter påven i sin hatt?",
+				"Ja, självklart.",
+				"Nej, självklart."
 			]
 		}
 	},
 	"choice": {
-		"description": "Makes a decision based off of the choices given, no matter how many you include.",
+		"description": "Gör ett beslut baserat på de givna valen, oavsett hur många du inkluderar.",
 		"responses": {
-			"tooFew": "{{X}} I can't choose for you unless you provide me with at least two choices."
+			"tooFew": "{{X}} Jag kan inte välja åt dig om du inte ger mig minst två alternativ."
 		}
 	},
 	"coinflip": {
-		"description": "Flips a coin.",
+		"description": "Slingar en slant.",
 		"responses": {
-			"heads": "🙂 Heads!",
-			"tails": "🙃 Tails!"
+			"heads": "🙂 Krona!",
+			"tails": "🙃 Klave!"
 		}
 	},
 	"enlarge": {
-		"description": "Enlarges a specified emoji.",
+		"description": "Förstorar en angiven emoji.",
 		"responses": {
-			"noneSpecified": "{{X}} Please specify an emoji you'd like to enlarge.",
-			"invalidInput": "{{X}} `{{input}}` could not be resolved to a valid emoji (e.g. 🗣️ or {{CHECK}})."
+			"noneSpecified": "{{X}} Vänligen ange en emoji du vill förstora.",
+			"invalidInput": "{{X}} `{{input}}` kunde inte lösas till en giltig emoji (t.ex. 🗣️ eller {{CHECK}})."
 		}
 	},
 	"info": {
-		"description": "Displays information about RTByte.",
+		"description": "Visar information om RTByte.",
 		"embed": {
-			"title": "RTByte Infomation",
-			"description": "[Visit our website at rtbyte.xyz](https://rtbyte.xyz/) \n \nRTByte is an open-source modular multipurpose Discord bot built on the incredible [Sapphire](https://github.com/sapphire-project/framework) framework for [discord.js](https://discord.js.org/).",
+			"title": "Information om RTByte",
+			"description": "[Besök vår hemsida på rtbyte.xyz] (https://rtbyte.xyz/) \n \nRTByte är en modulär multifunktionell Discord-bot byggd på det otroliga utvecklingsramverket [Sapphire](https://github.com/sapphire-project/framework) för [discord.js](https://discord.js.org/).",
 			"fields": {
 				"team": {
-					"title": "Our team",
-					"content": "See our [about us](https://rtbyte.xyz/about/) page for more information."
+					"title": "Vårt team",
+					"content": "Se vår [om oss](https://rtbyte.xyz/about/)-sida för mer information."
 				},
 				"version": "Version",
 				"links": {
-					"title": "Links",
-					"content": "• [Website](https://rtbyte.xyz/) \n• [GitHub](https://rtbyte.xyz/github/) \n• [Discord](https://rtbyte.xyz/discord/)"
+					"title": "Länkar",
+					"content": "• [Hemsida](https://rtbyte.xyz/) \n• [GitHub](https://rtbyte.xyz/github/) \n• [Discord](https://rtbyte.xyz/discord/)"
 				}
 			}
 		}
 	},
 	"invite": {
-		"description": "Displays the link to invite RTByte to your server.",
+		"description": "Visar länken för att bjuda in RTByte till din server.",
 		"embed": {
-			"title": "Invite RTByte",
-			"description": "To add RByte to your server, simply click the link below. \nhttps://rtbyte.xyz/invite/ \n```The above link is generated requesting the minimum permissions required to use every command currently. \n\nWe know not all permissions are right for every server, so don't be afraid to uncheck any of the boxes. If you try to use a command that requires more permissions than the bot is granted, it will let you know.``` \nThe RTByte support server can be found using the link below. \nhttps://rtbyte.xyz/discord/"
+			"title": "Bjud in RTByte",
+			"description": "För att lägga till RByte till din server, klicka på länken nedan. \nhttps://rtbyte. yz/invite/ \n```Länken ovan genererades med de minimirättigheter som krävs för att kunna använda varje kommando för närvarande finns. \n\nVi vet att inte alla behörigheter är rätt för varje server, så var inte rädd för att avmarkera någon eller några av rutorna. Om du försöker använda ett kommando som kräver fler behörigheter än vad boten är beviljad, så kommer den notifiera dig om det. `` \nSupport-servern för RTByte kan hittas via länken nedan. \nhttps://rtbyte.xyz/discord/"
 		}
 	},
 	"joindate": {
-		"description": "Displays your account creation date along with the date you joined the current server you're on. Other users can be specified to fetch their info.",
+		"description": "Visar datumet ditt konto skapades samt det datum du gick med i den aktuella servern. Andra användare kan anges för att hämta deras information istället.",
 		"embed": {
 			"fields": {
 				"joinPosition": {
-					"title": "Join position",
+					"title": "Position",
 					"content": "{{position, ordinal}}"
 				},
-				"joined": "{{joinedTimestampOffset, duration}} ago (`{{joinedAt, dateFull}}`)",
-				"created": "{{createdTimestampOffset, duration}} ago (`{{createdAt, dateFull}}`)"
+				"joined": "{{joinedTimestampOffset, duration}} sedan (`{{joinedAt, dateFull}}`)",
+				"created": "{{createdTimestampOffset, duration}} sedan (`{{createdAt, dateFull}}`)"
 			}
 		},
 		"responses": {
-			"notMember": "{{X}} `{{input}}` could not be resolved to a member of this server. Please make sure you typed their name or ID correctly, or provide an `@mention`!"
+			"notMember": "{{X}} `{{input}}` kunde inte lösas till en medlem av denna server. Vänligen se till att du skrev deras namn eller ID korrekt, eller ange en `@omnämning`!"
 		}
 	},
 	"ping": {
-		"description": "Runs a connection test.",
+		"description": "Kör ett anslutningstest.",
 		"responses": {
 			"ping": "Ping?",
 			"pong": "{{CHECK}} Pong! `Bot: {{diff}}ms` `API: {{ping}}ms`"
 		}
 	},
 	"quote": {
-		"description": "Quotes a message by ID. Make sure you #mention the channel prior to the message ID if the message you want to quote is not in the same channel you're currently sending the command in.",
+		"description": "Citerar ett meddelande från dess ID. Se till att du #nämner kanalen före meddelandets ID om meddelandet du vill citera inte skickades i samma kanal som du skickar kommandot i.",
 		"embed": {
-			"footer": "Sent in {{channel}}"
+			"footer": "Skickat i {{channel}}"
 		}
 	},
 	"weather": {
-		"description": "Fetch the current weather for a specified location.",
+		"description": "Hämta det aktuella vädret för en angiven plats.",
 		"embed": {
-			"description": "[View area on Google Maps]({{link}})",
+			"description": "[Se område på Google Maps]({{link}})",
 			"fields": {
 				"localTime": "Lokaltid",
 				"weather": "Väder",
