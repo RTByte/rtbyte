@@ -38,6 +38,7 @@ export class UserCommand extends RTByteCommand {
 			.setColor(remoteMessage.member?.displayColor as ColorResolvable ?? Colors.White)
 			.setImage(getImage(remoteMessage)!)
 			.setThumbnail('')
+			.setTimestamp(remoteMessage.createdTimestamp)
 			.setFooter(args.t(LanguageKeys.Commands.User.QuoteEmbedFooter, { channel: `#${fetchedChannel?.name}`}))
 
 		const content = getContent(remoteMessage);

@@ -1,0 +1,8 @@
+{
+	"GUILD_TEXT": "Text channel",
+	"GUILD_VOICE": "Voice channel",
+	"GUILD_CATEGORY": "Category",
+	"GUILD_NEWS": "Announcement channel",
+	"GUILD_STORE": "Store channel",
+	"GUILD_STAGE_VOICE": "Stage channel"
+}

@@ -1,7 +1,7 @@
 {
-	"explicitContentFilterDisabled": "Disabled",
-	"explicitContentFilterMembersWithoutRoles": "Members without roles",
-	"explicitContentFilterAllMembers": "All members",
-	"messageNotificationsAll": "All Messages",
-	"messageNotificationsMentions": "Only @mentions"
+	"explicitContentFilterDisabled": "Inaktiverad",
+	"explicitContentFilterMembersWithoutRoles": "Medlemmar utan roller",
+	"explicitContentFilterAllMembers": "Alla medlemmar",
+	"messageNotificationsAll": "Alla meddelanden",
+	"messageNotificationsMentions": "Endast @omnämningar"
 }
