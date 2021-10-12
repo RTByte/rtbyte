@@ -73,6 +73,7 @@ Thanks goes to these wonderful people ([emoji key]):
   </tr>
   <tr>
     <td align="center"><a href="https://mchang.name"><img src="https://avatars0.githubusercontent.com/u/15132783?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Michael M. Chang</b></sub></a><br /><a href="https://github.com/RTByte/rtbyte/commits?author=mchangrh" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/jtknutti"><img src="https://avatars.githubusercontent.com/u/35478368?v=4?s=100" width="100px;" alt=""/><br /><sub><b>jtknutti</b></sub></a><br /><a href="https://github.com/RTByte/rtbyte/pulls?q=is%3Apr+reviewed-by%3Ajtknutti" title="Reviewed Pull Requests">👀</a></td>
   </tr>
 </table>
 
