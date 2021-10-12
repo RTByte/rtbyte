@@ -12,6 +12,7 @@ export class GuildLogEmbed extends MessageEmbed {
 		switch (type) {
 			case Events.ChannelCreate:
 			case Events.EmojiCreate:
+			case Events.GuildBotAdd:
 			case Events.GuildMemberAdd:
 			case Events.GuildWebhookCreate:
 			case Events.InviteCreate:
