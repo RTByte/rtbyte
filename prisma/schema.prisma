@@ -66,6 +66,7 @@ model GuildSettings {
 	emojiCreateLog         Boolean @default(false) @map("log_emoji_create")
 	emojiDeleteLog         Boolean @default(false) @map("log_emoji_delete")
 	emojiUpdateLog         Boolean @default(false) @map("log_emoji_update")
+	guildBotAddLog		   Boolean @default(false) @map("log_guild_bot_add")
 	guildMemberAddLog      Boolean @default(true) @map("log_guild_member_join")
 	guildMemberRemoveLog   Boolean @default(true) @map("log_guild_member_leave")
 	guildMemberUpdateLog   Boolean @default(true) @map("log_guild_member_update")

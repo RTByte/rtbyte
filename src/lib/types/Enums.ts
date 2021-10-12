@@ -8,6 +8,7 @@ export const enum Events {
 	Error = 'error',
 	GuildBanAdd = 'guildBanAdd',
 	GuildBanRemove = 'guildBanRemove',
+	GuildBotAdd = 'guildBotAdd',
 	GuildCreate = 'guildCreate',
 	GuildDelete = 'guildDelete',
 	GuildMemberAdd = 'guildMemberAdd',

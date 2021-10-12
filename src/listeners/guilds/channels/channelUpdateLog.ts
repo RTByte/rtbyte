@@ -70,7 +70,10 @@ export class UserListener extends Listener<typeof SapphireEvents.ChannelUpdate> 
 				embed.addField(t(LanguageKeys.Events.Guilds.Logs.TopicChanged),
 					(oldChannel.topic?.length as number < 64 && channel.topic?.length as number < 64) ?
 						t(LanguageKeys.Events.Guilds.Logs.ChangeShortText, { before: oldChannel.topic, after: channel.topic }) :
-						t(LanguageKeys.Events.Guilds.Logs.ChangeLongText, { before: cutText(oldChannel.topic as string, 496), after: cutText(channel.topic as string, 496) })
+						t(LanguageKeys.Events.Guilds.Logs.ChangeLongText, {
+							before: oldChannel.topic?.length ? cutText(oldChannel.topic as string, 496) : t(LanguageKeys.Globals.None),
+							after: channel.topic?.length ? cutText(channel.topic as string, 496) : t(LanguageKeys.Globals.None)
+						})
 				);
 			}
 			// Automatic thread archival duration changed
