@@ -33,7 +33,7 @@
 				"Ja.",
 				"Jag tvingas göra detta, skicka hjälp.",
 				"Din mamma sa ja.",
-				"Om du har byxor på dig, ja.",
+				"Ja, om du har byxor på dig.",
 				"När grisar flyger.",
 				"Jag kommer låtsas att jag aldrig hörde det där.",
 				"Jag kunde berätta för dig, men jag skulle vara tvungen att permanent banna dig.",
@@ -46,7 +46,7 @@
 				"Förlåt, vad sa du?",
 				"🙅",
 				"🛑",
-				"🛑 STOPP 🛑",
+				"🛑 SLUTA 🛑",
 				"👌",
 				"👍",
 				"👎",
@@ -60,27 +60,27 @@
 				"Ja, pappa 😭👋",
 				"Ja, mamma 😭👋",
 				"Vem är du nu igen?",
-				"YAAASSSS QUEEEN",
+				"Det vet du!",
 				"Är du säker på att du borde fråga *mig* det här?",
 				"Kanske, om du bjuder mig på middag först.",
 				"Säg att jag är vacker så kan du kanske få veta ;)",
 				"Jag skulle svara men jag har en tuff dag. Ingen frågar någonsin hur jag har det och det är tröttsamt.",
 				"Inte mitt jobb.",
 				"Ja, nej, kanske. Jag vet inte.",
-				"Does a hat take ten gallons?",
-				"We're all going to hell anyway, so yes.",
-				"We're all going to hell anyway, so no.",
+				"Väldigt sannolikt!",
+				"Vi kommer nog alla sluta upp i helvetet ändå, så ja.",
+				"Vi kommer nog alla sluta upp i helvetet ändå, så nej.",
 				"Jag får inte tillräckligt betalt för det här.",
 				"Varför frågar du mig?",
 				"Varför skulle du göra det? Sluta.",
-				"Address me as master and then I'll answer you.",
+				"Tilltala mig som din mästare så svarar jag på din fråga.",
 				"Fråga dina föräldrar.",
 				"aa",
 				"nä",
 				"Om du lovar att du alltid kommer att älska mig, ja.",
 				"Om du lovar att du alltid kommer att älska mig, nej.",
-				"As long as you're not a jerk about it.",
-				"Just as long as you're not a dick about it.",
+				"Jovisst.",
+				"Aldrig i livet.",
 				"Närsomhelst, var som helst.",
 				"Om du säger det så.",
 				"Ja, mannen.",
@@ -105,7 +105,7 @@
 				"Är vatten vått?",
 				"Skiter påven i sin hatt?",
 				"Ja, självklart.",
-				"Nej, självklart."
+				"Nej, självklart inte."
 			]
 		}
 	},
@@ -133,7 +133,7 @@
 		"description": "Visar information om RTByte.",
 		"embed": {
 			"title": "Information om RTByte",
-			"description": "[Besök vår hemsida på rtbyte.xyz] (https://rtbyte.xyz/) \n \nRTByte är en modulär multifunktionell Discord-bot byggd på det otroliga utvecklingsramverket [Sapphire](https://github.com/sapphire-project/framework) för [discord.js](https://discord.js.org/).",
+			"description": "[Besök vår hemsida på rtbyte.xyz](https://rtbyte.xyz/) \n \nRTByte är en modulär multifunktionell Discord-bot byggd på det otroliga utvecklingsramverket [Sapphire](https://github.com/sapphire-project/framework) för [discord.js](https://discord.js.org/).",
 			"fields": {
 				"team": {
 					"title": "Vårt team",
@@ -151,7 +151,7 @@
 		"description": "Visar länken för att bjuda in RTByte till din server.",
 		"embed": {
 			"title": "Bjud in RTByte",
-			"description": "För att lägga till RByte till din server, klicka på länken nedan. \nhttps://rtbyte. yz/invite/ \n```Länken ovan genererades med de minimirättigheter som krävs för att kunna använda varje kommando för närvarande finns. \n\nVi vet att inte alla behörigheter är rätt för varje server, så var inte rädd för att avmarkera någon eller några av rutorna. Om du försöker använda ett kommando som kräver fler behörigheter än vad boten är beviljad, så kommer den notifiera dig om det. `` \nSupport-servern för RTByte kan hittas via länken nedan. \nhttps://rtbyte.xyz/discord/"
+			"description": "För att lägga till RByte till din server, klicka på länken nedan. \nhttps://rtbyte.xyz/invite/ \n```\nLänken ovan genererades med de minimirättigheter som krävs för att kunna använda varje kommando för närvarande är implementerat. \n\nVi vet att inte alla behörigheter är rätt för varje server, så var inte rädd för att avmarkera någon eller några av rutorna. Om du försöker använda ett kommando som kräver fler behörigheter än vad boten är beviljad, så kommer den notifiera dig om det.\n```\nSupport-servern för RTByte kan hittas via länken nedan. \nhttps://rtbyte.xyz/discord/"
 		}
 	},
 	"joindate": {
