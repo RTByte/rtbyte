@@ -24,7 +24,7 @@ export class UserCommand extends RTByteCommand {
 
 		const embed = new RTByteEmbed(message)
 			.setAuthor(user.tag, user.displayAvatarURL())
-			.setThumbnail(user.displayAvatarURL());
+			.setThumbnail(user.displayAvatarURL({ format: 'png', size: 128 }));
 
 		if (position === 1 && message.guild?.ownerId === user.id) embed.setDescription(args.t(LanguageKeys.Miscellaneous.ServerCreator))
 

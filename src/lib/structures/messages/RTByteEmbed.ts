@@ -9,7 +9,7 @@ export class RTByteEmbed extends MessageEmbed {
 	public constructor(message: Message) {
 		super();
 		this.setColor(Colors.White)
-		this.setThumbnail(String(container.client.user?.displayAvatarURL()))
+		this.setThumbnail(String(container.client.user?.displayAvatarURL({ format: 'png', size: 128 })))
 		this.setTimestamp()
 		this.setFooter(i18next.t(LanguageKeys.System.RequestedBy, { requester: message.author.tag }), message.author.displayAvatarURL())
 	}
