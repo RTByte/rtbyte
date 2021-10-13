@@ -27,6 +27,7 @@ export class UserListener extends Listener<typeof SapphireEvents.GuildRoleUpdate
 		const embed = new GuildLogEmbed()
 			.setAuthor(role.name, role.guild.iconURL() as string)
 			.setDescription(`${t(LanguageKeys.Miscellaneous.DisplayID, { id: role.id })} \n${role}`)
+			.setThumbnail(role.iconURL({ format: 'png', size: 64 }) as string)
 			.setFooter(t(LanguageKeys.Events.Guilds.Logs.RoleUpdated, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }), executor?.displayAvatarURL() ?? undefined)
 			.setType(Events.RoleUpdate);
 
@@ -48,6 +49,11 @@ export class UserListener extends Listener<typeof SapphireEvents.GuildRoleUpdate
 		// Mentionable toggled
 		if (oldRole.mentionable !== role.mentionable) {
 			embed.addField(t(LanguageKeys.Events.Guilds.Logs.MentionableToggled), role.mentionable ? Emojis.Check : Emojis.X);
+		}
+
+		// Role icon changed
+		if (oldRole.icon !== role.icon) {
+			embed.addField(t(LanguageKeys.Events.Guilds.Logs.RoleIconChanged), t(LanguageKeys.Events.Guilds.Logs.ChangeLongText, { before: oldRole.iconURL({ format: 'png' }) ?? t(LanguageKeys.Globals.None), after: role.iconURL({ format: 'png' }) ?? t(LanguageKeys.Globals.None) }))
 		}
 
 		// Permissions changed

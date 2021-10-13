@@ -51,6 +51,7 @@ export const RelatedEmoji = T<string>('events/guilds-logs:stickers.relatedEmoji'
 export const RelatedEmojiChanged = T<string>('events/guilds-logs:stickers.relatedEmojiChanged');
 export const RoleCreated = FT<{ by: string }, string>('events/guilds-logs:roles.roleCreated');
 export const RoleDeleted = FT<{ by: string }, string>('events/guilds-logs:roles.roleDeleted');
+export const RoleIconChanged = T<string>('events/guilds-logs:roles.roleIconChanged');
 export const RoleUpdated = FT<{ by: string }, string>('events/guilds-logs:roles.roleUpdated');
 export const SlowmodeChanged = T<string>('events/guilds-logs:channels.slowmodeChanged');
 export const StageChannelCreated = FT<{ by: string }, string>('events/guilds-logs:channels.stageChannelCreated');

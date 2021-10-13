@@ -61,6 +61,7 @@
 		"colorChanged": "Color changed",
 		"hoistToggled": "Hoist toggled",
 		"mentionableToggled": "Mentionable toggled",
+		"roleIconChanged": "Role icon changed",
 		"permissionsChanged": "Permissions changed",
 		"permissionsFormatted": "**Before:** \n```\n{{before, permissionsAndList}}\n```\n**After:** \n```\n{{after, permissionsAndList}}\n```",
 		"roleCreated": "Role created {{by}}",

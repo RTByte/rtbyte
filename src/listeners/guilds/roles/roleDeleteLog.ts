@@ -26,6 +26,7 @@ export class UserListener extends Listener<typeof SapphireEvents.GuildRoleDelete
 		const embed = new GuildLogEmbed()
 			.setAuthor(role.name, role.guild.iconURL() as string)
 			.setDescription(t(LanguageKeys.Miscellaneous.DisplayID, { id: role.id }))
+			.setThumbnail(role.iconURL({ format: 'png', size: 64 }) as string)
 			.setFooter(t(LanguageKeys.Events.Guilds.Logs.RoleDeleted, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }), executor?.displayAvatarURL() ?? undefined)
 			.setType(Events.RoleDelete);
 
