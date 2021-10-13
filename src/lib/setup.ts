@@ -6,7 +6,7 @@ import '@sapphire/plugin-api/register';
 import '@sapphire/plugin-editable-commands';
 import '@sapphire/plugin-i18next/register';
 import '@sapphire/plugin-logger/register';
-import { options as coloretteOptions } from 'colorette';
+import { createColors } from 'colorette';
 import 'reflect-metadata';
 import { inspect } from 'util';
 
@@ -14,4 +14,4 @@ import { inspect } from 'util';
 inspect.defaultOptions.depth = 1;
 
 // Enable colorette
-coloretteOptions.enabled = true;
+createColors({ useColor: true });
