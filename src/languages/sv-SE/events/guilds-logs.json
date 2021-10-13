@@ -43,6 +43,15 @@
 		"maxUses": "Användningsgräns",
 		"temporary": "Ger tillfälligt medlemsskap"
 	},
+	"members": {
+		"botAdded": "Bot tillagd {{by}}",
+		"botLeft": "Bot lämnade",
+		"botUpdated": "Bot uppdaterad {{by}}",
+		"displayNameChanged": "Visningsnamn ändrat",
+		"userJoined": "Användare gick med",
+		"userLeft": "Användare lämnade",
+		"userUpdated": "Användare uppdaterad {{by}}"
+	},
 	"messages": {
 		"messageDeleted": "Meddelande borttaget",
 		"messageUpdated": "Meddelande redigerat",
@@ -52,6 +61,7 @@
 		"colorChanged": "Färg ändrad",
 		"hoistToggled": "Separat visning av rollen ändrad",
 		"mentionableToggled": "Omnämningsmöjlighet av rollen ändrad",
+		"roleIconChanged": "Rollikon ändrad",
 		"permissionsChanged": "Behörigheter ändrade",
 		"permissionsFormatted": "**Före:** \n```\n{{before, permissionsAndList}}\n```\n**Efter:** \n```\n{{after, permissionsAndList}}\n```",
 		"roleCreated": "Roll skapad {{by}}",
