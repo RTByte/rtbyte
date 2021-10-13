@@ -45,7 +45,7 @@
 		"bufferutil": "^4.0.4",
 		"colorette": "^2.0.16",
 		"discord.js": "^13.2.0",
-		"i18next": "^19.9.2",
+		"i18next": "^21.3.0",
 		"lexure": "^0.17.0",
 		"reflect-metadata": "^0.1.13",
 		"twemoji-parser": "^13.1.0",
