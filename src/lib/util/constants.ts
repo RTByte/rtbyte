@@ -56,7 +56,8 @@ export const enum LanguageFormatters {
 	DateTime = 'dateTime',
 	ToTitleCase = 'toTitleCase',
 	PermissionsAndList = 'permissionsAndList',
-	DiscordRegions = 'discordRegions'
+	DiscordRegions = 'discordRegions',
+	Locales = 'locales',
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types
