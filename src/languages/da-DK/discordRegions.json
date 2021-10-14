@@ -1,15 +1,15 @@
 {
-	"brazil": "🇧🇷 `Brazil`",
-	"europe": "🇪🇺 `Europe`",
+	"brazil": "🇧🇷 `Brasilien`",
+	"europe": "🇪🇺 `Europa`",
 	"hongkong": "🇭🇰 `Hong Kong`",
-	"india": "🇮🇳 `India`",
+	"india": "🇮🇳 `Indien`",
 	"japan": "🇯🇵 `Japan`",
-	"russia": "🇷🇺 `Russia`",
+	"russia": "🇷🇺 `Rusland`",
 	"singapore": "🇸🇬 `Singapore`",
-	"southafrica": "🇿🇦 `South Africa`",
+	"southafrica": "🇿🇦 `Sydafrika`",
 	"sydney": "🇦🇺 `Sydney`",
-	"us-central": "🇺🇸 `US Central`",
-	"us-east": "🇺🇸 `US East`",
-	"us-south": "🇺🇸 `US South`",
-	"us-west": "🇺🇸 `US West`"
+	"us-central": "🇺🇸 `Central USA`",
+	"us-east": "🇺🇸 `Øst USA`",
+	"us-south": "🇺🇸 `Syd USA`",
+	"us-west": "🇺🇸 `Vest USA`"
 }
