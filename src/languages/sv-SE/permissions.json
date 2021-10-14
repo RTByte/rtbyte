@@ -33,8 +33,6 @@
 	"USE_APPLICATION_COMMANDS": "Använda applikationskommandon",
 	"USE_EXTERNAL_EMOJIS": "Använd externa emojier",
 	"USE_EXTERNAL_STICKERS": "Använd externa dekaler",
-	"USE_PRIVATE_THREADS": "Använd privata trådar",
-	"USE_PUBLIC_THREADS": "Använd offentliga trådar",
 	"USE_VAD": "Använd röstaktivering",
 	"VIEW_AUDIT_LOG": "Se ändringsloggen",
 	"VIEW_CHANNEL": "Se kanaler",
