@@ -1,7 +1,7 @@
 {
-	"explicitContentFilterDisabled": "Disabled",
-	"explicitContentFilterMembersWithoutRoles": "Members without roles",
-	"explicitContentFilterAllMembers": "All members",
-	"messageNotificationsAll": "All Messages",
-	"messageNotificationsMentions": "Only @mentions"
+	"explicitContentFilterDisabled": "Deaktiveret",
+	"explicitContentFilterMembersWithoutRoles": "Medlemmer uden roller",
+	"explicitContentFilterAllMembers": "Alle medlemmer",
+	"messageNotificationsAll": "Alle beskeder",
+	"messageNotificationsMentions": "Kun @omtaler"
 }
