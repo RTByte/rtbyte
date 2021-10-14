@@ -1,6 +1,6 @@
 {
-	"aborted": "Successfully aborted the prompt.",
-	"invalidIndex": "That number was out of range, aborting prompt.",
-	"invalidNumber": "A (single digit) number was expected from you, got a potato.",
-	"matches": "Multiple matches were found. **Please select a number within 0 and {{matches}}**:\n{{codeblock}}\nWrite **ABORT** if you want to exit the prompt."
+	"aborted": "Afbrød prompten succesfuldt.",
+	"invalidIndex": "Tallet var uden for rækkevidde, afbryder prompten.",
+	"invalidNumber": "Der blev forventet et (encifret) tal fra dig, fik en kartoffel.",
+	"matches": "Flere matches blev fundet. **Vælg et tal inden for 0 og {{matches}}**:\n{{codeblock}}\nSkriv **ABORT** hvis du vil afslutte prompten."
 }
