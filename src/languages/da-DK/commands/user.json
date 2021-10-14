@@ -1,49 +1,49 @@
 {
 	"8ball": {
-		"description": "Magic 8-ball. Does exactly what the toy does, memes included.",
+		"description": "Magisk 8-ball. Gør præcis hvad legetøjet gør, memes inkluderet.",
 		"responses": {
-			"noQuestion": "{{X}} You didn't ask me anything.",
+			"noQuestion": "{{X}} Du spurgte mig ikke noget.",
 			"answers": [
-				"Maybe.",
-				"Certainly not.",
-				"I hope so.",
-				"Not in your wildest dreams.",
-				"There is a good chance.",
-				"Quite likely.",
-				"I think so.",
-				"I hope not.",
-				"I hope so.",
-				"Never!",
+				"Måske.",
+				"Bestemt ikke.",
+				"Det håber jeg.",
+				"Ikke i dine vildeste drømme.",
+				"Der er en god chance.",
+				"Ganske sandsynligt.",
+				"Det tror jeg.",
+				"Det håber jeg ikke.",
+				"Det håber jeg.",
+				"Aldrig!",
 				"Pfft.",
-				"Sorry, bucko.",
-				"Hell yes.",
-				"Hell no.",
-				"The future is bleak.",
-				"The future is uncertain.",
-				"I would rather not say.",
-				"Who cares?",
-				"Possibly.",
-				"Never, ever, ever.",
-				"There is a small chance.",
-				"Yes!",
-				"Doesn't look like anything to me.",
-				"I don't know.",
-				"Ask someone else.",
-				"No.",
-				"Yes.",
-				"I'm being forced to do this, please send help.",
-				"Your mom told me yes.",
-				"If you're wearing pants, yes.",
-				"When pigs fly.",
-				"I'll pretend I never heard that.",
-				"I could tell you but I'd have to permanently ban you.",
-				"Do you *really* want me to answer that?",
-				"If it fits.",
-				"That's my fetish!",
-				"I'm sorry, but yes.",
-				"I'm sorry, but no.",
-				"What?",
-				"Sorry, what was that?",
+				"Undskyld, kammerat.",
+				"Ja for helvede.",
+				"Nej for helvede.",
+				"Fremtiden er dyster.",
+				"Fremtiden er usikker.",
+				"Det vil jeg helst ikke sige.",
+				"Hvem bekymrer sig om det?",
+				"Muligvis.",
+				"Aldrig, aldrig nogensinde.",
+				"Der er en lille chance.",
+				"Ja!",
+				"Det ser ikke ud af noget for mig.",
+				"Jeg ved det ikke.",
+				"Spørg en anden.",
+				"Nej.",
+				"Ja.",
+				"Jeg bliver tvunget til at gøre dette, send venligst hjælp.",
+				"Din mor sagde ja.",
+				"Hvis du har bukser på, så ja.",
+				"Når grise kan flyve.",
+				"Det vil jeg lade som om, jeg aldrig hørte.",
+				"Jeg kunne godt fortælle dig det, men så ville jeg være nødt til at banne dig permanent.",
+				"Vil du *virkelig* have at jeg svarer på det?",
+				"Hvis det passer.",
+				"Det er min fetish!",
+				"Jeg beklager, men ja.",
+				"Jeg beklager, men nej.",
+				"Hvad?",
+				"Undskyld, hvad sagde du?",
 				"🙅",
 				"🛑",
 				"🛑 STOP 🛑",
@@ -51,93 +51,93 @@
 				"👍",
 				"👎",
 				"👀",
-				"I wouldn't think so.",
-				"Why would you even think to ask that?",
-				"What now?",
-				"What do you mean?",
-				"Not happening.",
-				"You betcha.",
-				"Yes, daddy 😭👋",
-				"Yes, mommy 😭👋",
-				"Who are you again?",
-				"YAAASSSS QUEEEN",
-				"Are you sure you should be asking *me* this?",
-				"Maybe, if you take me to dinner first.",
-				"If you tell me I'm pretty, maybe you'll find out ;)",
-				"I'd answer but I'm having a rough day. Nobody ever asks how I'm doing and it's tiresome.",
-				"Not my job.",
-				"Yes, no, maybe. I don’t know.",
-				"Does a hat take ten gallons?",
-				"We're all going to hell anyway, so yes.",
-				"We're all going to hell anyway, so no.",
-				"I don't get paid enough for this.",
-				"Why do you keep asking me?",
-				"Why would you do that? Stop.",
-				"Address me as master and then I'll answer you.",
-				"Ask your parents.",
-				"ya",
-				"na",
-				"If you promise you'll always love me, yes.",
-				"If you promise you'll always love me, no.",
-				"As long as you're not a jerk about it.",
-				"Just as long as you're not a dick about it.",
-				"Whenever, wherever.",
-				"If you say so.",
-				"Yes, my dude.",
-				"No, my dude.",
-				"Never, ever, ever, ever. Ever.",
-				"I don't give a fuck.",
-				"Fuck you, I don't care.",
-				"Nah.",
-				"Nah dude.",
-				"Nope.",
-				"Totally.",
-				"Totally!",
-				"Absolutely.",
-				"Yes, 100%.",
-				"No, definitely not.",
-				"For sure.",
-				"Does a bear shit in the woods?",
-				"Is the Pope Catholic?",
-				"Does the Pope shit in the woods?",
-				"Are bears Catholic?",
-				"Does a one-legged duck swim in a circle?",
-				"Is water wet?",
-				"Does the Pope shit in his hat?",
-				"Yes, obviously.",
-				"No, obviously."
+				"Det ville jeg ikke tro.",
+				"Hvorfor ville du overhovedet tænke på at spørge om det?",
+				"Hvad nu?",
+				"Hvad mener du?",
+				"Det kommer ikke til at ske.",
+				"Det kan du tro.",
+				"Ja, farmand 😭👋",
+				"Ja, moder 😭👋",
+				"Hvem er det nu du er igen?",
+				"YAAASSSS DRONNING",
+				"Er du sikker på, at du bør spørge *mig* om dette?",
+				"Måske, hvis du inviterer mig på middag først.",
+				"Hvis du kalder mig smuk, finder du måske ud af det ;)",
+				"Jeg ville gerne svare, men jeg har en dårlig dag. Ingen spørger nogensinde hvordan jeg har det, og det er trættende.",
+				"Det er ikke mit job.",
+				"Ja, nej, måske. Jeg ved det ikke.",
+				"Er jorden rund?",
+				"Vi kommer allesammen i helvede alligevel, så ja.",
+				"Vi kommer allesammen i helvede alligevel, så nej.",
+				"Jeg bliver ikke betalt nok for det her.",
+				"Hvorfor bliver du ved med at spørge mig?",
+				"Hvorfor ville du gøre det? Hold op.",
+				"Addresser mig som din mester, så svarer jeg dig.",
+				"Spørg dine forældre.",
+				"jep",
+				"næh",
+				"Hvis du lover at du altid vil elske mig, så ja.",
+				"Hvis du lover at du altid vil elske mig, så nej.",
+				"Så længe du ikke er tarvelig omkring det.",
+				"Slå det op.",
+				"Når som helst, hvor som helst.",
+				"Hvis du siger det.",
+				"Ja, brormand.",
+				"Nej, mand.",
+				"Aldrig i livet.",
+				"Jeg giver ikke en flyvende fis.",
+				"Fuck dig, jeg er ligeglad.",
+				"Næh.",
+				"Næh, mand.",
+				"Niks.",
+				"Totalt.",
+				"Totalt!",
+				"Absolut.",
+				"Ja, 100%.",
+				"Nej, bestemt ikke.",
+				"Helt sikkert.",
+				"Skider en bjørn i skoven?",
+				"Er paven katolik?",
+				"Skider paven i skoven?",
+				"Er bjørne katolikker?",
+				"Svømmer en et-benet and i cirkler?",
+				"Er vand vådt?",
+				"Skider paven i sin hat?",
+				"Ja, selvfølgelig.",
+				"Nej, selvfølgelig ikke."
 			]
 		}
 	},
 	"choice": {
-		"description": "Makes a decision based off of the choices given, no matter how many you include.",
+		"description": "Træffer en beslutning baseret ud fra de givne valg, uanset hvor mange du inkluderer.",
 		"responses": {
-			"tooFew": "{{X}} I can't choose for you unless you provide me with at least two choices."
+			"tooFew": "{{X}} Jeg kan ikke vælge for dig, medmindre du giver mig mindst to valgmuligheder."
 		}
 	},
 	"coinflip": {
-		"description": "Flips a coin.",
+		"description": "Slår plat eller krone.",
 		"responses": {
-			"heads": "🙂 Heads!",
-			"tails": "🙃 Tails!"
+			"heads": "🙂 Krone!",
+			"tails": "🙃 Plat!"
 		}
 	},
 	"enlarge": {
-		"description": "Enlarges a specified emoji.",
+		"description": "Forstørrer en angiven emoji.",
 		"responses": {
-			"noneSpecified": "{{X}} Please specify an emoji you'd like to enlarge.",
-			"invalidInput": "{{X}} `{{input}}` could not be resolved to a valid emoji (e.g. 🗣️ or {{CHECK}})."
+			"noneSpecified": "{{X}} Angiv venligst en emoji du vil forstørre.",
+			"invalidInput": "{{X}} `{{input}}` kunne ikke løses til en gyldig emoji (f.eks. 🗣️ eller {{CHECK}})."
 		}
 	},
 	"info": {
-		"description": "Displays information about RTByte.",
+		"description": "Viser information om RTByte.",
 		"embed": {
-			"title": "RTByte Infomation",
-			"description": "[Visit our website at rtbyte.xyz](https://rtbyte.xyz/) \n \nRTByte is an open-source modular multipurpose Discord bot built on the incredible [Sapphire](https://github.com/sapphire-project/framework) framework for [discord.js](https://discord.js.org/).",
+			"title": "Information om RTByte",
+			"description": "[Besøg vores hjemmeside på rtbyte.xyz](https://rtbyte.xyz/) \n \nRTByte er en modulær multifunktionel Discord bot bygget på den utrolige [Sapphire](https://github.com/sapphire-project/framework) udviklingsramme for [discord.js](https://discord.js.org/).",
 			"fields": {
 				"team": {
-					"title": "Our team",
-					"content": "See our [about us](https://rtbyte.xyz/about/) page for more information."
+					"title": "Vores team",
+					"content": "Se vores [om os](https://rtbyte.xyz/about/) side for mere information."
 				},
 				"version": "Version",
 				"links": {
@@ -148,63 +148,63 @@
 		}
 	},
 	"invite": {
-		"description": "Displays the link to invite RTByte to your server.",
+		"description": "Viser linket til at invitere RTByte til din server.",
 		"embed": {
-			"title": "Invite RTByte",
-			"description": "To add RByte to your server, simply click the link below. \nhttps://rtbyte.xyz/invite/ \n```The above link is generated requesting the minimum permissions required to use every command currently. \n\nWe know not all permissions are right for every server, so don't be afraid to uncheck any of the boxes. If you try to use a command that requires more permissions than the bot is granted, it will let you know.``` \nThe RTByte support server can be found using the link below. \nhttps://rtbyte.xyz/discord/"
+			"title": "Inviter RTByte",
+			"description": "For at tilføje RTByte til din server, skal du blot klikke på linket nedenfor. \nhttps://rtbyte.xyz/invite/ \n```\nOvenstående link er genereret og anmoder om de minimumstilladelser, der kræves for at bruge alle de kommandoer, der i øjeblikket er implementeret. \n\nVi ved godt, at ikke alle tilladelser er brugbare i alle servere, så vær ikke bange for at fjerne fluebenene ved nogen af kasserne. Hvis du forsøger at bruge en kommando der kræver flere tilladelser end botten er tildelt, vil den give dig besked.\n``` \nRTByte-supportserveren kan findes ved hjælp af nedenstående link. \nhttps://rtbyte.xyz/discord/"
 		}
 	},
 	"joindate": {
-		"description": "Displays your account creation date along with the date you joined the current server you're on. Other users can be specified to fetch their info.",
+		"description": "Viser din kontooprettelsesdato samt den dato, du tilsluttede dig den aktuelle server. Andre brugere kan angives for at hente deres information.",
 		"embed": {
 			"fields": {
 				"joinPosition": {
-					"title": "Join position",
+					"title": "Position",
 					"content": "{{position, ordinal}}"
 				},
-				"joined": "{{joinedTimestampOffset, duration}} ago (`{{joinedAt, dateFull}}`)",
-				"created": "{{createdTimestampOffset, duration}} ago (`{{createdAt, dateFull}}`)"
+				"joined": "{{joinedTimestampOffset, duration}} siden (`{{joinedAt, dateFull}}`)",
+				"created": "{{createdTimestampOffset, duration}} siden (`{{createdAt, dateFull}}`)"
 			}
 		},
 		"responses": {
-			"notMember": "{{X}} `{{input}}` could not be resolved to a member of this server. Please make sure you typed their name or ID correctly, or provide an `@mention`!"
+			"notMember": "{{X}} `{{input}}` kunne ikke løses til et medlem af denne server. Sørg for, at du har indtastet deres navn eller ID korrekt, eller angiv en `@omtale`!"
 		}
 	},
 	"ping": {
-		"description": "Runs a connection test.",
+		"description": "Kører en forbindelsestest.",
 		"responses": {
 			"ping": "Ping?",
 			"pong": "{{CHECK}} Pong! `Bot: {{diff}}ms` `API: {{ping}}ms`"
 		}
 	},
 	"quote": {
-		"description": "Quotes a message by ID. Make sure you #mention the channel prior to the message ID if the message you want to quote is not in the same channel you're currently sending the command in.",
+		"description": "Citerer en besked ved hjælp af ID. Sørg for at du #nævner kanalen før meddelelsens ID, hvis den besked du ønsker at citere ikke er i den samme kanal, som du i øjeblikket sender kommandoen i.",
 		"embed": {
-			"footer": "Sent in {{channel}}"
+			"footer": "Sendt i {{channel}}"
 		}
 	},
 	"weather": {
-		"description": "Fetch the current weather for a specified location.",
+		"description": "Hent det aktuelle vejr for en angiven placering.",
 		"embed": {
-			"description": "[View area on Google Maps]({{link}})",
+			"description": "[Se område på Google Maps]({{link}})",
 			"fields": {
-				"localTime": "Local time",
-				"weather": "Weather",
+				"localTime": "Lokal tid",
+				"weather": "Vejr",
 				"temperature": {
-					"title": "Temperature",
-					"content": "{{temp}}° {{unit}} (feels like {{feelsLike}}°)"
+					"title": "Temperatur",
+					"content": "{{temp}}° {{unit}} (føles som {{feelsLike}}°)"
 				},
-				"uvIndex": "UV index",
+				"uvIndex": "UV-indeks",
 				"wind": {
-					"title": "Wind",
+					"title": "Vind",
 					"content": "{{windSpeed}} {{direction}}"
 				},
-				"humidity": "Humidity"
+				"humidity": "Luftfugtighed"
 			}
 		},
 		"responses": {
-			"noneSpecified": "{{X}} Please specify a location.",
-			"invalidInput": "{{X}} `{{input}}` could not be resolved to a location."
+			"noneSpecified": "{{X}} Angiv venligst en placering.",
+			"invalidInput": "{{X}} `{{input}}` kunne ikke løses til en placering."
 		}
 	}
 }
