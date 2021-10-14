@@ -1,7 +1,7 @@
 {
-	"guildChannelError": "{{X}} {{parameter}} could not be resolved to a channel in this server. Did you type its name or ID correctly?",
-	"guildChannelMissingGuildError": "{{X}} {{parameter}} could not be resolved because this argument requires to be ran in a server.",
-	"messageError": "{{X}} `{{parameter}}` could not be resolved to a message in <#{{channel}}>. Is the message in another channel, and am I able to access it? Did you provide the right message ID or link?",
-	"missing": "You need to provide another parameter. For more info about how this command works, run `{{commandContext.commandPrefix}}help {{command.name}}`.",
-	"userError": "{{X}} `{{parameter}}` could not be resolved to a user. Please make sure you typed their name or ID correctly, or provide an @mention!"
+	"guildChannelError": "{{X}} {{parameter}} kunne ikke løses til en kanal på denne server. Har du angivet dens navn eller ID korrekt?",
+	"guildChannelMissingGuildError": "{{X}} {{parameter}} kunne ikke løses, da dette argument skal køres på en server.",
+	"messageError": "{{X}} `{{parameter}}` kunne ikke løses til en besked i <#{{channel}}>. Er meddelelsen i en anden kanal, og har jeg adgang til dette? Har du angivet det rigtige besked-ID eller link?",
+	"missing": "Du skal angive et andet parameter. For mere information om hvordan denne kommando fungerer, kør `{{commandContext.commandPrefix}}help {{command.name}}`.",
+	"userError": "{{X}} `{{parameter}}` kunne ikke løses til en bruger. Sørg for, at du har indtastet deres navn eller ID korrekt, eller anvend en @mention!"
 }
