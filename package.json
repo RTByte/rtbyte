@@ -37,7 +37,7 @@
 		"@sapphire/plugin-i18next": "next",
 		"@sapphire/plugin-logger": "next",
 		"@sapphire/plugin-subcommands": "next",
-		"@sapphire/stopwatch": "^1.1.4",
+		"@sapphire/stopwatch": "^1.2.2",
 		"@sapphire/time-utilities": "next",
 		"@sapphire/type": "^2.1.0",
 		"@sapphire/utilities": "^2.0.1",
