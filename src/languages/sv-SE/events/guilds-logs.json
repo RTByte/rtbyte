@@ -36,7 +36,7 @@
 		"emojiUpdated": "Emoji uppdaterad {{by}}"
 	},
 	"guilds": {
-		"afkChannelChanged": "Inaktivitetskanal",
+		"afkChannelChanged": "Inaktivitetskanal ändrad",
 		"afkTimeoutChanged": "Tidsgräns för aktivitet ändrad",
 		"bannerChanged": "Bannerbakgrund ändrad",
 		"defaultMessageNotificationsChanged": "Standardinställning för aviseringar ändrad",
