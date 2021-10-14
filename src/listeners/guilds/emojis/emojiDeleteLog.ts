@@ -24,9 +24,9 @@ export class UserListener extends Listener<typeof SapphireEvents.GuildEmojiDelet
 
 	private serverLog(emoji: GuildEmoji, executor: User | null | undefined, t: TFunction) {
 		const embed = new GuildLogEmbed()
-			.setAuthor(`:${emoji.name}:`, `https://cdn.discordapp.com/emojis/${emoji.id}.${emoji.animated ? 'gif' : 'png'}`)
+			.setAuthor(`:${emoji.name}:`, emoji.url)
 			.setDescription(t(LanguageKeys.Miscellaneous.DisplayID, { id: emoji.id }))
-			.setThumbnail(`https://cdn.discordapp.com/emojis/${emoji.id}.${emoji.animated ? 'gif' : 'png'}`)
+			.setThumbnail(emoji.url)
 			.setFooter(t(LanguageKeys.Events.Guilds.Logs.EmojiDeleted, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }), executor?.displayAvatarURL() ?? undefined)
 			.setType(Events.EmojiDelete);
 
