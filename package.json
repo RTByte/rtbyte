@@ -42,7 +42,7 @@
 		"@sapphire/type": "^2.1.0",
 		"@sapphire/utilities": "^3.0.3",
 		"@skyra/editable-commands": "^2.1.0",
-		"bufferutil": "^4.0.4",
+		"bufferutil": "^4.0.5",
 		"colorette": "^2.0.16",
 		"discord.js": "^13.2.0",
 		"i18next": "^19.9.2",
