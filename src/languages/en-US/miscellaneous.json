@@ -16,6 +16,7 @@
 		"west",
 		"northwest"
 	],
+	"from": "From",
 	"id": "ID: `{{id}}`",
 	"joined": "Joined",
 	"link": "Link",
@@ -30,5 +31,6 @@
 	"stageChannel": "Stage channel",
 	"storeChannel": "Store channel",
 	"unlimited": "Unlimited",
+	"until": "Until",
 	"voiceChannel": "Voice channel"
 }

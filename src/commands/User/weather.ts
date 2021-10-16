@@ -5,6 +5,7 @@ import { sendTemporaryMessage } from '#utils/functions';
 import { ApplyOptions } from '@sapphire/decorators';
 import { fetch, FetchResultTypes } from '@sapphire/fetch';
 import { reply } from '@sapphire/plugin-editable-commands';
+import { codeBlock, inlineCodeBlock } from '@sapphire/utilities';
 import { Message, Permissions } from 'discord.js';
 
 @ApplyOptions<RTByteCommand.Options>({
@@ -42,7 +43,7 @@ export class UserCommand extends RTByteCommand {
 		};
 
 		const openweather = `https://api.openweathermap.org/data/2.5/onecall?lat=${location.lat}&lon=${location.long}&units=${units}&lang=${lang}&appid=${API_KEYS.OPENWEATHER}`;
-		const { timezone, current } = await fetch<OpenweatherResultOk>(openweather, FetchResultTypes.JSON);
+		const { timezone, current, alerts } = await fetch<OpenweatherResultOk>(openweather, FetchResultTypes.JSON);
 
 		if (!current.temp) return sendTemporaryMessage(message, args.t(LanguageKeys.Commands.User.WeatherInvalidInput, { input }));
 
@@ -68,6 +69,23 @@ export class UserCommand extends RTByteCommand {
 			.addField(args.t(LanguageKeys.Commands.User.WeatherEmbedUVIndex), String(weather.uvIndex), true)
 			.addField(args.t(LanguageKeys.Commands.User.WeatherEmbedWindTitle), args.t(LanguageKeys.Commands.User.WeatherEmbedWindContent, { windSpeed: weather.windSpeed, direction: weather.windDirection}), true)
 			.addField(args.t(LanguageKeys.Commands.User.WeatherEmbedHumidity), weather.humidity, true);
+
+		if (alerts) {
+			const alert = {
+				sender: alerts[0].sender_name,
+				event: alerts[0].event.charAt(0).toLocaleUpperCase() + alerts[0].event.slice(1),
+				start: new Date(alerts[0].start * 1000).toLocaleString(guildSettings?.language, { timeZone: timezone }),
+				end: new Date(alerts[0].end * 1000).toLocaleString(guildSettings?.language, { timeZone: timezone }),
+				desciption: alerts[0].description
+			};
+
+			embed.addBlankField();
+			embed.addField(args.t(LanguageKeys.Commands.User.WeatherEmbedAlert), alert.event);
+			embed.addField(args.t(LanguageKeys.Commands.User.WeatherEmbedAlertSender), alert.sender)
+			embed.addField(args.t(LanguageKeys.Miscellaneous.Description), codeBlock('', alert.desciption));
+			embed.addField(args.t(LanguageKeys.Miscellaneous.From), inlineCodeBlock(alert.start), true);
+			embed.addField(args.t(LanguageKeys.Miscellaneous.Until), inlineCodeBlock(alert.end), true)
+		}
 
 		return reply(message, { embeds: [embed] });
 	}
@@ -110,5 +128,15 @@ export interface OpenweatherResultOk {
 				icon: string
 			}
 		]
-	}
+	},
+	alerts: [
+		{
+			sender_name: string,
+			event: string,
+			start: number,
+			end: number,
+			description: string,
+			tags: string[]
+		}
+	]
 }

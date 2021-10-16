@@ -32,6 +32,7 @@ export const enum Emojis {
 	Online = '<:rtbyte_online:801918663233241099>',
 	PartnerBadge = '<:rtbyte_partnered_badge:801919416429838366>',
 	VerifiedBadge = '<:rtbyte_verified_badge:801919582696505364>',
+	Warning = '<:rtbyte_warning:898950475628552223>',
 	X = '<:rtbyte_x:801917320728543275>',
 }
 
