@@ -6,7 +6,7 @@
 			"answers": [
 				"Kanske.",
 				"Verkligen inte.",
-				"Hoppas så.",
+				"Hoppas det.",
 				"Inte ens i dina vildaste drömmar.",
 				"Det finns en god chans.",
 				"Ganska sannolikt.",
@@ -199,7 +199,11 @@
 					"title": "Vind",
 					"content": "{{windSpeed}} {{direction}}"
 				},
-				"humidity": "Luftfuktighet"
+				"humidity": "Luftfuktighet",
+				"alert": {
+					"weatherAlert": "{{WARNING}} Vädervarning",
+					"sender": "Avsändare"
+				}
 			}
 		},
 		"responses": {

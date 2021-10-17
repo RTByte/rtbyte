@@ -1,8 +1,8 @@
 {
-	"GUILD_TEXT": "Text channel",
-	"GUILD_VOICE": "Voice channel",
-	"GUILD_CATEGORY": "Category",
-	"GUILD_NEWS": "Announcement channel",
-	"GUILD_STORE": "Store channel",
-	"GUILD_STAGE_VOICE": "Stage channel"
+	"GUILD_TEXT": "Tekst kanal",
+	"GUILD_VOICE": "Stemme kanal",
+	"GUILD_CATEGORY": "Kategori",
+	"GUILD_NEWS": "Meddelelseskanal",
+	"GUILD_STORE": "Butikskanal",
+	"GUILD_STAGE_VOICE": "Podiekanal"
 }

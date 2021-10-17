@@ -1,13 +1,13 @@
 {
-	"clickToView": "Click to view",
-	"discordAbortError": "An error occured when communicating with Discord, please try running this command again.",
+	"clickToView": "Klik for at se",
+	"discordAbortError": "Der opstod en fejl under kommunikation med Discord, prøv venligst kommandoen igen.",
 	"exceededLength": {
-		"chooseOutput": "Choose one of the following options: {{output, orList}}",
+		"chooseOutput": "Vælg en af de følgende muligheder: {{output, orList}}",
 		"output": "**Output**:{{output}}",
-		"outputConsole": "Sent the result to console.",
-		"outputFile": "Sent the result as a file.",
+		"outputConsole": "Sendte resultatet til konsollen.",
+		"outputFile": "Sendte resultatet som en fil.",
 		"outputTime": "{{time}}",
 		"outputType": "**Type**:{{type}}"
 	},
-	"requestedBy": "Requested by {{requester}}"
+	"requestedBy": "Anmodet af {{requester}}"
 }

@@ -16,6 +16,7 @@
 		"väst",
 		"nordväst"
 	],
+	"from": "Från",
 	"id": "ID: `{{id}}`",
 	"joined": "Gick med",
 	"link": "Länk",
@@ -30,5 +31,6 @@
 	"stageChannel": "Podiekanal",
 	"storeChannel": "Butikskanal",
 	"unlimited": "Obegränsad",
+	"until": "Till",
 	"voiceChannel": "Röstkanal"
 }
