@@ -49,7 +49,7 @@
 		"lexure": "^0.17.0",
 		"reflect-metadata": "^0.1.13",
 		"twemoji-parser": "^13.1.0",
-		"utf-8-validate": "^5.0.6"
+		"utf-8-validate": "^5.0.7"
 	},
 	"devDependencies": {
 		"@sapphire/eslint-config": "^4.0.0",
