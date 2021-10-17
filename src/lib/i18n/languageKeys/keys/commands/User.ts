@@ -43,5 +43,7 @@ export const WeatherEmbedUVIndex = T<string>('commands/user:weather.embed.fields
 export const WeatherEmbedWindTitle = T<string>('commands/user:weather.embed.fields.wind.title');
 export const WeatherEmbedWindContent = FT<{ windSpeed: number, direction: string}, string>('commands/user:weather.embed.fields.wind.content');
 export const WeatherEmbedHumidity = T<string>('commands/user:weather.embed.fields.humidity');
+export const WeatherEmbedAlert = T<string>('commands/user:weather.embed.fields.alert.weatherAlert');
+export const WeatherEmbedAlertSender = T<string>('commands/user:weather.embed.fields.alert.sender');
 export const WeatherNoneSpecified = T<string>('commands/user:weather.responses.noneSpecified');
 export const WeatherInvalidInput = FT<{ input: string }>('commands/user:weather.responses.invalidInput');
