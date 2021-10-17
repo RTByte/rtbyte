@@ -24,7 +24,7 @@ export class UserListener extends Listener {
 	private serverLog(oldMessage: Message, message: Message, t: TFunction) {
 		const embed = new GuildLogEmbed()
 			.setAuthor(message.author.tag, message.author.displayAvatarURL())
-			.setDescription(`<#${message.channel.id}>`)
+			.setDescription(`[${t(LanguageKeys.System.ClickToView)}](${message.url})\n<#${message.channel.id}>`)
 			.setImage(getImage(message) as string)
 			.setFooter(t(LanguageKeys.Events.Guilds.Logs.MessageUpdated))
 			.setType(Events.MessageUpdate);
@@ -32,7 +32,7 @@ export class UserListener extends Listener {
 		const oldContent = getContent(oldMessage);
 		const content = getContent(message);
 
-		oldContent ? embed.addField(t(LanguageKeys.Miscellaneous.Before), cutText(oldContent as string, 1024)) : embed.setDescription(`<#${message.channel.id}>\n\n${t(LanguageKeys.Events.Guilds.Logs.NoContentBeforeEdit)}`);
+		oldContent ? embed.addField(t(LanguageKeys.Miscellaneous.Before), cutText(oldContent as string, 1024)) : embed.setDescription(`[${t(LanguageKeys.System.ClickToView)}](${message.url})\n<#${message.channel.id}>\n\n${t(LanguageKeys.Events.Guilds.Logs.NoContentBeforeEdit)}`);
 		if (content) embed.addField(t(LanguageKeys.Miscellaneous.After), cutText(content, 1024));
 
 		return embed;
