@@ -33,8 +33,6 @@
 	"USE_APPLICATION_COMMANDS": "Use Application Commands",
 	"USE_EXTERNAL_EMOJIS": "Use External Emojis",
 	"USE_EXTERNAL_STICKERS": "Use External Stickers",
-	"USE_PRIVATE_THREADS": "Use Private Threads",
-	"USE_PUBLIC_THREADS": "Use Public Threads",
 	"USE_VAD": "Use Voice Activity",
 	"VIEW_AUDIT_LOG": "View Audit Log",
 	"VIEW_CHANNEL": "Read Messages",
