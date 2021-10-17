@@ -199,7 +199,11 @@
 					"title": "Vind",
 					"content": "{{windSpeed}} {{direction}}"
 				},
-				"humidity": "Luftfuktighet"
+				"humidity": "Luftfuktighet",
+				"alert": {
+					"weatherAlert": "{{WARNING}} Vädervarning",
+					"sender": "Avsändare"
+				}
 			}
 		},
 		"responses": {
