@@ -80,11 +80,11 @@ export class UserCommand extends RTByteCommand {
 			};
 
 			embed.addBlankField();
-			embed.addField(args.t(LanguageKeys.Commands.User.WeatherEmbedAlert), alert.event);
-			embed.addField(args.t(LanguageKeys.Commands.User.WeatherEmbedAlertSender), alert.sender)
-			embed.addField(args.t(LanguageKeys.Miscellaneous.Description), codeBlock('', alert.desciption));
-			embed.addField(args.t(LanguageKeys.Miscellaneous.From), inlineCodeBlock(alert.start), true);
-			embed.addField(args.t(LanguageKeys.Miscellaneous.Until), inlineCodeBlock(alert.end), true)
+			if (alert.event) embed.addField(args.t(LanguageKeys.Commands.User.WeatherEmbedAlert), alert.event);
+			if (alert.sender) embed.addField(args.t(LanguageKeys.Commands.User.WeatherEmbedAlertSender), alert.sender);
+			if (alert.desciption) embed.addField(args.t(LanguageKeys.Miscellaneous.Description), codeBlock('', alert.desciption));
+			if (alert.start) embed.addField(args.t(LanguageKeys.Miscellaneous.From), inlineCodeBlock(alert.start), true);
+			if (alert.end) embed.addField(args.t(LanguageKeys.Miscellaneous.Until), inlineCodeBlock(alert.end), true);
 		}
 
 		return reply(message, { embeds: [embed] });
