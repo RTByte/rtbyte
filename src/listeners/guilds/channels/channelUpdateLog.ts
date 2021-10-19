@@ -100,10 +100,10 @@ export class UserListener extends Listener<typeof SapphireEvents.ChannelUpdate> 
 				embed.addField(t(LanguageKeys.Events.Guilds.Logs.UserLimitChanged), t(LanguageKeys.Events.Guilds.Logs.ChangeShortText, {
 					before: oldChannel.userLimit === 0 ?
 						`${t(LanguageKeys.Miscellaneous.Unlimited)}` :
-						t(LanguageKeys.Events.Guilds.Logs.UserLimitFormatted, { users: oldChannel.userLimit }),
+						t(LanguageKeys.Events.Guilds.Logs.UserLimitFormatted, { count: oldChannel.userLimit }),
 					after: channel.userLimit === 0 ?
 						`${t(LanguageKeys.Miscellaneous.Unlimited)}` :
-						t(LanguageKeys.Events.Guilds.Logs.UserLimitFormatted, { users: channel.userLimit })
+						t(LanguageKeys.Events.Guilds.Logs.UserLimitFormatted, { count: channel.userLimit })
 				}));
 			}
 		}

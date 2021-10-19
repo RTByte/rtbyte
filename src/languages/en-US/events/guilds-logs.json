@@ -25,7 +25,8 @@
 		"typeChanged": "Channel type changed",
 		"typeFormatted": "`{{before, channelTypes}}` {{ARROW_RIGHT}} `{{after, channelTypes}}`",
 		"userLimitChanged": "User limit changed",
-		"userLimitFormatted": "{{users}} users",
+		"userLimitFormatted_one": "{{count}} user",
+		"userLimitFormatted_other": "{{count}} users",
 		"voiceChannelCreated": "Voice channel created {{by}}",
 		"voiceChannelDeleted": "Voice channel deleted {{by}}",
 		"voiceChannelUpdated": "Voice channel updated {{by}}"
