@@ -29,6 +29,7 @@
 	"SEND_MESSAGES_IN_THREADS": "Send Messages in Threads",
 	"SEND_TTS_MESSAGES": "Send Text-to-Speech Messages",
 	"SPEAK": "Speak",
+	"START_EMBEDDED_ACTIVITIES": "Start Activities",
 	"STREAM": "Video",
 	"USE_APPLICATION_COMMANDS": "Use Application Commands",
 	"USE_EXTERNAL_EMOJIS": "Use External Emojis",
