@@ -25,7 +25,8 @@
 		"typeChanged": "Kanaltyp ändrad",
 		"typeFormatted": "`{{before, channelTypes}}` {{ARROW_RIGHT}} `{{after, channelTypes}}`",
 		"userLimitChanged": "Användargräns ändrad",
-		"userLimitFormatted": "{{users}} användare",
+		"userLimitFormatted_one": "{{count}} användare",
+		"userLimitFormatted_other": "{{count}} användare",
 		"voiceChannelCreated": "Röstkanal skapad {{by}}",
 		"voiceChannelDeleted": "Röstkanal borttagen {{by}}",
 		"voiceChannelUpdated": "Röstkanal uppdaterad {{by}}"
@@ -76,6 +77,10 @@
 		"botLeft": "Bot lämnade",
 		"botUpdated": "Bot uppdaterad {{by}}",
 		"displayNameChanged": "Visningsnamn ändrat",
+		"rolesAdded_one": "Roll tillagd",
+		"rolesAdded_other": "Roller tillagda",
+		"rolesRemoved_one": "Roll borttagen",
+		"rolesRemoved_other": "Roller borttagna",
 		"userJoined": "Användare gick med",
 		"userLeft": "Användare lämnade",
 		"userUpdated": "Användare uppdaterad {{by}}"
