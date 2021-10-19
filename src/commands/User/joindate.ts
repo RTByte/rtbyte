@@ -11,7 +11,7 @@ import { Message, Permissions } from 'discord.js';
 	requiredClientPermissions: [Permissions.FLAGS.EMBED_LINKS]
 })
 export class UserCommand extends RTByteCommand {
-	public async run(message: Message, args: RTByteCommand.Args) {
+	public async messageRun(message: Message, args: RTByteCommand.Args) {
 		const user = await args.pick('userName').catch(() => message.author);
 		const member = message.guild?.members.cache.get(user.id);
 

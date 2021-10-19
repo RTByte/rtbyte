@@ -9,7 +9,7 @@ import type { Message } from 'discord.js';
 	description: LanguageKeys.Commands.User.PingDescription
 })
 export class UserCommand extends RTByteCommand {
-	public async run(message: Message, args: RTByteCommand.Args) {
+	public async messageRun(message: Message, args: RTByteCommand.Args) {
 		const msg = await reply(message, args.t(LanguageKeys.Commands.User.Ping));
 
 		const content = args.t(LanguageKeys.Commands.User.PingPong, {

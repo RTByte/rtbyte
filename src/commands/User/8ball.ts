@@ -12,7 +12,7 @@ import { Message, Permissions } from 'discord.js';
 	requiredClientPermissions: [Permissions.FLAGS.ATTACH_FILES]
 })
 export class UserCommand extends RTByteCommand {
-	public async run(message: Message, args: RTByteCommand.Args) {
+	public async messageRun(message: Message, args: RTByteCommand.Args) {
 		const input = await args.pickResult('string');
 
 		if (!input.success) return reply(message, args.t(LanguageKeys.Commands.User.EightballNoQuestion));

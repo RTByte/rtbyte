@@ -15,7 +15,7 @@ import { ColorResolvable, Permissions } from 'discord.js';
 	requiredClientPermissions: [Permissions.FLAGS.EMBED_LINKS]
 })
 export class UserCommand extends RTByteCommand {
-	public async run(message: GuildMessage, args: RTByteCommand.Args) {
+	public async messageRun(message: GuildMessage, args: RTByteCommand.Args) {
 		const channel = await args.pick('textChannelName').catch(() => message.channel);
 
 		// Protect against 'Unknown Message' errors with no response if a message ID from another channel is provided without the channel having been specified

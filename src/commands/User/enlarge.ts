@@ -14,7 +14,7 @@ import { parse as parseEmoji } from 'twemoji-parser';
 
 })
 export class UserCommand extends RTByteCommand {
-	public async run(message: Message, args: RTByteCommand.Args) {
+	public async messageRun(message: Message, args: RTByteCommand.Args) {
 		const input = await args.pickResult('string');
 
 		if (!input.success) return sendTemporaryMessage(message, args.t(LanguageKeys.Commands.User.EnlargeNoneSpecified))

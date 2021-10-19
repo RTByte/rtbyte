@@ -14,7 +14,7 @@ import { Message, Permissions } from 'discord.js';
 	requiredClientPermissions: [Permissions.FLAGS.EMBED_LINKS]
 })
 export class UserCommand extends RTByteCommand {
-	public async run(message: Message, args: RTByteCommand.Args) {
+	public async messageRun(message: Message, args: RTByteCommand.Args) {
 		const guildSettings = await this.container.client.prisma.guildSettings.findFirst({ where: { guildID: message.guild?.id } });
 
 		const input = await args.repeatResult('string');

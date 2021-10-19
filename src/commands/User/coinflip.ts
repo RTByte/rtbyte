@@ -9,7 +9,7 @@ import type { Message } from 'discord.js';
 	description: LanguageKeys.Commands.User.CoinflipDescription
 })
 export class UserCommand extends RTByteCommand {
-	public async run(message: Message, args: RTByteCommand.Args) {
+	public async messageRun(message: Message, args: RTByteCommand.Args) {
 		const chance = Math.random() > 0.5;
 
 		return reply(message, chance ? args.t(LanguageKeys.Commands.User.CoinflipHeads) : args.t(LanguageKeys.Commands.User.CoinflipTails))

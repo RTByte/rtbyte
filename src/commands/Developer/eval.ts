@@ -29,7 +29,7 @@ import { inspect } from 'util';
 export class UserCommand extends RTByteCommand {
 	private readonly kTimeout = 60000;
 
-	public async run(message: Message, args: RTByteCommand.Args) {
+	public async messageRun(message: Message, args: RTByteCommand.Args) {
 		const code = await args.rest('string');
 
 		const wait = args.getOption('wait');
