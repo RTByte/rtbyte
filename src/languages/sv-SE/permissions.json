@@ -29,6 +29,7 @@
 	"SEND_MESSAGES_IN_THREADS": "Skicka meddelanden i trådar",
 	"SEND_TTS_MESSAGES": "Skicka meddelanden med Text-till-tal",
 	"SPEAK": "Tala",
+	"START_EMBEDDED_ACTIVITIES": "Starta aktiviteter",
 	"STREAM": "Video",
 	"USE_APPLICATION_COMMANDS": "Använda applikationskommandon",
 	"USE_EXTERNAL_EMOJIS": "Använd externa emojier",
