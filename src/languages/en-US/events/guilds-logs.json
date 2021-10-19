@@ -77,6 +77,10 @@
 		"botLeft": "Bot left",
 		"botUpdated": "Bot updated {{by}}",
 		"displayNameChanged": "Display name changed",
+		"rolesAdded_one": "Role added",
+		"rolesAdded_other": "Roles added",
+		"rolesRemoved_one": "Role removed",
+		"rolesRemoved_other": "Roles removed",
 		"userJoined": "User joined",
 		"userLeft": "User left",
 		"userUpdated": "User updated {{by}}"

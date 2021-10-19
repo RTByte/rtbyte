@@ -38,7 +38,25 @@ export class UserListener extends Listener<typeof SapphireEvents.GuildMemberUpda
 			embed.addField(t(LanguageKeys.Events.Guilds.Logs.DisplayNameChanged), t(LanguageKeys.Events.Guilds.Logs.ChangeShortText, { before: oldMember.displayName, after: member.displayName }));
 		}
 
+		// Roles changed
+		if (oldMember.roles.cache !== member.roles.cache) {
+			const oldRoles = oldMember.roles.cache;
+			const roles = member.roles.cache;
 
+			const addedRoles: string[] = [];
+			const removedRoles: string[] = [];
+
+			for (const [key, role] of roles.entries()) {
+				if (!oldRoles.has(key)) addedRoles.push(`${role}`);
+			}
+
+			for (const [key, role] of oldRoles.entries()) {
+				if (!roles.has(key)) removedRoles.push(`${role}`);
+			}
+
+			if (addedRoles.length) embed.addField(t(LanguageKeys.Events.Guilds.Logs.RolesAdded, { count: addedRoles.length }), addedRoles.join(', ') ?? t(LanguageKeys.Globals.Unknown));
+			if (removedRoles.length) embed.addField(t(LanguageKeys.Events.Guilds.Logs.RolesRemoved, { count: removedRoles.length }), removedRoles.join(', ') ?? t(LanguageKeys.Globals.Unknown));
+		}
 
 		if (!embed.fields.length) return;
 
