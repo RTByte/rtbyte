@@ -102,7 +102,7 @@ export class UserListener extends Listener<typeof SapphireEvents.GuildUpdate> {
 
 		// 2FA requirement toggled
 		if (oldGuild.mfaLevel !== guild.mfaLevel) {
-			embed.addField(t(LanguageKeys.Events.Guilds.Logs.MfaLevelToggled), guild.mfaLevel === 'ELEVATED' ? Emojis.Check : Emojis.X)
+			embed.addField(t(LanguageKeys.Events.Guilds.Logs.MfaLevelToggled), guild.mfaLevel === 'ELEVATED' ? Emojis.Check : Emojis.X);
 		}
 
 		// Ownership transferred

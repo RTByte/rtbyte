@@ -16,6 +16,6 @@ export const ThreadOnly = T('preconditions:threadOnly');
 export const UserPermissions = T('preconditions:userPermissions');
 
 // RTByte preconditions
-export const Administrator = T('preconditions:administrator')
+export const Administrator = T('preconditions:administrator');
 export const Moderator = T('preconditions:moderator');
 export const ServerOwner = T('preconditions:serverOwner');

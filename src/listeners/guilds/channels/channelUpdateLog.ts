@@ -89,7 +89,7 @@ export class UserListener extends Listener<typeof SapphireEvents.ChannelUpdate> 
 			(channel.type === 'GUILD_NEWS' || channel.type === 'GUILD_STORE' || channel.type === 'GUILD_TEXT')) {
 			// NSFW toggled
 			if (oldChannel.nsfw !== channel.nsfw) {
-				embed.addField(t(LanguageKeys.Events.Guilds.Logs.NSFWToggled), channel.nsfw ? Emojis.Check : Emojis.X)
+				embed.addField(t(LanguageKeys.Events.Guilds.Logs.NSFWToggled), channel.nsfw ? Emojis.Check : Emojis.X);
 			}
 		}
 

@@ -64,7 +64,7 @@ export class UserListener extends Listener<typeof SapphireEvents.InviteCreate> {
 
 		// Set non-guaranteed temporary membership field
 		if (invite.temporary) {
-			embed.addField(t(LanguageKeys.Events.Guilds.Logs.Temporary), Emojis.Check)
+			embed.addField(t(LanguageKeys.Events.Guilds.Logs.Temporary), Emojis.Check);
 		}
 
 		return embed;
