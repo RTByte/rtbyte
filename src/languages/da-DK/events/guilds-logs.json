@@ -25,7 +25,8 @@
 		"typeChanged": "Kanaltype ændret",
 		"typeFormatted": "`{{before, channelTypes}}` {{ARROW_RIGHT}} `{{after, channelTypes}}`",
 		"userLimitChanged": "Brugergrænse ændret",
-		"userLimitFormatted": "{{users}} brugere",
+		"userLimitFormatted_one": "{{count}} bruger",
+		"userLimitFormatted_other": "{{count}} brugere",
 		"voiceChannelCreated": "Stemmekanal oprettet {{by}}",
 		"voiceChannelDeleted": "Stemmekanal slettet {{by}}",
 		"voiceChannelUpdated": "Stemmekanal opdateret {{by}}"
@@ -76,6 +77,10 @@
 		"botLeft": "Bot gik",
 		"botUpdated": "Bot opdateret {{by}}",
 		"displayNameChanged": "Visningsnavn ændret",
+		"rolesAdded_one": "Rolle tilføjet",
+		"rolesAdded_other": "Roller tilføjet",
+		"rolesRemoved_one": "Rolle fjernet",
+		"rolesRemoved_other": "Roller fjernet",
 		"userJoined": "Bruger tilsluttede sig",
 		"userLeft": "Bruger gik",
 		"userUpdated": "Bruger opdateret {{by}}"
