@@ -1,8 +1,8 @@
-/*
-The code in this file is licensed under the Apache License,
-Version 2.0 (the "License"); with the original authors being part of the
-Skyra Project (https://github.com/skyra-project/skyra) team.
-*/
+/**
+ * @license Apache License 2.0
+ * @copyright 2019 Skyra Project
+ * Modified for use in this project.
+ */
 
 // TODO: Remove this when TS types Intl.ListFormat
 declare namespace Intl {

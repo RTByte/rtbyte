@@ -1,3 +1,8 @@
+/**
+ * @license Apache License 2.0
+ * @copyright 2019 Skyra Project
+ */
+
 import { LanguageKeys } from '#lib/i18n/languageKeys';
 import { isGuildMessage } from '#utils/common';
 import { FuzzySearch } from '#utils/Parsers/FuzzySearch';

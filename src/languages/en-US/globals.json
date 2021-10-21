@@ -15,6 +15,7 @@
 	"numberValue": "{{value, number}}",
 	"ordinalValue": "{{value, ordinal}}",
 	"orListValue": "{{value, orList}}",
+	"permissionsAndList": "{{value, permissionsAndList}}",
 	"unknown": "Unknown",
 	"yes": "Yes"
 }

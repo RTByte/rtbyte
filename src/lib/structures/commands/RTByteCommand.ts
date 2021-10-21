@@ -1,11 +1,8 @@
-/*
-Sections of the code in this file is licensed under the Apache License,
-Version 2.0 (the "License"); with the original authors being part of the
-Skyra Project (https://github.com/skyra-project/skyra) team.
-
-Some of these sections of code have been adapted or altered
-for usage in this project.
-*/
+/**
+ * @license Apache License 2.0
+ * @copyright 2019 Skyra Project
+ * Modified for use in this project.
+ */
 
 import { CustomGet } from '#lib/types';
 import { PermissionLevels } from '#lib/types/Enums';
