@@ -37,7 +37,6 @@ For more information about the project, and a link to add the bot to your server
 ### Optionals
 
 - [`Sentry`]: Error monitoring & tracking.
-- [`Genius`]: Lyrics API.
 - [`Google Maps Platform`]: Geocoding API.
 - [`OpenWeather`]: Weather API.
 - [`Twitch`]: Twitch API.
