@@ -59,7 +59,7 @@ export class UserCommand extends RTByteCommand {
 			icon: current.weather[0].icon
 		};
 
-		const embed = new RTByteEmbed(message)
+		const embed = new RTByteEmbed(message, args.t)
 			.setAuthor(location.name, location.country ? `https://www.countryflags.io/${location.country}/flat/64.png` : undefined)
 			.setDescription(args.t(LanguageKeys.Commands.User.WeatherEmbedDescription, { link: `https://www.google.com/maps/@${location.lat},${location.long},14z` }))
 			.setThumbnail(`http://openweathermap.org/img/wn/${weather.icon}@4x.png`)

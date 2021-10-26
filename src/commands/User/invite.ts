@@ -10,7 +10,7 @@ import { Message, Permissions } from 'discord.js';
 })
 export class UserCommand extends RTByteCommand {
 	public async messageRun(message: Message, args: RTByteCommand.Args) {
-		const embed = new RTByteEmbed(message)
+		const embed = new RTByteEmbed(message, args.t)
 			.setAuthor(args.t(LanguageKeys.Commands.User.InviteEmbedTitle))
 			.setDescription(args.t(LanguageKeys.Commands.User.InviteEmbedDescription))
 

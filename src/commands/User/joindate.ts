@@ -22,7 +22,7 @@ export class UserCommand extends RTByteCommand {
 		const joinedTimestampOffset = Date.now() - Number(member?.joinedTimestamp);
 		const createdTimestampOffset = Date.now() - user.createdTimestamp;
 
-		const embed = new RTByteEmbed(message)
+		const embed = new RTByteEmbed(message, args.t)
 			.setAuthor(user.tag, user.displayAvatarURL())
 			.setThumbnail(user.displayAvatarURL({ format: 'png', size: 128 }));
 
