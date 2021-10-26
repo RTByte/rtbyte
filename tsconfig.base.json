@@ -1,6 +1,6 @@
 {
 	"extends": "@sapphire/ts-config",
-  "compilerOptions": {
+  	"compilerOptions": {
 		"target": "ESNext",
 		"removeComments": true
   }
