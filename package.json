@@ -63,7 +63,7 @@
 		"prisma": "^3.3.0",
 		"ts-node": "^10.7.0",
 		"tsc-watch": "^4.5.0",
-		"typescript": "^4.4.4"
+		"typescript": "^4.6.3"
 	},
 	"scripts": {
 		"build": "tsc -b src",
