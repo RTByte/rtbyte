@@ -41,7 +41,7 @@
 		"@sapphire/time-utilities": "next",
 		"@sapphire/type": "^2.1.1",
 		"@sapphire/utilities": "^3.0.3",
-		"@skyra/editable-commands": "^2.1.0",
+		"@skyra/editable-commands": "^2.1.2",
 		"bufferutil": "^4.0.5",
 		"colorette": "^2.0.16",
 		"discord.js": "^13.2.0",
