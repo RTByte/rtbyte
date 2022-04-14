@@ -39,7 +39,7 @@
 		"@sapphire/plugin-subcommands": "next",
 		"@sapphire/stopwatch": "^1.2.3",
 		"@sapphire/time-utilities": "next",
-		"@sapphire/type": "^2.1.1",
+		"@sapphire/type": "^2.2.0",
 		"@sapphire/utilities": "^3.0.3",
 		"@skyra/editable-commands": "^2.1.2",
 		"bufferutil": "^4.0.5",
