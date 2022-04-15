@@ -24,9 +24,16 @@ export class UserListener extends Listener {
 
 	private serverLog(oldStage: StageInstance, stage: StageInstance, executor: User | null | undefined, t: TFunction) {
 		const embed = new GuildLogEmbed()
-			.setAuthor(cutText(stage.topic, 256), stage.guild?.iconURL() as string)
+			.setAuthor({
+				name: cutText(stage.topic, 256),
+				url: `https://discord.com/channels/${stage.guildId}/${stage.id}`,
+				iconURL: stage.guild?.iconURL() as string
+			})
 			.setDescription(`${t(LanguageKeys.Miscellaneous.DisplayID, { id: stage.id })}\n<#${stage.channel?.id}>`)
-			.setFooter(t(LanguageKeys.Events.Guilds.Logs.StageInstanceUpdated, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }), executor?.displayAvatarURL() ?? undefined)
+			.setFooter({
+				text: t(LanguageKeys.Events.Guilds.Logs.StageInstanceUpdated, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }),
+				iconURL: executor?.displayAvatarURL() ?? undefined
+			})
 			.setType(Events.StageInstanceUpdate);
 
 		// Topic changed

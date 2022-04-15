@@ -24,9 +24,16 @@ export class UserListener extends Listener<typeof SapphireEvents.InviteDelete> {
 
 	private serverLog(invite: Invite, executor: User | null | undefined, t: TFunction) {
 		const embed = new GuildLogEmbed()
-			.setAuthor(invite.code, invite.guild?.iconURL() as string)
+			.setAuthor({
+				name: invite.code,
+				url: `https://discord.gg/${invite.code}`,
+				iconURL: invite.guild?.iconURL() as string
+			})
 			.setDescription(`${t(LanguageKeys.Miscellaneous.Link)}: \`https://discord.gg/${invite.code}\``)
-			.setFooter(t(LanguageKeys.Events.Guilds.Logs.InviteDeleted, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }), executor?.displayAvatarURL() ?? undefined)
+			.setFooter({
+				text: t(LanguageKeys.Events.Guilds.Logs.InviteDeleted, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }),
+				iconURL: executor?.displayAvatarURL() ?? undefined
+			})
 			.setType(Events.InviteDelete);
 
 		// Set non-guaranteed channel field

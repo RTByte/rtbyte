@@ -26,9 +26,15 @@ export class UserListener extends Listener<typeof SapphireEvents.GuildUpdate> {
 
 	private async serverLog(oldGuild: Guild, guild: Guild, executor: User | null | undefined, t: TFunction) {
 		const embed = new GuildLogEmbed()
-			.setAuthor(guild.name, guild.iconURL() as string)
+			.setAuthor({
+				name: guild.name,
+				iconURL: guild.iconURL() as string
+			})
 			.setDescription(t(LanguageKeys.Miscellaneous.DisplayID, { id: guild.id }))
-			.setFooter(t(LanguageKeys.Events.Guilds.Logs.GuildUpdated, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }), executor?.displayAvatarURL() ?? undefined)
+			.setFooter({
+				text: t(LanguageKeys.Events.Guilds.Logs.GuildUpdated, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }),
+				iconURL: executor?.displayAvatarURL() ?? undefined
+			})
 			.setType(Events.GuildUpdate);
 
 		// Name changed

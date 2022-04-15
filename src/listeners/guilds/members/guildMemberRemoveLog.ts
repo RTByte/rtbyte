@@ -25,7 +25,11 @@ export class UserListener extends Listener<typeof SapphireEvents.GuildMemberRemo
 		const joinedOffset = Date.now() - Number(member?.joinedTimestamp);
 
 		const embed = new GuildLogEmbed()
-			.setAuthor(member.user.tag, member.user.displayAvatarURL())
+			.setAuthor({
+				name: member.user.tag,
+				url: `https://discord.com/users/${member.user.id}`,
+				iconURL: member.user.displayAvatarURL()
+			})
 			.setDescription(`${t(LanguageKeys.Miscellaneous.DisplayID, { id: member.id })}${member.user.bot ? `\n${Emojis.BotBadge}` : ''}`)
 			.addField(t(LanguageKeys.Miscellaneous.Joined), inlineCodeBlock(t(LanguageKeys.Globals.DurationValuePast, { value: joinedOffset })))
 			.setFooter(t(member.user.bot ? LanguageKeys.Events.Guilds.Logs.BotLeft : LanguageKeys.Events.Guilds.Logs.UserLeft))

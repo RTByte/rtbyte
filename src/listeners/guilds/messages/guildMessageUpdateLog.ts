@@ -23,7 +23,11 @@ export class UserListener extends Listener {
 
 	private serverLog(oldMessage: Message, message: Message, t: TFunction) {
 		const embed = new GuildLogEmbed()
-			.setAuthor(message.author.tag, message.author.displayAvatarURL())
+			.setAuthor({
+				name: message.author.tag,
+				url: `https://discord.com/users/${message.author.id}`,
+				iconURL: message.author.displayAvatarURL()
+			})
 			.setDescription(`[${t(LanguageKeys.System.ClickToView)}](${message.url})\n<#${message.channel.id}>`)
 			.setImage(getImage(message) as string)
 			.setFooter(t(LanguageKeys.Events.Guilds.Logs.MessageUpdated))

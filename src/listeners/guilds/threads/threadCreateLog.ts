@@ -25,9 +25,16 @@ export class UserListener extends Listener {
 
 	private serverLog(thread: ThreadChannel, executor: User | null | undefined, t: TFunction) {
 		const embed = new GuildLogEmbed()
-			.setAuthor(thread.name, thread.guild.iconURL() as string)
+			.setAuthor({
+				name: thread.name,
+				url: `https://discord.com/channels/${thread.guildId}/${thread.id}`,
+				iconURL: thread.guild.iconURL() as string
+			})
 			.setDescription(t(LanguageKeys.Miscellaneous.DisplayID, { id: thread.id }))
-			.setFooter(t(LanguageKeys.Events.Guilds.Logs.ThreadCreated, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }), executor?.displayAvatarURL() ?? undefined)
+			.setFooter({
+				text: t(LanguageKeys.Events.Guilds.Logs.ThreadCreated, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }),
+				iconURL: executor?.displayAvatarURL() ?? undefined
+			})
 			.setType(Events.ThreadCreate);
 
 		// Set channel field depending on parent channel type

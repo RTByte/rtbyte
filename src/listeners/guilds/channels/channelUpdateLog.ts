@@ -28,7 +28,11 @@ export class UserListener extends Listener<typeof SapphireEvents.ChannelUpdate> 
 
 	private serverLog(oldChannel: GuildBasedChannel, channel: GuildBasedChannel, executor: User | null | undefined, t: TFunction) {
 		const embed = new GuildLogEmbed()
-			.setAuthor(`#${channel.name}`, channel.guild.iconURL() as string)
+			.setAuthor({
+				name: `#${channel.name}`,
+				url: `https://discord.com/channels/${channel.guildId}/${channel.id}`,
+				iconURL: channel.guild.iconURL() as string
+			})
 			.setDescription(t(LanguageKeys.Miscellaneous.DisplayID, { id: channel.id }))
 			.setType(Events.ChannelUpdate);
 
@@ -125,37 +129,55 @@ export class UserListener extends Listener<typeof SapphireEvents.ChannelUpdate> 
 		// Set various author and footer fields depending on channel type, defaulting to standard text channel
 		switch (oldChannel.type) {
 			case 'GUILD_CATEGORY':
-				embed.setAuthor(channel.name, channel.guild.iconURL() as string);
-				embed.setFooter(t(LanguageKeys.Events.Guilds.Logs.CategoryUpdated, {
-					by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined
-				}), executor?.displayAvatarURL() ?? undefined);
+				embed.setAuthor({
+					name: channel.name,
+					url: `https://discord.com/channels/${channel.guildId}/${channel.id}`,
+					iconURL: channel.guild.iconURL() as string
+				});
+				embed.setFooter({
+					text: t(LanguageKeys.Events.Guilds.Logs.CategoryUpdated, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }),
+					iconURL: executor?.displayAvatarURL() ?? undefined
+			});
 				break;
 			case 'GUILD_NEWS':
-				embed.setFooter(t(LanguageKeys.Events.Guilds.Logs.NewsChannelUpdated, {
-					by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined
-				}), executor?.displayAvatarURL() ?? undefined);
+				embed.setFooter({
+					text: t(LanguageKeys.Events.Guilds.Logs.NewsChannelUpdated, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }),
+					iconURL: executor?.displayAvatarURL() ?? undefined
+			});
 				break;
 			case 'GUILD_STAGE_VOICE':
-				embed.setAuthor(channel.name, channel.guild.iconURL() as string);
-				embed.setFooter(t(LanguageKeys.Events.Guilds.Logs.StageChannelUpdated, {
-					by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined
-				}), executor?.displayAvatarURL() ?? undefined);
+				embed.setAuthor({
+					name: channel.name,
+					url: `https://discord.com/channels/${channel.guildId}/${channel.id}`,
+					iconURL: channel.guild.iconURL() as string
+			});
+				embed.setFooter({
+					text: t(LanguageKeys.Events.Guilds.Logs.StageChannelUpdated, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }),
+					iconURL: executor?.displayAvatarURL() ?? undefined
+			});
 				break;
 			case 'GUILD_STORE':
-				embed.setFooter(t(LanguageKeys.Events.Guilds.Logs.StoreChannelUpdated, {
-					by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined
-				}), executor?.displayAvatarURL() ?? undefined);
+				embed.setFooter({
+					text: t(LanguageKeys.Events.Guilds.Logs.StoreChannelUpdated, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }),
+					iconURL: executor?.displayAvatarURL() ?? undefined
+			});
 				break;
 			case 'GUILD_VOICE':
-				embed.setAuthor(channel.name, channel.guild.iconURL() as string);
-				embed.setFooter(t(LanguageKeys.Events.Guilds.Logs.VoiceChannelUpdated, {
-					by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined
-				}), executor?.displayAvatarURL() ?? undefined);
+				embed.setAuthor({
+					name: channel.name,
+					url: `https://discord.com/channels/${channel.guildId}/${channel.id}`,
+					iconURL: channel.guild.iconURL() as string
+			});
+				embed.setFooter({
+					text: t(LanguageKeys.Events.Guilds.Logs.VoiceChannelUpdated, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }),
+					iconURL: executor?.displayAvatarURL() ?? undefined
+			});
 				break;
 			default:
-				embed.setFooter(t(LanguageKeys.Events.Guilds.Logs.ChannelUpdated, {
-					by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined
-				}), executor?.displayAvatarURL() ?? undefined);
+				embed.setFooter({
+					text: t(LanguageKeys.Events.Guilds.Logs.ChannelUpdated, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }),
+					iconURL: executor?.displayAvatarURL() ?? undefined
+			});
 		}
 
 		if (!embed.fields.length) return;

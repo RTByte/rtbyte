@@ -25,9 +25,16 @@ export class UserListener extends Listener<typeof SapphireEvents.GuildMemberUpda
 
 	private serverLog(oldMember: GuildMember, member: GuildMember, executor: User | null | undefined, t: TFunction) {
 		const embed = new GuildLogEmbed()
-			.setAuthor(member.user.tag, member.user.displayAvatarURL())
+			.setAuthor({
+				name: member.user.tag,
+				url: `https://discord.com/users/${member.id}`,
+				iconURL: member.user.displayAvatarURL()
+			})
 			.setDescription(`${t(LanguageKeys.Miscellaneous.DisplayID, { id: member.id })}${member.user.bot ? `\n${Emojis.BotBadge}` : ''}`)
-			.setFooter(t(member.user.bot ? LanguageKeys.Events.Guilds.Logs.BotUpdated : LanguageKeys.Events.Guilds.Logs.UserUpdated, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }), executor?.displayAvatarURL() ?? undefined)
+			.setFooter({
+				text: t(member.user.bot ? LanguageKeys.Events.Guilds.Logs.BotUpdated : LanguageKeys.Events.Guilds.Logs.UserUpdated, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }),
+				iconURL: executor?.displayAvatarURL() ?? undefined
+			})
 			.setType(Events.GuildMemberUpdate);
 
 		// Only apply "updated by" footer if executor and member user are not the same

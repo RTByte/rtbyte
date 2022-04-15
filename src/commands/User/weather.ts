@@ -39,7 +39,8 @@ export class UserCommand extends RTByteCommand {
 			lat: loc.geometry.location.lat,
 			long: loc.geometry.location.lng,
 			name: loc.formatted_address,
-			country: loc.address_components.find(entry => entry.types.includes('country'))?.short_name
+			country: loc.address_components.find(entry => entry.types.includes('country'))?.short_name,
+			mapsLink: `https://www.google.com/maps/@${loc.geometry.location.lat},${loc.geometry.location.lng},13z`
 		};
 
 		const openweather = `https://api.openweathermap.org/data/2.5/onecall?lat=${location.lat}&lon=${location.long}&units=${units}&lang=${lang}&appid=${API_KEYS.OPENWEATHER}`;
@@ -60,8 +61,12 @@ export class UserCommand extends RTByteCommand {
 		};
 
 		const embed = new RTByteEmbed(message, args.t)
-			.setAuthor(location.name, location.country ? `https://flagcdn.com/w40/${location.country.toLowerCase()}.png` : undefined)
-			.setDescription(args.t(LanguageKeys.Commands.User.WeatherEmbedDescription, { link: `https://www.google.com/maps/@${location.lat},${location.long},14z` }))
+			.setAuthor({
+				name: location.name,
+				url: location.mapsLink,
+				iconURL: location.country ? `https://flagcdn.com/w40/${location.country.toLowerCase()}.png` : undefined
+			})
+			.setDescription(args.t(LanguageKeys.Commands.User.WeatherEmbedDescription, { link: location.mapsLink }))
 			.setThumbnail(`http://openweathermap.org/img/wn/${weather.icon}@4x.png`)
 			.addField(args.t(LanguageKeys.Commands.User.WeatherEmbedLocalTime), weather.localTime, true)
 			.addField(args.t(LanguageKeys.Commands.User.WeatherEmbedWeather), weather.weather, true)

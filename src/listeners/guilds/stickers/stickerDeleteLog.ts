@@ -24,10 +24,17 @@ export class UserListener extends Listener {
 
 	private serverLog(sticker: Sticker, executor: User | null | undefined, t: TFunction) {
 		const embed = new GuildLogEmbed()
-			.setAuthor(sticker.name, sticker.format === 'APNG' || sticker.format === 'PNG' ? sticker.url : undefined)
+			.setAuthor({
+				name: sticker.name,
+				url: sticker.url,
+				iconURL: sticker.format === 'APNG' || sticker.format === 'PNG' ? sticker.url : undefined
+			})
 			.setDescription(t(LanguageKeys.Miscellaneous.DisplayID, { id: sticker.id }))
 			.addField(t(LanguageKeys.Events.Guilds.Logs.RelatedEmoji), sticker.tags?.map(tag => `:${tag}:`).toString() as string)
-			.setFooter(t(LanguageKeys.Events.Guilds.Logs.StickerDeleted, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }), executor?.displayAvatarURL() ?? undefined)
+			.setFooter({
+				text: t(LanguageKeys.Events.Guilds.Logs.StickerDeleted, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }),
+				iconURL: executor?.displayAvatarURL() ?? undefined
+			})
 			.setType(Events.StickerDelete);
 
 		// Set image field to sticker URL if it's an image file

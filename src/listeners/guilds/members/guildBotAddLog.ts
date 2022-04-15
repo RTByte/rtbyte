@@ -26,9 +26,16 @@ export class UserListener extends Listener<typeof SapphireEvents.GuildMemberAdd>
 
 	private serverLog(member: GuildMember, executor: User | null | undefined, t: TFunction) {
 		const embed = new GuildLogEmbed()
-			.setAuthor(member.user.tag, member.user.displayAvatarURL())
+			.setAuthor({
+				name: member.user.tag,
+				url: `https://discord.com/users/${member.user.id}`,
+				iconURL: member.user.displayAvatarURL()
+			})
 			.setDescription(`${t(LanguageKeys.Miscellaneous.DisplayID, { id: member.id })}\n${Emojis.BotBadge}`)
-			.setFooter(t(LanguageKeys.Events.Guilds.Logs.BotAdded, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }), executor?.displayAvatarURL() ?? undefined)
+			.setFooter({
+				text: t(LanguageKeys.Events.Guilds.Logs.BotAdded, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }),
+				iconURL: executor?.displayAvatarURL() ?? undefined
+			})
 			.setType(Events.GuildBotAdd);
 
 		return embed;

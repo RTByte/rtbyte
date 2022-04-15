@@ -33,7 +33,11 @@ export class UserCommand extends RTByteCommand {
 		const fetchedChannel = message.guild.channels.cache.get(remoteMessage.channel.id);
 
 		const embed = new RTByteEmbed(message, args.t)
-			.setAuthor(remoteMessage.author.tag, remoteMessage.author.displayAvatarURL())
+			.setAuthor({
+				name: remoteMessage.author.tag,
+				url: `https://discord.com/users/${remoteMessage.author.id}`,
+				iconURL: remoteMessage.author.displayAvatarURL()
+			})
 			.setDescription(`[${args.t(LanguageKeys.System.ClickToView)}](${remoteMessage.url})`)
 			.setColor(remoteMessage.member?.displayColor as ColorResolvable ?? Colors.White)
 			.setImage(getImage(remoteMessage)!)

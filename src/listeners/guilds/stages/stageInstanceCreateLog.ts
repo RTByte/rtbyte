@@ -24,10 +24,17 @@ export class UserListener extends Listener {
 
 	private serverLog(stage: StageInstance, executor: User | null | undefined, t: TFunction) {
 		const embed = new GuildLogEmbed()
-			.setAuthor(cutText(stage.topic, 256), stage.guild?.iconURL() as string)
+			.setAuthor({
+				name: cutText(stage.topic, 256),
+				url: `https://discord.com/channels/${stage.guildId}/${stage.id}`,
+				iconURL: stage.guild?.iconURL() as string
+			})
 			.setDescription(`${t(LanguageKeys.Miscellaneous.DisplayID, { id: stage.id })}\n<#${stage.channel?.id}>`)
 			.addField(t(LanguageKeys.Events.Guilds.Logs.Privacy), stage.privacyLevel === 'GUILD_ONLY' ? inlineCodeBlock(t(LanguageKeys.Events.Guilds.Logs.MembersOnly)) : inlineCodeBlock(t(LanguageKeys.Events.Guilds.Logs.Public)))
-			.setFooter(t(LanguageKeys.Events.Guilds.Logs.StageInstanceCreated, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }), executor?.displayAvatarURL() ?? undefined)
+			.setFooter({
+				text: t(LanguageKeys.Events.Guilds.Logs.StageInstanceCreated, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }),
+				iconURL: executor?.displayAvatarURL() ?? undefined
+			})
 			.setType(Events.StageInstanceCreate);
 
 		return embed;
