@@ -25,7 +25,7 @@
 		"#utils/functions": "./dist/lib/util/functions/index.js"
 	},
 	"dependencies": {
-		"@discordjs/collection": "^0.2.1",
+		"@discordjs/collection": "^0.5.0",
 		"@prisma/client": "^3.3.0",
 		"@sapphire/decorators": "next",
 		"@sapphire/discord-utilities": "next",
