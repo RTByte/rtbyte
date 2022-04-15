@@ -24,10 +24,17 @@ export class UserListener extends Listener<typeof SapphireEvents.GuildEmojiCreat
 
 	private serverLog(emoji: GuildEmoji, executor: User | null | undefined, t: TFunction) {
 		const embed = new GuildLogEmbed()
-			.setAuthor(`:${emoji.name}:`, emoji.url)
+			.setAuthor({
+				name: `:${emoji.name}:`,
+				url: emoji.url,
+				iconURL: emoji.url
+			})
 			.setDescription(t(LanguageKeys.Miscellaneous.DisplayID, { id: emoji.id }))
 			.setThumbnail(emoji.url)
-			.setFooter(t(LanguageKeys.Events.Guilds.Logs.EmojiCreated, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }), executor?.displayAvatarURL() ?? undefined)
+			.setFooter({
+				text: t(LanguageKeys.Events.Guilds.Logs.EmojiCreated, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }),
+				iconURL: executor?.displayAvatarURL() ?? undefined
+			})
 			.setType(Events.EmojiCreate);
 
 		return embed;

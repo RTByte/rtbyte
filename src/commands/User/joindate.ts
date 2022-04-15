@@ -23,7 +23,11 @@ export class UserCommand extends RTByteCommand {
 		const createdTimestampOffset = Date.now() - user.createdTimestamp;
 
 		const embed = new RTByteEmbed(message, args.t)
-			.setAuthor(user.tag, user.displayAvatarURL())
+			.setAuthor({
+				name: user.tag,
+				url: `https://discord.com/users/${user.id}`,
+				iconURL: user.displayAvatarURL()
+			})
 			.setThumbnail(user.displayAvatarURL({ format: 'png', size: 128 }));
 
 		if (position === 1 && message.guild?.ownerId === user.id) embed.setDescription(args.t(LanguageKeys.Miscellaneous.ServerCreator))

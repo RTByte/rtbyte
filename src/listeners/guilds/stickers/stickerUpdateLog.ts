@@ -24,9 +24,16 @@ export class UserListener extends Listener {
 
 	private serverLog(oldSticker: Sticker, sticker: Sticker, executor: User | null | undefined, t: TFunction) {
 		const embed = new GuildLogEmbed()
-			.setAuthor(sticker.name, sticker.format === 'APNG' || sticker.format === 'PNG' ? sticker.url : undefined)
+			.setAuthor({
+				name: sticker.name,
+				url: sticker.url,
+				iconURL: sticker.format === 'APNG' || sticker.format === 'PNG' ? sticker.url : undefined
+			})
 			.setDescription(t(LanguageKeys.Miscellaneous.DisplayID, { id: sticker.id }))
-			.setFooter(t(LanguageKeys.Events.Guilds.Logs.StickerUpdated, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }), executor?.displayAvatarURL() ?? undefined)
+			.setFooter({
+				text: t(LanguageKeys.Events.Guilds.Logs.StickerUpdated, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }),
+				iconURL: executor?.displayAvatarURL() ?? undefined
+			})
 			.setType(Events.StickerUpdate);
 
 		// Set image field to sticker URL if it's an image file

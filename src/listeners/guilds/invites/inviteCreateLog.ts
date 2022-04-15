@@ -23,9 +23,16 @@ export class UserListener extends Listener<typeof SapphireEvents.InviteCreate> {
 
 	private serverLog(invite: Invite, executor: User | null, t: TFunction) {
 		const embed = new GuildLogEmbed()
-			.setAuthor(invite.code, invite.guild?.iconURL() as string)
+			.setAuthor({
+				name: invite.code,
+				url: `https://discord.gg/${invite.code}`,
+				iconURL: invite.guild?.iconURL() as string
+			})
 			.setDescription(`${t(LanguageKeys.Miscellaneous.Link)}: \`https://discord.gg/${invite.code}\``)
-			.setFooter(t(LanguageKeys.Events.Guilds.Logs.InviteCreated, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }), executor?.displayAvatarURL() ?? undefined)
+			.setFooter({
+				text: t(LanguageKeys.Events.Guilds.Logs.InviteCreated, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }),
+				iconURL: executor?.displayAvatarURL() ?? undefined
+			})
 			.setType(Events.InviteCreate);
 
 		// Set non-guaranteed channel field

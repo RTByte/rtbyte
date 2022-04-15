@@ -11,7 +11,10 @@ export class RTByteEmbed extends MessageEmbed {
 		this.setColor(Colors.White)
 		this.setThumbnail(String(container.client.user?.displayAvatarURL({ format: 'png', size: 128 })))
 		this.setTimestamp()
-		this.setFooter(t(LanguageKeys.System.RequestedBy, { requester: message.author.tag }), message.author.displayAvatarURL())
+		this.setFooter({
+			text: t(LanguageKeys.System.RequestedBy, { requester: message.author.tag }),
+			iconURL: message.author.displayAvatarURL()
+		})
 	}
 
 	public addBlankField() {

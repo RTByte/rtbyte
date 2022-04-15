@@ -26,9 +26,16 @@ export class UserListener extends Listener {
 
 	private serverLog(oldThread: ThreadChannel, thread: ThreadChannel, executor: User | null | undefined, t: TFunction) {
 		const embed = new GuildLogEmbed()
-			.setAuthor(thread.name, thread.guild.iconURL() as string)
+			.setAuthor({
+				name: thread.name,
+				url: `https://discord.com/channels/${thread.guildId}/${thread.id}`,
+				iconURL: thread.guild.iconURL() as string
+			})
 			.setDescription(t(LanguageKeys.Miscellaneous.DisplayID, { id: thread.id }))
-			.setFooter(t(LanguageKeys.Events.Guilds.Logs.ThreadUpdated, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }), executor?.displayAvatarURL() ?? undefined)
+			.setFooter({
+				text: t(LanguageKeys.Events.Guilds.Logs.ThreadUpdated, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }),
+				iconURL: executor?.displayAvatarURL() ?? undefined
+			})
 			.setType(Events.ThreadUpdate);
 
 		// Set channel field depending on parent channel type
@@ -42,8 +49,14 @@ export class UserListener extends Listener {
 
 		// Return immediately if thread is archived or unarchived
 		if (oldThread.archived !== thread.archived) {
-			if (thread.archived) embed.setFooter(t(LanguageKeys.Events.Guilds.Logs.ThreadArchived, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }), executor?.displayAvatarURL() ?? undefined)
-			if (!thread.archived) embed.setFooter(t(LanguageKeys.Events.Guilds.Logs.ThreadUnarchived, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }), executor?.displayAvatarURL() ?? undefined)
+			if (thread.archived) embed.setFooter({
+				text: t(LanguageKeys.Events.Guilds.Logs.ThreadArchived, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }),
+				iconURL: executor?.displayAvatarURL() ?? undefined
+			})
+			if (!thread.archived) embed.setFooter({
+				text: t(LanguageKeys.Events.Guilds.Logs.ThreadUnarchived, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }),
+				iconURL:executor?.displayAvatarURL() ?? undefined
+			})
 
 			return embed;
 		}

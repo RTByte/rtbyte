@@ -26,7 +26,11 @@ export class UserListener extends Listener<typeof SapphireEvents.ChannelCreate> 
 
 	private serverLog(channel: GuildBasedChannel, executor: User | null | undefined, t: TFunction) {
 		const embed = new GuildLogEmbed()
-			.setAuthor(`#${channel.name}`, channel.guild.iconURL() as string)
+			.setAuthor({
+				name: `#${channel.name}`,
+				url: `https://discord.com/channels/${channel.guildId}/${channel.id}`,
+				iconURL: channel.guild.iconURL() as string
+			})
 			.setDescription(t(LanguageKeys.Miscellaneous.DisplayID, { id: channel.id }))
 			.setType(Events.ChannelCreate);
 
@@ -38,37 +42,54 @@ export class UserListener extends Listener<typeof SapphireEvents.ChannelCreate> 
 		// Set various author and footer fields depending on channel type, defaulting to standard text channel
 		switch (channel.type) {
 			case 'GUILD_CATEGORY':
-				embed.setAuthor(channel.name, channel.guild.iconURL() as string);
-				embed.setFooter(t(LanguageKeys.Events.Guilds.Logs.CategoryCreated, {
-					by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined
-				}), executor?.displayAvatarURL() ?? undefined);
+				embed.setAuthor({
+					name: channel.name,
+					iconURL: channel.guild.iconURL() as string
+				});
+				embed.setFooter({
+					text: t(LanguageKeys.Events.Guilds.Logs.CategoryCreated, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }),
+					iconURL: executor?.displayAvatarURL() ?? undefined
+				});
 				break;
 			case 'GUILD_NEWS':
-				embed.setFooter(t(LanguageKeys.Events.Guilds.Logs.NewsChannelCreated, {
-					by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined
-				}), executor?.displayAvatarURL() ?? undefined);
+				embed.setFooter({
+					text: t(LanguageKeys.Events.Guilds.Logs.NewsChannelCreated, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }),
+					iconURL: executor?.displayAvatarURL() ?? undefined
+				});
 				break;
 			case 'GUILD_STAGE_VOICE':
-				embed.setAuthor(channel.name, channel.guild.iconURL() as string);
-				embed.setFooter(t(LanguageKeys.Events.Guilds.Logs.StageChannelCreated, {
-					by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined
-				}), executor?.displayAvatarURL() ?? undefined);
+				embed.setAuthor({
+					name: channel.name,
+					url: `https://discord.com/channels/${channel.guildId}/${channel.id}`,
+					iconURL: channel.guild.iconURL() as string
+				});
+				embed.setFooter({
+					text: t(LanguageKeys.Events.Guilds.Logs.StageChannelCreated, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }),
+					iconURL: executor?.displayAvatarURL() ?? undefined
+				});
 				break;
 			case 'GUILD_STORE':
-				embed.setFooter(t(LanguageKeys.Events.Guilds.Logs.StoreChannelCreated, {
-					by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined
-				}), executor?.displayAvatarURL() ?? undefined);
+				embed.setFooter({
+					text: t(LanguageKeys.Events.Guilds.Logs.StoreChannelCreated, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }),
+					iconURL: executor?.displayAvatarURL() ?? undefined
+				});
 				break;
 			case 'GUILD_VOICE':
-				embed.setAuthor(channel.name, channel.guild.iconURL() as string);
-				embed.setFooter(t(LanguageKeys.Events.Guilds.Logs.VoiceChannelCreated, {
-					by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined
-				}), executor?.displayAvatarURL() ?? undefined);
+				embed.setAuthor({
+					name: channel.name,
+					url: `https://discord.com/channels/${channel.guildId}/${channel.id}`,
+					iconURL: channel.guild.iconURL() as string
+				});
+				embed.setFooter({
+					text: t(LanguageKeys.Events.Guilds.Logs.VoiceChannelCreated, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }),
+					iconURL: executor?.displayAvatarURL() ?? undefined
+				});
 				break;
 			default:
-				embed.setFooter(t(LanguageKeys.Events.Guilds.Logs.ChannelCreated, {
-					by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined
-				}), executor?.displayAvatarURL() ?? undefined);
+				embed.setFooter({
+					text: t(LanguageKeys.Events.Guilds.Logs.ChannelCreated, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }),
+					iconURL: executor?.displayAvatarURL() ?? undefined
+				});
 		}
 
 		return embed;

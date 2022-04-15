@@ -25,10 +25,16 @@ export class UserListener extends Listener<typeof SapphireEvents.GuildRoleUpdate
 
 	private serverLog(oldRole: Role, role: Role, executor: User | null | undefined, t: TFunction) {
 		const embed = new GuildLogEmbed()
-			.setAuthor(role.name, role.guild.iconURL() as string)
+			.setAuthor({
+				name: role.name,
+				iconURL: role.guild.iconURL() as string
+			})
 			.setDescription(`${t(LanguageKeys.Miscellaneous.DisplayID, { id: role.id })} \n${role}`)
 			.setThumbnail(role.iconURL({ format: 'png', size: 64 }) as string)
-			.setFooter(t(LanguageKeys.Events.Guilds.Logs.RoleUpdated, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }), executor?.displayAvatarURL() ?? undefined)
+			.setFooter({
+				text: t(LanguageKeys.Events.Guilds.Logs.RoleUpdated, { by: executor ? t(LanguageKeys.Miscellaneous.By, { user: executor?.tag }) : undefined }),
+				iconURL: executor?.displayAvatarURL() ?? undefined
+			})
 			.setType(Events.RoleUpdate);
 
 		// Name changed
