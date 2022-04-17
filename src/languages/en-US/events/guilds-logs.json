@@ -11,7 +11,7 @@
 		"newsChannelCreated": "Announcement channel created {{by}}",
 		"newsChannelDeleted": "Announcement channel deleted {{by}}",
 		"newsChannelUpdated": "Announcement channel updated {{by}}",
-		"nsfwToggled": "NSFW toggled",
+		"nsfwToggled": "Age-restriction toggled",
 		"parentChanged": "Moved to category",
 		"regionOverrideChanged": "Region override changed",
 		"regionOverrideFormatted": "{{before, discordRegions}} {{ARROW_RIGHT}} {{after, discordRegions}}",

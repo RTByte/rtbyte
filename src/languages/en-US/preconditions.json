@@ -11,7 +11,7 @@
 	"guildPublicThreadOnly": "{{X}} This command can only be ran in public threads.",
 	"guildTextOnly": "{{X}} This command can only be ran in text channels.",
 	"moderator": "{{X}} Moderator priveleges are required to run the `{{command.name}}` command.",
-	"nsfw": "{{X}} This command can only be ran in NSFW channels.",
+	"nsfw": "{{X}} This command can only be ran in age-restricted channels.",
 	"serverOwner": "{{X}} Only the server owner can run the `{{command.name}}` command.",
 	"threadOnly": "{{X}} This command can only be ran in threads.",
 	"userPermissions": "{{X}} This command requires you to have the following permissions: `{{missing, permissionsAndList}}`."
