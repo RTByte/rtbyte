@@ -54,7 +54,7 @@
 	"devDependencies": {
 		"@sapphire/eslint-config": "^4.3.3",
 		"@sapphire/ts-config": "^3.3.4",
-		"@types/node": "^17.0.24",
+		"@types/node": "^17.0.34",
 		"@types/twemoji-parser": "^13.1.1",
 		"@types/ws": "^8.2.0",
 		"eslint": "^8.13.0",
