@@ -16,6 +16,7 @@
 		"vest",
 		"nordvest"
 	],
+	"from": "Fra",
 	"id": "ID: `{{id}}`",
 	"joined": "Tilmeldt",
 	"link": "Link",
@@ -30,5 +31,6 @@
 	"stageChannel": "Podiekanal",
 	"storeChannel": "Butikskanal",
 	"unlimited": "Ubegrænset",
+	"until": "Indtil",
 	"voiceChannel": "Stemme kanal"
 }
