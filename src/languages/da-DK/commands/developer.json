@@ -1,9 +1,0 @@
-{
-	"eval": {
-		"description": "",
-		"responses": {
-			"error": "**Fejl**:{{output}}\n**Type**:{{type}}\n{{time}}",
-			"timeout": "TIMEOUT: Tog længere tid end {{seconds}} sekunder."
-		}
-	}
-}

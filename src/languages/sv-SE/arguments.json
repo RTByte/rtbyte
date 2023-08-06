@@ -1,7 +1,0 @@
-{
-	"guildChannelError": "{{X}} {{parameter}} kunde inte lösas till en kanal i den här servern. Har du skrivit in dess namn eller ID korrekt?",
-	"guildChannelMissingGuildError": "{{X}} {{parameter}} kunde inte lösas eftersom detta argument måste köras på en server.",
-	"messageError": "{{X}} `{{parameter}}` kunde inte lösas till ett meddelande i <#{{channel}}>. Är meddelandet i en annan kanal och har jag tillgång till det? Har du angett rätt meddelande-ID eller länk?",
-	"missing": "Du behöver ange en till parameter. För mer information om hur detta kommando fungerar, kör `{{commandContext.commandPrefix}}help {{command.name}}`.",
-	"userError": "{{X}} `{{parameter}}` kunde inte lösas till en användare. Se till att du skrev deras namn eller ID korrekt, eller ange en @mention!"
-}

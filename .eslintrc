@@ -1,8 +1,0 @@
-{
-	"extends": "@sapphire",
-	"rules": {
-		"@typescript-eslint/no-namespace": "off",
-		"@typescript-eslint/no-throw-literal": "off",
-		"prettier/prettier": 0
-	}
-}

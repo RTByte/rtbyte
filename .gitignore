@@ -1,6 +1,0 @@
-dist
-node_modules
-
-# Keep environment variables and config out of version control
-.env
-config.ts

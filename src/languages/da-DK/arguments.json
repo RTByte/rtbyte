@@ -1,7 +1,0 @@
-{
-	"guildChannelError": "{{X}} {{parameter}} kunne ikke løses til en kanal på denne server. Har du angivet dens navn eller ID korrekt?",
-	"guildChannelMissingGuildError": "{{X}} {{parameter}} kunne ikke løses, da dette argument skal køres på en server.",
-	"messageError": "{{X}} `{{parameter}}` kunne ikke løses til en besked i <#{{channel}}>. Er meddelelsen i en anden kanal, og har jeg adgang til dette? Har du angivet det rigtige besked-ID eller link?",
-	"missing": "Du skal angive et andet parameter. For mere information om hvordan denne kommando fungerer, kør `{{commandContext.commandPrefix}}help {{command.name}}`.",
-	"userError": "{{X}} `{{parameter}}` kunne ikke løses til en bruger. Sørg for, at du har indtastet deres navn eller ID korrekt, eller anvend en @mention!"
-}
