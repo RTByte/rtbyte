@@ -1,0 +1,72 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Client {
+  id             String
+  restarts       Int      @default(0)
+  lastRestart    DateTime @default(now()) @map("last_restart")
+  guildBlacklist String[] @map("guild_blacklist")
+
+  @@id([id])
+  @@map("client")
+}
+
+model Guild {
+  id            String
+  joinableRoles String[]    @map("joinable_roles")
+  guildLogs     GuildLogs[]
+  members       Member[]
+
+  @@id([id])
+  @@map("guild")
+}
+
+model GuildLogs {
+  guildId             String  @map("guild_id")
+  guild               Guild   @relation(fields: [guildId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  logChannel          String? @map("log_channel")
+  logsEnabled         Boolean @default(false) @map("logs_enabled")
+  channels            Boolean @default(true) @map("logs_channels")
+  emojis              Boolean @default(true) @map("logs_emoji")
+  members             Boolean @default(true) @map("logs_members")
+  events              Boolean @default(false) @map("logs_events")
+  server              Boolean @default(true) @map("logs_guild")
+  invites             Boolean @default(false) @map("logs_invites")
+  messages            Boolean @default(true) @map("logs_messages")
+  roles               Boolean @default(true) @map("logs_roles")
+  stages              Boolean @default(false) @map("logs_stages")
+  stickers            Boolean @default(true) @map("logs_stickers")
+  threads             Boolean @default(true) @map("logs_threads")
+
+  @@id([guildId])
+  @@map("guild_logs")
+}
+
+model Member {
+  userId      String @map("user_id")
+  user        User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  guildId     String @map("guild_id")
+  guild       Guild  @relation(fields: [guildId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  timesJoined Int    @default(1) @map("times_joined")
+
+  @@id([userId, guildId])
+  @@map("member")
+}
+
+model User {
+  id                String
+  previousUsernames String[] @map("previous_usernames")
+  memberships       Member[]
+
+  @@id([id])
+  @@map("user")
+}

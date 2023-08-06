@@ -1,0 +1,20 @@
+{
+	"extends": "../tsconfig.base.json",
+	"compilerOptions": {
+		"outDir": "../dist",
+		"rootDir": ".",
+		"baseUrl": ".",
+		"tsBuildInfoFile": "../dist/.tsbuildinfo",
+		"ignoreDeprecations": "5.0",
+		"experimentalDecorators": true,
+		"moduleResolution": "node",
+		"paths": {
+			"#root/*": ["*"],
+			"#lib/*": ["lib/*"],
+			"#utils/*": ["lib/util/*"]
+		},
+		"composite": true,
+	},
+	"include": [".", "**/*.json"],
+	"exclude": ["tsconfig.json"]
+}
