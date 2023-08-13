@@ -18,7 +18,7 @@ model ClientSettings {
 }
 
 model User {
-    id       String        @id @map("guild_id")
+    id       String        @id @map("user_id")
     settings UserSettings?
     members  Member[]
 
@@ -184,6 +184,8 @@ model GuildSettingsInfoLogs {
     webhookCreateLog             Boolean @default(false) @map("log_webhook_create")
     webhookDeleteLog             Boolean @default(false) @map("log_webhook_delete")
     webhookUpdateLog             Boolean @default(false) @map("log_webhook_update")
+
+    @@map("guildSettingsInfoLogs")
 }
 
 model GuildSettingsModActions {

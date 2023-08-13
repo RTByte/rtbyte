@@ -89,7 +89,7 @@ export async function initializeUser(user: User) {
 
 	if (clientSettings?.userBlacklist.includes(user.id)) logger.info(`User ${bold(user.username)} (${gray(user.id)}) is on the user blacklist...`);
 
-	const userInfo = await prisma.guild.findUnique({ where: { id: user.id } });
+	const userInfo = await prisma.user.findUnique({ where: { id: user.id } });
 	const userSettings = await prisma.userSettings.findUnique({ where: { id: user.id } });
 
 	if (!userInfo) {

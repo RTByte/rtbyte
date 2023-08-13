@@ -77,7 +77,7 @@ ${line09} ${pad}[${success}] Gateway ${connectionPad}[${success}] Prisma ${conne
 		// Update stats if client model exists, create db entry if not
 		if (client.id) {
 			const clientData = await prisma.clientSettings.findFirst();
-			if (!clientData) prisma.clientSettings.create({ data: { id: client.id } });
+			if (!clientData) await prisma.clientSettings.create({ data: { id: client.id } });
 
 			const restarts = clientData?.restarts;
 			restarts?.push(new Date(Date.now()));
