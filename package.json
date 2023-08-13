@@ -5,7 +5,8 @@
 	"main": "./dist/RTByte.js",
 	"author": "The RTByte Team <developers@rtbyte.xyz> (https://rtbyte.xyz)",
 	"contributors": [
-		"Rasmus Gerdin <rasmus@rtbyte.xyz> (https://rasmusgerdin.com)"
+		"Rasmus Gerdin <rasmus@rtbyte.xyz> (https://rasmusgerdin.com)",
+		"Michael Cumbers <michael@rtbyte.xyz> (https://michaelcumbers.ca)"
 	],
 	"license": "MIT",
 	"homepage": "https://github.com/RTByte/rtbyte/",
