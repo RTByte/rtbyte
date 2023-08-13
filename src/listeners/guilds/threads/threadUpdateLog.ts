@@ -13,10 +13,10 @@ export class UserEvent extends Listener {
 	public async run(oldThread: ThreadChannel, thread: ThreadChannel) {
 		if (isNullish(thread.id)) return;
 
-		const dbGuildLogs = await this.container.prisma.guildLogs.findUnique({ where: { guildId: thread.guild.id }});
-		if (!dbGuildLogs?.logsEnabled || !dbGuildLogs.logChannel || !dbGuildLogs.threads) return;
+		const guildSettingsInfoLogs = await this.container.prisma.guildSettingsInfoLogs.findUnique({ where: { id: thread.guild.id } });
+		if (!guildSettingsInfoLogs?.threadUpdateLog || !guildSettingsInfoLogs.infoLogChannel) return;
 
-		const logChannel = thread.guild.channels.resolve(dbGuildLogs.logChannel) as BaseGuildTextChannel;
+		const logChannel = thread.guild.channels.resolve(guildSettingsInfoLogs.infoLogChannel) as BaseGuildTextChannel;
 		const executor = await getAuditLogExecutor(AuditLogEvent.ThreadUpdate, thread.guild);
 		const isForumThread = thread.parent?.type === ChannelType.GuildForum;
 
@@ -35,19 +35,19 @@ export class UserEvent extends Listener {
 			.setFooter({ text: `${postOrThread} edited ${isNullish(executor) ? '' : `by ${executor.username}`}`, iconURL: isNullish(executor) ? undefined : executor?.displayAvatarURL() })
 			.setType(Events.ThreadUpdate);
 
-			if (thread.parent) embed.addFields({ name: `${thread.parent.type === ChannelType.GuildAnnouncement ? 'Announcement' : 'Text'} channel`, value: `<#${thread.parentId}>`, inline: true });
-			if (thread.ownerId) embed.addFields({ name: 'Started by', value: `<@${thread.ownerId}>`, inline: true });
-			
-			const changes = [];
-			if (oldThread.name !== thread.name) changes.push(`${Emojis.Bullet}**Name**: ${inlineCodeBlock(`${oldThread.name}`)} to ${inlineCodeBlock(`${thread.name}`)}`);
-			if (oldThread.rateLimitPerUser !== thread.rateLimitPerUser) changes.push(`${Emojis.Bullet}**Slowmode**: ${inlineCodeBlock(`${oldThread.rateLimitPerUser ? new DurationFormatter().format(seconds(oldThread.rateLimitPerUser)) : 'Off'}`)} to ${inlineCodeBlock(`${thread.rateLimitPerUser ? new DurationFormatter().format(seconds(thread.rateLimitPerUser) ) : 'Off'}`)}`);
-			if (oldThread.autoArchiveDuration !== thread.autoArchiveDuration) changes.push(`${Emojis.Bullet}**Hide after inactivity**: ${inlineCodeBlock(`${new DurationFormatter().format(minutes(oldThread.autoArchiveDuration ?? 4320))}`)} to ${inlineCodeBlock(`${new DurationFormatter().format(minutes(thread.autoArchiveDuration ?? 4320))}`)}`);
-			if (thread.parent?.type === ChannelType.GuildForum && oldThread.appliedTags !== thread.appliedTags) {
-				const tagDifference = this.getTagDifference(thread.parent, oldThread.appliedTags, thread.appliedTags);
-				if (tagDifference.added.length) changes.push(`${Emojis.Bullet}**Tags added**: ${tagDifference.added.join(', ')}`);
-				if (tagDifference.removed.length) changes.push(`${Emojis.Bullet}**Tags removed**: ${tagDifference.removed.join(', ')}`);
-			}
-			if (changes.length) embed.addFields({ name: 'Changes', value: changes.join('\n') });
+		if (thread.parent) embed.addFields({ name: `${thread.parent.type === ChannelType.GuildAnnouncement ? 'Announcement' : 'Text'} channel`, value: `<#${thread.parentId}>`, inline: true });
+		if (thread.ownerId) embed.addFields({ name: 'Started by', value: `<@${thread.ownerId}>`, inline: true });
+
+		const changes = [];
+		if (oldThread.name !== thread.name) changes.push(`${Emojis.Bullet}**Name**: ${inlineCodeBlock(`${oldThread.name}`)} to ${inlineCodeBlock(`${thread.name}`)}`);
+		if (oldThread.rateLimitPerUser !== thread.rateLimitPerUser) changes.push(`${Emojis.Bullet}**Slowmode**: ${inlineCodeBlock(`${oldThread.rateLimitPerUser ? new DurationFormatter().format(seconds(oldThread.rateLimitPerUser)) : 'Off'}`)} to ${inlineCodeBlock(`${thread.rateLimitPerUser ? new DurationFormatter().format(seconds(thread.rateLimitPerUser)) : 'Off'}`)}`);
+		if (oldThread.autoArchiveDuration !== thread.autoArchiveDuration) changes.push(`${Emojis.Bullet}**Hide after inactivity**: ${inlineCodeBlock(`${new DurationFormatter().format(minutes(oldThread.autoArchiveDuration ?? 4320))}`)} to ${inlineCodeBlock(`${new DurationFormatter().format(minutes(thread.autoArchiveDuration ?? 4320))}`)}`);
+		if (thread.parent?.type === ChannelType.GuildForum && oldThread.appliedTags !== thread.appliedTags) {
+			const tagDifference = this.getTagDifference(thread.parent, oldThread.appliedTags, thread.appliedTags);
+			if (tagDifference.added.length) changes.push(`${Emojis.Bullet}**Tags added**: ${tagDifference.added.join(', ')}`);
+			if (tagDifference.removed.length) changes.push(`${Emojis.Bullet}**Tags removed**: ${tagDifference.removed.join(', ')}`);
+		}
+		if (changes.length) embed.addFields({ name: 'Changes', value: changes.join('\n') });
 
 		return [embed];
 	}
@@ -62,7 +62,7 @@ export class UserEvent extends Listener {
 			added,
 			removed
 		}
-	
+
 		return differences;
 	}
 }

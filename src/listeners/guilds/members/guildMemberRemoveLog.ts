@@ -10,10 +10,10 @@ export class UserEvent extends Listener {
 		if (isNullish(member.id)) return;
 		if (member.user.bot) return;
 
-		const dbGuildLogs = await this.container.prisma.guildLogs.findUnique({ where: { guildId: member.guild.id }});
-		if (!dbGuildLogs?.logsEnabled || !dbGuildLogs.logChannel || !dbGuildLogs.members) return;
+		const guildSettingsInfoLogs = await this.container.prisma.guildSettingsInfoLogs.findUnique({ where: { id: member.guild.id } });
+		if (!guildSettingsInfoLogs?.guildMemberRemoveLog || !guildSettingsInfoLogs.infoLogChannel) return;
 
-		const logChannel = member.guild.channels.resolve(dbGuildLogs.logChannel) as BaseGuildTextChannel;
+		const logChannel = member.guild.channels.resolve(guildSettingsInfoLogs.infoLogChannel) as BaseGuildTextChannel;
 
 		return this.container.client.emit('guildLogCreate', logChannel, this.generateGuildLog(member));
 	}
@@ -26,7 +26,7 @@ export class UserEvent extends Listener {
 				iconURL: member.user.displayAvatarURL()
 			})
 			.setDescription(inlineCodeBlock(member.user.id))
-			.addFields({ name: 'Joined', value: `<t:${Math.round(member?.joinedTimestamp as number / 1000)}:R>`, inline: true})
+			.addFields({ name: 'Joined', value: `<t:${Math.round(member?.joinedTimestamp as number / 1000)}:R>`, inline: true })
 			.setFooter({ text: 'User left' })
 			.setType(Events.GuildMemberRemove);
 

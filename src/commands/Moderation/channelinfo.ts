@@ -38,44 +38,55 @@ export class UserCommand extends RTByteCommand {
 	}
 
 	public async chatInputRun(interaction: ChatInputCommand.Interaction) {
+		// Check to see if response should be ephemeral
 		const ephemeral = interaction.options.getBoolean('ephemeral') ?? false;
-    	await interaction.deferReply({ ephemeral, fetchReply: true });
+		await interaction.deferReply({ ephemeral, fetchReply: true });
 
-		const channel = interaction.guild?.channels.resolve(interaction.options.getChannel('channel')?.id as string);
-		if (!channel) return interaction.followUp({ content: `${Emojis.X} Unable to fetch information for ${channel}, please try again later.`, ephemeral });
-		
-		const dbGuildLogs = await this.container.prisma.guildLogs.findUnique({ where: { guildId: interaction.guild?.id } });
-		const embed = new RTByteEmbed()
-			.setDescription(`<#${channel.id}> ${inlineCodeBlock(`${channel?.id}`)}`)
-			.setThumbnail(interaction.guild?.iconURL() ?? null);
-			
-		if (channel.parent) embed.addFields({ name: 'Category', value: inlineCodeBlock(channel.parent.name), inline: true });
-		embed.addFields({ name: 'Created', value: `<t:${Math.round(channel.createdTimestamp as number / 1000)}:R>`, inline: true });
+		// Fetch targetChannel from Discord
+		const targetChannel = interaction.guild?.channels.resolve(interaction.options.getChannel('channel')?.id as string);
+		if (!targetChannel) return interaction.followUp({ content: `${Emojis.X} Unable to fetch information for ${targetChannel}, please try again later.`, ephemeral });
 
-		if (channel.type === ChannelType.GuildForum) {
-			if (channel.topic) embed.addFields({ name: 'Post guidelines', value: inlineCodeBlock(channel.topic), inline: true });
-			if (channel.availableTags) embed.addFields({ name: 'Tags', value: channel.availableTags.map(tag => `${tag.emoji ? channel.guild.emojis.resolve(tag.emoji.id as string) ?? tag.emoji.name : ''} ${inlineCodeBlock(tag.name)}`).join(', '), inline: true });
-		}
+		// Fetch this Guild's log settings
+		const guildLogSettings = await this.container.prisma.guildSettingsInfoLogs.findUnique({ where: { id: interaction.guild?.id } });
 
+		// Gather Info for Response Embed
 		const channelInfo = [];
-		if (channel.type === ChannelType.GuildForum) {
-			if (channel.defaultReactionEmoji) channelInfo.push(`${Emojis.Bullet}Default reaction: ${channel.guild.emojis.resolve(channel.defaultReactionEmoji.id as string) ?? channel.defaultReactionEmoji.name}`);
-			if (channel.rateLimitPerUser) channelInfo.push(`${Emojis.Bullet}Posts slowmode: ${inlineCodeBlock(new DurationFormatter().format(seconds(channel.rateLimitPerUser)))}`);
-			if (channel.defaultThreadRateLimitPerUser) channelInfo.push(`${Emojis.Bullet}Messages slowmode: ${inlineCodeBlock(new DurationFormatter().format(seconds(channel.defaultThreadRateLimitPerUser)))}`);
-			if (channel.defaultForumLayout) {
+		if (targetChannel.type === ChannelType.GuildForum) {
+			if (targetChannel.defaultReactionEmoji) channelInfo.push(`${Emojis.Bullet}Default reaction: ${targetChannel.guild.emojis.resolve(targetChannel.defaultReactionEmoji.id as string) ?? targetChannel.defaultReactionEmoji.name}`);
+			if (targetChannel.rateLimitPerUser) channelInfo.push(`${Emojis.Bullet}Posts slowmode: ${inlineCodeBlock(new DurationFormatter().format(seconds(targetChannel.rateLimitPerUser)))}`);
+			if (targetChannel.defaultThreadRateLimitPerUser) channelInfo.push(`${Emojis.Bullet}Messages slowmode: ${inlineCodeBlock(new DurationFormatter().format(seconds(targetChannel.defaultThreadRateLimitPerUser)))}`);
+			if (targetChannel.defaultForumLayout) {
 				const forumLayout = ['Not set', 'List view', 'Gallery view'];
-				channelInfo.push(`${Emojis.Bullet}Default layout: ${inlineCodeBlock(`${forumLayout[channel.defaultForumLayout]}`)}`);
+				channelInfo.push(`${Emojis.Bullet}Default layout: ${inlineCodeBlock(`${forumLayout[targetChannel.defaultForumLayout]}`)}`);
 			}
-			if (channel.defaultSortOrder) {
+			if (targetChannel.defaultSortOrder) {
 				const sortOrder = ['Recent activity', 'Creation time'];
-				channelInfo.push(`${Emojis.Bullet}Sort order: ${inlineCodeBlock(`${sortOrder[channel.defaultSortOrder!]}`)}`)
+				channelInfo.push(`${Emojis.Bullet}Sort order: ${inlineCodeBlock(`${sortOrder[targetChannel.defaultSortOrder!]}`)}`)
 			}
-			if (channel.nsfw) channelInfo.push(`${Emojis.Bullet}Age-restricted: ${Emojis.ToggleOn}`);
-			if (channel.defaultAutoArchiveDuration) channelInfo.push(`${Emojis.Bullet}Hide after inactivity: ${inlineCodeBlock(`${new DurationFormatter().format(minutes(channel.defaultAutoArchiveDuration ?? 4320))}`)}`);
+			if (targetChannel.nsfw) channelInfo.push(`${Emojis.Bullet}Age-restricted: ${Emojis.ToggleOn}`);
+			if (targetChannel.defaultAutoArchiveDuration) channelInfo.push(`${Emojis.Bullet}Hide after inactivity: ${inlineCodeBlock(`${new DurationFormatter().format(minutes(targetChannel.defaultAutoArchiveDuration ?? 4320))}`)}`);
 		}
-		if (dbGuildLogs?.logChannel === channel.id) channelInfo.push(`${Emojis.Bullet}RTByte log channel`);
+		// Show whether the targetChannel is designated as the Info Log Channel for the Guild
+		if (guildLogSettings?.infoLogChannel === targetChannel.id) channelInfo.push(`${Emojis.Bullet}RTByte log channel`);
+
+		// Create Response Embed
+		const embed = new RTByteEmbed()
+			.setDescription(`<#${targetChannel.id}> ${inlineCodeBlock(`${targetChannel?.id}`)}`)
+			.setThumbnail(interaction.guild?.iconURL() ?? null);
+
+		if (targetChannel.parent) embed.addFields({ name: 'Category', value: inlineCodeBlock(targetChannel.parent.name), inline: true });
+		embed.addFields({ name: 'Created', value: `<t:${Math.round(targetChannel.createdTimestamp as number / 1000)}:R>`, inline: true });
+
+		// Add Forum-Specific Info to Response Embed
+		if (targetChannel.type === ChannelType.GuildForum) {
+			if (targetChannel.topic) embed.addFields({ name: 'Post guidelines', value: inlineCodeBlock(targetChannel.topic), inline: true });
+			if (targetChannel.availableTags) embed.addFields({ name: 'Tags', value: targetChannel.availableTags.map(tag => `${tag.emoji ? targetChannel.guild.emojis.resolve(tag.emoji.id as string) ?? tag.emoji.name : ''} ${inlineCodeBlock(tag.name)}`).join(', '), inline: true });
+		}
+
+		// Add extra information gathered in channelInfo
 		if (channelInfo.length) embed.addFields({ name: 'Details', value: channelInfo.join('\n') });
-			
+
+		// Send response
 		return interaction.followUp({ content: '', embeds: [embed], ephemeral });
 	}
 }

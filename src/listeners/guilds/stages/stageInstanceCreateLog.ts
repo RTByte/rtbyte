@@ -10,10 +10,10 @@ export class UserEvent extends Listener {
 	public async run(stage: StageInstance) {
 		if (isNullish(stage.id)) return;
 
-		const dbGuildLogs = await this.container.prisma.guildLogs.findUnique({ where: { guildId: stage.guild?.id }});
-		if (!dbGuildLogs?.logsEnabled || !dbGuildLogs.logChannel || !dbGuildLogs.stages) return;
+		const guildSettingsInfoLogs = await this.container.prisma.guildSettingsInfoLogs.findUnique({ where: { id: stage.guild?.id } });
+		if (!guildSettingsInfoLogs?.stageInstanceCreateLog || !guildSettingsInfoLogs.infoLogChannel) return;
 
-		const logChannel = stage.guild?.channels.resolve(dbGuildLogs.logChannel) as BaseGuildTextChannel;
+		const logChannel = stage.guild?.channels.resolve(guildSettingsInfoLogs.infoLogChannel) as BaseGuildTextChannel;
 		const executor = await getAuditLogExecutor(AuditLogEvent.StageInstanceCreate, stage.guild as Guild);
 
 		return this.container.client.emit('guildLogCreate', logChannel, this.generateGuildLog(stage, executor));

@@ -1,72 +1,331 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
 
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
+model ClientSettings {
+    id             String   @id @map("client_id")
+    userBlacklist  String[] @map("user_blacklist")
+    guildBlacklist String[] @map("guild_blacklist")
 
-model Client {
-  id             String
-  restarts       Int      @default(0)
-  lastRestart    DateTime @default(now()) @map("last_restart")
-  guildBlacklist String[] @map("guild_blacklist")
+    restarts DateTime[] @map("bot_restarts")
 
-  @@id([id])
-  @@map("client")
-}
-
-model Guild {
-  id            String
-  joinableRoles String[]    @map("joinable_roles")
-  guildLogs     GuildLogs[]
-  members       Member[]
-
-  @@id([id])
-  @@map("guild")
-}
-
-model GuildLogs {
-  guildId             String  @map("guild_id")
-  guild               Guild   @relation(fields: [guildId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  logChannel          String? @map("log_channel")
-  logsEnabled         Boolean @default(false) @map("logs_enabled")
-  channels            Boolean @default(true) @map("logs_channels")
-  emojis              Boolean @default(true) @map("logs_emoji")
-  members             Boolean @default(true) @map("logs_members")
-  events              Boolean @default(false) @map("logs_events")
-  server              Boolean @default(true) @map("logs_guild")
-  invites             Boolean @default(false) @map("logs_invites")
-  messages            Boolean @default(true) @map("logs_messages")
-  roles               Boolean @default(true) @map("logs_roles")
-  stages              Boolean @default(false) @map("logs_stages")
-  stickers            Boolean @default(true) @map("logs_stickers")
-  threads             Boolean @default(true) @map("logs_threads")
-
-  @@id([guildId])
-  @@map("guild_logs")
-}
-
-model Member {
-  userId      String @map("user_id")
-  user        User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  guildId     String @map("guild_id")
-  guild       Guild  @relation(fields: [guildId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  timesJoined Int    @default(1) @map("times_joined")
-
-  @@id([userId, guildId])
-  @@map("member")
+    @@map("clientSettings")
 }
 
 model User {
-  id                String
-  previousUsernames String[] @map("previous_usernames")
-  memberships       Member[]
+    id       String        @id @map("guild_id")
+    settings UserSettings?
+    members  Member[]
 
-  @@id([id])
-  @@map("user")
+    @@map("users")
 }
+
+model Guild {
+    id         String         @id @map("guild_id")
+    settings   GuildSettings?
+    members    Member[]
+    modActions ModAction[]
+
+    @@map("guilds")
+}
+
+model Member {
+    id      Int    @id @default(autoincrement())
+    userID  String @map("user_id")
+    user    User   @relation(fields: [userID], references: [id])
+    guildID String @map("guild_id")
+    guild   Guild  @relation(fields: [guildID], references: [id])
+
+    joinTimes  DateTime[] @map("join_times")
+    leaveTimes DateTime[] @map("leave_times")
+
+    usernameHistory    String[] @map("username_history")
+    displayNameHistory String[] @map("display_name_history")
+
+    @@map("members")
+}
+
+model UserSettings {
+    id                   String  @id @map("user_id")
+    user                 User    @relation(fields: [id], references: [id])
+    chatLanguage         String  @default("en-US")
+    chatMeasurementUnits String  @default("imperial") @map("measurement_units")
+    // Data Opt-Out
+    disableBot           Boolean @default(false) @map("bot_disabled")
+
+    @@map("userSettings")
+}
+
+model GuildSettings {
+    // Info
+    id    String @id @map("guild_id")
+    guild Guild  @relation(fields: [id], references: [id])
+
+    // ~~~~~     General Server Settings     ~~~~~ //
+    messageCommandPrefix String @default("-")
+    chatLanguage         String @default("en-US")
+    chatMeasurementUnits String @default("imperial") @map("measurement_units")
+
+    // ~~~~~     Analytics Settings     ~~~~~ //
+    shareGuildInfo                 Boolean @default(true) @map("analytics_guild_info")
+    shareGuildInfoDetailed         Boolean @default(true) @map("analytics_guild_info_detailed")
+    shareGuildCommandUsage         Boolean @default(true) @map("analytics_guild_command_use")
+    shareGuildCommandUsageDetailed Boolean @default(true) @map("analytics_guild_command_use_detailed")
+    // Moderation Info Sharing
+    shareGuildBans                 Boolean @default(false) @map("analytics_guild_bans")
+    shareGuildBansDetailed         Boolean @default(false) @map("analytics_guild_bans_detailed")
+    shareGuildModeration           Boolean @default(false) @map("analytics_guild_moderation")
+    shareGuildModerationDetailed   Boolean @default(false) @map("analytics_guild_moderation_detailed")
+
+    // ~~~~~     Greeting Settings     ~~~~~ //
+    greetingWelcomeEnabled Boolean @default(false) @map("greeting_welcome_users")
+    greetingWelcomeChannel String? @map("greeting_welcome_channel")
+    greetingWelcomeMessage String? @map("greeting_welcome_message")
+    greetingGoodbyeEnabled Boolean @default(false) @map("greeting_dismiss_users")
+    greetingGoodbyeChannel String? @map("greeting_dismiss_channel")
+    greetingGoodbyeMessage String? @map("greeting_dismiss_message")
+
+    // Per-Command Settings
+    commands   GuildSettingsCommand[]
+    chatFilter GuildSettingsChatFilter?
+    infoLogs   GuildSettingsInfoLogs?
+    modActions GuildSettingsModActions?
+
+    @@map("guildSettings")
+}
+
+model GuildSettingsCommand {
+    id                      Int           @id @default(autoincrement())
+    guildID                 String        @map("guild_id")
+    guildSettings           GuildSettings @relation(fields: [guildID], references: [id])
+    name                    String        @map("command_name")
+    enabled                 Boolean       @map("command_enabled")
+    messageCommand          Boolean       @map("message_command_enabled")
+    slashCommand            Boolean       @map("slash_command_enabled")
+    contextCommand          Boolean       @map("context_command_enabled")
+    channelWhitelistEnabled Boolean       @map("channel_whitelist_enabled")
+    channelWhitelist        String[]      @map("channel_whitelist")
+    channelBlacklistEnabled Boolean       @map("channel_blacklist_enabled")
+    channelBlacklist        String[]      @map("channel_blacklist")
+    memberWhitelistEnabled  Boolean       @map("member_whitelist_enabled")
+    memberWhitelist         String[]      @map("member_whitelist")
+    memberBlacklistEnabled  Boolean       @map("member_blacklist_enabled")
+    memberBlacklist         String[]      @map("member_blacklist")
+    roleWhitelistEnabled    Boolean       @map("role_whitelist_enabled")
+    roleWhitelist           String[]      @map("role_whitelist")
+    roleBlacklistEnabled    Boolean       @map("role_blacklist_enabled")
+    roleBlacklist           String[]      @map("role_blacklist")
+    other                   Json?         @map("other")
+
+    @@map("guildCommandSettings")
+}
+
+// Message filters
+model GuildSettingsChatFilter {
+    id            String        @id @map("guild_id")
+    guildSettings GuildSettings @relation(fields: [id], references: [id])
+
+    antiInvite           Boolean @default(false) @map("filters_anti_invite")
+    antiInvitePunishment String? @map("filters_anti_invite_punishment")
+
+    modBypass            Boolean  @default(true) @map("filters_mod_bypass")
+    deleteOffending      Boolean  @default(true) @map("filters_delete_offending")
+    checkDisplayNames    Boolean  @default(true) @map("filters_check_display_names")
+    wordBlacklist        String[] @map("filters_word_blacklist")
+    inviteWhitelist      String[] @map("filters_invite_whitelist")
+    mentionSpamThreshold Int      @default(12) @map("filters_mention_spam_threshold")
+
+    @@map("guildChatFilterSettings")
+}
+
+model GuildSettingsInfoLogs {
+    id            String        @id @map("guild_id")
+    guildSettings GuildSettings @relation(fields: [id], references: [id])
+
+    // Log Channels
+    infoLogChannel String? @map("log_channel_info")
+
+    // Log Events
+    channelCreateLog             Boolean @default(false) @map("log_channel_create")
+    channelDeleteLog             Boolean @default(false) @map("log_channel_delete")
+    channelUpdateLog             Boolean @default(false) @map("log_channel_update")
+    emojiCreateLog               Boolean @default(false) @map("log_emoji_create")
+    emojiDeleteLog               Boolean @default(false) @map("log_emoji_delete")
+    emojiUpdateLog               Boolean @default(false) @map("log_emoji_update")
+    guildBotAddLog               Boolean @default(false) @map("log_guild_bot_add")
+    guildMemberAddLog            Boolean @default(true) @map("log_guild_member_join")
+    guildMemberRemoveLog         Boolean @default(true) @map("log_guild_member_leave")
+    guildMemberUpdateLog         Boolean @default(false) @map("log_guild_member_update")
+    guildUpdateLog               Boolean @default(false) @map("log_guild_update")
+    guildScheduledEventCreateLog Boolean @default(false) @map("log_guild_scheduled_event_create")
+    guildScheduledEventUpdateLog Boolean @default(false) @map("log_guild_scheduled_event_update")
+    guildScheduledEventDeleteLog Boolean @default(false) @map("log_guild_scheduled_event_delete")
+    inviteCreateLog              Boolean @default(false) @map("log_invite_create")
+    inviteDeleteLog              Boolean @default(false) @map("log_invite_delete")
+    messageDeleteLog             Boolean @default(false) @map("log_message_delete")
+    messageUpdateLog             Boolean @default(false) @map("log_message_update")
+    roleCreateLog                Boolean @default(false) @map("log_role_create")
+    roleDeleteLog                Boolean @default(false) @map("log_role_delete")
+    roleUpdateLog                Boolean @default(false) @map("log_role_update")
+    stageInstanceCreateLog       Boolean @default(false) @map("log_stage_instance_create")
+    stageInstanceDeleteLog       Boolean @default(false) @map("log_stage_instance_delete")
+    stageInstanceUpdateLog       Boolean @default(false) @map("log_stage_instance_update")
+    stickerCreateLog             Boolean @default(false) @map("log_sticker_create")
+    stickerDeleteLog             Boolean @default(false) @map("log_sticker_delete")
+    stickerUpdateLog             Boolean @default(false) @map("log_sticker_update")
+    threadCreateLog              Boolean @default(false) @map("log_thread_create")
+    threadDeleteLog              Boolean @default(false) @map("log_thread_delete")
+    threadUpdateLog              Boolean @default(false) @map("log_thread_update")
+    webhookCreateLog             Boolean @default(false) @map("log_webhook_create")
+    webhookDeleteLog             Boolean @default(false) @map("log_webhook_delete")
+    webhookUpdateLog             Boolean @default(false) @map("log_webhook_update")
+}
+
+model GuildSettingsModActions {
+    id            String        @id @map("guild_id")
+    guildSettings GuildSettings @relation(fields: [id], references: [id])
+
+    // Log Channels
+    modLogChannel       String? @map("log_channel_moderation")
+    modLogChannelPublic String? @map("log_channel_moderation_public")
+
+    // Ban Settings
+    banNotifyUser           Boolean @default(true) @map("ban_notify_user")
+    banLog                  Boolean @default(true) @map("ban_log")
+    banLogPublic            Boolean @default(false) @map("ban_log_public")
+    banAllowAppeal          Boolean @default(true) @map("ban_allow_appeal")
+    banPurgeMessages        Boolean @default(true) @map("ban_purge_enabled")
+    banPurgeMessagesSeconds Int     @default(86400) @map("ban_purge_seconds")
+
+    // UnBan Settings
+    unbanNotifyUser Boolean @default(true) @map("unban_notify_user")
+    unbanLog        Boolean @default(true) @map("unban_log")
+    unbanLogPublic  Boolean @default(false) @map("unban_log_public")
+
+    // Kick Settings
+    kickNotifyUser           Boolean @default(true) @map("kick_notify_user")
+    kickLog                  Boolean @default(true) @map("kick_log")
+    kickLogPublic            Boolean @default(false) @map("kick_log_public")
+    kickPurgeMessages        Boolean @default(true) @map("kick_purge_enabled")
+    kickPurgeMessagesSeconds Int     @default(86400) @map("kick_purge_seconds")
+
+    // Mute/Timeout Settings
+    muteNotifyUser           Boolean @default(true) @map("mute_notify_user")
+    muteLog                  Boolean @default(true) @map("mute_log")
+    muteLogPublic            Boolean @default(false) @map("mute_log_public")
+    muteAllowAppeal          Boolean @default(true) @map("mute_allow_appeal")
+    mutePurgeMessages        Boolean @default(true) @map("mute_purge_enabled")
+    mutePurgeMessagesSeconds Int     @default(86400) @map("mute_purge_seconds")
+
+    // UnMute/UnTimeout Settings
+    unmuteNotifyUser Boolean @default(true) @map("unmute_notify_user")
+    unmuteLog        Boolean @default(true) @map("unmute_log")
+    unmuteLogPublic  Boolean @default(false) @map("unmute_log_public")
+
+    // Purge/Prune Settings
+    purgeNotifyUser Boolean @default(true) @map("purge_notify_user")
+    purgeLog        Boolean @default(true) @map("purge_log")
+    purgeLogPublic  Boolean @default(false) @map("purge_log_public")
+
+    // VC Ban Settings
+    vcBanNotifyUser  Boolean @default(true) @map("vcban_notify_user")
+    vcBanLog         Boolean @default(true) @map("vcban_log")
+    vcBanLogPublic   Boolean @default(false) @map("vcban_log_public")
+    vcBanAllowAppeal Boolean @default(true) @map("vcban_allow_appeal")
+
+    // VC UnBan Settings
+    vcUnbanNotifyUser Boolean @default(true) @map("vcunban_notify_user")
+    vcUnbanLog        Boolean @default(true) @map("vcunban_log")
+    vcUnbanLogPublic  Boolean @default(false) @map("vcunban_log_public")
+
+    // VC Kick Settings
+    vcKickNotifyUser Boolean @default(true) @map("vckick_notify_user")
+    vcKickLog        Boolean @default(true) @map("vckick_log")
+    vcKickLogPublic  Boolean @default(false) @map("vckick_log_public")
+
+    // Anti-Invite Filter Settings
+    antiInviteNotifyUser   Boolean @default(true) @map("anti_invite_notify_user")
+    antiInviteLog          Boolean @default(true) @map("anti_invite_log")
+    antiInviteLogPublic    Boolean @default(false) @map("anti_invite_log_public")
+    antiInviteDelete       Boolean @default(true) @map("anti_invite_delete")
+    antiInviteBan          Boolean @default(false) @map("anti_invite_ban_user")
+    antiInviteKick         Boolean @default(false) @map("anti_invite_kick_user")
+    antiInviteMute         Boolean @default(false) @map("anti_invite_mute_user")
+    antiInviteMuteDuration Int?    @map("anti_invite_mute_user_duration")
+
+    // Mention Spam Filter Settings
+    mentionSpamNotifyUser   Boolean @default(true) @map("mention_spam_notify_user")
+    mentionSpamLog          Boolean @default(true) @map("mention_spam_log")
+    mentionSpamLogPublic    Boolean @default(false) @map("mention_spam_log_public")
+    mentionSpamDelete       Boolean @default(true) @map("mention_spam_delete")
+    mentionSpamBan          Boolean @default(false) @map("mention_spam_ban_user")
+    mentionSpamKick         Boolean @default(false) @map("mention_spam_kick_user")
+    mentionSpamMute         Boolean @default(false) @map("mention_spam_mute_user")
+    mentionSpamMuteDuration Int?    @map("mention_spam_mute_user_duration")
+
+    // Chat Filter Settings
+    filteredWordNotifyUser   Boolean @default(true) @map("filtered_word_notify_user")
+    filteredWordLog          Boolean @default(true) @map("filtered_word_log")
+    filteredWordLogPublic    Boolean @default(false) @map("filtered_word_log_public")
+    filteredWordDelete       Boolean @default(true) @map("filtered_word_delete")
+    filteredWordBan          Boolean @default(false) @map("filtered_word_ban_user")
+    filteredWordKick         Boolean @default(false) @map("filtered_word_kick_user")
+    filteredWordMute         Boolean @default(false) @map("filtered_word_mute_user")
+    filteredWordMuteDuration Int?    @map("filtered_word_mute_user_duration")
+
+    // Username/Nickname Filter Settings
+    filteredNameNotifyUser       Boolean  @default(true) @map("filtered_name_notify_user")
+    filteredNameLog              Boolean  @default(true) @map("filtered_name_log")
+    filteredNameLogPublic        Boolean  @default(false) @map("filtered_name_log_public")
+    filteredNameOverwrite        Boolean  @default(true) @map("filtered_name_overwrite")
+    filteredNameOverwriteOptions String[] @default(["Redacted"]) @map("filtered_name_overwrite_options")
+    filteredNameBan              Boolean  @default(false) @map("filtered_name_ban_user")
+    filteredNameKick             Boolean  @default(false) @map("filtered_name_kick_user")
+    filteredNameMute             Boolean  @default(false) @map("filtered_name_mute_user")
+    filteredNameMuteDuration     Int?     @map("filtered_name_mute_user_duration")
+
+    // Warning Settings
+    warnNotifyUser Boolean @default(true) @map("warn_notify_user")
+    warnLog        Boolean @default(true) @map("warn_log")
+    warnLogPublic  Boolean @default(false) @map("warn_log_public")
+
+    @@map("guildModActionSettings")
+}
+
+enum ModActionTypes {
+    BAN
+    UNBAN
+    KICK
+    MUTE
+    UNMUTE
+    PURGE
+    VCBAN
+    VCUNBAN
+    VCKICK
+    FILTER_ANTI_INVITE
+    FILTER_MENTION_SPAM
+    FILTER_CHAT
+    FILTER_USERNAME
+}
+
+model ModAction {
+    id      Int    @id @default(autoincrement())
+    guildID String @map("guild_id")
+    guild   Guild  @relation(references: [id], fields: [guildID])
+
+    type        ModActionTypes @map("action_type")
+    target      String         @map("target_id")
+    moderator   String         @map("moderator_id")
+    description String?        @map("description") /// @encrypted
+    duration    Int?           @map("duration_minutes")
+    silent      Boolean?       @default(false) @map("silent")
+
+    @@map("modActions")
+}
+
+// TODO: Starboard, pinboard, custom commands, autoresponder. Twitch?

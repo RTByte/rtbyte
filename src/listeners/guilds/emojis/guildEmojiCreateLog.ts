@@ -10,10 +10,10 @@ export class UserEvent extends Listener {
 	public async run(emoji: GuildEmoji) {
 		if (isNullish(emoji.id)) return;
 
-		const dbGuildLogs = await this.container.prisma.guildLogs.findUnique({ where: { guildId: emoji.guild.id }});
-		if (!dbGuildLogs?.logsEnabled || !dbGuildLogs.logChannel || !dbGuildLogs.emoji) return;
+		const guildSettingsInfoLogs = await this.container.prisma.guildSettingsInfoLogs.findUnique({ where: { id: emoji.guild.id } });
+		if (!guildSettingsInfoLogs?.emojiCreateLog || !guildSettingsInfoLogs.infoLogChannel) return;
 
-		const logChannel = emoji.guild.channels.resolve(dbGuildLogs.logChannel) as BaseGuildTextChannel;
+		const logChannel = emoji.guild.channels.resolve(guildSettingsInfoLogs.infoLogChannel) as BaseGuildTextChannel;
 		const executor = await getAuditLogExecutor(AuditLogEvent.EmojiCreate, emoji.guild);
 
 		return this.container.client.emit('guildLogCreate', logChannel, this.generateGuildLog(emoji, executor));

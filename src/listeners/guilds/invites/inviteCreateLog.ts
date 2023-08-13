@@ -10,12 +10,12 @@ export class UserEvent extends Listener {
 	public async run(invite: Invite) {
 		if (isNullish(invite.guild)) return;
 
-		const dbGuildLogs = await this.container.prisma.guildLogs.findUnique({ where: { guildId: invite.guild.id }});
-		if (!dbGuildLogs?.logsEnabled || !dbGuildLogs.logChannel || !dbGuildLogs.invites) return;
+		const guildSettingsInfoLogs = await this.container.prisma.guildSettingsInfoLogs.findUnique({ where: { id: invite.guild.id } });
+		if (!guildSettingsInfoLogs?.inviteCreateLog || !guildSettingsInfoLogs.infoLogChannel) return;
 
 		const guild = this.container.client.guilds.resolve(invite.guild.id);
 		const fetchedInvite = await guild?.invites.fetch({ code: invite.code });
-		const logChannel = guild?.channels.resolve(dbGuildLogs.logChannel) as BaseGuildTextChannel;
+		const logChannel = guild?.channels.resolve(guildSettingsInfoLogs.infoLogChannel) as BaseGuildTextChannel;
 		const executor = invite.inviter;
 
 		return this.container.client.emit('guildLogCreate', logChannel, this.generateGuildLog(fetchedInvite, guild, executor));
@@ -56,7 +56,7 @@ export class UserEvent extends Listener {
 		if (invite?.expiresTimestamp) embed.addFields({ name: 'Expires', value: `<t:${Math.round(invite.expiresTimestamp as number / 1000)}:R>`, inline: true });
 		if (invite?.maxUses) embed.addFields({ name: 'Uses', value: `${inlineCodeBlock(`${invite.uses}/${invite.maxUses}`)}`, inline: true });
 		if (invite?.guildScheduledEvent) embed.addFields({ name: 'Associated event', value: `[${inlineCodeBlock(`${invite.guildScheduledEvent.name}`)}](${invite.guildScheduledEvent.url})`, inline: true });
-	
+
 		const details = [];
 		if (invite?.temporary) details.push(`${Emojis.Bullet}${inlineCodeBlock(`Grants temporary membership`)}`);
 		if (details.length) embed.addFields({ name: 'Details', value: details.join('\n') });

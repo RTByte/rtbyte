@@ -8,6 +8,7 @@ import '@sapphire/plugin-logger/register';
 import { createColors } from 'colorette';
 import { inspect } from 'util';
 
+// TODO: Implement prisma-field-encryption
 const prisma = new PrismaClient();
 
 inspect.defaultOptions.depth = 1;

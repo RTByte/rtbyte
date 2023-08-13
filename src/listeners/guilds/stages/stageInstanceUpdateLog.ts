@@ -11,10 +11,10 @@ export class UserEvent extends Listener {
 	public async run(oldStage: StageInstance, stage: StageInstance) {
 		if (isNullish(stage.id)) return;
 
-		const dbGuildLogs = await this.container.prisma.guildLogs.findUnique({ where: { guildId: stage.guild?.id }});
-		if (!dbGuildLogs?.logsEnabled || !dbGuildLogs.logChannel || !dbGuildLogs.stages) return;
+		const guildSettingsInfoLogs = await this.container.prisma.guildSettingsInfoLogs.findUnique({ where: { id: stage.guild?.id } });
+		if (!guildSettingsInfoLogs?.stageInstanceUpdateLog || !guildSettingsInfoLogs.infoLogChannel) return;
 
-		const logChannel = stage.guild?.channels.resolve(dbGuildLogs.logChannel) as BaseGuildTextChannel;
+		const logChannel = stage.guild?.channels.resolve(guildSettingsInfoLogs.infoLogChannel) as BaseGuildTextChannel;
 		const executor = await getAuditLogExecutor(AuditLogEvent.RoleUpdate, stage.guild as Guild);
 
 		return this.container.client.emit('guildLogCreate', logChannel, this.generateGuildLog(oldStage, stage, executor));
@@ -32,7 +32,7 @@ export class UserEvent extends Listener {
 			.setType(Events.GuildRoleUpdate);
 
 		if (stage.guildScheduledEvent) embed.addFields({ name: 'Associated event', value: `[${inlineCodeBlock(`${stage.guildScheduledEvent.name}`)}](${stage.guildScheduledEvent.url})`, inline: true });
-		
+
 		const changes = [];
 		const privacyLevels = ['', 'Public', 'Members only']
 		if (oldStage.topic !== stage.topic) changes.push(`${Emojis.Bullet}**Topic**:\n${codeBlock(`${oldStage.topic}`)}to\n${codeBlock(`${stage.topic}`)}`);

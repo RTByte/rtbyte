@@ -10,15 +10,15 @@ export class UserEvent extends Listener {
 		if (isNullish(member.id)) return;
 		if (member.user.bot) return;
 
-		const dbGuildLogs = await this.container.prisma.guildLogs.findUnique({ where: { guildId: member.guild.id }});
-		if (!dbGuildLogs?.logsEnabled || !dbGuildLogs.logChannel || !dbGuildLogs.members) return;
+		const guildSettingsInfoLogs = await this.container.prisma.guildSettingsInfoLogs.findUnique({ where: { id: member.guild.id } });
+		if (!guildSettingsInfoLogs?.guildMemberAddLog || !guildSettingsInfoLogs.infoLogChannel) return;
 
-		const logChannel = member.guild.channels.resolve(dbGuildLogs.logChannel) as BaseGuildTextChannel;
+		const logChannel = member.guild.channels.resolve(guildSettingsInfoLogs.infoLogChannel) as BaseGuildTextChannel;
 
 		return this.container.client.emit('guildLogCreate', logChannel, (await this.generateGuildLog(member)));
 	}
 
-	private async generateGuildLog(member: GuildMember) {
+	private generateGuildLog(member: GuildMember) {
 		const embed = new GuildLogEmbed()
 			.setAuthor({
 				name: member.user.username,
@@ -29,12 +29,8 @@ export class UserEvent extends Listener {
 			.addFields({ name: 'Registered', value: `<t:${Math.round(member?.user.createdTimestamp as number / 1000)}:R>`, inline: true })
 			.setFooter({ text: 'User joined' })
 			.setType(Events.GuildMemberAdd);
-
-		const dbMember = await this.container.prisma.member.findFirst({ where: { user: { id: member.user.id }}, include: { user: true } });
-		const previousUsernames = dbMember?.user.previousUsernames.filter(name => name !== member.user.username).map(name => inlineCodeBlock(name)).join(' ');
-		if (dbMember && dbMember?.timesJoined > 1) embed.addFields({ name: 'Times joined', value: inlineCodeBlock(`${dbMember.timesJoined}`), inline: true });
-		if (dbMember && previousUsernames) embed.addFields({ name: 'Previous usernames', value: previousUsernames });
-
+		// TODO Track previous times users have joined/left server
+		// TODO Track previous usernames/nicknames users have had while on this server
 		return [embed]
 	}
 }

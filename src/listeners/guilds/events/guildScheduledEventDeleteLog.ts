@@ -10,10 +10,10 @@ export class UserEvent extends Listener {
 	public async run(event: GuildScheduledEvent) {
 		if (isNullish(event.id)) return;
 
-		const dbGuildLogs = await this.container.prisma.guildLogs.findUnique({ where: { guildId: event.guild?.id }});
-		if (!dbGuildLogs?.logsEnabled || !dbGuildLogs.logChannel || !dbGuildLogs.events) return;
+		const guildSettingsInfoLogs = await this.container.prisma.guildSettingsInfoLogs.findUnique({ where: { id: event.guild?.id } });
+		if (!guildSettingsInfoLogs?.guildScheduledEventDeleteLog || !guildSettingsInfoLogs.infoLogChannel) return;
 
-		const logChannel = event.guild?.channels.resolve(dbGuildLogs.logChannel) as BaseGuildTextChannel;
+		const logChannel = event.guild?.channels.resolve(guildSettingsInfoLogs.infoLogChannel) as BaseGuildTextChannel;
 		const executor = await getAuditLogExecutor(AuditLogEvent.GuildScheduledEventCreate, event.guild as Guild);
 
 		return this.container.client.emit('guildLogCreate', logChannel, this.generateGuildLog(event, executor));
@@ -34,7 +34,7 @@ export class UserEvent extends Listener {
 		if (event.entityMetadata?.location) embed.addFields({ name: 'Location', value: event.entityMetadata.location, inline: true });
 		if (event.scheduledStartTimestamp) embed.addFields({ name: 'Scheduled to start', value: `<t:${Math.round(event.scheduledStartTimestamp as number / 1000)}:R>`, inline: true });
 		if (event.scheduledEndTimestamp) embed.addFields({ name: 'Scheduled to end', value: `<t:${Math.round(event.scheduledEndTimestamp as number / 1000)}:R>`, inline: true });
-		if (event.userCount) embed.addFields({ name: 'Interested users', value: inlineCodeBlock(`${event.userCount}`)});
+		if (event.userCount) embed.addFields({ name: 'Interested users', value: inlineCodeBlock(`${event.userCount}`) });
 		if (event.image) embed.setImage(event.coverImageURL());
 
 		return [embed]

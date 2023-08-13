@@ -16,7 +16,9 @@
 	"scripts": {
 		"build": "tsc -b src",
 		"dev": "npm run build && npm run start",
-		"start": "node --enable-source-maps dist/RTByte.js"
+		"start": "node --enable-source-maps dist/RTByte.js",
+		"prisma-build": "npx prisma generate",
+		"prisma-migrate": "npx prisma migrate dev --name init"
 	},
 	"imports": {
 		"#root/*": "./dist/*.js",
@@ -35,6 +37,7 @@
 		"colorette": "^2.0.20",
 		"discord-api-types": "^0.37.46",
 		"discord.js": "^14.11.0",
+		"dotenv": "^16.3.1",
 		"reflect-metadata": "^0.1.13"
 	},
 	"devDependencies": {

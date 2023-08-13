@@ -8,18 +8,18 @@ import { DurationFormatter } from '@sapphire/time-utilities';
 import { codeBlock, inlineCodeBlock, isNullish } from '@sapphire/utilities';
 import { AuditLogEvent, BaseGuildTextChannel, Guild, GuildFeature, User } from 'discord.js';
 
-@ApplyOptions<ListenerOptions>({ event: Events.GuildUpdate})
+@ApplyOptions<ListenerOptions>({ event: Events.GuildUpdate })
 export class UserEvent extends Listener {
 	public async run(oldGuild: Guild, guild: Guild) {
 		if (isNullish(guild.id)) return;
 
-		const dbGuildLogs = await this.container.prisma.guildLogs.findUnique({ where: { guildId: guild.id }});
-		if (!dbGuildLogs?.logsEnabled || !dbGuildLogs.logChannel || !dbGuildLogs.channels) return;
+		const guildSettingsInfoLogs = await this.container.prisma.guildSettingsInfoLogs.findUnique({ where: { id: guild.id } });
+		if (!guildSettingsInfoLogs?.guildUpdateLog || !guildSettingsInfoLogs?.infoLogChannel) return;
 
-		const logChannel = guild.channels.resolve(dbGuildLogs.logChannel) as BaseGuildTextChannel;
+		const infoLogChannel = guild.channels.resolve(guildSettingsInfoLogs.infoLogChannel) as BaseGuildTextChannel;
 		const executor = await getAuditLogExecutor(AuditLogEvent.GuildUpdate, guild);
 
-		return this.container.client.emit('guildLogCreate', logChannel, this.generateGuildLog(oldGuild, guild, executor));
+		return this.container.client.emit('guildLogCreate', infoLogChannel, this.generateGuildLog(oldGuild, guild, executor));
 	}
 
 	private generateGuildLog(oldGuild: Guild, guild: Guild, executor: User | null | undefined) {
@@ -32,7 +32,7 @@ export class UserEvent extends Listener {
 			.setDescription(inlineCodeBlock(guild.id))
 			.setFooter({ text: `Server updated ${isNullish(executor) ? '' : `by ${executor.username}`}`, iconURL: isNullish(executor) ? undefined : executor?.displayAvatarURL() })
 			.setType(Events.GuildUpdate);
-		
+
 		const changes = [];
 		if (oldGuild.name !== guild.name) changes.push(`${Emojis.Bullet}**Name**: ${inlineCodeBlock(`${oldGuild.name}`)} to ${inlineCodeBlock(`${guild.name}`)}`);
 		if (oldGuild.afkChannel !== guild.afkChannel) changes.push(`${Emojis.Bullet}**Inactive channel**: ${oldGuild.afkChannelId ? `<#${oldGuild.afkChannelId}>` : inlineCodeBlock('No inactive channel')} to ${guild.afkChannelId ? `<#${guild.afkChannelId}>` : inlineCodeBlock('No inactive channel')}`);
