@@ -1,3 +1,7 @@
+/*
+
+Temporarily disabing this listener while I evaluate whether it's redundant now that we have #util/functions/initialize/initializeMember()
+
 import { ApplyOptions } from '@sapphire/decorators';
 import { Listener, type ListenerOptions } from '@sapphire/framework';
 import { bold, gray } from 'colorette';
@@ -34,3 +38,4 @@ export class UserEvent extends Listener {
 		return this.container.logger.info(`Verified initialization of member ${bold(user.username)} (${gray(user.id)}) for ${bold(guild.name)} (${gray(guild.id)})`);
 	}
 }
+*/
