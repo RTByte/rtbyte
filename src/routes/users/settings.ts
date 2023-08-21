@@ -25,7 +25,7 @@ export class UserRoute extends Route {
 		const { prisma } = this.container;
 		const userSettings = await prisma.userSettings.findFirst({ where: { id: request.params.id } });
 
-		return response.json({ userSettings });
+		return response.json({ data: { userSettings } });
 	}
 
 	@authenticated()
@@ -36,7 +36,7 @@ export class UserRoute extends Route {
 
 		// Get the settings submitted to us from the client
 		const body = request.body as any;
-		const submittedSettings: any = body.userSettings as object;
+		const submittedSettings: any = body.data.userSettings as object;
 
 		// Unauthorized if trying to update settings that aren't your own
 		if (requestAuth.id !== submittedSettings?.id) return response.error(HttpCodes.Unauthorized);
@@ -57,6 +57,6 @@ export class UserRoute extends Route {
 
 		const updatedSettings = await prisma.userSettings.update({ where: { id: submittedSettings.id }, data: updateSettings });
 
-		response.json({ userSettings: updatedSettings });
+		response.json({ data: { userSettings: updatedSettings } });
 	}
 }
