@@ -8,7 +8,7 @@ export async function initializeGuild(guild: Guild) {
 
 	if (clientSettings?.guildBlacklist.includes(guild.id)) {
 		await guild.leave();
-		logger.info(`Guild ${bold(guild.name)} (${gray(guild.id)}) is on the guild blacklist, leaving...`);
+		logger.debug(`Guild ${bold(guild.name)} (${gray(guild.id)}) is on the guild blacklist, leaving...`);
 	}
 
 	// Check if entry exists for guild. If not, create it
@@ -19,7 +19,7 @@ export async function initializeGuild(guild: Guild) {
 	const guildSettingsModActions = await prisma.guildSettingsModActions.findUnique({ where: { id: guild.id } });
 
 	if (!guildInfo || !guildSettings || !guildSettingsChatFilter || !guildSettingsLogs || !guildSettingsModActions) {
-		logger.info(`Initializing guild ${bold(guild.name)} (${gray(guild.id)})...`)
+		logger.debug(`Initializing guild ${bold(guild.name)} (${gray(guild.id)})...`)
 
 		if (!guildInfo) {
 			await prisma.guild.create({
@@ -78,7 +78,7 @@ export async function initializeGuild(guild: Guild) {
 
 	}
 
-	logger.info(`Verified initialization of guild ${bold(guild.name)} (${gray(guild.id)})`);
+	logger.debug(`Verified initialization of guild ${bold(guild.name)} (${gray(guild.id)})`);
 }
 
 export async function initializeUser(user?: User, userID?: string) {
@@ -91,9 +91,9 @@ export async function initializeUser(user?: User, userID?: string) {
 
 	if (user || !userID) userID = user?.id;
 
-	logger.info(`Initializing user ${user ? bold(user.username) : '...'} (${gray(userID!)})...`);
+	logger.debug(`Initializing user ${user ? bold(user.username) : '...'} (${gray(userID!)})...`);
 
-	if (clientSettings?.userBlacklist.includes(userID!)) logger.info(`User ${user ? bold(user.username) : '...'} (${gray(userID!)}) is on the user blacklist...`);
+	if (clientSettings?.userBlacklist.includes(userID!)) logger.debug(`User ${user ? bold(user.username) : '...'} (${gray(userID!)}) is on the user blacklist...`);
 
 	const userInfo = await prisma.user.findUnique({ where: { id: userID } });
 	const userSettings = await prisma.userSettings.findUnique({ where: { id: userID } });
@@ -120,31 +120,31 @@ export async function initializeUser(user?: User, userID?: string) {
 		});
 	}
 
-	return logger.info(`Verified initialization of user ${user ? bold(user.username) : '...'} (${gray(userID!)})`);
+	return logger.debug(`Verified initialization of user ${user ? bold(user.username) : '...'} (${gray(userID!)})`);
 }
 
 export async function initializeMember(user: User, guild: Guild) {
-	await initializeUser(user);
 	const { logger, prisma } = container;
+	await initializeUser(user);
 	const clientSettings = await prisma.clientSettings.findFirst();
 
-	logger.info(`Initializing member ${bold(user.username)} (${gray(user.id)}) in guild ${bold(guild.name)} (${gray(guild.id)})...`);
+	logger.debug(`Initializing member ${bold(user.username)} (${gray(user.id)}) in guild ${bold(guild.name)} (${gray(guild.id)})...`);
 
-	if (clientSettings?.userBlacklist.includes(user.id)) logger.info(`User ${bold(user.username)} (${gray(user.id)}) is on the user blacklist...`);
+	if (clientSettings?.userBlacklist.includes(user.id)) logger.debug(`User ${bold(user.username)} (${gray(user.id)}) is on the user blacklist...`);
 
 	const memberInfo = await prisma.member.findFirst({ where: { userID: user.id, guildID: guild.id } });
 
 	if (!memberInfo) {
 		await prisma.member.create({
 			data: {
-				userID: user.id,
-				guildID: guild.id
+				userID: `${user.id}`,
+				guildID: `${guild.id}`
 			}
 		}).catch(e => {
 			logger.error(`Failed to initialize member info for ${bold(user.username)} (${gray(user.id)}) in guild ${bold(guild.name)} (${gray(guild.id)}), error below.`);
-			logger.error(e);
+			return logger.error(e);
 		});
 	}
 
-	return logger.info(`Verified initialization of member ${bold(user.username)} (${gray(user.id)}) in guild ${bold(guild.name)} (${gray(guild.id)})`);
+	return logger.debug(`Verified initialization of member ${bold(user.username)} (${gray(user.id)}) in guild ${bold(guild.name)} (${gray(guild.id)})`);
 }

@@ -37,9 +37,9 @@ model Guild {
 model Member {
     id      Int    @id @default(autoincrement())
     userID  String @map("user_id")
-    user    User   @relation(fields: [userID], references: [id])
     guildID String @map("guild_id")
-    guild   Guild  @relation(fields: [guildID], references: [id])
+    user    User   @relation(fields: [userID], references: [id], onUpdate: Cascade)
+    guild   Guild  @relation(fields: [guildID], references: [id], onUpdate: Cascade)
 
     joinTimes  DateTime[] @map("join_times")
     leaveTimes DateTime[] @map("leave_times")
@@ -52,7 +52,7 @@ model Member {
 
 model UserSettings {
     id                   String  @id @map("user_id")
-    user                 User    @relation(fields: [id], references: [id])
+    user                 User    @relation(fields: [id], references: [id], onUpdate: Cascade)
     chatLanguage         String  @default("en-US")
     chatMeasurementUnits String  @default("imperial") @map("measurement_units")
     // Data Opt-Out
@@ -64,7 +64,7 @@ model UserSettings {
 model GuildSettings {
     // Info
     id    String @id @map("guild_id")
-    guild Guild  @relation(fields: [id], references: [id])
+    guild Guild  @relation(fields: [id], references: [id], onUpdate: Cascade)
 
     // ~~~~~     General Server Settings     ~~~~~ //
     messageCommandPrefix String @default("-")
@@ -102,7 +102,7 @@ model GuildSettings {
 model GuildSettingsCommand {
     id                      Int           @id @default(autoincrement())
     guildID                 String        @map("guild_id")
-    guildSettings           GuildSettings @relation(fields: [guildID], references: [id])
+    guildSettings           GuildSettings @relation(fields: [guildID], references: [id], onUpdate: Cascade)
     name                    String        @map("command_name")
     enabled                 Boolean       @map("command_enabled")
     messageCommand          Boolean       @map("message_command_enabled")
@@ -128,7 +128,7 @@ model GuildSettingsCommand {
 // Message filters
 model GuildSettingsChatFilter {
     id            String        @id @map("guild_id")
-    guildSettings GuildSettings @relation(fields: [id], references: [id])
+    guildSettings GuildSettings @relation(fields: [id], references: [id], onUpdate: Cascade)
 
     antiInvite           Boolean @default(false) @map("filters_anti_invite")
     antiInvitePunishment String? @map("filters_anti_invite_punishment")
@@ -145,7 +145,7 @@ model GuildSettingsChatFilter {
 
 model GuildSettingsInfoLogs {
     id            String        @id @map("guild_id")
-    guildSettings GuildSettings @relation(fields: [id], references: [id])
+    guildSettings GuildSettings @relation(fields: [id], references: [id], onUpdate: Cascade)
 
     // Log Channels
     infoLogChannel String? @map("log_channel_info")
@@ -190,7 +190,7 @@ model GuildSettingsInfoLogs {
 
 model GuildSettingsModActions {
     id            String        @id @map("guild_id")
-    guildSettings GuildSettings @relation(fields: [id], references: [id])
+    guildSettings GuildSettings @relation(fields: [id], references: [id], onUpdate: Cascade)
 
     // Log Channels
     modLogChannel       String? @map("log_channel_moderation")
@@ -318,7 +318,7 @@ enum ModActionTypes {
 model ModAction {
     id      Int    @id @default(autoincrement())
     guildID String @map("guild_id")
-    guild   Guild  @relation(references: [id], fields: [guildID])
+    guild   Guild  @relation(fields: [guildID], references: [id], onUpdate: Cascade)
 
     type        ModActionTypes @map("action_type")
     target      String         @map("target_id")
