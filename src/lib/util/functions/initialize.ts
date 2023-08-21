@@ -81,24 +81,30 @@ export async function initializeGuild(guild: Guild) {
 	logger.info(`Verified initialization of guild ${bold(guild.name)} (${gray(guild.id)})`);
 }
 
-export async function initializeUser(user: User) {
+export async function initializeUser(user?: User, userID?: string) {
 	const { logger, prisma } = container;
+	if (!user && !userID) {
+		throw logger.error(`Failed to initialize user info. No user identifier specified.`);
+	}
+
 	const clientSettings = await prisma.clientSettings.findFirst();
 
-	logger.info(`Initializing user ${bold(user.username)} (${gray(user.id)})...`);
+	if (user || !userID) userID = user?.id;
 
-	if (clientSettings?.userBlacklist.includes(user.id)) logger.info(`User ${bold(user.username)} (${gray(user.id)}) is on the user blacklist...`);
+	logger.info(`Initializing user ${user ? bold(user.username) : '...'} (${gray(userID!)})...`);
 
-	const userInfo = await prisma.user.findUnique({ where: { id: user.id } });
-	const userSettings = await prisma.userSettings.findUnique({ where: { id: user.id } });
+	if (clientSettings?.userBlacklist.includes(userID!)) logger.info(`User ${user ? bold(user.username) : '...'} (${gray(userID!)}) is on the user blacklist...`);
+
+	const userInfo = await prisma.user.findUnique({ where: { id: userID } });
+	const userSettings = await prisma.userSettings.findUnique({ where: { id: userID } });
 
 	if (!userInfo) {
 		await prisma.user.create({
 			data: {
-				id: user.id
+				id: userID!
 			}
 		}).catch(e => {
-			logger.error(`Failed to initialize user info for ${bold(user.username)} (${gray(user.id)}), error below.`);
+			logger.error(`Failed to initialize user info for ${user ? bold(user.username) : '...'} (${gray(userID!)}), error below.`);
 			logger.error(e);
 		});
 	}
@@ -106,15 +112,15 @@ export async function initializeUser(user: User) {
 	if (!userSettings) {
 		await prisma.userSettings.create({
 			data: {
-				id: user.id
+				id: userID!
 			}
 		}).catch(e => {
-			logger.error(`Failed to initialize user settings for ${bold(user.username)} (${gray(user.id)}), error below.`);
+			logger.error(`Failed to initialize user settings for ${user ? bold(user.username) : '...'} (${gray(userID!)}), error below.`);
 			logger.error(e);
 		});
 	}
 
-	return logger.info(`Verified initialization of user ${bold(user.username)} (${gray(user.id)})`);
+	return logger.info(`Verified initialization of user ${user ? bold(user.username) : '...'} (${gray(userID!)})`);
 }
 
 export async function initializeMember(user: User, guild: Guild) {
