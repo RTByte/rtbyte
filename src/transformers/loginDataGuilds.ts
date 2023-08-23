@@ -6,14 +6,12 @@ interface TransformedLoginData extends LoginData {
 	transformedGuilds?: (RESTAPIPartialCurrentUserGuild & { botInGuild: boolean })[] | null;
 }
 
-export function transformOauthGuilds(loginData: LoginData): TransformedLoginData {
+export function transformLoginDataGuilds(loginData: LoginData): TransformedLoginData {
 	const { client } = container;
 
 	const transformedGuilds = loginData.guilds?.map((guild) => {
 		const cachedGuild = client.guilds.cache.get(guild.id);
 		const canManageServer: boolean = guild.owner || ((parseInt(guild.permissions, 10) & 0x20) !== 0) || ((parseInt(guild.permissions, 10) & 0x8) !== 0);
-
-
 
 		return {
 			...guild,
@@ -22,5 +20,6 @@ export function transformOauthGuilds(loginData: LoginData): TransformedLoginData
 		};
 	});
 
-	return { ...loginData, transformedGuilds };
+	loginData.guilds = transformedGuilds;
+	return { ...loginData };
 }
