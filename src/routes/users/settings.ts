@@ -38,8 +38,8 @@ export class UserRoute extends Route {
 		const body = request.body as any;
 		const submittedSettings: any = body.data.userSettings as object;
 
-		// Unauthorized if trying to update settings that aren't your own
-		if (requestAuth.id !== submittedSettings?.id) return response.error(HttpCodes.Unauthorized);
+		// Bad Request if URL Params ID doesn't match submitted settings ID
+		if (request.params.id !== submittedSettings.id) response.error(HttpCodes.BadRequest);
 
 		// Fetch current user settings
 		const { prisma, client } = this.container;

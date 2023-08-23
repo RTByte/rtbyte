@@ -56,6 +56,9 @@ export class UserRoute extends Route {
 		const body = request.body as any;
 		const submittedSettings: any = body.data.guildSettingsInfoLogs as object;
 
+		// Bad Request if URL Params ID doesn't match submitted settings ID
+		if (request.params.id !== submittedSettings.id) response.error(HttpCodes.BadRequest);
+
 		// Fetch current guild settings
 		let guildSettingsInfoLogs = await prisma.guildSettingsInfoLogs.findFirst({ where: { id: submittedSettings.id } });
 
