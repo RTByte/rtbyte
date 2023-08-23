@@ -11,6 +11,11 @@ export async function initializeGuild(guild: Guild) {
 		logger.debug(`Guild ${bold(guild.name)} (${gray(guild.id)}) is on the guild blacklist, leaving...`);
 	}
 
+	if (clientSettings?.userBlacklist.includes(guild.ownerId)) {
+		await guild.leave();
+		logger.debug(`Guild ${bold(guild.name)} (${gray(guild.id)}) is owned by user (${guild.ownerId}) on global blacklist, leaving...`);
+	}
+
 	// Check if entry exists for guild. If not, create it
 	const guildInfo = await prisma.guild.findUnique({ where: { id: guild.id } });
 	const guildSettings = await prisma.guildSettings.findUnique({ where: { id: guild.id } });
