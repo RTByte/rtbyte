@@ -134,11 +134,16 @@ export async function initializeMember(user: User, guild: Guild) {
 
 	const memberInfo = await prisma.member.findFirst({ where: { userID: user.id, guildID: guild.id } });
 
+	const member = await guild.members.fetch(user.id);
+
 	if (!memberInfo) {
+		const joinTimes: Date[] = [];
+		if (member && member.joinedAt) joinTimes.push(member.joinedAt);
 		await prisma.member.create({
 			data: {
 				userID: `${user.id}`,
-				guildID: `${guild.id}`
+				guildID: `${guild.id}`,
+				joinTimes
 			}
 		}).catch(e => {
 			logger.error(`Failed to initialize member info for ${bold(user.username)} (${gray(user.id)}) in guild ${bold(guild.name)} (${gray(guild.id)}), error below.`);
