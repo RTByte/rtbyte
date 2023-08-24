@@ -3,6 +3,7 @@
 	"description": "An open-source modular multipurpose Discord bot built on the incredible Sapphire framework for discord.js",
 	"version": "2.1.0",
 	"main": "./dist/RTByte.js",
+	"type": "module",
 	"author": "The RTByte Team <developers@rtbyte.xyz> (https://rtbyte.xyz)",
 	"contributors": [
 		"Rasmus Gerdin <rasmus@rtbyte.xyz> (https://rasmusgerdin.com)",

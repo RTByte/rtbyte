@@ -7,14 +7,25 @@
 		"tsBuildInfoFile": "../dist/.tsbuildinfo",
 		"ignoreDeprecations": "5.0",
 		"experimentalDecorators": true,
-		"moduleResolution": "node",
+		"moduleResolution": "Node16",
 		"paths": {
-			"#root/*": ["*"],
-			"#lib/*": ["lib/*"],
-			"#utils/*": ["lib/util/*"]
+			"#root/*": [
+				"*"
+			],
+			"#lib/*": [
+				"lib/*"
+			],
+			"#utils/*": [
+				"lib/util/*"
+			]
 		},
 		"composite": true,
 	},
-	"include": [".", "**/*.json"],
-	"exclude": ["tsconfig.json"]
+	"include": [
+		".",
+		"**/*.json"
+	],
+	"exclude": [
+		"tsconfig.json"
+	]
 }
