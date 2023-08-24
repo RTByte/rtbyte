@@ -50,13 +50,49 @@ model Member {
     @@map("members")
 }
 
+enum MeasurementSystem {
+    IMPERIAL
+    METRIC
+}
+
+enum LanguageTag {
+    bg_BG
+    cs_CZ
+    da_DK
+    de_DE
+    el_GR
+    en_GB
+    en_US
+    fi_FL
+    fr_FR
+    hi_IN
+    hr_HR
+    hu_HU
+    it_IT
+    ja_JP
+    ko_KR
+    lt_LT
+    nb_NO
+    nl_NL
+    pl_PL
+    pt_BR
+    ro_RO
+    ru_RU
+    sv_SE
+    th_TH
+    tr_TR
+    uk_UA
+    vi_VN
+    zh_CN
+}
+
 model UserSettings {
-    id                   String  @id @map("user_id")
-    user                 User    @relation(fields: [id], references: [id], onUpdate: Cascade)
-    chatLanguage         String  @default("en-US")
-    chatMeasurementUnits String  @default("imperial") @map("measurement_units")
+    id                   String             @id @map("user_id")
+    user                 User               @relation(fields: [id], references: [id], onUpdate: Cascade)
+    chatLanguage         LanguageTag?       @default(en_US) @map("language")
+    chatMeasurementUnits MeasurementSystem? @default(IMPERIAL) @map("measurement_units")
     // Data Opt-Out
-    disableBot           Boolean @default(false) @map("bot_disabled")
+    disableBot           Boolean            @default(false) @map("bot_disabled")
 
     @@map("userSettings")
 }
@@ -67,9 +103,9 @@ model GuildSettings {
     guild Guild  @relation(fields: [id], references: [id], onUpdate: Cascade)
 
     // ~~~~~     General Server Settings     ~~~~~ //
-    messageCommandPrefix String @default("-")
-    chatLanguage         String @default("en-US")
-    chatMeasurementUnits String @default("imperial") @map("measurement_units")
+    messageCommandPrefix String            @default("-") @map("command_prefix")
+    chatLanguage         LanguageTag       @default(en_US) @map("language")
+    chatMeasurementUnits MeasurementSystem @default(IMPERIAL) @map("measurement_units")
 
     // ~~~~~     Analytics Settings     ~~~~~ //
     shareGuildInfo                 Boolean @default(true) @map("analytics_guild_info")
@@ -299,7 +335,7 @@ model GuildSettingsModActions {
     @@map("guildModActionSettings")
 }
 
-enum ModActionTypes {
+enum ModActionType {
     BAN
     UNBAN
     KICK
@@ -320,12 +356,12 @@ model ModAction {
     guildID String @map("guild_id")
     guild   Guild  @relation(fields: [guildID], references: [id], onUpdate: Cascade)
 
-    type        ModActionTypes @map("action_type")
-    target      String         @map("target_id")
-    moderator   String         @map("moderator_id")
-    description String?        @map("description") /// @encrypted
-    duration    Int?           @map("duration_minutes")
-    silent      Boolean?       @default(false) @map("silent")
+    type        ModActionType @map("action_type")
+    target      String        @map("target_id")
+    moderator   String        @map("moderator_id")
+    description String?       @map("description") /// @encrypted
+    duration    Int?          @map("duration_minutes")
+    silent      Boolean?      @default(false) @map("silent")
 
     @@map("modActions")
 }
