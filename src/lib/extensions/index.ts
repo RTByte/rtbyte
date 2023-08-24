@@ -1,2 +1,3 @@
-export * from './RTByteCommand.js';
-export * from './RTByteEmbed.js';
+export * from '#lib/extensions/RTByteCommand';
+export * from '#lib/extensions/RTByteEmbed';
+
