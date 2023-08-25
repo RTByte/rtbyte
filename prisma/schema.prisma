@@ -351,13 +351,13 @@ enum ModActionType {
 }
 
 model ModAction {
-    id      Int    @id @default(autoincrement())
-    guildID String @map("guild_id")
-    guild   Guild  @relation(fields: [guildID], references: [id], onUpdate: Cascade)
-
+    id          Int           @id @default(autoincrement())
+    guildID     String        @map("guild_id")
+    guild       Guild         @relation(fields: [guildID], references: [id], onUpdate: Cascade)
     type        ModActionType @map("action_type")
     target      String        @map("target_id")
     moderator   String        @map("moderator_id")
+    timestamp   DateTime      @map("timestamp")
     description String?       @map("description") /// @encrypted
     duration    Int?          @map("duration_minutes")
     silent      Boolean?      @default(false) @map("silent")
