@@ -33,7 +33,13 @@ export class UserRoute extends Route {
 
 		// Fetch the GuildSettings from the database
 		const { prisma } = this.container;
-		const guildSettings = await prisma.guildSettings.findFirst({ where: { id: request.params.id } });
+		let guildSettings = await prisma.guildSettings.findFirst({ where: { id: request.params.id } });
+
+		// Initialize guild if it hasn't been initialized yet
+		if (!guildSettings) {
+			await initializeGuild(guild);
+			guildSettings = await prisma.guildSettings.findFirst({ where: { id: request.params.id } });
+		}
 
 		return response.json({ data: { guildSettings } });
 	}

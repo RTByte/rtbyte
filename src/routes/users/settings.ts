@@ -22,8 +22,14 @@ export class UserRoute extends Route {
 		// Unauthorized for fetching any UserSettings except your own
 		if (requestAuth.id !== request.params.id) return response.error(HttpCodes.Unauthorized);
 
-		const { prisma } = this.container;
-		const userSettings = await prisma.userSettings.findFirst({ where: { id: request.params.id } });
+		// Fetch current user settings
+		const { prisma, client } = this.container;
+		let userSettings = await prisma.userSettings.findFirst({ where: { id: request.params.id } });
+
+		if (!userSettings) {
+			await initializeUser(await client.users.fetch(requestAuth.id), requestAuth.id);
+			userSettings = await prisma.userSettings.findFirst({ where: { id: request.params.id } });
+		}
 
 		return response.json({ data: { userSettings } });
 	}
