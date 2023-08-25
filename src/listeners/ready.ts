@@ -1,5 +1,5 @@
-import { CONTROL_GUILD, DEV, INIT_ALL_USERS, TOKENS, VERSION } from '#root/config';
-import { initializeGuild, initializeUser } from '#root/lib/util/functions/initialize';
+import { CONTROL_GUILD, DEV, INIT_ALL_MEMBERS, INIT_ALL_USERS, TOKENS, VERSION } from '#root/config';
+import { initializeGuild, initializeMember, initializeUser } from '#root/lib/util/functions/initialize';
 import type { ListenerOptions, PieceContext } from '@sapphire/framework';
 import { Listener, Store } from '@sapphire/framework';
 import { bgRed, blue, gray, green, red, whiteBright, yellow } from 'colorette';
@@ -21,6 +21,7 @@ export class UserEvent extends Listener {
 		await this.clientValidation();
 		await this.guildValidation();
 		if (INIT_ALL_USERS) await this.userValidation();
+		if (INIT_ALL_MEMBERS) await this.memberValidation();
 	}
 
 	private printBanner() {
@@ -113,13 +114,30 @@ ${line09} ${pad}[${success}] Gateway ${connectionPad}[${success}] Prisma ${conne
 	private async userValidation() {
 		const { client, logger } = this.container;
 
-		logger.info('Starting guild validation...');
+		logger.info('Starting user validation...');
 
 		for (const userCollection of client.users.cache) {
 			const user = userCollection[1];
 			await initializeUser(user);
 		}
 
-		logger.info('All guilds validated!');
+		logger.info('All users validated!');
+	}
+
+	private async memberValidation() {
+		const { client, logger } = this.container;
+
+		logger.info('Starting member validation...');
+
+		for (const guildCollection of client.guilds.cache) {
+			const guild = guildCollection[1];
+
+			for (const memberCollection of guild.members.cache) {
+				const member = memberCollection[1];
+				await initializeMember(member.user, guild);
+			}
+		}
+
+		logger.info('All members validated!');
 	}
 }
