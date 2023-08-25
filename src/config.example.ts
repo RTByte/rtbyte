@@ -8,6 +8,7 @@ export const CONTROL_GUILD = '';
 export const OWNERS: string[] = [''];
 export const PREFIX = '=';
 export const VERSION = '0.0.0';
+export const INIT_ALL_USERS = false;
 
 export const CLIENT_OPTIONS: ClientOptions = {
 	caseInsensitiveCommands: true,
