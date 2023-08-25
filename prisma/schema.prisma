@@ -89,8 +89,8 @@ enum LanguageTag {
 model UserSettings {
     id                   String             @id @map("user_id")
     user                 User               @relation(fields: [id], references: [id], onUpdate: Cascade)
-    chatLanguage         LanguageTag?       @default(en_US) @map("language")
-    chatMeasurementUnits MeasurementSystem? @default(IMPERIAL) @map("measurement_units")
+    chatLanguage         LanguageTag?       @map("language")
+    chatMeasurementUnits MeasurementSystem? @map("measurement_units")
     // Data Opt-Out
     disableBot           Boolean            @default(false) @map("bot_disabled")
 
