@@ -103,7 +103,6 @@ model GuildSettings {
     guild Guild  @relation(fields: [id], references: [id], onUpdate: Cascade)
 
     // ~~~~~     General Server Settings     ~~~~~ //
-    messageCommandPrefix String            @default("-") @map("command_prefix")
     chatLanguage         LanguageTag       @default(en_US) @map("language")
     chatMeasurementUnits MeasurementSystem @default(IMPERIAL) @map("measurement_units")
 
@@ -140,7 +139,6 @@ model GuildSettingsCommand {
     guildSettings           GuildSettings @relation(fields: [guildID], references: [id], onUpdate: Cascade)
     name                    String        @map("command_name")
     enabled                 Boolean       @map("command_enabled")
-    messageCommand          Boolean       @map("message_command_enabled")
     slashCommand            Boolean       @map("slash_command_enabled")
     contextCommand          Boolean       @map("context_command_enabled")
     channelWhitelistEnabled Boolean       @map("channel_whitelist_enabled")
