@@ -55,8 +55,6 @@ export class UserRoute extends Route {
 			sortedChannels = clientStyleChannelSort(channels);
 		}
 
-		console.log(clientStyleChannelSort(channels));
-
 		// Return collection of channels
 		return response.json({ data: { channels: sortedChannels ?? channels } });
 	}
