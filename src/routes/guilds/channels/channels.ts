@@ -1,9 +1,8 @@
 import { authenticated } from '#root/lib/util/decorators/routeAuthenticated';
-import { clientStyleChannelSort } from '#utils/util';
 import { ApplyOptions } from '@sapphire/decorators';
 import { HttpCodes, Route, methods, type ApiRequest, type ApiResponse } from '@sapphire/plugin-api';
 import { isNullishOrEmpty } from '@sapphire/utilities';
-import { PermissionsBitField, type GuildChannel } from 'discord.js';
+import { PermissionsBitField } from 'discord.js';
 
 @ApplyOptions<Route.Options>({
 	name: 'guildChannels',
@@ -49,14 +48,8 @@ export class UserRoute extends Route {
 		// If no channels are left after filtering, Error 404
 		if (!channels.size) return response.error(HttpCodes.NotFound);
 
-		// If request asked for channels to be sorted (Discord Client Style) get a sorted array
-		let sortedChannels: GuildChannel[] | null = null;
-		if (!isNullishOrEmpty(queryParams.sorted)) {
-			sortedChannels = clientStyleChannelSort(channels);
-		}
-
 		// Return collection of channels
-		return response.json({ data: { channels: sortedChannels ?? channels } });
+		return response.json({ data: { channels } });
 	}
 
 }

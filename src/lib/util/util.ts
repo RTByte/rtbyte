@@ -1,6 +1,6 @@
 import { container } from "@sapphire/framework";
-import { inlineCodeBlock, isNullishOrEmpty } from "@sapphire/utilities";
-import { ChannelType, PermissionFlagsBits, StageChannel, VoiceChannel, type AuditLogEvent, type Collection, type Guild, type GuildBasedChannel, type GuildChannel, type Message } from "discord.js";
+import { inlineCodeBlock } from "@sapphire/utilities";
+import { PermissionFlagsBits, StageChannel, VoiceChannel, type AuditLogEvent, type Guild, type Message } from "discord.js";
 
 /**
  * Get the executor user from the last audit log entry of specific type
@@ -116,58 +116,4 @@ export function getPermissionString(permission: string) {
 		case 'Administrator': return inlineCodeBlock('Administrator');
 		default: return undefined;
 	}
-}
-
-// These are just here for the sorting function below
-const textChannelTypes = [ChannelType.GuildText, ChannelType.GuildAnnouncement, ChannelType.GuildForum];
-// const voiceChannelTypes = [ChannelType.GuildVoice, ChannelType.GuildStageVoice];
-
-/**
- * Sorts a collection of GuildBasedChannels into the order they'd be displayed in the Discord client
- * @param inputChannels The collection of channels you want to be sorted client-style
- */
-export function clientStyleChannelSort(inputChannels: Collection<string, GuildBasedChannel>) {
-	// First, make sure we don't have any threads--they don't have position properties
-	const allChannels = inputChannels.filter((channel) => channel.type !== ChannelType.PrivateThread && channel.type !== ChannelType.PublicThread);
-	// Now that we know we have the right channels, just ignore me constantly reassigning types to them...
-	const levelZero = allChannels.clone().filter((channel) => !channel.parentId);
-	const levelOne: { parentID: string, children: Collection<string, GuildBasedChannel> }[] = [];
-
-	levelZero.forEach((l0Channel) => {
-		// Now we'll build collections of nested channels and group them by their parent
-		const l1Channels = allChannels.clone().filter((l1Channel) => l1Channel.parentId === l0Channel.id);
-		// Now we'll run our three-way sort on these channels
-		// Special Channels (eg: Forums/Stages) can only exist in categories
-		// They can also freely mix with their respective types (Forums w/ Text, Stages w/ Voice)
-		// So we do a slightly different sort for child channels than for parent/non-nested ones
-		l1Channels.sort((a, b) => {
-			const chA = a as any as GuildChannel;
-			const chB = b as any as GuildChannel;
-			const chATypeScore = textChannelTypes.includes(chA.type) ? 1 : 0;
-			const chBTypeScore = textChannelTypes.includes(chA.type) ? 1 : 0;
-			return chATypeScore - chBTypeScore || chA.rawPosition - chB.rawPosition || chA.createdTimestamp - chB.createdTimestamp;
-		});
-		levelOne.push({ parentID: l0Channel.id, children: l1Channels });
-	});
-
-	// And we'll run our more strict three-way sort on the parent/non-nested channels
-	levelZero.sort((a, b) => {
-		const chA = a as any as GuildChannel;
-		const chB = b as any as GuildChannel;
-		return chA.type - chB.type || chA.rawPosition - chB.rawPosition || chA.createdTimestamp - chB.createdTimestamp
-	});
-
-	const sortedChannels: GuildChannel[] = [];
-
-	// Now that everything's sorted, we're just pushing every channel into an array in order
-	levelZero.forEach((channel) => {
-		sortedChannels.push(channel as any as GuildChannel);
-		const childrenContainer = levelOne.find((obj) => obj.parentID === channel.id);
-		if (isNullishOrEmpty(childrenContainer) || !childrenContainer?.children.size) return;
-		childrenContainer.children.forEach((childChannel) => {
-			sortedChannels.push(childChannel as any as GuildChannel);
-		});
-	});
-
-	return sortedChannels;
 }
