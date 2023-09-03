@@ -1,3 +1,4 @@
+import { transformLoginDataGuilds } from '#root/transformers/loginDataGuilds';
 import { LogLevel } from '@sapphire/framework';
 import { GatewayIntentBits, OAuth2Scopes, Partials, type ClientOptions } from 'discord.js';
 
@@ -54,7 +55,7 @@ export const CLIENT_OPTIONS: ClientOptions = {
 			cookie: 'RTBYTE_AUTH',
 			redirect: '',
 			scopes: [OAuth2Scopes.Identify, OAuth2Scopes.Guilds, OAuth2Scopes.GuildsMembersRead],
-			transformers: []
+			transformers: [transformLoginDataGuilds]
 		},
 		prefix: '/',
 		origin: '*',
