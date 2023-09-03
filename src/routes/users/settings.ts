@@ -1,5 +1,5 @@
 import { authenticated } from '#root/lib/util/decorators/routeAuthenticated';
-import { initializeUser } from '#root/lib/util/functions/initialize';
+import { initializeUser } from '#utils/functions/initialize';
 import type { UserSettings } from '@prisma/client';
 import { ApplyOptions } from '@sapphire/decorators';
 import { HttpCodes, Route, methods, type ApiRequest, type ApiResponse } from '@sapphire/plugin-api';

@@ -1,4 +1,4 @@
-import { initializeMember } from '#root/lib/util/functions/initialize';
+import { initializeMember } from '#utils/functions/initialize';
 import { ApplyOptions } from '@sapphire/decorators';
 import { Events, Listener, type ListenerOptions } from '@sapphire/framework';
 import { isNullish } from '@sapphire/utilities';

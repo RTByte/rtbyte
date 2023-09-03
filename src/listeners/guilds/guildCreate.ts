@@ -1,4 +1,4 @@
-import { initializeGuild } from '#root/lib/util/functions/initialize';
+import { initializeGuild } from '#utils/functions/initialize';
 import { ApplyOptions } from '@sapphire/decorators';
 import { Events, Listener, type ListenerOptions } from '@sapphire/framework';
 import { bold, gray } from 'colorette';

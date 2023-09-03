@@ -1,5 +1,5 @@
 import { CONTROL_GUILD, DEV, INIT_ALL_MEMBERS, INIT_ALL_USERS, TOKENS, VERSION } from '#root/config';
-import { initializeGuild, initializeMember, initializeUser } from '#root/lib/util/functions/initialize';
+import { initializeGuild, initializeMember, initializeUser } from '#utils/functions/initialize';
 import type { ListenerOptions, PieceContext } from '@sapphire/framework';
 import { Listener, Store } from '@sapphire/framework';
 import { bgRed, blue, gray, green, red, whiteBright, yellow } from 'colorette';

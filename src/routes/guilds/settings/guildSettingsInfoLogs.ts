@@ -1,5 +1,5 @@
 import { authenticated } from '#root/lib/util/decorators/routeAuthenticated';
-import { initializeGuild } from '#root/lib/util/functions/initialize';
+import { initializeGuild } from '#utils/functions/initialize';
 import type { GuildSettingsInfoLogs } from '@prisma/client';
 import { ApplyOptions } from '@sapphire/decorators';
 import { HttpCodes, Route, methods, type ApiRequest, type ApiResponse } from '@sapphire/plugin-api';
