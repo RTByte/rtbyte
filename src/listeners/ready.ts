@@ -1,7 +1,8 @@
-import { CONTROL_GUILD, DEV, TOKENS, VERSION } from '#root/config';
+import { CONTROL_GUILD, DEV, INIT_ALL_MEMBERS, INIT_ALL_USERS, TOKENS, VERSION } from '#root/config';
+import { initializeGuild, initializeMember, initializeUser } from '#utils/functions/initialize';
 import type { ListenerOptions, PieceContext } from '@sapphire/framework';
 import { Listener, Store } from '@sapphire/framework';
-import { bgRed, blue, bold, gray, green, red, whiteBright, yellow } from 'colorette';
+import { bgRed, blue, gray, green, red, whiteBright, yellow } from 'colorette';
 
 export class UserEvent extends Listener {
 	private readonly style = DEV ? yellow : blue;
@@ -19,6 +20,8 @@ export class UserEvent extends Listener {
 
 		await this.clientValidation();
 		await this.guildValidation();
+		if (INIT_ALL_USERS) await this.userValidation();
+		if (INIT_ALL_MEMBERS) await this.memberValidation();
 	}
 
 	private printBanner() {
@@ -50,7 +53,7 @@ ${line05}
 ${line06}
 ${line07}
 ${line08}
-${line09} ${pad}[${success}] Gateway ${connectionPad}[${success}] Prisma ${connectionPad}[${TOKENS.SENTRY_DNS ? success : failure}] Sentry
+${line09} ${pad}[${success}] Gateway ${connectionPad}[${success}] Prisma ${connectionPad}[${TOKENS.SENTRY_TOKEN ? success : failure}] Sentry
 		`.trim()
 		);
 	}
@@ -69,27 +72,25 @@ ${line09} ${pad}[${success}] Gateway ${connectionPad}[${success}] Prisma ${conne
 	}
 
 	private async clientValidation() {
-		const { client, prisma } = this.container;
+		const { client, logger, prisma } = this.container;
+
+		logger.info('Starting Client validation...');
 
 		// Update stats if client model exists, create db entry if not
-		await prisma.client.upsert({
-			where: { id: String(client.id) },
-			update: {
-				restarts: { increment: 1 },
-				lastRestart: new Date()
-			},
-			create: {
-				id: String(client.id),
-				restarts: 0
-			}
-		})
+		if (client.id) {
+			const clientData = await prisma.clientSettings.findFirst();
+			if (!clientData) await prisma.clientSettings.create({ data: { id: client.id } });
+
+			const restarts = clientData?.restarts;
+			restarts?.push(new Date(Date.now()));
+			await prisma.clientSettings.update({ where: { id: client.id }, data: { restarts } })
+		}
+
+		logger.info('Client validated!');
 	}
 
 	private async guildValidation() {
-		const { client, logger, prisma } = this.container;
-
-		// Fetch client settings
-		const dbClient = await prisma.client.findFirst();
+		const { client, logger } = this.container;
 
 		if (!CONTROL_GUILD) {
 			logger.fatal('A control guild has not been set - shutting down...');
@@ -104,32 +105,39 @@ ${line09} ${pad}[${success}] Gateway ${connectionPad}[${success}] Prisma ${conne
 
 		for (const guildCollection of client.guilds.cache) {
 			const guild = guildCollection[1];
-
-			// Check if guilds are on the guild blacklist
-			if (dbClient?.guildBlacklist.includes(guild.id)) {
-				await guild.leave();
-				logger.info(`Guild ${bold(guild.name)} (${gray(guild.id)}) is on the guild blacklist, leaving...`);
-			}
-
-			// Check if entry exists for guild. If not, create it
-			const dbGuild = await prisma.guild.findUnique({ where: { id: guild.id } });
-			if (!dbGuild) {
-				logger.info(`Initializing guild ${bold(guild.name)} (${gray(guild.id)})...`)
-
-				await prisma.guild.create({
-					data: {
-						id: guild.id,
-						guildLogs: { create: {} }
-					}
-				}).catch(e => {
-					logger.error(`Failed to initialize guild ${bold(guild.name)} (${gray(guild.id)}), error below.`);
-					logger.error(e);
-				});
-			}
-
-			logger.info(`Verified initialization of guild ${bold(guild.name)} (${gray(guild.id)})`);
+			await initializeGuild(guild);
 		}
 
 		logger.info('All guilds validated!');
+	}
+
+	private async userValidation() {
+		const { client, logger } = this.container;
+
+		logger.info('Starting user validation...');
+
+		for (const userCollection of client.users.cache) {
+			const user = userCollection[1];
+			await initializeUser(user);
+		}
+
+		logger.info('All users validated!');
+	}
+
+	private async memberValidation() {
+		const { client, logger } = this.container;
+
+		logger.info('Starting member validation...');
+
+		for (const guildCollection of client.guilds.cache) {
+			const guild = guildCollection[1];
+
+			for (const memberCollection of guild.members.cache) {
+				const member = memberCollection[1];
+				await initializeMember(member.user, guild);
+			}
+		}
+
+		logger.info('All members validated!');
 	}
 }

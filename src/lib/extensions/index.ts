@@ -1,3 +1,3 @@
-export * from './RTByteCommand';
-export * from './RTByteEmbed';
+export * from '#lib/extensions/RTByteCommand';
+export * from '#lib/extensions/RTByteEmbed';
 

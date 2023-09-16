@@ -4,10 +4,12 @@ process.env.NODE_ENV ??= 'development';
 import '#utils/Sanitizer/initClean';
 import { PrismaClient } from '@prisma/client';
 import { container } from '@sapphire/framework';
+import '@sapphire/plugin-api/register';
 import '@sapphire/plugin-logger/register';
 import { createColors } from 'colorette';
 import { inspect } from 'util';
 
+// TODO: Implement prisma-field-encryption
 const prisma = new PrismaClient();
 
 inspect.defaultOptions.depth = 1;

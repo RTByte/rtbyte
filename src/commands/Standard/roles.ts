@@ -1,3 +1,7 @@
+/*
+
+--- Temporarily disabling this command while I think about probably just doing reaction/interaction embeds instead ---
+
 import { RTByteSubCommand } from '#lib/extensions/RTByteCommand';
 import { RTByteEmbed } from '#lib/extensions/RTByteEmbed';
 import { Emojis } from '#utils/constants';
@@ -59,7 +63,7 @@ export class UserCommand extends RTByteSubCommand {
 	}
 
 	public async chatInputList(interaction: ChatInputCommand.Interaction) {
-    	await interaction.deferReply({ ephemeral: true, fetchReply: true });
+		await interaction.deferReply({ ephemeral: true, fetchReply: true });
 
 		const dbGuild = await this.container.prisma.guild.findUnique({ where: { id: interaction.guild?.id } });
 		const joinableRoles = dbGuild?.joinableRoles;
@@ -80,7 +84,7 @@ export class UserCommand extends RTByteSubCommand {
 	}
 
 	public async chatInputJoin(interaction: ChatInputCommand.Interaction) {
-    	await interaction.deferReply({ ephemeral: true, fetchReply: true });
+		await interaction.deferReply({ ephemeral: true, fetchReply: true });
 
 		const roleInput = interaction.options.getString('role');
 		if (roleInput === 'none') return interaction.followUp(`${Emojis.X} No roles have been set as joinable.`);
@@ -94,7 +98,7 @@ export class UserCommand extends RTByteSubCommand {
 	}
 
 	public async chatInputLeave(interaction: ChatInputCommand.Interaction) {
-    	await interaction.deferReply({ ephemeral: true, fetchReply: true });
+		await interaction.deferReply({ ephemeral: true, fetchReply: true });
 
 		const roleInput = interaction.options.getString('role');
 		if (roleInput === 'none') return interaction.followUp(`${Emojis.X} None of your roles are set as joinable.`);
@@ -141,3 +145,4 @@ export class UserCommand extends RTByteSubCommand {
 		}
 	}
 }
+*/

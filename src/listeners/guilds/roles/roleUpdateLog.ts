@@ -12,10 +12,10 @@ export class UserEvent extends Listener {
 	public async run(oldRole: Role, role: Role) {
 		if (isNullish(role.id)) return;
 
-		const dbGuildLogs = await this.container.prisma.guildLogs.findUnique({ where: { guildId: role.guild.id }});
-		if (!dbGuildLogs?.logsEnabled || !dbGuildLogs.logChannel || !dbGuildLogs.roles) return;
+		const guildSettingsInfoLogs = await this.container.prisma.guildSettingsInfoLogs.findUnique({ where: { id: role.guild.id } });
+		if (!guildSettingsInfoLogs?.roleUpdateLog || !guildSettingsInfoLogs.infoLogChannel) return;
 
-		const logChannel = role.guild.channels.resolve(dbGuildLogs.logChannel) as BaseGuildTextChannel;
+		const logChannel = role.guild.channels.resolve(guildSettingsInfoLogs.infoLogChannel) as BaseGuildTextChannel;
 		const executor = await getAuditLogExecutor(AuditLogEvent.RoleUpdate, role.guild);
 
 		return this.container.client.emit('guildLogCreate', logChannel, this.generateGuildLog(oldRole, role, executor));
@@ -31,7 +31,7 @@ export class UserEvent extends Listener {
 			.setThumbnail(role?.iconURL() ?? role.guild?.iconURL() ?? null)
 			.setFooter({ text: `Role updated ${isNullish(executor) ? '' : `by ${executor.username}`}`, iconURL: isNullish(executor) ? undefined : executor?.displayAvatarURL() })
 			.setType(Events.GuildRoleUpdate);
-		
+
 		const changes = [];
 		if (oldRole.name !== role.name) changes.push(`${Emojis.Bullet}**Name**: ${inlineCodeBlock(`${oldRole.name}`)} to ${inlineCodeBlock(`${role.name}`)}`);
 		if (oldRole.color !== role.color) changes.push(`${Emojis.Bullet}**Color**: ${inlineCodeBlock(`${oldRole.hexColor}`)} to ${inlineCodeBlock(`${role.hexColor}`)}`);
